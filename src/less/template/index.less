@@ -1,0 +1,192 @@
+@import 'mixins.less';
+@import "checkbox.less";
+@import "icon.less";
+@import "card.less";
+@import "header.less";
+@import "info.less";
+@import "methods.less";
+@import "offer.less";
+@import "payment.less";
+@import "checkout.less";
+
+.f-visible-mobile {
+  .responsive-visibility();
+}
+.f-visible-tablet {
+  .responsive-invisibility();
+}
+.f-visible-desktop {
+  .responsive-invisibility();
+}
+
+.f-hidden-mobile {
+  .responsive-invisibility();
+}
+.f-hidden-tablet {
+  .responsive-visibility();
+}
+.f-hidden-desktop {
+  .responsive-visibility();
+}
+
+.f-title{
+  line-height: 20px;
+  color: @title-color;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 22px 8px;
+}
+.f-title2{
+  color: @title2-color;
+  text-align: center;
+}
+.f-title3{
+  color: @title3-color;
+  font-size: 16px;
+  text-align: center;
+}
+.f-block{
+  padding: 15px 8px;
+}
+.f-block-sm{
+  max-width: 260px;
+  margin: auto;
+}
+.f-block-hr{
+  border-bottom: 2px solid @hr-border;
+}
+.f-ps{
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 5px 20px 5px;
+  width: 60px;
+  vertical-align: top;
+  text-align: center;
+
+  .f-icon{
+    height: 60px;
+    width: 60px;
+    border-radius: 6px;
+    position: relative;
+    //display: block;
+
+    &:after{
+      content: '';
+      width: 15px;
+      height: 9px;
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      border: 3px solid @check-disabled-border;
+      border-top: none;
+      border-right: none;
+      background: transparent;
+      transform: rotate(-45deg);
+      transition: border ease-in-out .15s;
+    }
+  }
+
+  &:hover,
+  &.active{
+    .f-icon {
+      box-shadow: 0 4px 8px 0 @ps-active-shadow;
+    }
+  }
+
+  &.active{
+    .f-icon {
+      &:after{
+        border-color: @check-enable-border;
+      }
+    }
+  }
+}
+.f-ps-1,
+.f-ps-2,
+.f-ps-3{
+  .f-ps{
+    width: 110px;
+    .f-icon{
+      height: 110px;
+      width: 110px;
+    }
+  }
+}
+.f-ps-4,
+.f-ps-5,
+.f-ps-6,
+.f-ps-7,
+.f-ps-8{
+  .f-ps{
+    width: 80px;
+    .f-icon{
+      height: 80px;
+      width: 80px;
+    }
+  }
+}
+
+.f-loading {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: @loading-bg;
+}
+
+.f-loading-i {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  z-index: 101;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+
+  background-image: url(../../assets/loading.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  animation: rotate 3s linear infinite;
+
+}
+
+@keyframes rotate {
+  0% {
+    transform-origin: center center;
+    transform: rotate3d(0, 0, 1, -360deg);
+  }
+  100% {
+    transform-origin: center center;
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+.f-error {
+  position: absolute;
+  font-size: 10px;
+  color: @input-error-color;
+  top: 100%;
+  width: 100%;
+  display: none;
+}
+.f-form-control:focus ~ .f-error{
+  display: block;
+}
+.f-checkbox:focus ~ .f-error{
+  display: block;
+}
+
+.f-submit{
+  padding: 20px 15px;
+}
+
+.f-text-center {
+  text-align: center;
+}
+
+.f-text-bold {
+  font-weight: bold;
+}

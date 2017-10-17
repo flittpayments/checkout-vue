@@ -1,0 +1,57 @@
+@cdn: '';
+
+.f-icon{
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  display: inline-block;
+}
+.f-icon{
+  .bg(paypal, 'min/paypal', @cdn);
+  .bg(qiwi, 'min/qiwi', @cdn);
+  .bg(webmoney, webmoney, @cdn);
+  .bg(yamoney, yamoney, @cdn);
+
+  .bg(p24, 'min/p24', @cdn);
+  .bg(platba24, platba24, @cdn);
+  .bg(raiffeisen, raiffeisen, @cdn);
+
+  .bg(liqpay, 'min/liqpay', @cdn);
+
+  .bg(security);
+  .bg(card-empty);
+  .bg(question);
+  .bg(error);
+  .bg(success);
+
+  &.f-i-{
+    //&yamoney{
+    //  background-size: contain;
+    //}
+    &security{
+      opacity: .3;
+      background-size: 80%;
+      height: 42px;
+    }
+    &question{
+      background-size: 50%;
+      pointer-events: auto;
+    }
+  }
+}
+.f-icon-block{
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+.f-icon-contain {
+  background-size: contain;
+}
+
+.f-icon-sm{
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  vertical-align: middle;
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkout-vue</title>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+        overflow-y: scroll;
+        font-family: 'Arial', sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .coll{
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      @media (min-width: 600px) {
+        .coll{
+          float: left;
+          width: 50%;
+        }
+      }
+    </style>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">-->
+  </head>
+  <body>
+  <div id="app"></div>
+<div>
+  <div>
+    <button id="submit">submit 1</button>
+    <button id="go-ibank">go ibank</button>
+    <button id="go-card">go card</button>
+  </div>
+  <div>
+    <div class="coll">
+
+    </div>
+    <div class="coll">
+
+    </div>
+  </div>
+</div>
+
+<script type="text/x-vue-template" id="f-fields2">
+<div>
+  <div class="f-block f-block-hr">
+    <input-text name="field_11" value="field_11_html_value" validate="required" custom></input-text>
+    <div class="f-row">
+      <div class="f-col-xs-6">
+        <input-text name="email" validate="required|email"></input-text>
+      </div>
+      <div class="f-col-xs-6">
+        <input-text name="phone" label="Телефон" validate="required|numeric"></input-text>
+      </div>
+    </div>
+  </div>
+  <div class="f-block f-block-hr">
+    <div class="f-block-sm">
+      <input-amount name="amount" label="Сума к оплате" :on-input="onInput"></input-amount>
+      <input-text name="field_5" validate="required|alpha_num" custom></input-text>
+    </div>
+  </div>
+</div>
+</script>
+<script type="text/x-vue-template" id="f-fields">
+  <div class="f-block f-block-hr">
+    <div class="f-block-sm">
+      <input-hidden name="test" value="test2" custom></input-hidden>
+      <input-text name="field_11" value="field_11_html_value" validate="required" custom></input-text>
+      <input-text name="my_email" validate="required|email" custom></input-text>
+      <input-amount name="amount" label="my_amount" :on-input="onInput"></input-amount>
+    </div>
+  </div>
+</script>
+
+<script>
+var maxOptions = {
+  options: {
+    methods: ['card', 'emoney', 'ibank', 'cash', 'sepa'],
+    ibank: ['p24', 'platba24', 'raiffeisen'],
+    emoney: ['paypal', 'qiwi', 'webmoney', 'yamoney'],
+    cash: ['liqpay'],
+    fast: ['p24', 'platba24', 'paypal', 'liqpay', 'qiwi'],
+    cardIcons: ['mastercard', 'visa', 'mir', 'prostir', 'diners-club', 'american-express'],
+    fields: true,
+    title: 'my_title',
+    link: 'https://site.com',
+    fullScreen: true,
+    button: true,
+    locales: ['ru', 'en', 'uk'],
+    email: true,
+    tooltip: true,
+    fee: true,
+    //  css: 'bootstrap4' // bootstrap3 bootstrap4 foundation6
+  },
+  regular: {
+    insert: true,
+    open: true,
+    hide: false,
+    period: ['week', 'month', 'year']
+  },
+  recurring: {
+    every: 2,
+    period: 'month',
+    amount: 100,
+    end_time: '2020-11-14',
+    start_time: '2018-11-11'
+  },
+  params: {
+    merchant_id: 1396424,
+//    verification_type: 'code',
+//    required_rectoken: 'y',
+//    verification: 'y',
+    currency: 'UAH',
+    amount: 500,
+    order_desc: 'my_desc',
+//    token: 'ca6b43549ceccdc764333ac8e05973aa4000ef50',
+    email: 'asd@asd.asd',
+    lang: 'ru',
+    custom: {
+      field_11: 'field_11_json_value',
+      my_email: 'asd@asd.asd',
+      field_5: 'asd123asd'
+    },
+  },
+  messages: {
+    ru: {
+      field_11: 'field_11_ru',
+      field_5: 'Номер договора',
+      card_number: 'edit Номер карты',
+      my_amount: 'Сума к оплате',
+      my_email: 'Эл. адрес',
+      my_title: 'Назначение платежа',
+      my_desc: 'Благотворительная помощь (ребенку или отделению гематологии, или отделению плановой хирургии с онкологическими койками днепропетровской областной детской клинической больницы)'
+    },
+    en: {
+      card_number: 'edit Card number',
+      my_amount: 'Sum to pay',
+      my_email: 'Email',
+      my_title: 'Purpose of payment',
+      my_desc: 'Charitable assistance (to a child or a department of hematology, or to a department of planned surgery with oncological beds of the Dnipropetrovsk regional children\'s clinical hospital)'
+    },
+    uk: {
+      my_amount: 'Сума до оплати',
+      my_email: 'електронна пошта',
+      my_title: 'Назначення платежа',
+      my_desc: 'Благодійна допомога (дитині або відділенню гематології, або відділенню планової хірургії з онкологічними ліжками дніпропетровської обласної дитячої клінічної лікарні)'
+    }
+  },
+  validate: {
+    ru: {
+      credit_card: function (field) { return 'edit Поле ' + field + ' должно быть действительным номером карты' }
+    },
+    uk: {
+      credit_card: function (field) { return 'edit Поле ' + field + ' має бути дійсним номером карти' }
+    }
+  }
+}
+
+var minOptions = {
+  options: {
+    fullScreen: true,
+    fee: true,
+  },
+  params: {
+    merchant_id: 1396424,
+//    lang: 'ru',
+    order_desc: 'Тестовый платеж',
+//    verification_type: 'code',
+//    required_rectoken: 'y',
+//    verification: 'y',
+//    token: 'ea28f1fa0dee99204a9d89fde75b55aa1a121e51'
+  }
+}
+
+  var app = checkout('#app', maxOptions)
+
+document.getElementById('submit').addEventListener('click', function () {
+  app.submit()
+//  this.disabled = app.errors.items.length
+})
+document.getElementById('go-card').addEventListener('click', function () {
+  app.location('card')
+})
+document.getElementById('go-ibank').addEventListener('click', function () {
+  app.location('ibank')
+})
+</script>
+  </body>
+</html>

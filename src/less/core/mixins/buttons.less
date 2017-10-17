@@ -1,0 +1,35 @@
+.button-variant(@color; @background; @border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+  box-shadow: 0 4px 8px 0 fade(@border, 40%);
+
+  &:focus{
+    color: @color;
+  }
+
+  &:hover {
+    color: @color;
+    box-shadow: 0 1px 2px 0 fade(@border, 40%);
+  }
+
+  &:active {
+    &:hover,
+    &:focus {
+      background-color: darken(@background, 10%);
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-color: darken(@background, 5%);
+  }
+}
+
+// Button sizes
+.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
+  padding: @padding-vertical @padding-horizontal;
+  font-size: @font-size;
+  line-height: @line-height;
+  border-radius: @border-radius;
+}
