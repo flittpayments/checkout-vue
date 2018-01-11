@@ -1,11 +1,19 @@
 import Vue from 'vue'
-import VeeValidate from 'vee-validate'
+import VeeValidate, { Validator } from 'vee-validate'
 import Checkout from '@/checkout'
 import { i18n } from '@/i18n'
 import { isString, isObject } from '@/utils/object'
 
 const install = function (Vue, VeeValidate) {
   Vue.config.productionTip = false
+  Validator.extend('customer_field', {
+    getMessage: (field) => `The ${field} field format is invalid.`,
+    validate: value => /^(?!\s)[0-9A-Za-z-\/\s\.,]+(?!\s)$/.test(value)
+  })
+  Validator.extend('phone', {
+    getMessage: (field) => `The ${field} field format is invalid.`,
+    validate: value => /^\+?\d{7,14}$/.test(value)
+  })
   Vue.use(VeeValidate, { inject: false })
   window.checkout = function (el, options) {
     options = options || {}
