@@ -7,6 +7,7 @@
   regular: {},
   recurring: {},
   params: {},
+  popup: {},
   messages: {},
   validate: {}
 }
@@ -66,6 +67,11 @@ Name                  | Type        | Default                 | Description
 `token`               | String      |                         | length 40
 `offer`               | Boolean     | false                   |
 `custom`              | Object      |                         |
+
+### popup
+Name                  | Type        | Default                 | Description
+---                   | ---         | ---                     | ---
+`appendTo`            | String      | 'body'                  | 
 
 ### messages
 ``` js
