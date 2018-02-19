@@ -187,7 +187,13 @@ var minOptions = {
   }
 }
 
-  var app = checkout('#app', maxOptions)
+var app = checkout('#app', maxOptions)
+  .$on('success', function(model) {
+    console.log('success', model);
+  })
+  .$on('error', function(model) {
+    console.log('error', model);
+  })
 
 document.getElementById('submit').addEventListener('click', function () {
   app.submit()
