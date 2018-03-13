@@ -9,3 +9,22 @@
   position: relative;
   min-width: 265px;
 }
+
+@font-face {
+  font-family: 'text-security-disc';
+  src: url('../fonts/text-security-disc.eot');
+  src: url('../fonts/text-security-disc.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/text-security-disc.woff') format('woff'),
+  url('../fonts/text-security-disc.ttf') format('truetype');
+  //url('../fonts/text-security-disc.svg#text-security') format('svg');
+}
+
+#f-cvv2 {
+  font-family: 'text-security-disc';
+  -webkit-text-security: disc;
+}
+@supports (-webkit-text-security: disc){
+  #f-cvv2 {
+    font-family: inherit;
+  }
+}
