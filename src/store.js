@@ -22,25 +22,22 @@ export default {
       system: undefined,
     },
     css: {},
-    validate: {},
     loading: false,
     cards: [],
     submit: false,
     read_only: false,
+    need_verify_code: false,
     verification_type: '',
-    need_verify_code: false
   },
+  // server: {
+  //   ...JSON.parse(JSON.stringify(optionsDefault))
+  // },
+  default: optionsDefault,
   setOptions(optionsUser, $i18n) {
     this.optionsFormat(optionsUser)
     validate(optionsUser)
     this.user = optionsUser
-    this.default = optionsDefault
-    deepMerge(this.state.params, optionsUser.params, notSet.params)
-    Object.assign(this.state.options, optionsUser.options, notSet.options)
-    Object.assign(this.state.regular, optionsUser.regular)
-    Object.assign(this.state.messages, optionsUser.messages)
-    Object.assign(this.state.validate, optionsUser.validate)
-    Object.assign(this.state.popup, optionsUser.popup)
+    deepMerge(this.state, optionsUser, notSet)
     this.setFast()
     this.setCss()
     this.setLocale()

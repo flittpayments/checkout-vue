@@ -133,6 +133,9 @@
           }
           params.payment_system = this.router.system || this.router.method
           params.custom = custom
+          if(this.store.state.need_verify_code){
+            delete params.custom
+          }
           params.amount = params.amount / 100
           if(this.params.recurring_data.amount){
             this.params.recurring_data.amount = this.params.recurring_data.amount / 100
@@ -286,7 +289,7 @@
           }
           validate({params: params})
           if(!this.error.errors.length) {
-            deepMerge(this.params, params, notSet)
+            deepMerge(this.params, params, notSet.params)
             this.getAmountWithFee()
           }
         })
