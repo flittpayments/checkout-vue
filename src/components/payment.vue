@@ -195,6 +195,7 @@
         this.options.methods = this.options.methods.concat(model.attr('tabs_order') || []).filter(function(item, pos, self) {
           return self.indexOf(item) === pos;
         })
+        this.options.tabs = model.attr('tabs')
 
         this.params.fee = model.attr('client_fee') || 0
         this.options.customer_fields = model.attr('customer_required_data') || []
@@ -202,7 +203,7 @@
         //this.params.amount_with_fee = parseInt(order.actual_amount * 100)
         this.params.order_desc = this.params.order_desc || model.attr('order.order_desc')
 
-        this.regular.insert = model.attr('order.subscription')
+//        this.regular.insert = model.attr('order.subscription')
 
         if(model.attr('order.verification')){
           this.store.state.verification_type = model.attr('verification_type')

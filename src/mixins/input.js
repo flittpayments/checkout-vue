@@ -25,8 +25,12 @@ export default {
       type: Boolean,
       default: false
     },
+    model: {
+      type: Object
+    },
     value: String,
-    inputmode: String
+    inputmode: String,
+    readonly: Boolean,
   },
   computed: {
     name_() {
@@ -46,9 +50,20 @@ export default {
     },
     hasError() {
       return this.errors.has(this.name_) && ((this.flag && this.flag.touched) || this.store.state.submit)
+    },
+    value_: {
+      get(){
+        return this.params[this.field_]
+      },
+      set(v){
+        this.params[this.field_] = v
+      }
     }
   },
   created() {
+    if(this.model) {
+      this.params = this.model
+    } else
     if(this.custom) {
       this.params = this.store.state.params.custom
     } else
