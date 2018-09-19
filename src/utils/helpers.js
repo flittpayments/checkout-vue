@@ -11,8 +11,11 @@ api.on('modal.close', function () {
   store.state.loading = false
 })
 
-export function setOrigin () {
-  api.setOrigin('https://' + store.state.options.api_domain)
+export function iframeCreate(apiDomain){
+  if(apiDomain){
+    api.setOrigin('https://' + apiDomain)
+  }
+  api.create()
 }
 
 export function sendRequest (name, method, params, cacheName) {

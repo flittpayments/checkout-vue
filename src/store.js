@@ -3,7 +3,7 @@ import configCss from '@/config/css'
 import configLocales from '@/config/locales'
 import configPaymentSystems from '@/config/payment-systems'
 import notSet from '@/config/not-set'
-import { getCookie, setOrigin, deepMerge, validate, sendRequest } from '@/utils/helpers'
+import { getCookie, deepMerge, validate, sendRequest } from '@/utils/helpers'
 import { isObject, isExist } from '@/utils/object'
 
 export default {
@@ -28,6 +28,7 @@ export default {
     read_only: false,
     need_verify_code: false,
     verification_type: '',
+    default_country: '',
   },
   // server: {
   //   ...JSON.parse(JSON.stringify(optionsDefault))
@@ -46,7 +47,6 @@ export default {
     this.setFast()
     this.setCss()
     this.setLocale()
-    setOrigin()
     $i18n.mergeLocaleMessage('en', this.state.messages['en'])
   },
   optionsFormat: function(options) {
@@ -113,7 +113,7 @@ export default {
     this.state.read_only = card.read_only
   },
   getAmountWithFee: function () {
-    if (this.state.params.fee) {
+    if (this.state.params.fee && this.state.params.amount) {
       return sendRequest('api.checkout.fee', 'get', this.state.params, String(this.state.params.amount) + String(this.state.params.fee)).then(
         (model) => {
           this.state.params.amount_with_fee = parseInt(model.attr('amount_with_fee'))

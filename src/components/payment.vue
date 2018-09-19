@@ -183,6 +183,20 @@
       appSuccess: function(model){
         this.infoSuccess(model.instance(model.attr('info')))
         this.orderSuccess(model.instance(model.attr('order')))
+        this.cardsSuccess(model.instance(model.attr('cards')))
+      },
+      cardsSuccess: function (model) {
+        if(this.store.state.need_verify_code || !Array.isArray(model.data)) return
+
+        this.store.state.cards = model.data
+
+        if (this.store.state.cards.length) {
+//          this.$validator.detach('f-card_number')
+          this.store.setCardNumber(this.store.state.cards[0])
+          this.$nextTick(() => {
+            this.$validator.validateAll()
+          })
+        }
       },
       infoSuccess: function (model) {
         this.options.link = model.attr('merchant_url') || this.options.link
@@ -196,11 +210,11 @@
           return self.indexOf(item) === pos;
         })
         this.options.tabs = model.attr('tabs')
+        this.options.default_country = model.attr('default_country')
 
         this.params.fee = model.attr('client_fee') || 0
         this.options.customer_fields = model.attr('customer_required_data') || []
 
-        //this.params.amount_with_fee = parseInt(order.actual_amount * 100)
         this.params.order_desc = this.params.order_desc || model.attr('order.order_desc')
 
 //        this.regular.insert = model.attr('order.subscription')
@@ -226,8 +240,6 @@
         this.params.merchant_id = order_data.merchant_id
         this.params.email = order_data.sender_email || this.params.email
         this.params.order_id = order_data.order_id
-
-        this.store.getAmountWithFee()
       },
       location: function(model){
 //        console.warn('model.inProgress()', 'order.in_progress', model.inProgress())
@@ -291,7 +303,6 @@
           validate({params: params})
           if(!this.error.errors.length) {
             deepMerge(this.params, params, notSet.params)
-            this.getAmountWithFee()
           }
         })
       },
