@@ -305,6 +305,9 @@
             deepMerge(this.params, params, notSet.params)
           }
         })
+        this.$root.$on('resize', () => {
+          this.resizeWindow()
+        })
       },
       autoFocus: function () {
         if (this.errors.count()) {
