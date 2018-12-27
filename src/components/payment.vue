@@ -61,6 +61,9 @@
       show: function (show) {
         document.querySelector('#f').style.overflow = show ? 'hidden' : 'visible'
       },
+      'params.amount' () {
+        this.store.getAmountWithFee()
+      }
     },
     created: function () {
       this.createdEvent()
