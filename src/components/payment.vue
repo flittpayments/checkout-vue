@@ -187,6 +187,7 @@
         this.$root.$emit('error', model)
       },
       appSuccess: function(model){
+        this.$root.$emit('ready')
         this.infoSuccess(model.instance(model.attr('info')))
         this.orderSuccess(model.instance(model.attr('order')))
         this.cardsSuccess(model.instance(model.attr('cards')))
@@ -306,6 +307,7 @@
         this.store.location('pending')
       },
       createdEvent: function() {
+
         this.$root.$on('submit', (cb) => {
           this.submit(cb)
         })

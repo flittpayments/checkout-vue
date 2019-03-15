@@ -199,6 +199,9 @@ var app = checkout('#app', maxOptions)
   .$on('error', function(model) {
     console.log('error', model);
   })
+  .$on('ready', function() {
+    console.log('ready');
+  });
 
 document.getElementById('submit').addEventListener('click', function () {
   app.submit()
