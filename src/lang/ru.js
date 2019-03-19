@@ -6,7 +6,7 @@ export const messages = Object.assign(
     card_number: 'Номер карты',
     card_number_p: 'XXXX XXXX XXXX XXXX',
     expiry_date: 'Действительна до',
-    expiry_date_p: 'ДД/ГГ',
+    expiry_date_p: 'ММ/ГГ',
     cvv2: 'CVV2',
     cvv2_p: 'XXX',
     cvv2_question: '{0} цифры с оборотной стороны карты',
