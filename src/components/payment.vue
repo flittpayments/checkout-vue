@@ -111,7 +111,7 @@
       Submit3ds
     },
     methods: {
-      submit: function (cb) {
+      submit: function () {
         this.$validator.validateAll()
         this.$nextTick(()=>{
           this.autoFocus()
@@ -149,17 +149,6 @@
             .finally(() => {
               this.store.formLoading(false)
             })
-            .then(function(model){
-              if(isFunction(cb)) {
-                let hash = JSON.stringify(model)
-                if(JSON.stringify(cb(model)) === hash) {
-                  return model
-                }
-              } else {
-                return model
-              }
-//              return isFunction(cb) ? cb(model) : model;
-            })
             .then(this.submitSuccess, this.submitError)
         })
       },
@@ -179,14 +168,14 @@
         if(!model) return;
         this.$root.$emit('success', model)
 
-        this.location(model.instance(model.attr('order')))
+        this.location(model.instance(model.alt('order', model.data)))
         this.submit3dsSuccess(model)
       },
       submitError: function (model) {
         this.$root.$emit('error', model)
       },
       appSuccess: function(model){
-        this.$root.$emit('ready')
+        this.$root.$emit('ready', model)
         this.infoSuccess(model.instance(model.attr('info')))
         this.orderSuccess(model.instance(model.attr('order')))
         this.cardsSuccess(model.instance(model.attr('cards')))
@@ -268,6 +257,8 @@
 
         if (model.sendResponse()) return // action === 'submit' formDataSubmit() || action === 'redirect' redirectUrl()
 
+        if(this.$root._events.callback && this.$root._events.callback.length && model.attr('ready_to_submit')) return this.$root.$emit('callback', model)
+
         if (model.submitToMerchant()) return  // ready_to_submit && response_url && order_data formDataSubmit()
 
         if (model.needVerifyCode()) { // need_verify_code
@@ -307,8 +298,8 @@
       },
       createdEvent: function() {
 
-        this.$root.$on('submit', (cb) => {
-          this.submit(cb)
+        this.$root.$on('submit', () => {
+          this.submit()
         })
         this.$root.$on('location', (method, system) => {
           this.show = false

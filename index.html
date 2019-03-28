@@ -115,14 +115,14 @@ var maxOptions = {
     period: ['week', 'month']
   },
   params: {
-    merchant_id: 900001,
+    merchant_id: 900158,
 //    verification_type: 'code',
 //    required_rectoken: 'y',
 //    verification: 'y',
-//    currency: 'UAH',
+   currency: 'EUR',
 //    amount: 500,
     order_desc: 'my_desc',
-    token: '6e758ad35a2a03d6fbcc3b9b4da684b397f80e0a',
+//     token: '6e758ad35a2a03d6fbcc3b9b4da684b397f80e0a',
     lang: 'ru',
     recurring_data: {
       every: 2,
@@ -199,9 +199,13 @@ var app = checkout('#app', maxOptions)
   .$on('error', function(model) {
     console.log('error', model);
   })
-  .$on('ready', function() {
-    console.log('ready');
-  });
+  .$on('ready', function(model) {
+    console.log('ready', model);
+  })
+  .$on('callback', function(model) {
+    console.log('callback', model);
+  })
+
 
 document.getElementById('submit').addEventListener('click', function () {
   app.submit()
