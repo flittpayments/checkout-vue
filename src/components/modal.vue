@@ -39,100 +39,99 @@
 </template>
 
 <script>
-  import {
-    EVENTS,
-    on,
-    off,
-    removeFromDom,
-    toggleBodyOverflow,
-    addClass,
-    removeClass,
-    getComputedStyle
-  } from '@/utils/dom'
-  import {isFunction} from '@/utils/object'
+import {
+  EVENTS,
+  on,
+  off,
+  removeFromDom,
+  toggleBodyOverflow,
+  addClass,
+  removeClass,
+  getComputedStyle,
+} from '@/utils/dom'
+import { isFunction } from '@/utils/object'
 
-  const MODAL_BACKDROP = 'f-modal-backdrop'
-  const IN = 'in'
-  const getOpenModals = () => document.querySelectorAll(`.${MODAL_BACKDROP}`)
-  const getOpenModalNum = () => getOpenModals().length
+const MODAL_BACKDROP = 'f-modal-backdrop'
+const IN = 'in'
+const getOpenModals = () => document.querySelectorAll(`.${MODAL_BACKDROP}`)
+const getOpenModalNum = () => getOpenModals().length
 
-  export default {
-    props: {
-      value: {
-        type: Boolean,
-        default: false
-      },
-      title: String,
-      size: String,
-      backdrop: {
-        type: Boolean,
-        default: true
-      },
-      footer: {
-        type: Boolean,
-        default: true
-      },
-      header: {
-        type: Boolean,
-        default: true
-      },
-      cancelText: String,
-      cancelType: {
-        type: String,
-        default: 'default'
-      },
-      okText: String,
-      okType: {
-        type: String,
-        default: 'primary'
-      },
-      dismissBtn: {
-        type: Boolean,
-        default: true
-      },
-      transitionDuration: {
-        type: Number,
-        default: 150
-      },
-      autoFocus: {
-        type: Boolean,
-        default: false
-      },
-      keyboard: {
-        type: Boolean,
-        default: true
-      },
-      beforeClose: Function,
-      zOffset: {
-        type: Number,
-        default: 20
-      },
-      appendToBody: {
-        type: Boolean,
-        default: false
-      },
-      displayStyle: {
-        type: String,
-        default: 'block'
-      }
+export default {
+  props: {
+    value: {
+      type: Boolean,
+      default: false,
     },
-    data () {
+    title: String,
+    size: String,
+    backdrop: {
+      type: Boolean,
+      default: true,
+    },
+    footer: {
+      type: Boolean,
+      default: true,
+    },
+    header: {
+      type: Boolean,
+      default: true,
+    },
+    cancelText: String,
+    cancelType: {
+      type: String,
+      default: 'default',
+    },
+    okText: String,
+    okType: {
+      type: String,
+      default: 'primary',
+    },
+    dismissBtn: {
+      type: Boolean,
+      default: true,
+    },
+    transitionDuration: {
+      type: Number,
+      default: 150,
+    },
+    autoFocus: {
+      type: Boolean,
+      default: false,
+    },
+    keyboard: {
+      type: Boolean,
+      default: true,
+    },
+    beforeClose: Function,
+    zOffset: {
+      type: Number,
+      default: 20,
+    },
+    appendToBody: {
+      type: Boolean,
+      default: false,
+    },
+    displayStyle: {
+      type: String,
+      default: 'block',
+    },
+  },
+  data() {
+    return {
+      msg: '',
+      timeoutId: 0,
+    }
+  },
+  computed: {
+    modalSizeClass() {
       return {
-        msg: '',
-        timeoutId: 0
+        [`f-modal-${this.size}`]: Boolean(this.size),
       }
     },
-    computed: {
-      modalSizeClass () {
-        return {
-          [`f-modal-${this.size}`]: Boolean(this.size)
-        }
-      }
-    },
-    watch: {
-      value (v) {
-        this.$toggle(v)
-      }
+  },
+  watch: {
+    value(v) {
+      this.$toggle(v)
     },
   },
   mounted() {
@@ -248,6 +247,7 @@
       if (this.backdrop) {
         this.toggle(false)
       }
-    }
-  }
+    },
+  },
+}
 </script>
