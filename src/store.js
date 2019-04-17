@@ -27,17 +27,17 @@ export default {
     $i18n.mergeLocaleMessage('en', this.state.messages['en'])
   },
   optionsFormat: function(options) {
-    let regex = /[A-Z]+/g;
+    let regex = /[A-Z]+/g
 
-    if(!isObject(options)) return
+    if (!isObject(options)) return
 
     for (let prop in options) {
-      if( options.hasOwnProperty(prop) ) {
+      if (options.hasOwnProperty(prop)) {
         let modified = prop.replace(regex, function(match) {
-          return '_' + match.toLowerCase();
-        });
-        if(prop !== modified){
-          if(options.hasOwnProperty(modified)) continue
+          return '_' + match.toLowerCase()
+        })
+        if (prop !== modified) {
+          if (options.hasOwnProperty(modified)) continue
           options[modified] = options[prop]
           delete options[prop]
           this.optionsFormat(options[modified])
@@ -47,24 +47,27 @@ export default {
       }
     }
   },
-  setFast: function () {
+  setFast: function() {
     let fast = []
-    this.state.options.fast.forEach(function (system) {
-      Object.keys(configPaymentSystems).forEach(function (method) {
+    this.state.options.fast.forEach(function(system) {
+      Object.keys(configPaymentSystems).forEach(function(method) {
         if (this.state.options[method].indexOf(system) > -1) {
           fast.push({
             method: method,
-            system: system
+            system: system,
           })
         }
       }, this)
     }, this)
     this.state.options.fast = fast
   },
-  setCss: function () {
-    Object.assign(this.state.css, configCss[this.state.options.css] || configCss.default)
+  setCss: function() {
+    Object.assign(
+      this.state.css,
+      configCss[this.state.options.css] || configCss.default
+    )
   },
-  setLocale: function () {
+  setLocale: function() {
     let lang
     let locales = this.state.options.locales
     if (this.state.options.full_screen) {
@@ -81,7 +84,7 @@ export default {
     }
     this.state.params.lang = lang
   },
-  setCardNumber: function (card) {
+  setCardNumber: function(card) {
     this.state.params.card_number = card.card_number.replace(/ /g, '')
     this.state.params.expiry_date = card.expiry_date.replace(/ /g, '')
     this.state.params.email = card.email || this.state.params.email
@@ -89,12 +92,18 @@ export default {
     this.state.params.cvv2 = ''
     this.state.read_only = card.read_only
   },
-  getAmountWithFee: function () {
+  getAmountWithFee: function() {
     if (this.state.params.fee && this.state.params.amount) {
-      return sendRequest('api.checkout.fee', 'get', this.state.params, String(this.state.params.amount) + String(this.state.params.fee)).then(
-        (model) => {
-          this.state.params.amount_with_fee = parseInt(model.attr('amount_with_fee'))
-        })
+      return sendRequest(
+        'api.checkout.fee',
+        'get',
+        this.state.params,
+        String(this.state.params.amount) + String(this.state.params.fee)
+      ).then(model => {
+        this.state.params.amount_with_fee = parseInt(
+          model.attr('amount_with_fee')
+        )
+      })
     }
   },
   location: function(page, method, system) {
@@ -113,5 +122,5 @@ export default {
   },
   formLoading: function(loading) {
     this.state.loading = loading
-  }
+  },
 }
