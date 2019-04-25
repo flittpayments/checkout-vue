@@ -197,6 +197,18 @@ var minOptions = {
   }
 }
 
+  var trustlyOptions = {
+    options: {
+      default_country: 'PL',
+      countries: ['PL'],
+    },
+    params: {
+      amount: 100,
+      currency: 'USD',
+      merchant_id: 900158,
+    }
+  }
+
 var app = checkout('#app', maxOptions)
   .$on('success', function (model) {
     console.log('success', model);

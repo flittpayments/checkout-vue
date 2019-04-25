@@ -24,6 +24,8 @@ const options = {
     tooltip: true,
     email: false,
     fields: false,
+    default_country: '',
+    countries: [],
   },
   popup: {
     append_to: 'body',
@@ -84,7 +86,7 @@ const options = {
   read_only: false,
   need_verify_code: false,
   verification_type: '',
-  default_country: '',
+  tabs: {},
 }
 
 configLocales.forEach(function(locale) {
