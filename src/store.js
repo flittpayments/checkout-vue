@@ -11,7 +11,7 @@ export default {
     this.state = JSON.parse(JSON.stringify(optionsDefault))
   },
   default: optionsDefault,
-  setOptions(optionsUser, $i18n) {
+  setOptions(optionsUser) {
     this.optionsFormat(optionsUser)
     validate(optionsUser)
     this.user = optionsUser
@@ -25,7 +25,6 @@ export default {
     this.setCss()
     this.setLocale()
     this.setLocation()
-    $i18n.mergeLocaleMessage('en', this.state.messages['en'])
   },
   optionsFormat: function(options) {
     let regex = /[A-Z]+/g

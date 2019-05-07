@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VeeValidate from 'vee-validate'
 import Checkout from '@/checkout'
 import { i18n } from '@/i18n'
 import { isString, isObject } from '@/utils/object'
@@ -9,12 +8,11 @@ import Validator from '@/mixins/validator'
 import { iframeCreate } from '@/utils/helpers'
 import optionsDefault from '@/config/options-default'
 
-const install = function(Vue, VeeValidate) {
+const install = function(Vue) {
   let instance
 
   Vue.config.productionTip = false
 
-  Vue.use(VeeValidate, { inject: false })
   Vue.use(Store)
   Vue.use(Validator)
 
@@ -70,5 +68,5 @@ const install = function(Vue, VeeValidate) {
 }
 
 if (typeof window !== 'undefined') {
-  install(Vue, VeeValidate)
+  install(Vue)
 }
