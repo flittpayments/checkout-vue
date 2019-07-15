@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "stylelint:fix": "stylelint src/{**/,**/**/}*.less --syntax less --color --formatter verbose --fix",
+    "eslint:fix": "eslint src/**/*.{js,vue} --fix",
+    "prettier:fix": "prettier src/**/*.{js,vue,less} --write"
   },
   "dependencies": {
     "async-validator": "^1.11.2",
