@@ -27,7 +27,7 @@ Name                  | Type        | Default                 | Description     
 `locales`             | Array       |                         | support `ru`, `en`, `uk`, `lv`, `fr`, `cs`, `sk`.                                   |
 `api_domain`          | String      |                         |                                                                                     |
 `css`                 | String      |                         | support `bootstrap3`, `bootstrap4`, `foundation6`.                                  |
-`active_tab`          | String      |                         | support `card`, `emoney`, `ibank`, `cash`, `sepa`.                                  | server or options
+`active_tab`          | String      | 'card'                  | support `card`, `emoney`, `ibank`, `cash`, `sepa`.                                  | server or options
 `logo_url`            | String      |                         | format url                                                                          | options or server
 `offerta_url`         | String      |                         | format url                                                                          | options or server
 `button`              | Boolean     | true                    |                                                                                     |
@@ -38,6 +38,7 @@ Name                  | Type        | Default                 | Description     
 `fields`              | Boolean     | false                   |                                                                                     |
 `default_country`     | String      |                         |                                                                                     |
 `countries`           | Array       |                         |                                                                                     |
+`lang`                | Boolean     | true                    |                                                                                     |
 
 ### popup
 Name                  | Type        | Default                 | Description
@@ -57,7 +58,7 @@ Name                  | Type        | Default                 | Description     
 ---                   | ---         | ---                     | ---                         | ---
 `merchant_id`         | Integer     | 1396424                 |                             |
 `order_desc`          | String      |                         |                             | options or server
-`amount`              | Integer     | 100                     |                             |
+`amount`              | Integer     | 0                       |                             |
 `currency`            | String      | 'USD'                   |                             |
 `response_url`        | String      |                         | format url                  |
 `lang`                | String      | 'en'                    |                             | server or options
@@ -75,7 +76,7 @@ Name                  | Type        | Default                 | Description
 ---                   | ---         | ---                     | ---
 `every`               | Integer     | 1                       |
 `period`              | String      | 'month'                 | support `day`, `week`, `month`.
-`amount`              | Integer     | 100                     |
+`amount`              | Integer     | 0                       |
 `end_time`            | String      |                         | format YYYY-MM-DD
 `start_time`          | String      |                         | format YYYY-MM-DD
 
@@ -117,5 +118,36 @@ Name                  | Type        | Default                 | Description
 }
 ```
 
+## Use
+``` js
+var app = checkout({css selector}, {config})
 
+app.$on('success', function(model) {})
+app.$on('error', function(model) {})
+app.$on('ready', function(model) {})
+app.$on('callback', function(model) {})
+
+app.submit()
+app.$emit('submit')
+
+app.location({method}, {system})
+app.$emit('location', {method}, {system}) method support `card`, `emoney`, `ibank`, `cash`, `sepa`
+
+app.setParams({params})
+app.$emit('setParams', {params})
+
+app.destroy()
+```
+full_screen: true - add css
+
+## Use validate
+
+https://github.com/baianat/vee-validate/blob/master/locale/en.js
+https://baianat.github.io/vee-validate/guide/rules.html
+
+support `after`, `alpha`, `date_format`, `decimal`, `digits`, `email`, `max`, `min`, `numeric`, `required`, `customer_field`, `phone`, `numrange`, `ccard`
+
+``` html
+<input-text name="email" validate="required|email"></input-text>
+```
 
