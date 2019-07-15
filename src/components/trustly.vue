@@ -70,6 +70,16 @@ export default {
         .filter((item, key, self) => self.indexOf(item) === key)
     },
   },
+  watch: {
+    country: {
+      handler(item) {
+        if (item.length === 1) {
+          this.options.default_country = item[0].id
+        }
+      },
+      immediate: true,
+    },
+  },
   created() {
     if (!this.state.tabs.trustly) {
       this.store.formLoading(true)
