@@ -10,6 +10,7 @@
     "prettier:fix": "prettier src/**/*.{js,vue,less} --write"
   },
   "dependencies": {
+    "@umpirsky/country-list": "git+https://github.com/umpirsky/country-list.git",
     "async-validator": "^1.11.2",
     "vee-validate": "^2.2.7",
     "vue": "^2.6.10",
