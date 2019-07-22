@@ -26,6 +26,7 @@ const options = {
     fields: false,
     default_country: '',
     countries: [],
+    langs: true,
   },
   popup: {
     append_to: 'body',
@@ -87,6 +88,7 @@ const options = {
   need_verify_code: false,
   verification_type: '',
   tabs: {},
+  ready: false,
 }
 
 configLocales.forEach(function(locale) {
