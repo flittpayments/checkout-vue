@@ -89,6 +89,7 @@ const options = {
   verification_type: '',
   tabs: {},
   ready: false,
+  showChangeMethods: false,
 }
 
 configLocales.forEach(function(locale) {
