@@ -3,13 +3,9 @@
     <div class="f-header-menu">
       <select
         v-if="show"
-        v-model="params.lang"
-        :class="[
-          $css.fc,
-          'f-input-sm',
-          'f-hidden-mobile',
-          'f-visible-inline-block',
-        ]"
+        :value="params.lang"
+        :class="[$css.fc, 'f-input-sm', 'f-visible-inline-block']"
+        @input="store.changeLocale($event.target.value)"
       >
         <option
           v-for="item in options.locales"
@@ -36,9 +32,6 @@
 </template>
 
 <script>
-import { setCookie } from '@/utils/helpers'
-import { loadLanguageAsync } from '@/i18n'
-
 export default {
   inject: ['$validator'],
   props: {
@@ -58,22 +51,18 @@ export default {
       }
     },
     show() {
-      return this.options.langs && this.options.locales.length
+      return this.options.langs && this.options.locales.length > 1
+    },
+    styleFlag() {
+      return function(lang) {
+        return {
+          'background-image':
+            'url(' + this.store.state.cdn + 'flags/' + lang + '.svg)',
+        }
+      }
     },
   },
   watch: {
-    'params.lang': {
-      handler: function(lang) {
-        loadLanguageAsync(lang).then(() => {
-          this.$validator.localize(lang)
-        })
-        setCookie('lang', lang, {
-          path: '/',
-          expires: 3600,
-        })
-      },
-      immediate: true,
-    },
     'state.showChangeMethods': function(show) {
       document.querySelector('#f').style.overflow = show ? 'hidden' : 'visible'
     },
