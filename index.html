@@ -127,20 +127,25 @@
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
               offertaUrl:
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+              wallet_pay_button: {
+                menu: {
+                  display: true
+                }
+              }
             },
             regular: {
               insert: true,
-              open: true,
+              open: false,
               hide: false,
               period: ['week', 'month'],
             },
             params: {
-              merchant_id: 900158,
+              merchant_id: 900187,
               //    verification_type: 'code',
               //    required_rectoken: 'y',
               //    verification: 'y',
-              currency: 'EUR',
-              //    amount: 500,
+              currency: 'AZN',
+                 amount: 500,
               order_desc: 'my_desc',
               //     token: '6e758ad35a2a03d6fbcc3b9b4da684b397f80e0a',
               lang: 'ru',
@@ -277,10 +282,29 @@
               order_desc: "Číslo objednávky: 84330",
               email: "kubik@jam3son.sk"
             }
-          }
+          },
+          wallet: {
+            options: {
+              methods: ['card', 'wallets', 'sepa'],
+              wallet_pay_button: {
+                menu: {
+                  position: 'top',
+                  display: true,
+                  theme: 'light',
+                  text: true
+                }
+              }
+            },
+            params: {
+              // currency: 'USD',
+              // merchant_id: 900234,
+              // amount: 500,
+              token: 'ed22d79ca470542e65958e877ddfcc11ad682f0b'
+            },
+          },
         }
 
-        var app = render('max')
+        var app = render('wallet')
 
         document.querySelector('.submit').addEventListener('click', function() {
           app.submit()

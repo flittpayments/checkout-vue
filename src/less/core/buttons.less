@@ -53,6 +53,11 @@
       pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
     }
   }
+
+  & > span,
+  & > svg {
+    vertical-align: middle;
+  }
 }
 
 // Alternate buttons
@@ -80,6 +85,14 @@
 //.f-btn-danger {
 //  .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
 //}
+
+.f-btn-dark {
+  .button-variant(@btn-dark-color; @btn-dark-bg; @btn-dark-border);
+}
+
+.f-btn-light {
+  .button-variant(@btn-light-color; @btn-light-bg; @btn-light-border);
+}
 
 // Link buttons
 // -------------------------
