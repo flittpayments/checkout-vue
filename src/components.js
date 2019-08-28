@@ -7,6 +7,7 @@ import FHeader from '@/components/header'
 import FPayButton from '@/components/pay-button'
 import FOffer from '@/components/offer'
 import FRegular from '@/components/regular'
+import FSvg from '@/components/svg'
 
 const components = {
   FPaymentFields,
@@ -18,6 +19,7 @@ const components = {
   FPayButton,
   FOffer,
   FRegular,
+  FSvg,
 }
 
 const install = Vue => {
