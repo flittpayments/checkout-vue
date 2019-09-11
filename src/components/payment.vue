@@ -110,7 +110,12 @@ export default {
         this.store.formLoading(true)
         this.error.flag = false
 
-        sendRequest('api.checkout.form', 'request', this.store.formParams())
+        sendRequest(
+          'api.checkout.form',
+          'request',
+          this.store.formParams(),
+          false
+        )
           .finally(() => {
             this.store.formLoading(false)
           })
