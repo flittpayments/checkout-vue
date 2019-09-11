@@ -76,7 +76,7 @@ const options = {
     buffer: false,
     code: '',
     message: '',
-    errors: [],
+    errors: [], // ошибки валидации конфига
   },
   router: {
     page: '', // payment-method verify success

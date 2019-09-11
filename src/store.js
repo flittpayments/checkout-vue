@@ -127,6 +127,7 @@ export default {
     }
   },
   location: function(page, method, system) {
+    this.state.showChangeMethods = false
     this.state.router.page = page
     this.state.router.method = method
     this.state.router.system = system
@@ -138,9 +139,7 @@ export default {
     if (code || message) {
       this.state.error.code = code
       this.state.error.message = message
-      setTimeout(() => {
-        this.state.error.flag = true
-      })
+      this.state.error.flag = true
     }
   },
   formLoading: function(loading) {
