@@ -139,10 +139,14 @@ export default {
     if (code || message) {
       this.state.error.code = code
       this.state.error.message = message
-      this.state.error.flag = true
+      this.state.error.show = true
     }
   },
   formLoading: function(loading) {
+    if (loading) {
+      this.state.error.show = false
+    }
+
     this.state.loading = loading
   },
   formParams() {
@@ -175,5 +179,8 @@ export default {
       delete params.recurring_data
     }
     return params
+  },
+  setError(errors) {
+    this.state.error.errors = errors
   },
 }
