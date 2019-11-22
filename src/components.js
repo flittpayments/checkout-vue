@@ -1,4 +1,3 @@
-import FPaymentFields from '@/components/payment-fields'
 import FPaymentMethod from '@/components/payment-method'
 import FMethods from '@/components/methods'
 import FFastAccess from '@/components/fast-access'
@@ -14,7 +13,6 @@ import FError from '@/components/error'
 import FPopover from '@/components/popover'
 
 const components = {
-  FPaymentFields,
   FPaymentMethod,
   FMethods,
   FFastAccess,
