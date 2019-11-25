@@ -27,7 +27,7 @@ const options = {
     fields: false,
     default_country: '',
     countries: [],
-    langs: true,
+    lang: true,
     wallet_pay_button: {},
   },
   popup: {
@@ -91,7 +91,7 @@ const options = {
   verification_type: '',
   tabs: {},
   ready: false,
-  showChangeMethods: false,
+  showModalMethods: false,
   validate_expdate: true,
 }
 
