@@ -36,7 +36,6 @@ const options = {
   regular: {
     insert: false,
     open: false,
-    hide: false,
     period: ['day', 'week', 'month'],
   },
   params: {
