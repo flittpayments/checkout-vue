@@ -1,4 +1,3 @@
-import FPayButton from '@/components/pay-button'
 import FOffer from '@/components/offer'
 import FRegular from '@/components/regular'
 import FWalletPayButton from '@/components/wallet-pay-button'
@@ -8,7 +7,6 @@ import FError from '@/components/error'
 import FPopover from '@/components/popover'
 
 const components = {
-  FPayButton,
   FOffer,
   FRegular,
   FWalletPayButton,
