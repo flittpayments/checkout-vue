@@ -62,6 +62,12 @@ export default {
     isReady() {
       return this.store.state.ready
     },
+    token() {
+      return this.store.state.params.token
+    },
+    createdFormParams() {
+      return this.token ? { token: this.token } : this.store.formParams()
+    },
   },
   watch: {
     'store.state.regular.open': 'nextResize',
@@ -74,7 +80,11 @@ export default {
   created: function() {
     this.createdEvent()
 
-    sendRequest('api.checkout', 'app', this.store.formParams())
+    if (this.token) {
+      this.store.formLoading(true)
+    }
+
+    sendRequest('api.checkout', 'app', this.createdFormParams)
       .finally(() => {
         this.store.formLoading(false)
       })

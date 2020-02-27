@@ -20,7 +20,7 @@ const options = {
     logo_url: '',
     offerta_url: '',
     button: true,
-    cancel: true,
+    cancel: false,
     fee: true,
     tooltip: true,
     email: false,
@@ -44,7 +44,7 @@ const options = {
     amount: 0,
     amount_with_fee: 0,
     fee: 0, // %
-    currency: 'USD',
+    currency: '',
     recurring: 'n',
     recurring_data: {
       period: 'month',
