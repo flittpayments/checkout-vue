@@ -6,7 +6,6 @@ import components from '@/components'
 import store from '@/store'
 import Store from '@/mixins/store'
 import Validator from '@/mixins/validator'
-import { iframeCreate } from '@/utils/helpers'
 
 const install = function(Vue) {
   let instance
