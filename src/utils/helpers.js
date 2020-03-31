@@ -2,7 +2,7 @@ import $checkout from 'js-sdk/dist/esm/checkout'
 import store from '@/store'
 import config from '@/config/config'
 import Schema from 'async-validator'
-import { i18n } from '@/i18n'
+import i18n from '@/i18n/index'
 
 export const api = $checkout('Api')
 let cache = {}
