@@ -39,7 +39,7 @@ module.exports = {
     : '/',
   pluginOptions: {},
   chainWebpack: config => {
-    const normalRule = config.module.rule('less').oneOfs.get('normal')
+    const normalRule = config.module.rule('scss').oneOfs.get('normal')
 
     config
       .when(process.env.NODE_ENV === 'production', config => {
@@ -86,12 +86,15 @@ module.exports = {
       .entryPoints
         .delete('app')
         .end()
+      .entry('fonts')
+        .add('./src/scss/fonts.scss')
+        .end()
       .output
         .filename('[name].js')
         .chunkFilename('[name].js')
         .end()
       .module
-        .rule('less')
+        .rule('scss')
           .oneOf('vue').use('postcss-loader').tap(addF).end().end()
           .oneOf('normal').use('postcss-loader').tap(addF).end().end()
           .oneOf('no-extract')
@@ -117,8 +120,8 @@ module.exports = {
               })
               .tap(addF)
               .end()
-            .use('less-loader')
-              .loader('less-loader')
+            .use('scss-loader')
+              .loader('scss-loader')
               .options({
                 sourceMap: false
               })
@@ -151,20 +154,12 @@ module.exports = {
             .loader('image-webpack-loader')
             .end()
           .end()
-        .rule('fonts')
-          .use('url-loader')
-            .tap(options => {
-              delete options.limit;
-              return options
-            })
-            .end()
-          .end()
         .end()
       .plugin('stylelint')
         .use('stylelint-webpack-plugin')
         .tap(() => {
           return [{
-            files: 'src/**/*.less'
+            files: 'src/**/*.scss'
           }]
         })
         .end()
