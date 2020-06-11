@@ -5,10 +5,10 @@ import css_varisble from '@/config/css-varisble'
 const options = {
   options: {
     methods: ['card'],
-    trustly: [],
+    banklinks_eu: [],
     fast: [],
     card_icons: ['mastercard', 'visa'],
-    trustly_icons: [],
+    banklinks_eu_icons: [],
     title: '',
     full_screen: true,
     link: '',
@@ -78,7 +78,7 @@ const options = {
   },
   router: {
     page: '', // payment-method success pending
-    method: '', // card trustly sepa
+    method: '', // card banklinks_eu sepa
     system: '',
   },
   css: configCss.default,

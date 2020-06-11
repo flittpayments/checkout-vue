@@ -50,7 +50,7 @@
       <select class="options">
         <option value="min">min</option>
         <option value="max">max</option>
-        <option value="trustly">trustly</option>
+        <option value="banklinks_eu">banklinks_eu</option>
         <option value="token">token</option>
       </select>
       <button class="render">render</button>
@@ -100,7 +100,7 @@
         var options = {
           max: {
             options: {
-              methods: ['card', 'trustly'],
+              methods: ['card', 'banklinks_eu'],
               fast: ['p24', 'platba24', 'paypal', 'liqpay', 'qiwi'],
               cardIcons: [
                 'mastercard',
@@ -113,7 +113,7 @@
                 'maestro',
                 'union_pay',
               ],
-              trustly_icons: [
+              banklinks_eu_icons: [
                 'bank_of_ireland',
                 'danske_bank',
                 'lloyds',
@@ -247,10 +247,10 @@
               //     token: 'ca6be498656fb173d9219b5427828edb69b36542'
             },
           },
-          trustly: {
+          banklinks_eu: {
             options: {
-              methods: ['trustly'],
-              // active_tab: 'trustly',
+              methods: ['banklinks_eu'],
+              // active_tab: 'banklinks_eu',
               default_country: 'PL',
               // countries: ['PL'],
             },
@@ -270,7 +270,7 @@
           },
           venalio: {
             options: {
-              methods: ['card', 'trustly'],
+              methods: ['card', 'banklinks_eu'],
               card_icons: ['mastercard', 'visa'],
               fields: false,
               full_screen: true,
