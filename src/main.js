@@ -3,6 +3,7 @@ import Checkout from '@/checkout'
 import i18n from '@/i18n/index'
 import { isString, isObject } from '@/utils/typeof'
 import components from '@/components/index'
+import svg from '@/svg/index'
 import store from '@/store/index'
 import validate from '@/validate/index'
 
@@ -12,6 +13,7 @@ const install = function(Vue) {
   Vue.config.productionTip = false
 
   Vue.use(components)
+  Vue.use(svg)
   Vue.use(validate)
 
   window.checkout = function(el, optionsUser) {
