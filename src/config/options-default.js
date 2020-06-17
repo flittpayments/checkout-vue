@@ -21,7 +21,6 @@ const options = {
     button: true,
     cancel: false,
     fee: true,
-    tooltip: true,
     email: false,
     fields: false,
     default_country: '',
