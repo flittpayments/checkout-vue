@@ -6,6 +6,7 @@ import FModalBase from '@/components/modal/modal-base'
 import FTooltipBase from '@/components/tooltip/tooltip-base'
 import FTooltipError from '@/components/tooltip/tooltip-error'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
+import FTooltipCard from '@/components/tooltip/tooltip-card'
 import FDropdown from '@/components/dropdown'
 import InputText from '@/components/input-text'
 import InputAmount from '@/components/input-amount'
@@ -24,6 +25,7 @@ const components = {
   FTooltipBase,
   FTooltipError,
   FTooltipDefault,
+  FTooltipCard,
   FDropdown,
   InputText,
   InputAmount,
