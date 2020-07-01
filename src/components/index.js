@@ -13,6 +13,7 @@ import InputSelect from '@/components/input-select'
 import InputCheckbox from '@/components/input-checkbox'
 import InputSwipe from '@/components/input-swipe'
 import FIcon from '@/components/icon'
+import FInfo from '@/components/info'
 
 const components = {
   FButtonPayWallet,
@@ -30,6 +31,7 @@ const components = {
   InputCheckbox,
   InputSwipe,
   FIcon,
+  FInfo,
 }
 
 const install = Vue => {
