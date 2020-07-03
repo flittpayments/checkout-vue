@@ -120,8 +120,8 @@ module.exports = {
               })
               .tap(addF)
               .end()
-            .use('scss-loader')
-              .loader('scss-loader')
+            .use('sass-loader')
+              .loader('sass-loader')
               .options({
                 sourceMap: false
               })
