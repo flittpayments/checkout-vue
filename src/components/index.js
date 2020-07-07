@@ -14,6 +14,11 @@ import InputCheckbox from '@/components/input-checkbox'
 import InputSwipe from '@/components/input-swipe'
 import FIcon from '@/components/icon'
 import FInfo from '@/components/info'
+import FCustomerFields from '@/components/customer-fields'
+import FFields from '@/components/fields'
+import FOffer from '@/components/offer'
+import FButtonPay from '@/components/button-pay'
+import FButtonClose from '@/components/button/button-close'
 
 const components = {
   FButtonPayWallet,
@@ -32,6 +37,11 @@ const components = {
   InputSwipe,
   FIcon,
   FInfo,
+  FCustomerFields,
+  FFields,
+  FOffer,
+  FButtonPay,
+  FButtonClose,
 }
 
 const install = Vue => {
