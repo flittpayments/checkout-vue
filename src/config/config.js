@@ -21,6 +21,14 @@ let period = ['day', 'week', 'month']
 let css = ['bootstrap3', 'bootstrap4', 'foundation6']
 let YN = ['Y', 'N', 'y', 'n']
 let verificationType = ['amount', 'code']
+const theme = ['light', 'dark']
+const preset = [
+  'steel_blue',
+  'light_sky_blue',
+  'dark_cyan',
+  'light_coral',
+  'red',
+]
 
 function validatorArray(array) {
   return {
@@ -53,7 +61,7 @@ function validatorObject(array) {
   return {
     type: 'object',
     fields: {},
-    validator(rule, value, callback) {
+    validator(rule, value = {}, callback) {
       let errors = []
       Object.keys(value).forEach(item => {
         if (array.includes(item)) return
@@ -111,9 +119,16 @@ locales.forEach(function(locale) {
   }
 })
 
-let css_variable = validatorObject(Object.keys(cssVarisble))
+const cssVarisbleKeys = Object.keys(
+  cssVarisble({
+    type: 'light',
+    preset: 'steel_blue',
+  })
+)
 
-Object.keys(cssVarisble).forEach(item => {
+let css_variable = validatorObject(cssVarisbleKeys)
+
+cssVarisbleKeys.forEach(item => {
   css_variable.fields[item] = {
     type: 'string',
     pattern: /^#[0-9a-fA-F]{6}$/,
@@ -142,6 +157,13 @@ export default {
       cancel: { type: 'boolean' },
       default_country: { type: 'enum', enum: configCountries },
       countries: validatorArray(configCountries),
+      theme: {
+        type: 'object',
+        fields: {
+          type: { type: 'enum', enum: theme },
+          preset: { type: 'enum', enum: preset },
+        },
+      },
     },
   },
   popup: {
