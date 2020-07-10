@@ -11,7 +11,7 @@ import InputAmount from '@/components/input-amount'
 import InputHidden from '@/components/input-hidden'
 import InputSelect from '@/components/input-select'
 import InputCheckbox from '@/components/input-checkbox'
-import InputSwipe from '@/components/input-swipe'
+import InputSwitch from '@/components/input-switch'
 import FIcon from '@/components/icon'
 import FInfo from '@/components/info'
 import FCustomerFields from '@/components/customer-fields'
@@ -34,7 +34,7 @@ const components = {
   InputHidden,
   InputSelect,
   InputCheckbox,
-  InputSwipe,
+  InputSwitch,
   FIcon,
   FInfo,
   FCustomerFields,
