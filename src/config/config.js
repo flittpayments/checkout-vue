@@ -29,6 +29,7 @@ const preset = [
   'light_coral',
   'red',
 ]
+const region = ['ua', 'ru', 'eu']
 
 function validatorArray(array) {
   return {
@@ -163,6 +164,10 @@ export default {
           type: { type: 'enum', enum: theme },
           preset: { type: 'enum', enum: preset },
         },
+      },
+      region: {
+        type: 'enum',
+        enum: region,
       },
     },
   },
