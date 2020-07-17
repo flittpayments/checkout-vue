@@ -178,12 +178,6 @@ export default {
       },
     },
   },
-  popup: {
-    type: 'object',
-    fields: {
-      append_to: { type: 'string' },
-    },
-  },
   regular: {
     type: 'object',
     fields: {

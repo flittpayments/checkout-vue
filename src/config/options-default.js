@@ -32,9 +32,6 @@ const options = {
     },
     region: 'ua',
   },
-  popup: {
-    append_to: 'body',
-  },
   regular: {
     insert: false,
     open: false,
