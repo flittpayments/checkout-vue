@@ -158,6 +158,13 @@ export default {
       email: { type: 'boolean' },
       css: { type: 'enum', enum: css },
       api_domain: { type: 'string' },
+      endpoint: {
+        type: 'object',
+        fields: {
+          gateway: { type: 'string' },
+          button: { type: 'string' },
+        },
+      },
       fee: { type: 'boolean' },
       active_tab: { type: 'enum', enum: methods },
       logo_url: { type: 'url' },
