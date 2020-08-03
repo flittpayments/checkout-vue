@@ -10,7 +10,7 @@ const options = {
     title: '',
     full_screen: true,
     link: '',
-    locales: [],
+    locales: configLocales,
     messages: {},
     customer_fields: [],
     active_tab: 'card',

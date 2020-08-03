@@ -20,7 +20,7 @@ Name                  | Type        | Default                 | Description     
 `title`               | String      |                         |                                                                                     | options or server
 `link`                | String      |                         | format url                                                                          | server or options
 `full_screen`         | Boolean     | true                    |                                                                                     |
-`locales`             | Array       |                         | support `ru`, `en`, `uk`, `lv`, `fr`, `cs`, `sk`.                                   |
+`locales`             | Array       | [all]                   | support `ru`, `en`, `uk`, `lv`, `fr`, `cs`, `sk`.                                   |
 `api_domain`          | String      |                         |                                                                                     |
 `endpoint`            | Object      |                         |                                                                                     |
 `css`                 | String      |                         | support `bootstrap3`, `bootstrap4`, `foundation6`.                                  |
