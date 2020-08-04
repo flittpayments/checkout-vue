@@ -29,7 +29,6 @@ const options = {
       type: 'light',
       preset: 'steel_blue',
     },
-    region: 'ua',
   },
   regular: {
     insert: false,
