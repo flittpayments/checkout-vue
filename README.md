@@ -15,7 +15,7 @@
 ### options
 Name                  | Type        | Default                 | Description                                                                         | Priority
 ---                   | ---         | ---                     | ---                                                                                 | ---
-`methods`             | Array       | ['card']                | support `card`, `sepa`, `banklinks_eu`.                                  |
+`methods`             | Array       | ['card']                | support `card`, `sepa`, `banklinks_eu`, `receipt`.                                  |
 `card_icons`          | Array       | ['mastercard', 'visa']  | support `mastercard`, `visa`, `mir`, `prostir`, `diners`, `american_express` , `jcb`, `maestro`, `union_pay`.|
 `title`               | String      |                         |                                                                                     | options or server
 `link`                | String      |                         | format url                                                                          | server or options
