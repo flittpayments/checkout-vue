@@ -29,6 +29,7 @@ const options = {
       type: 'light',
       preset: 'steel_blue',
     },
+    show_menu_first: true,
   },
   regular: {
     insert: false,
@@ -89,7 +90,6 @@ const options = {
   verification_type: '',
   tabs: {},
   ready: false,
-  showModalMethods: false,
   fields: [],
   validate_expdate: true,
   isOnlyCard: true,
