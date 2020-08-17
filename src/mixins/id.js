@@ -5,6 +5,6 @@ export default {
     }
   },
   mounted() {
-    this.id = String(this._uid)
+    this.id = `${SAAS_TEMPLATE_NAME}-${this._uid}`
   },
 }
