@@ -85,6 +85,7 @@ const options = {
   loading: false,
   cards: [],
   submit: false,
+  submited: false,
   read_only: false,
   need_verify_code: false,
   verification_type: '',
