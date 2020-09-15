@@ -17,7 +17,6 @@ const options = {
     logo_url: '',
     offerta_url: '',
     button: true,
-    cancel: false,
     fee: true,
     email: false,
     fields: false,
