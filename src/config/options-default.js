@@ -94,6 +94,7 @@ const options = {
   validate_expdate: true,
   isOnlyCard: true,
   region: '',
+  disable_request: false,
 }
 
 configLocales.forEach(function(locale) {

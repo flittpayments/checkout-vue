@@ -35,6 +35,7 @@ Name                  | Type        | Default                 | Description     
 `countries`           | Array       |                         |                                                                                     |
 `lang`                | Boolean     | true                    |                                                                                     |
 `show_menu_first`     | Boolean     | true                    |                                                                                     |
+`disable_request`     | Boolean     | false                   | no requests are sent to the server                                                  |
 
 ### endpoint
 Name                  | Type        | Default                          | Description
