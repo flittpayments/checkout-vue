@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "css-vars-ponyfill": "^2.3.2",
+    "ismobilejs": "^1.1.1",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "vee-validate": "^2.2.7",
