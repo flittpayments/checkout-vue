@@ -15,33 +15,71 @@ const i18n = new VueI18n({
   },
 })
 
+export const loadLanguageAsync = lang => {
+  return Promise.resolve()
+    .then(() => {
+      let url = getUrl(lang)
+      let id = getId(url)
+      return store.state.cdn && lang !== 'en' && !document.getElementById(id)
+        ? Promise.reject()
+        : Promise.resolve()
+    })
+    .catch(() => {
+      let url = getUrl(lang)
+      return loadScript(url)
+    })
+    .then(() => {
+      return import(
+        /* webpackChunkName: "i18n/[request]" */
+        `./lang/${lang}`
+      )
+    })
+    .then(msgs => {
+      Validator.localize(lang, {
+        messages: Object.assign(
+          {},
+          Validator.dictionary.container['en'].messages,
+          msgs.validate,
+          store.state.validate[lang]
+        ),
+      })
+
+      i18n.setLocaleMessage(
+        lang,
+        Object.assign({}, msgs.messages, store.state.messages[lang])
+      )
+
+      return setI18nLanguage(lang)
+    })
+}
+
+export default i18n
+
 function setI18nLanguage(lang) {
   i18n.locale = lang
   document.querySelector('html').setAttribute('lang', lang)
   return lang
 }
 
-export const loadLanguageAsync = lang => {
-  return import(
-    /* webpackChunkName: "i18n/[request]" */
-    `./lang/${lang}`
-  ).then(msgs => {
-    Validator.localize(lang, {
-      messages: Object.assign(
-        {},
-        Validator.dictionary.container['en'].messages,
-        msgs.validate,
-        store.state.validate[lang]
-      ),
+function loadScript(url) {
+  return new Promise(function(resolve, reject) {
+    let id = getId(url)
+    let el = document.createElement('script')
+    el.setAttribute('id', id)
+    el.setAttribute('src', url)
+    el.addEventListener('load', resolve)
+    el.addEventListener('error', () => {
+      el.remove()
+      reject()
     })
-
-    i18n.setLocaleMessage(
-      lang,
-      Object.assign({}, msgs.messages, store.state.messages[lang])
-    )
-
-    return setI18nLanguage(lang)
+    document.getElementsByTagName('head')[0].appendChild(el)
   })
 }
 
-export default i18n
+function getUrl(lang) {
+  return `${store.state.cdn}/i18n/${lang}.js`
+}
+
+function getId(url) {
+  return url.replace(/\W/g, '_')
+}
