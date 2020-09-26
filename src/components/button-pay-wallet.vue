@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import $checkout from 'ipsp-js-sdk/dist/checkout'
-import { api } from '@/utils/helpers'
+import $checkout from 'js-sdk/dist/esm/checkout'
+import { api } from '@/utils/api'
 import { mapState } from '@/utils/store'
 import id from '@/mixins/id'
 import timeout from '@/mixins/timeout'
