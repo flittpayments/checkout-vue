@@ -84,7 +84,7 @@ export default {
       configCss[this.state.options.css],
       optionsUser.css
     )
-    this.initBanklinks()
+    this.initMethods()
     this.initLang()
     this.initLocation()
     this.initError()
@@ -123,12 +123,11 @@ export default {
       this.setError(errors)
     })
   },
-  initBanklinks() {
-    let list = this.state.options.methods
-
-    if (!list.length) return
-
-    this.state.options.methods = methods(list)
+  initMethods() {
+    this.state.options.methods = methods(
+      this.state.options.methods,
+      this.state.options.methods_disabled
+    )
   },
   initLang() {
     let lang
