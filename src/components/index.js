@@ -28,6 +28,7 @@ import FScrollbarVertical from '@/components/scrollbar-vertical'
 import FButtonLink from '@/components/button/button-link'
 import FButton from '@/components/button/button'
 import FLoading from '@/components/loading'
+import FBank from '@/components/bank'
 
 const components = {
   FButtonPayWallet,
@@ -60,6 +61,7 @@ const components = {
   FButtonLink,
   FButton,
   FLoading,
+  FBank,
 }
 
 const install = Vue => {
