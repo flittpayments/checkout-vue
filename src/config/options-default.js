@@ -1,7 +1,10 @@
 import configLocales from '@/config/locales.json'
 import configCss from '@/config/css'
+import configTheme from '@/config/theme'
 
 const locales = Object.keys(configLocales)
+
+const theme = 'light'
 
 const options = {
   options: {
@@ -29,8 +32,8 @@ const options = {
     lang: true,
     css: '',
     theme: {
-      type: 'light',
-      preset: 'steel_blue',
+      type: theme,
+      preset: configTheme[theme],
     },
     show_menu_first: true,
   },
