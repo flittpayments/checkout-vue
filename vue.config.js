@@ -59,7 +59,7 @@ module.exports = {
                 'build'),
               'commithash',
               gitRevisionPlugin.commithash(),
-              new Date().getTime(),
+              new Date().toUTCString(),
             ].join(' ')])
             .end()
           .module
