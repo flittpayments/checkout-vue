@@ -106,8 +106,7 @@
           max: {
             options: {
               methods: ['card', 'banklinks_eu'],
-              fast: ['p24', 'platba24', 'paypal', 'liqpay', 'qiwi'],
-              cardIcons: [
+              card_icons: [
                 'mastercard',
                 'visa',
                 'mir',
@@ -130,25 +129,33 @@
                 'sofort',
                 'starling',
               ],
-              fields: true,
+              local_methods_icons: [
+                'lloyds',
+                'mizuho',
+                'monzo',
+                'nationwide',
+                'rbs',
+                'revolut',
+                'sofort',
+                'starling',
+              ],
+              // fields: true,
               title: 'my_title',
               link: 'https://site.com',
               button: true,
               // cancel: true,
               email: true,
-              fee: true,
               //  css: 'bootstrap4' // bootstrap3 bootstrap4 foundation6
-              activeTab: 'card',
-              // logoUrl:
-              //   'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+              active_tab: 'card',
+              // logoUrl: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
               offerta_url:
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              // theme: {
-              //   type: 'dark',
-              //   preset: 'gradient_indigo'
-              // },
-              show_menu_first: true,
-              disable_request: true,
+              theme: {
+                type: 'dark',
+                preset: 'euphoric_pink'
+              },
+              show_menu_first: false,
+              // disable_request: true,
             },
             regular: {
               insert: true,
@@ -157,8 +164,8 @@
             },
             params: {
               currency: 'EUR',
-              merchant_id: 900001,
-              amount: 50415,
+              merchant_id: 1601211,
+              amount: 50400,
               // merchant_id: 900187,
               //    verification_type: 'code',
               //    required_rectoken: 'y',
@@ -243,12 +250,8 @@
             options: {
               full_screen: false,
               //    fee: true,
-              offertaUrl:
+              offerta_url:
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              theme: {
-                type: 'dark',
-                preset: 'gradient_indigo'
-              },
             },
             params: {
               amount: 200,
@@ -307,16 +310,38 @@
               default_country: 'PL',
               // countries: ['PL'],
               show_menu_first: false,
-              theme: {
-                type: 'dark',
-                preset: 'gradient_indigo'
-              },
             },
             params: {
               amount: 100,
               currency: 'EUR',
               merchant_id: 900158,
               order_desc: 'order_desc',
+            },
+          },
+          local_methods: {
+            options: {
+              methods: ['local_methods'],
+              active_tab: 'local_methods',
+              // default_country: 'FI',
+              // countries: ['PL'],
+              show_menu_first: false,
+              local_methods_icons: [
+                'bank_of_ireland',
+                'danske_bank',
+                'lloyds',
+                'mizuho',
+                'monzo',
+                'nationwide',
+                'rbs',
+                'revolut',
+                'sofort',
+                'starling',
+              ],
+            },
+            params: {
+              amount: 100,
+              currency: 'EUR',
+              merchant_id: 900238,
             },
           },
           token: {
@@ -375,7 +400,7 @@
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
               theme: {
                 type: 'dark',
-                preset: 'gradient_indigo',
+                preset: 'euphoric_pink',
               },
             },
             params: {
@@ -399,10 +424,6 @@
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
               active_tab: 'card',
               show_menu_first: false,
-              theme: {
-                type: 'dark',
-                preset: 'gradient_indigo',
-              },
             },
             params: {
               currency: 'UAH',
@@ -414,14 +435,14 @@
           preset: {
             options: {
               theme: {
-                preset: 'steel_blue' // обнулить css переменные
+                preset: 'reset'
               },
             },
             params: {
               token: 'd1a9c7d64110c34e3d204a043398d785ab7a8d6c'
             },
             css_variable: {
-              main: '#080043', // обязательный
+              main: '#080043',
             }
           }
         }
