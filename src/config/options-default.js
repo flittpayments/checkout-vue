@@ -103,6 +103,7 @@ const options = {
   isOnlyCard: true,
   region: '',
   disable_request: false,
+  amount_readonly: true,
 }
 
 locales.forEach(function(locale) {
