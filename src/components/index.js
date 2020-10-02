@@ -1,4 +1,4 @@
-import FButtonPayWallet from '@/components/button-pay-wallet'
+import FButtonPayWallet from '@/components/button-pay-wallet-wrapper'
 import FSvg from '@/components/svg'
 import FMask from '@/components/mask'
 import FModalBase from '@/components/modal/modal-base'
