@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 13:43+0300\n"
+"POT-Creation-Date: 2020-10-06 13:15+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: sk\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/i18n/process/methods.js:1
 msgid "card"
-msgstr "Karta"
+msgstr "Tarjeta"
 
 #: src/i18n/process/methods.js:2
 msgid "trustly"
@@ -28,15 +28,15 @@ msgstr "-"
 
 #: src/i18n/process/methods.js:3
 msgid "sepa"
-msgstr "SEPA Direct Debit"
+msgstr "Débito directo SEPA "
 
 #: src/i18n/process/methods.js:4
 msgid "banklinks_eu"
-msgstr "Internetová banka"
+msgstr "Banco por Internet"
 
 #: src/i18n/process/methods.js:5
 msgid "receipt"
-msgstr "Bankový prevod"
+msgstr "Transferencia bancaria"
 
 #: src/i18n/process/methods.js:6
 msgid "local_methods"
@@ -48,63 +48,63 @@ msgstr ""
 
 #: src/i18n/process/regular-period.js:1
 msgid "day"
-msgstr "Deň"
+msgstr "Día"
 
 #: src/i18n/process/regular-period.js:2
 msgid "week"
-msgstr "Týždeň"
+msgstr "Semana"
 
 #: src/i18n/process/regular-period.js:3
 msgid "month"
-msgstr "Mesiac"
+msgstr "Mes"
 
 #: src/i18n/process/templates.js:1
 msgid "gdpr_alert_text"
 msgstr ""
-"Na tejto webovej stránke používame súbory cookies, aby sme vylepšili vašu "
-"skúsenosť s uskutočňovaním platieb."
+"Usamos cookie-ficheros en este sitio, para mejorar su experiencia en "
+"realización de pagos."
 
 #: src/i18n/process/templates.js:2
 msgid "learn_more"
-msgstr "Zistiť viac"
+msgstr "Más información."
 
 #: src/i18n/process/templates.js:3
 msgid "save_card"
-msgstr "Uložiť moju kartu pre budúce platby."
+msgstr "Guardar mi tarjeta para los próximos pagos."
 
 #: src/i18n/process/templates.js:4
 msgid "its_safe"
-msgstr "Je to bezpečné."
+msgstr "Es seguro."
 
 #: src/i18n/process/templates.js:5
 msgid "gdpr_modal_safe_title"
-msgstr "Uloženie karty je bezpečné a pohodlné"
+msgstr "Guardar la tarjeta es la opción segura y conveniente"
 
 #: src/i18n/process/templates.js:6
 msgid "gdpr_modal_safe"
 msgstr ""
-"<p>Pri ich zadávaní nezaznamenávame údaje o vašej karte. V skutočnosti ich "
-"okamžite zašifrujeme a uložíme do formátu tokenov. Tokeny sú náhodné "
-"kombinácie čísel a znakov.<p>Pri každej ďalšej platbe použije SAAS_NAME namiesto "
-"podrobností karty tokeny, aby ich potenciálny podvodník nemohol zachytiť. "
-"Zachytávať údaje tokenov nemá zmysel, pretože mimo platobnej služby SAAS_NAME "
-"nemajú žiadnu hodnotu."
+"<p>No guardamos los datos de su tarjeta  en la entrada. De hecho, ciframos y "
+"almacenamos instantáneamente en formato de token. Tokens es la combinación -"
+"accidental de números y símbolos. <p>Con cada próximo pago,SAAS_NAME usará "
+"tokens en lugar de los detalles de la tarjeta para que un posible estafador "
+"no pueda interceptarlos. No tiene sentido interceptar datos de tokens, ya "
+"que no tienen valor fuera del servicio de pago SAAS_NAME."
 
 #: src/i18n/process/templates.js:7
 msgid "close"
-msgstr "Opýtať sa neskôr"
+msgstr "Preguntarme más tarde"
 
 #: src/i18n/process/templates.js:8
 msgid "accept"
-msgstr "Súhlasím"
+msgstr "Acepto"
 
 #: src/i18n/process/templates.js:9
 msgid "bank_desc"
-msgstr "Budete presmerovaní na webovú stránku banky, aby ste dokončili platbu"
+msgstr "Para finalizar el pago será redirigido a la página del banco"
 
 #: src/i18n/process/templates.js:10
 msgid "default_country"
-msgstr "Vyhľadávať podľa krajiny"
+msgstr "Buscar por país"
 
 #: src/i18n/process/templates.js:11
 msgid "search"
@@ -112,35 +112,35 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:12
 msgid "system_search"
-msgstr "Vyhľadávať podľa názvu banky, IBAN alebo BLZ"
+msgstr "Buscar por nombre del banco, IBAN o código bancario"
 
 #: src/i18n/process/templates.js:13
 msgid "load_more"
-msgstr "Nahrať viac..."
+msgstr "Más..."
 
 #: src/i18n/process/templates.js:15
 msgid "other_payment_method"
-msgstr "Alebo zaplatiť s"
+msgstr "O pagar con"
 
 #: src/i18n/process/templates.js:16
 msgid "pay"
-msgstr "Zaplatiť <b>{0}</b> {1}"
+msgstr "Pagar <b>{0}</b> {1}"
 
 #: src/i18n/process/templates.js:17
 msgid "use_other_card"
-msgstr "Zadať inú kartu"
+msgstr "Introduzca los datos de otra tarjeta"
 
 #: src/i18n/process/templates.js:18
 msgid "expires_on"
-msgstr "Platná do"
+msgstr "Fecha de caducidad"
 
 #: src/i18n/process/templates.js:19
 msgid "pay_with_card"
-msgstr "Zaplatiť kartou"
+msgstr "Pagar con tarjeta"
 
 #: src/i18n/process/templates.js:20
 msgid "card_number"
-msgstr "Číslo karty"
+msgstr "Número de la tarjeta"
 
 #: src/i18n/process/templates.js:21
 msgid "card_number_p"
@@ -152,7 +152,7 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:23
 msgid "expiry_date"
-msgstr "MM/RR"
+msgstr "MM/AA"
 
 #: src/i18n/process/templates.js:24
 msgid "expiry_date_p"
@@ -168,7 +168,7 @@ msgstr "000"
 
 #: src/i18n/process/templates.js:27
 msgid "cvv2_help"
-msgstr "{0}-číselný kód na zadnej strane karty"
+msgstr "{0}-código digital en el reverso de tu tarjeta"
 
 #: src/i18n/process/templates.js:28
 msgid "checkout-email"
@@ -176,7 +176,7 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:29
 msgid "email"
-msgstr "Email"
+msgstr "Correo electrónico"
 
 #: src/i18n/process/templates.js:30
 msgid "code"
@@ -184,11 +184,11 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:31
 msgid "verification_code"
-msgstr "Overovací kód"
+msgstr "Código de confirmación"
 
 #: src/i18n/process/templates.js:32
 msgid "verification_amount"
-msgstr "Suma overenia"
+msgstr "Monto de comprobación"
 
 #: src/i18n/process/templates.js:33
 msgid "datepicker"
@@ -196,11 +196,11 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:34
 msgid "see_more"
-msgstr "Zobraziť viac"
+msgstr "Más"
 
 #: src/i18n/process/templates.js:35
 msgid "order_details"
-msgstr "Podrobnosti o objednávke"
+msgstr "Detalles de la orden"
 
 #: src/i18n/process/templates.js:36
 msgid "show"
@@ -208,35 +208,34 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:37
 msgid "submit3ds_title"
-msgstr "Platba nebola dokončená"
+msgstr "El pago no terminado"
 
 #: src/i18n/process/templates.js:38
 msgid "submit3ds_text"
-msgstr "Zadajte iný potvrdzovací kód"
+msgstr "Indroduzca otro código de confirmación"
 
 #: src/i18n/process/templates.js:39
 msgid "submit3ds_submit"
-msgstr "Skúste to znova"
+msgstr "Intentar más"
 
 #: src/i18n/process/templates.js:40
 msgid "submit3ds_wait"
 msgstr ""
-"Budete znovu presmerovaný na webovú stránku banky, aby ste dokončili platbu "
-"za {0} s"
+"Para finalizar el pago será redirigido a la página del banco en {0} segundos"
 
 #: src/i18n/process/templates.js:41 src/i18n/process/translate.js:1
 msgid "declined"
-msgstr "Bohužiaľ vaša platba neprešla"
+msgstr "Lamentamente, su pago no fue autorizado"
 
 #: src/i18n/process/templates.js:42
 msgid "server_trouble_title"
-msgstr "Ups.."
+msgstr "Oops.."
 
 #: src/i18n/process/templates.js:43
 msgid "server_trouble_desc"
 msgstr ""
-"Niečo nie je v poriadku, ale už na tom pracujeme. Vráťte sa o niekoľko "
-"krokov dozadu a znova uskutočnite platbu."
+"Algo va mál, pero ya lo estuviéramos haciendo. Retroceda unos pasos e "
+"intente pagar de nuevo."
 
 #: src/i18n/process/templates.js:44
 msgid "offer"
@@ -244,37 +243,38 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:45
 msgid "offer_t"
-msgstr "Prijímam <a href=\"{0}\" target=\"_blank\">podmienky ponuky </a>"
+msgstr ""
+"Yo acepto <a href=\"{0}\" target=\"_blank\"> los términos de la oferta </a>"
 
 #: src/i18n/process/templates.js:46
 msgid "amount"
-msgstr "Celkom"
+msgstr "Monto total"
 
 #: src/i18n/process/templates.js:47
 msgid "total_amount"
-msgstr "Celkom"
+msgstr "Monto total"
 
 #: src/i18n/process/templates.js:48
 msgid "fee"
-msgstr "Poplatok"
+msgstr "Monto de la comisión"
 
 #: src/i18n/process/templates.js:49
 msgid "mfo_title"
-msgstr "Platobné údaje pre objednávku # {0}"
+msgstr "Detalles del pago para el orden # {0}"
 
 #: src/i18n/process/templates.js:50
 msgid "ibox_title"
-msgstr "ID objednávky (bude zaplatená ze iBox)"
+msgstr "Número ID del orden (para el pago vía iBox)"
 
 #: src/i18n/process/templates.js:51
 msgid "full_requesites"
-msgstr "Bankové údaje príjemcu"
+msgstr "Detalles bancarios del beneficiario"
 
 #: src/i18n/process/templates.js:52
 msgid "full_requesites_explain"
 msgstr ""
-"Pri platbe ich nebudete musieť uvádzať, ale mohlo by byť užitočné si ich "
-"uložiť ako referenciu."
+"No necesitará incluirlos al pagar, pero puede ser útil guardarlos como "
+"referencia."
 
 #: src/i18n/process/templates.js:53
 msgid "UAH"
@@ -282,80 +282,80 @@ msgstr "UAH"
 
 #: src/i18n/process/templates.js:54
 msgid "receiver"
-msgstr "Príjemca"
+msgstr "Beneficiario"
 
 #: src/i18n/process/templates.js:55
 msgid "current_bill"
-msgstr "Číslo bankového účtu (IBAN)"
+msgstr "Número de la cuenta bancaria (IBAN)"
 
 #: src/i18n/process/templates.js:56
 msgid "usreou"
-msgstr "Daňové identifikačné číslo (DIČ)"
+msgstr "Número de identificación fiscal (NIF)"
 
 #: src/i18n/process/templates.js:57
 msgid "bank"
-msgstr "Názov banky"
+msgstr "Nombre del banco"
 
 #: src/i18n/process/templates.js:58
 msgid "mfo"
-msgstr "Kód banky (MFO)"
+msgstr "Código del banco (MFO)"
 
 #: src/i18n/process/templates.js:59
 msgid "purpose"
-msgstr "Popis"
+msgstr "Concepto"
 
 #: src/i18n/process/templates.js:60
 msgid "receipt_id"
-msgstr "ID objednávky"
+msgstr "Número ID del orden"
 
 #: src/i18n/process/templates.js:61
 msgid "end_date"
-msgstr "Termín platby"
+msgstr "Plazo de pago"
 
 #: src/i18n/process/templates.js:62
 msgid "ibox_desc"
 msgstr ""
-"Všetky terminály iBox, ktoré prijímajú platby, sú označené na <a href=\"https://ibox.ua/map\" target=\"_blank\">mape</a>"
+"Todos terminales iBox, que aceptan los pagos, están marcados en <a href=\"https://ibox.ua/map\" target=\"_blank\">la mapa</a>"
 
 #: src/i18n/process/templates.js:63
 msgid "save_receipt"
-msgstr "Uložiť potvrdenie"
+msgstr "Guardar el recibo"
 
 #: src/i18n/process/templates.js:64
 msgid "save_qr_code"
-msgstr "Uložiť na smartfón"
+msgstr "Guardar en smartphone"
 
 #: src/i18n/process/templates.js:65
 msgid "qr_code_text"
-msgstr "Naskenujte tento QR kód a uložte si potvrdenie do svojho smartfónu"
+msgstr "Escanne el código QR para guardar el recibo en su smartphone"
 
 #: src/i18n/process/templates.js:66
 msgid "ibox_info"
 msgstr ""
-"<p>Ak chcete objednávku zaplatiť, použite možnosť Vyhľadávať a vyhľadajte "
-"platobnú službu SAAS_NAME v termináli iBox.<p>Vaša objednávka bude automaticky "
-"zrušená po stanovenom termíne.<p>Za túto objednávku neakceptujeme platby "
-"prostredníctvom iných terminálov ako iBox."
+"<p>Para pagar el pedido, utilice la función de búsqueda para encontrar el "
+"servicio de pago SAAS_NAME en el terminal iBox.<p>Su pedido se cancelará "
+"automáticamente después del período especificado.<p>No aceptamos el pago de "
+"este pedido a través de terminales que no sean iBox."
 
 #: src/i18n/process/templates.js:67
 msgid "regular"
-msgstr "Opakovať túto platbu automaticky"
+msgstr "Repetir este pago automáticamente"
 
 #: src/i18n/process/templates.js:68
 msgid "regular_amount"
-msgstr "Opakovaná suma platby"
+msgstr "Suma del pago periódico"
 
 #: src/i18n/process/templates.js:69
 msgid "regular_every"
-msgstr "Každých"
+msgstr "Cada"
 
 #: src/i18n/process/templates.js:70
 msgid "regular_period"
-msgstr "Časové rozpätie"
+msgstr "Período de tiempo"
 
 #: src/i18n/process/templates.js:71
 msgid "regular_start_time"
-msgstr "Začínajúc dňa"
+msgstr "A partir"
 
 #: src/i18n/process/templates.js:72
 msgid "security"
@@ -363,29 +363,29 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:73
 msgid "security_title"
-msgstr "Silná autentifikácia zákazníka"
+msgstr "Autenticación fuerte de cliente"
 
 #: src/i18n/process/templates.js:74
 msgid "security_text"
 msgstr ""
-"<p>V súlade s PCI DSS<p>Uvedené v globálnom registri Visa a overené "
-"spoločnosťou Mastercard"
+"<p>Sujeto al estándar de seguridad de datos de la industria de tarjetas de "
+"pago <p>Incluido en el Registro global de Visa y verificado por Mastercard"
 
 #: src/i18n/process/templates.js:75
 msgid "sepa_t"
-msgstr "Zadajte údaje o svojom bankovom účte"
+msgstr "Introduzca los detalles de su cuenta bancaria"
 
 #: src/i18n/process/templates.js:76
 msgid "sender_name"
-msgstr "Meno"
+msgstr "Nombre"
 
 #: src/i18n/process/templates.js:77
 msgid "sender_familyName"
-msgstr "Priezvisko"
+msgstr "Apellido"
 
 #: src/i18n/process/templates.js:78
 msgid "bic"
-msgstr "BIC"
+msgstr "Código de identificación bancaria"
 
 #: src/i18n/process/templates.js:79
 msgid "iban"
@@ -393,175 +393,175 @@ msgstr "IBAN"
 
 #: src/i18n/process/templates.js:80
 msgid "payment_id"
-msgstr "ID platby"
+msgstr "ID del pago"
 
 #: src/i18n/process/templates.js:81
 msgid "customer_name"
-msgstr "Meno držiteľa karty"
+msgstr "Nombre del propietario de la tarjeta"
 
 #: src/i18n/process/templates.js:82
 msgid "customer_name_utf8"
-msgstr "Celé meno"
+msgstr "Nombre completo"
 
 #: src/i18n/process/templates.js:83
 msgid "customer_address"
-msgstr "Adresa (ulica, budova, byt)"
+msgstr "Dirección (calle, casa, piso)"
 
 #: src/i18n/process/templates.js:84
 msgid "customer_zip"
-msgstr "PSČ"
+msgstr "Código postal"
 
 #: src/i18n/process/templates.js:85
 msgid "customer_city"
-msgstr "Mesto"
+msgstr "Ciudad"
 
 #: src/i18n/process/templates.js:86
 msgid "customer_country"
-msgstr "Krajina"
+msgstr "País"
 
 #: src/i18n/process/templates.js:87
 msgid "customer_state"
-msgstr "Štát/Provincia/Región"
+msgstr "Estado/Provincia/Región"
 
 #: src/i18n/process/templates.js:88
 msgid "customer_phonemobile"
-msgstr "Telefón"
+msgstr "Teléfono"
 
 #: src/i18n/process/templates.js:89
 msgid "customer_email"
-msgstr "Email"
+msgstr "Correo electrónico"
 
 #: src/i18n/process/translate.js:2
 msgid "approved"
-msgstr "Ďakujeme! Vaša platba je prijatá"
+msgstr "¡Gracias! Su pago fue aceptado"
 
 #: src/i18n/process/translate.js:4
 msgid "verification_t"
-msgstr "Overenie karty"
+msgstr "Verificación de la tarjeta"
 
 #: src/i18n/process/translate.js:5
 msgid "verification_code_d"
 msgstr ""
-"Na overenie vašej karty zablokujeme na vašom bankovom účte malý poplatok za "
-"overenie po dobu 15 minút."
+"Para verificar su tarjeta, retendremos una pequeña cantidad de tarifas de "
+"verificación en su cuenta bancaria durante 15 minutos."
 
 #: src/i18n/process/translate.js:6
 msgid "verification_amount_d"
 msgstr ""
-"Na overenie vlastníctva karty zablokujeme na vašom bankovom účte malý "
-"poplatok za overenie po dobu 15 minút. Zadajte čiastku na overenie "
-"zablokovanú na vašom účte."
+"Se retendrá una pequeña tarifa en su cuenta bancaria durante 15 minutos para "
+"identificar el propietario de la tarjeta. Ingrese la cantidad de "
+"verificación en su cuenta."
 
 #: src/i18n/process/translate.js:8
 msgid "rule_default"
-msgstr "Hodnota {_field_} nie je platná"
+msgstr "El valor {_field_} no es válido"
 
 #: src/i18n/process/translate.js:9
 msgid "rule_after"
-msgstr "Platnosť do nesmie byť neskoršia ako {_target_}"
+msgstr "La validez de la tarjeta no puede ser posterior al {_target_}"
 
 #: src/i18n/process/translate.js:10
 msgid "rule_alpha"
-msgstr "Použite iba písmená"
+msgstr "Usa solo letras"
 
 #: src/i18n/process/translate.js:11
 msgid "rule_date_format"
-msgstr "Zadajte mesiac/rok"
+msgstr "Introduzca el mes/año"
 
 #: src/i18n/process/translate.js:12
 msgid "rule_decimal"
-msgstr "Použite číslice (0-9), bodky (.) or čiarky (,)."
+msgstr "Usa las cifras (0-9), puntos (.) o comas (,)"
 
 #: src/i18n/process/translate.js:13
 msgid "rule_digits"
-msgstr "Zadajte {_length_} číslic"
+msgstr "Introduzca {_length_} símbolos"
 
 #: src/i18n/process/translate.js:14
 msgid "rule_email"
-msgstr "Zadajte platný email"
+msgstr "Introduzca dirección de correo electrónico válido"
 
 #: src/i18n/process/translate.js:15
 msgid "rule_max"
-msgstr "Zadajte max. {_length_} znakov."
+msgstr "Introduzca {_length_} símbolos de máximo."
 
 #: src/i18n/process/translate.js:16
 msgid "rule_min"
-msgstr "Zadajte min. {_length_} znakov."
+msgstr "Introduzca {_length_} símbolos de mínimo."
 
 #: src/i18n/process/translate.js:17
 msgid "rule_numeric"
-msgstr "Použite iba číslice (0-9)"
+msgstr "Use solo cifras (0-9)"
 
 #: src/i18n/process/translate.js:18
 msgid "rule_required"
-msgstr "Vyplňte toto pole"
+msgstr "Complete este campo"
 
 #: src/i18n/process/translate.js:19
 msgid "rule_regex"
-msgstr "Neplatný formát"
+msgstr "Formato inválido"
 
 #: src/i18n/process/translate.js:21
 msgid "rule_customer_name"
-msgstr "Zadajte meno aj priezvisko, použite písmená (A-Za-z)"
+msgstr "Introduzca el nombre y apellido, usando letras (A-Za-z)"
 
 #: src/i18n/process/translate.js:22
 msgid "rule_customer_field"
-msgstr "Použite písmená (A-Za-z) a číslice (0-9)"
+msgstr "Use las letras (A-Za-z) y símbolos (0-9)"
 
 #: src/i18n/process/translate.js:23
 msgid "rule_customer_field_utf8"
-msgstr "Nepoužívajte tu špeciálne znaky"
+msgstr "No use caracteres especiales en este campo"
 
 #: src/i18n/process/translate.js:24
 msgid "rule_phone"
-msgstr "Zadajte aspoň 7 číslic (0-9)"
+msgstr "Introduzca por lo menos 7 cifras (0-9)"
 
 #: src/i18n/process/translate.js:25
 msgid "rule_numrange"
-msgstr "Zadali ste príliš veľa číslic"
+msgstr "Ingresaste demasiados números"
 
 #: src/i18n/process/translate.js:26
 msgid "rule_ccard"
-msgstr "Nesprávne číslo karty"
+msgstr "Número de la tarjeta incorrecto"
 
 #: src/i18n/process/translate.js:27
 msgid "rule_expiry_date"
-msgstr "Nesprávny dátum exspirácie"
+msgstr "Fecha de caducidad incorrecta "
 
 #: src/i18n/process/translate.js:28
 msgid "rule_cvv"
-msgstr "Neplatné CVV2/CVC2"
+msgstr "Datos de CVV2/CVC2 incorrectos"
 
 #: src/i18n/process/translate.js:29
 msgid "rule_one"
-msgstr "Táto hodnota nemôže byť menšia ako 1"
+msgstr "Este valor no puede ser inferior al 1"
 
 #: src/i18n/process/translate.js:31
 msgid "price"
-msgstr "Cena"
+msgstr "Precio"
 
 #: src/i18n/process/translate.js:32
 msgid "shipping"
-msgstr "Dodanie"
+msgstr "Entrega"
 
 #: src/i18n/process/translate.js:33
 msgid "vat"
-msgstr "DPH"
+msgstr "IVA"
 
 #: src/i18n/process/translate.js:34
 msgid "arbitrary_amount"
-msgstr "Suma"
+msgstr "Monto"
 
 #: src/i18n/process/translate.js:36
 msgid "emoney"
-msgstr "Digitálna peňaženka"
+msgstr "Monedero electrónico"
 
 #: src/i18n/process/translate.js:37
 msgid "ibox_ua"
-msgstr "Hotovosť cez terminál"
+msgstr "Efectivo a través de la terminal"
 
 #~ msgid "local_banks"
-#~ msgstr "Miestne platobné metódy"
+#~ msgstr "Formas locales de pago"
 
 #~ msgid "declined_desc"
-#~ msgstr "Môžete sa vrátiť na webovú stránku a urobiť ďalšiu objednávku."
+#~ msgstr "Puede volver al sitio y realizar otro pedido."

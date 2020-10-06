@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 13:43+0300\n"
+"POT-Creation-Date: 2020-10-06 13:36+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: sk\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/i18n/process/methods.js:1
 msgid "card"
-msgstr "Karta"
+msgstr "Card"
 
 #: src/i18n/process/methods.js:2
 msgid "trustly"
@@ -32,11 +32,11 @@ msgstr "SEPA Direct Debit"
 
 #: src/i18n/process/methods.js:4
 msgid "banklinks_eu"
-msgstr "Internetová banka"
+msgstr "Internet Banking"
 
 #: src/i18n/process/methods.js:5
 msgid "receipt"
-msgstr "Bankový prevod"
+msgstr "Transfer bancar"
 
 #: src/i18n/process/methods.js:6
 msgid "local_methods"
@@ -48,63 +48,64 @@ msgstr ""
 
 #: src/i18n/process/regular-period.js:1
 msgid "day"
-msgstr "Deň"
+msgstr "zi"
 
 #: src/i18n/process/regular-period.js:2
 msgid "week"
-msgstr "Týždeň"
+msgstr "săptămână"
 
 #: src/i18n/process/regular-period.js:3
 msgid "month"
-msgstr "Mesiac"
+msgstr "lună"
 
 #: src/i18n/process/templates.js:1
 msgid "gdpr_alert_text"
 msgstr ""
-"Na tejto webovej stránke používame súbory cookies, aby sme vylepšili vašu "
-"skúsenosť s uskutočňovaním platieb."
+"Noi folosim fișiere cookie pe acest site web pentru a vă îmbunătăți "
+"experiența de plată."
 
 #: src/i18n/process/templates.js:2
 msgid "learn_more"
-msgstr "Zistiť viac"
+msgstr "Aflați mai multe."
 
 #: src/i18n/process/templates.js:3
 msgid "save_card"
-msgstr "Uložiť moju kartu pre budúce platby."
+msgstr "Salvare card pentru următoarele plăți."
 
 #: src/i18n/process/templates.js:4
 msgid "its_safe"
-msgstr "Je to bezpečné."
+msgstr "Acest lucru este sigur."
 
 #: src/i18n/process/templates.js:5
 msgid "gdpr_modal_safe_title"
-msgstr "Uloženie karty je bezpečné a pohodlné"
+msgstr "Salvarea cardului - lucru sigur și convenabil"
 
 #: src/i18n/process/templates.js:6
 msgid "gdpr_modal_safe"
 msgstr ""
-"<p>Pri ich zadávaní nezaznamenávame údaje o vašej karte. V skutočnosti ich "
-"okamžite zašifrujeme a uložíme do formátu tokenov. Tokeny sú náhodné "
-"kombinácie čísel a znakov.<p>Pri každej ďalšej platbe použije SAAS_NAME namiesto "
-"podrobností karty tokeny, aby ich potenciálny podvodník nemohol zachytiť. "
-"Zachytávať údaje tokenov nemá zmysel, pretože mimo platobnej služby SAAS_NAME "
-"nemajú žiadnu hodnotu."
+"<p>Noi nu înregistrăm datele cardului dvs. în forma în care le introduceți, "
+"ci le criptăm instantaneu și le salvăm în format de \"jetoane\". Jetoanele "
+"sunt combinații aleatorii de numere și caractere.<p>De fiecare dată când se "
+"efectuează o plată, serviciul de plată SAAS_NAME va folosi un jetoan în loc de "
+"datele cardului, astfel încât potențialul fraudator să nu le poată "
+"intercepta.  Interceptarea datelor jetonului nu are sens, deoarece jetoanele "
+"nu au nicio valoare în afara serviciului de plată SAAS_NAME."
 
 #: src/i18n/process/templates.js:7
 msgid "close"
-msgstr "Opýtať sa neskôr"
+msgstr "Întrebați mai târziu"
 
 #: src/i18n/process/templates.js:8
 msgid "accept"
-msgstr "Súhlasím"
+msgstr "Sunt de acord"
 
 #: src/i18n/process/templates.js:9
 msgid "bank_desc"
-msgstr "Budete presmerovaní na webovú stránku banky, aby ste dokončili platbu"
+msgstr "Pentru a finaliza plata, veți fi redirecționat către site-ul băncii"
 
 #: src/i18n/process/templates.js:10
 msgid "default_country"
-msgstr "Vyhľadávať podľa krajiny"
+msgstr "Căutare în funcție de țară "
 
 #: src/i18n/process/templates.js:11
 msgid "search"
@@ -112,35 +113,35 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:12
 msgid "system_search"
-msgstr "Vyhľadávať podľa názvu banky, IBAN alebo BLZ"
+msgstr "Căutare după denumirea băncii, codul IBAN sau codul băncii"
 
 #: src/i18n/process/templates.js:13
 msgid "load_more"
-msgstr "Nahrať viac..."
+msgstr "Încărcați mai multe..."
 
 #: src/i18n/process/templates.js:15
 msgid "other_payment_method"
-msgstr "Alebo zaplatiť s"
+msgstr "Sau plătiți cu ajutorul"
 
 #: src/i18n/process/templates.js:16
 msgid "pay"
-msgstr "Zaplatiť <b>{0}</b> {1}"
+msgstr "Plătiți <b>{0}</b> {1}"
 
 #: src/i18n/process/templates.js:17
 msgid "use_other_card"
-msgstr "Zadať inú kartu"
+msgstr "Introduceți detaliile unui alt card"
 
 #: src/i18n/process/templates.js:18
 msgid "expires_on"
-msgstr "Platná do"
+msgstr "Perioada de valabilitate"
 
 #: src/i18n/process/templates.js:19
 msgid "pay_with_card"
-msgstr "Zaplatiť kartou"
+msgstr "Plată cu card"
 
 #: src/i18n/process/templates.js:20
 msgid "card_number"
-msgstr "Číslo karty"
+msgstr "Numărul cardului"
 
 #: src/i18n/process/templates.js:21
 msgid "card_number_p"
@@ -152,7 +153,7 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:23
 msgid "expiry_date"
-msgstr "MM/RR"
+msgstr "LL/AA"
 
 #: src/i18n/process/templates.js:24
 msgid "expiry_date_p"
@@ -168,7 +169,7 @@ msgstr "000"
 
 #: src/i18n/process/templates.js:27
 msgid "cvv2_help"
-msgstr "{0}-číselný kód na zadnej strane karty"
+msgstr "{0}- codul numeric de pe fața verso a cardului"
 
 #: src/i18n/process/templates.js:28
 msgid "checkout-email"
@@ -176,7 +177,7 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:29
 msgid "email"
-msgstr "Email"
+msgstr "Adresa de e-mail"
 
 #: src/i18n/process/templates.js:30
 msgid "code"
@@ -184,11 +185,11 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:31
 msgid "verification_code"
-msgstr "Overovací kód"
+msgstr "Cod de confirmare"
 
 #: src/i18n/process/templates.js:32
 msgid "verification_amount"
-msgstr "Suma overenia"
+msgstr "Suma de verificare"
 
 #: src/i18n/process/templates.js:33
 msgid "datepicker"
@@ -196,11 +197,11 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:34
 msgid "see_more"
-msgstr "Zobraziť viac"
+msgstr "Mai multe"
 
 #: src/i18n/process/templates.js:35
 msgid "order_details"
-msgstr "Podrobnosti o objednávke"
+msgstr "Descrierea completă a comenzii"
 
 #: src/i18n/process/templates.js:36
 msgid "show"
@@ -208,35 +209,35 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:37
 msgid "submit3ds_title"
-msgstr "Platba nebola dokončená"
+msgstr "Plata nu a fost finalizată"
 
 #: src/i18n/process/templates.js:38
 msgid "submit3ds_text"
-msgstr "Zadajte iný potvrdzovací kód"
+msgstr "Introduceți un alt cod de verificare"
 
 #: src/i18n/process/templates.js:39
 msgid "submit3ds_submit"
-msgstr "Skúste to znova"
+msgstr "Încercați din nou"
 
 #: src/i18n/process/templates.js:40
 msgid "submit3ds_wait"
 msgstr ""
-"Budete znovu presmerovaný na webovú stránku banky, aby ste dokončili platbu "
-"za {0} s"
+"Pentru a finaliza plata, veți fi redirecționat la pagina băncii în câteva  "
+"{0} secunde"
 
 #: src/i18n/process/templates.js:41 src/i18n/process/translate.js:1
 msgid "declined"
-msgstr "Bohužiaľ vaša platba neprešla"
+msgstr "Ne pare rău, plata dvs. nu a fot acceptată"
 
 #: src/i18n/process/templates.js:42
 msgid "server_trouble_title"
-msgstr "Ups.."
+msgstr "Ooops.."
 
 #: src/i18n/process/templates.js:43
 msgid "server_trouble_desc"
 msgstr ""
-"Niečo nie je v poriadku, ale už na tom pracujeme. Vráťte sa o niekoľko "
-"krokov dozadu a znova uskutočnite platbu."
+"Ceva nu este în regulă, dar deja lucrăm asupra acestei probleme. Întoarceți-"
+"vă înapoi cu câțiva pași și încercați să plătiți din nou."
 
 #: src/i18n/process/templates.js:44
 msgid "offer"
@@ -244,37 +245,37 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:45
 msgid "offer_t"
-msgstr "Prijímam <a href=\"{0}\" target=\"_blank\">podmienky ponuky </a>"
+msgstr "Eu accept <a href=\"{0}\" target=\"_blank\">condițiile ofertei </a>"
 
 #: src/i18n/process/templates.js:46
 msgid "amount"
-msgstr "Celkom"
+msgstr "Sumă totală"
 
 #: src/i18n/process/templates.js:47
 msgid "total_amount"
-msgstr "Celkom"
+msgstr "Suma totală"
 
 #: src/i18n/process/templates.js:48
 msgid "fee"
-msgstr "Poplatok"
+msgstr "Suma comisionului"
 
 #: src/i18n/process/templates.js:49
 msgid "mfo_title"
-msgstr "Platobné údaje pre objednávku # {0}"
+msgstr "Detalii de plată pentru comandă # {0}"
 
 #: src/i18n/process/templates.js:50
 msgid "ibox_title"
-msgstr "ID objednávky (bude zaplatená ze iBox)"
+msgstr "Numărul de identificare al comenzii (pentru plată prin iBox)"
 
 #: src/i18n/process/templates.js:51
 msgid "full_requesites"
-msgstr "Bankové údaje príjemcu"
+msgstr "Detaliile bancare ale beneficiarului plății"
 
 #: src/i18n/process/templates.js:52
 msgid "full_requesites_explain"
 msgstr ""
-"Pri platbe ich nebudete musieť uvádzať, ale mohlo by byť užitočné si ich "
-"uložiť ako referenciu."
+"Nu va trebui să le introduceți în timpul plății, dar le puteți salva pentru "
+"referință."
 
 #: src/i18n/process/templates.js:53
 msgid "UAH"
@@ -282,80 +283,80 @@ msgstr "UAH"
 
 #: src/i18n/process/templates.js:54
 msgid "receiver"
-msgstr "Príjemca"
+msgstr "Beneficiarul plății"
 
 #: src/i18n/process/templates.js:55
 msgid "current_bill"
-msgstr "Číslo bankového účtu (IBAN)"
+msgstr "Numărul contului bancar (IBAN)"
 
 #: src/i18n/process/templates.js:56
 msgid "usreou"
-msgstr "Daňové identifikačné číslo (DIČ)"
+msgstr "Numărul de identificare al contribuabilului (TIN)"
 
 #: src/i18n/process/templates.js:57
 msgid "bank"
-msgstr "Názov banky"
+msgstr "Denumirea băncii"
 
 #: src/i18n/process/templates.js:58
 msgid "mfo"
-msgstr "Kód banky (MFO)"
+msgstr "Codul băncii (MFO)"
 
 #: src/i18n/process/templates.js:59
 msgid "purpose"
-msgstr "Popis"
+msgstr "Denumirea plății"
 
 #: src/i18n/process/templates.js:60
 msgid "receipt_id"
-msgstr "ID objednávky"
+msgstr "Numărul de identificare al comenzii"
 
 #: src/i18n/process/templates.js:61
 msgid "end_date"
-msgstr "Termín platby"
+msgstr "Termen de plată"
 
 #: src/i18n/process/templates.js:62
 msgid "ibox_desc"
 msgstr ""
-"Všetky terminály iBox, ktoré prijímajú platby, sú označené na <a href=\"https://ibox.ua/map\" target=\"_blank\">mape</a>"
+"Toate terminalele iBox, în care puteți efectua plata sunt marcate pe <a href=\"https://ibox.ua/map\" target=\"_blank\">card</a>"
 
 #: src/i18n/process/templates.js:63
 msgid "save_receipt"
-msgstr "Uložiť potvrdenie"
+msgstr "Salvare chitanță"
 
 #: src/i18n/process/templates.js:64
 msgid "save_qr_code"
-msgstr "Uložiť na smartfón"
+msgstr "Salvare pe smartphone"
 
 #: src/i18n/process/templates.js:65
 msgid "qr_code_text"
-msgstr "Naskenujte tento QR kód a uložte si potvrdenie do svojho smartfónu"
+msgstr "Scanați acest cod QR pentru a salva chitanța pe telefonul smartphone"
 
 #: src/i18n/process/templates.js:66
 msgid "ibox_info"
 msgstr ""
-"<p>Ak chcete objednávku zaplatiť, použite možnosť Vyhľadávať a vyhľadajte "
-"platobnú službu SAAS_NAME v termináli iBox.<p>Vaša objednávka bude automaticky "
-"zrušená po stanovenom termíne.<p>Za túto objednávku neakceptujeme platby "
-"prostredníctvom iných terminálov ako iBox."
+"<p>Pentru a plăti comanda, căutați serviciul de plată SAAS_NAME prin Căutare în "
+"terminalul de acceptare a plăților iBox.<p>După expirarea termenului de "
+"plată, comanda dvs. este anulată.<p>Noi nu acceptăm plata în terminalele "
+"altor servicii de plată decât iBox."
 
 #: src/i18n/process/templates.js:67
 msgid "regular"
-msgstr "Opakovať túto platbu automaticky"
+msgstr "Repetare plată în mod automat"
 
 #: src/i18n/process/templates.js:68
 msgid "regular_amount"
-msgstr "Opakovaná suma platby"
+msgstr "Suma plății recurente"
 
 #: src/i18n/process/templates.js:69
 msgid "regular_every"
-msgstr "Každých"
+msgstr "Fiecare"
 
 #: src/i18n/process/templates.js:70
 msgid "regular_period"
-msgstr "Časové rozpätie"
+msgstr "Intervalul de timp"
 
 #: src/i18n/process/templates.js:71
 msgid "regular_start_time"
-msgstr "Začínajúc dňa"
+msgstr "Începând din"
 
 #: src/i18n/process/templates.js:72
 msgid "security"
@@ -363,25 +364,26 @@ msgstr "-"
 
 #: src/i18n/process/templates.js:73
 msgid "security_title"
-msgstr "Silná autentifikácia zákazníka"
+msgstr "Autentificare strictă a clientului"
 
 #: src/i18n/process/templates.js:74
 msgid "security_text"
 msgstr ""
-"<p>V súlade s PCI DSS<p>Uvedené v globálnom registri Visa a overené "
-"spoločnosťou Mastercard"
+"<p>Conform standardului internațional de securizare a plăților din industria "
+"cardurilor de plată,<p>listat în Registrul global Visa și verificat de "
+"Mastercard "
 
 #: src/i18n/process/templates.js:75
 msgid "sepa_t"
-msgstr "Zadajte údaje o svojom bankovom účte"
+msgstr "Introduceți detaliile contului dvs. bancar"
 
 #: src/i18n/process/templates.js:76
 msgid "sender_name"
-msgstr "Meno"
+msgstr "Prenume"
 
 #: src/i18n/process/templates.js:77
 msgid "sender_familyName"
-msgstr "Priezvisko"
+msgstr "Nume"
 
 #: src/i18n/process/templates.js:78
 msgid "bic"
@@ -393,175 +395,175 @@ msgstr "IBAN"
 
 #: src/i18n/process/templates.js:80
 msgid "payment_id"
-msgstr "ID platby"
+msgstr "ID de plată"
 
 #: src/i18n/process/templates.js:81
 msgid "customer_name"
-msgstr "Meno držiteľa karty"
+msgstr "Numele titularului cardului"
 
 #: src/i18n/process/templates.js:82
 msgid "customer_name_utf8"
-msgstr "Celé meno"
+msgstr "Nume complet"
 
 #: src/i18n/process/templates.js:83
 msgid "customer_address"
-msgstr "Adresa (ulica, budova, byt)"
+msgstr "Adresă (stradă, casă, apartament)"
 
 #: src/i18n/process/templates.js:84
 msgid "customer_zip"
-msgstr "PSČ"
+msgstr "Cod poștal/cod"
 
 #: src/i18n/process/templates.js:85
 msgid "customer_city"
-msgstr "Mesto"
+msgstr "Oraș"
 
 #: src/i18n/process/templates.js:86
 msgid "customer_country"
-msgstr "Krajina"
+msgstr "Țară"
 
 #: src/i18n/process/templates.js:87
 msgid "customer_state"
-msgstr "Štát/Provincia/Región"
+msgstr "Stat / Provincie / Regiune"
 
 #: src/i18n/process/templates.js:88
 msgid "customer_phonemobile"
-msgstr "Telefón"
+msgstr "Telefon"
 
 #: src/i18n/process/templates.js:89
 msgid "customer_email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: src/i18n/process/translate.js:2
 msgid "approved"
-msgstr "Ďakujeme! Vaša platba je prijatá"
+msgstr "Vă mulțumim! Plata dvs. a fost acceptată"
 
 #: src/i18n/process/translate.js:4
 msgid "verification_t"
-msgstr "Overenie karty"
+msgstr "Verificare card"
 
 #: src/i18n/process/translate.js:5
 msgid "verification_code_d"
 msgstr ""
-"Na overenie vašej karty zablokujeme na vašom bankovom účte malý poplatok za "
-"overenie po dobu 15 minút."
+"Pentru a verifica cardul dvs., vom îngheța o sumă mică de pe contul dvs timp "
+"de 15 minute."
 
 #: src/i18n/process/translate.js:6
 msgid "verification_amount_d"
 msgstr ""
-"Na overenie vlastníctva karty zablokujeme na vašom bankovom účte malý "
-"poplatok za overenie po dobu 15 minút. Zadajte čiastku na overenie "
-"zablokovanú na vašom účte."
+"O taxă mică va fi înghețată de pe contul dvs. bancar timp de 15 minute "
+"pentru a confirma calitatea de titularului cardului. Introduceți suma de "
+"verificare pe contul dvs."
 
 #: src/i18n/process/translate.js:8
 msgid "rule_default"
-msgstr "Hodnota {_field_} nie je platná"
+msgstr "Valoarea {_field_} nu este valabilă"
 
 #: src/i18n/process/translate.js:9
 msgid "rule_after"
-msgstr "Platnosť do nesmie byť neskoršia ako {_target_}"
+msgstr "Valabilitatea cardului nu poate depăși data {_target_}"
 
 #: src/i18n/process/translate.js:10
 msgid "rule_alpha"
-msgstr "Použite iba písmená"
+msgstr "Utilizați numai litere"
 
 #: src/i18n/process/translate.js:11
 msgid "rule_date_format"
-msgstr "Zadajte mesiac/rok"
+msgstr "Specificați luna / anul"
 
 #: src/i18n/process/translate.js:12
 msgid "rule_decimal"
-msgstr "Použite číslice (0-9), bodky (.) or čiarky (,)."
+msgstr "Folosiți numere (0-9), puncte (.), sau virgule (,)"
 
 #: src/i18n/process/translate.js:13
 msgid "rule_digits"
-msgstr "Zadajte {_length_} číslic"
+msgstr "Introduceți {_length_} caractere"
 
 #: src/i18n/process/translate.js:14
 msgid "rule_email"
-msgstr "Zadajte platný email"
+msgstr "Vă rugăm să introduceți o adresă de e-mail validă"
 
 #: src/i18n/process/translate.js:15
 msgid "rule_max"
-msgstr "Zadajte max. {_length_} znakov."
+msgstr "Introduceți maxim {_length_} caractere."
 
 #: src/i18n/process/translate.js:16
 msgid "rule_min"
-msgstr "Zadajte min. {_length_} znakov."
+msgstr "Introduceți minim {_length_} caractere."
 
 #: src/i18n/process/translate.js:17
 msgid "rule_numeric"
-msgstr "Použite iba číslice (0-9)"
+msgstr "Folosiți numai cifre (0-9)"
 
 #: src/i18n/process/translate.js:18
 msgid "rule_required"
-msgstr "Vyplňte toto pole"
+msgstr "Vă rugăm să completați acest câmp"
 
 #: src/i18n/process/translate.js:19
 msgid "rule_regex"
-msgstr "Neplatný formát"
+msgstr "Format invalid"
 
 #: src/i18n/process/translate.js:21
 msgid "rule_customer_name"
-msgstr "Zadajte meno aj priezvisko, použite písmená (A-Za-z)"
+msgstr "Introduceți numele și prenumele folosind litere (A-Za-z)"
 
 #: src/i18n/process/translate.js:22
 msgid "rule_customer_field"
-msgstr "Použite písmená (A-Za-z) a číslice (0-9)"
+msgstr "Folosiți litere (A-Za-z) și simboluri (0-9)"
 
 #: src/i18n/process/translate.js:23
 msgid "rule_customer_field_utf8"
-msgstr "Nepoužívajte tu špeciálne znaky"
+msgstr "Nu utilizați caractere speciale în acest câmp"
 
 #: src/i18n/process/translate.js:24
 msgid "rule_phone"
-msgstr "Zadajte aspoň 7 číslic (0-9)"
+msgstr "Vă rugăm să introduceți cel puțin 7 cifre (0-9)"
 
 #: src/i18n/process/translate.js:25
 msgid "rule_numrange"
-msgstr "Zadali ste príliš veľa číslic"
+msgstr "Ați introdus prea multe cifre"
 
 #: src/i18n/process/translate.js:26
 msgid "rule_ccard"
-msgstr "Nesprávne číslo karty"
+msgstr "Număr de card incorect"
 
 #: src/i18n/process/translate.js:27
 msgid "rule_expiry_date"
-msgstr "Nesprávny dátum exspirácie"
+msgstr "Dată de expirare incorectă"
 
 #: src/i18n/process/translate.js:28
 msgid "rule_cvv"
-msgstr "Neplatné CVV2/CVC2"
+msgstr "Date incorecte CVV2/CVC2"
 
 #: src/i18n/process/translate.js:29
 msgid "rule_one"
-msgstr "Táto hodnota nemôže byť menšia ako 1"
+msgstr "Această valoare nu poate fi mai mică de 1"
 
 #: src/i18n/process/translate.js:31
 msgid "price"
-msgstr "Cena"
+msgstr "Preț"
 
 #: src/i18n/process/translate.js:32
 msgid "shipping"
-msgstr "Dodanie"
+msgstr "Livrare"
 
 #: src/i18n/process/translate.js:33
 msgid "vat"
-msgstr "DPH"
+msgstr "TVA"
 
 #: src/i18n/process/translate.js:34
 msgid "arbitrary_amount"
-msgstr "Suma"
+msgstr "Sumă"
 
 #: src/i18n/process/translate.js:36
 msgid "emoney"
-msgstr "Digitálna peňaženka"
+msgstr "Portofel electronic"
 
 #: src/i18n/process/translate.js:37
 msgid "ibox_ua"
-msgstr "Hotovosť cez terminál"
+msgstr "Numerar la terminalul POS"
 
 #~ msgid "local_banks"
-#~ msgstr "Miestne platobné metódy"
+#~ msgstr "Metode locale de plată"
 
 #~ msgid "declined_desc"
-#~ msgstr "Môžete sa vrátiť na webovú stránku a urobiť ďalšiu objednávku."
+#~ msgstr "Puteți reveni pe site și să plasați din nou comanda."
