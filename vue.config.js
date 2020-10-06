@@ -104,9 +104,6 @@ module.exports = {
       .entryPoints
         .delete('app')
         .end()
-      .entry('fonts')
-        .add('./src/scss/fonts.scss')
-        .end()
       .output
         .filename('[name].js')
         .chunkFilename('[name].js')
