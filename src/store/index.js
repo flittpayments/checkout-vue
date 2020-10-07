@@ -26,7 +26,13 @@ import Schema from 'async-validator'
 
 Vue.use(store)
 
-export default {
+let instance = {}
+
+class Store {
+  constructor() {
+    this.default = optionsDefault
+    this.setStateDefault()
+  }
   attr(name, value) {
     name = (name || '').split('.')
     let data = this
@@ -49,7 +55,7 @@ export default {
     if (len === 2) {
       data[prop] = value
     }
-  },
+  }
   sendRequest(...args) {
     if (this.state.options.disable_request) return Promise.reject()
 
@@ -57,11 +63,10 @@ export default {
       this.showError(model.attr('error.code'), model.attr('error.message'))
       return Promise.reject(model)
     })
-  },
+  }
   setStateDefault() {
     this.state = JSON.parse(JSON.stringify(optionsDefault))
-  },
-  default: optionsDefault,
+  }
   setOptions(optionsUser) {
     this.optionsFormat(optionsUser)
     this.validate(optionsUser)
@@ -93,7 +98,7 @@ export default {
     this.initShowMenuFirst()
     initCssVariable(this.state.css_variable)
     initFavicon(this.state.cdnIcons, this.state.options.full_screen)
-  },
+  }
   optionsFormat(options) {
     let regex = /[A-Z]+/g
 
@@ -114,19 +119,19 @@ export default {
         }
       }
     }
-  },
+  }
   validate(options) {
     new Schema(config).validate({ config: options }, errors => {
       if (!errors) return
       this.setError(errors)
     })
-  },
+  }
   initMethods() {
     this.state.options.methods = methods(
       this.state.options.methods,
       this.state.options.methods_disabled
     )
-  },
+  }
   initLang() {
     let lang
     let locales = this.state.options.locales
@@ -147,7 +152,7 @@ export default {
       }
     }
     this.changeLang(lang)
-  },
+  }
   initError() {
     const token = findGetParameter('token')
     const button = findGetParameter('button')
@@ -159,31 +164,31 @@ export default {
         },
       ])
     }
-  },
+  }
   initToken() {
     this.setParam(this.state.params, 'token', findGetParameter('token'))
-  },
+  }
   initCssDevice() {
     if (!this.state.options.full_screen) return
 
     require('@/scss/style-adaptive.scss?no-extract')
-  },
+  }
   initOnlyCard() {
     this.state.isOnlyCard =
       this.state.options.methods.length === 1 &&
       this.state.options.methods[0] === 'card'
-  },
+  }
   initShowMenuFirst() {
     this.state.options.show_menu_first =
       this.state.options.show_menu_first && !this.state.isOnlyCard
-  },
+  }
   setButtonParams(options) {
     deepMerge(this.state, options)
-  },
+  }
   setParam(object, key, value) {
     if (!value) return
     object[key] = value
-  },
+  }
   initApi() {
     initApi(
       {
@@ -194,10 +199,10 @@ export default {
         this.formLoading(false)
       }
     )
-  },
+  }
   initReferrer() {
     this.state.params.referrer = document.referrer
-  },
+  }
   changeLang(lang) {
     loadLanguageAsync(lang, this)
       .then(() => {
@@ -206,14 +211,14 @@ export default {
         sessionStorage.set('lang', lang)
       })
       .catch(errorHandler)
-  },
+  }
   initLocation() {
     let methods = this.state.options.methods
     let active_tab = this.state.router.method
     let method = methods.indexOf(active_tab) > -1 ? active_tab : methods[0]
     this.state.router.page = 'payment-method'
     this.state.router.method = method
-  },
+  }
   setCardNumber({ card_number, expiry_date, email, hash, read_only } = {}) {
     this.state.params.card_number = card_number || ''
     this.state.params.expiry_date = expiry_date || ''
@@ -228,7 +233,7 @@ export default {
         el && el.focus()
       }, 100)
     }
-  },
+  }
   getAmountWithFee() {
     if (!this.state.params.amount) return
     if (!this.state.params.fee) return
@@ -245,28 +250,28 @@ export default {
         )
       })
       .catch(errorHandler)
-  },
+  }
   location(page, method, system) {
     this.state.options.show_menu_first = false
     this.state.router.page = page
     this.state.router.method = method
     this.state.router.system = system
-  },
+  }
   locationSystem(system) {
     this.state.router.system = system
-  },
+  }
   showError(code, message) {
     this.state.error.code = code
     this.state.error.message = message
     this.state.error.show = true
-  },
+  }
   formLoading(loading) {
     if (loading) {
       this.state.error.show = false
     }
 
     this.state.loading = loading
-  },
+  }
   setParams(params) {
     if (this.state.params.token || this.state.params.order_id) {
       console.warn(
@@ -278,7 +283,7 @@ export default {
     if (!this.state.error.errors.length) {
       deepMerge(this.state.params, params, notSet.params)
     }
-  },
+  }
   formParams() {
     // copy params
     let params = JSON.parse(JSON.stringify(this.state.params))
@@ -311,17 +316,22 @@ export default {
       delete params.recurring_data
     }
     return params
-  },
+  }
   setError(errors) {
     this.state.error.errors = errors
-  },
+  }
   setRecurring(order) {
     if (!order) return
 
     Object.assign(this.state.params.recurring_data, order.recurring_data)
     this.state.regular.insert = order.subscription
-  },
+  }
   toggleMenu() {
     this.state.options.show_menu_first = !this.state.options.show_menu_first
-  },
+  }
+}
+
+export default name => {
+  // if (instance[name]) return instance[name]
+  return (instance[name] = new Store())
 }
