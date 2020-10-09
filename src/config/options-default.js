@@ -104,6 +104,7 @@ const options = {
   isOnlyCard: true,
   region: '',
   amount_readonly: true,
+  show_gdpr_frame: false,
 }
 
 locales.forEach(function(locale) {
