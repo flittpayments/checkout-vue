@@ -1,16 +1,16 @@
 import configLocales from '@/config/locales.json'
 import configCss from '@/config/css'
 import configTheme from '@/config/theme'
+import configSubscription from '@/config/subscription'
 
 const locales = Object.keys(configLocales)
 
 const theme = 'light'
 
-const options = {
+const config = {
   options: {
     methods: ['card'],
     methods_disabled: [],
-    banklinks_eu: [],
     card_icons: ['mastercard', 'visa'],
     banklinks_eu_icons: [],
     local_methods_icons: [],
@@ -18,7 +18,6 @@ const options = {
     full_screen: true,
     link: '',
     locales,
-    messages: {},
     customer_fields: [],
     active_tab: 'card',
     logo_url: '',
@@ -38,11 +37,10 @@ const options = {
     show_menu_first: true,
     disable_request: false,
     show_button_amount: true,
-  },
-  subscription: {
-    insert: false,
-    open: false,
-    period: ['day', 'week', 'month'],
+    subscription: {
+      type: 'disable',
+      period: ['day', 'week', 'month'],
+    },
   },
   params: {
     merchant_id: 1396424, // 900024 dev, 1396424 prod
@@ -106,11 +104,12 @@ const options = {
   region: '',
   amount_readonly: true,
   show_gdpr_frame: false,
+  subscription: configSubscription.disable,
 }
 
 locales.forEach(function(locale) {
-  options.messages[locale] = {}
-  options.validate[locale] = {}
+  config.messages[locale] = {}
+  config.validate[locale] = {}
 })
 
-export default options
+export default config
