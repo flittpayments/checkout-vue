@@ -11,7 +11,6 @@ import InputText from '@/components/input-text'
 import InputAmount from '@/components/input-amount'
 import InputHidden from '@/components/input-hidden'
 import InputSelect from '@/components/input-select'
-import InputSwitch from '@/components/input-switch'
 import FIcon from '@/components/icon'
 import FInfo from '@/components/info'
 import FCustomerFields from '@/components/customer-fields'
@@ -45,7 +44,6 @@ const components = {
   InputAmount,
   InputHidden,
   InputSelect,
-  InputSwitch,
   FIcon,
   FInfo,
   FCustomerFields,
