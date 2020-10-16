@@ -4,7 +4,7 @@
 ``` js
 {
   options: {},
-  regular: {},
+  subscription: {},
   params: {},
   popup: {},
   messages: {},
@@ -45,7 +45,7 @@ Name                  | Type        | Default                          | Descrip
 `gateway`             | String      | '/checkout/v2/index.html'        |
 `button`              | String      | '/checkout/v2/button/index.html' |
 
-### regular
+### subscription
 Name                  | Type        | Default                 | Description
 ---                   | ---         | ---                     | ---
 `insert`              | Boolean     | false                   |
