@@ -39,7 +39,10 @@ const config = {
     show_button_amount: true,
     subscription: {
       type: 'disable',
-      period: ['day', 'week', 'month'],
+      periods: ['day', 'week', 'month'],
+      quantity: false,
+      trial: false,
+      unlimited: true,
     },
   },
   params: {
@@ -56,6 +59,9 @@ const config = {
       end_time: '',
       amount: 0,
       readonly: false,
+      quantity: 0,
+      trial_period: '',
+      trial_quantity: 0,
     },
     card_number: '',
     expiry_date: '',

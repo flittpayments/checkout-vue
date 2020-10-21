@@ -280,7 +280,7 @@ class Store {
             document.title = response.options.title
           }
 
-          this.setButtonParams(response)
+          this.setState(response)
         },
         () => {}
       )
@@ -288,8 +288,8 @@ class Store {
         this.changeLang(this.state.params.lang)
       })
   }
-  setButtonParams(options) {
-    deepMerge(this.state, options)
+  setState(state) {
+    deepMerge(this.state, JSON.parse(JSON.stringify(state)))
   }
   changeLang(lang) {
     this.state.params.lang = lang
@@ -397,6 +397,18 @@ class Store {
       params.recurring_data.amount = params.recurring_data.amount / 100
     }
 
+    if (!this.state.options.subscription.trial) {
+      delete params.recurring_data.trial_period
+      delete params.recurring_data.trial_quantity
+    }
+
+    if (
+      !this.state.options.subscription.quantity ||
+      this.state.options.subscription.unlimited
+    ) {
+      delete params.recurring_data.quantity
+    }
+
     if (params.recurring === 'n') {
       delete params.recurring_data
     }
@@ -405,12 +417,29 @@ class Store {
   setError(errors) {
     this.state.error.errors = errors
   }
-  setSubscription(order) {
-    if (!order) return
-    if (!order.subscription) return
+  setSubscription({ subscription, recurring_data = {} } = {}) {
+    if (!subscription) return
+    if (!recurring_data) {
+      recurring_data = {}
+    }
+    const unlimited = !recurring_data.quantity && !recurring_data.end_time
+    const config = {
+      options: {
+        subscription: {
+          quantity: recurring_data.quantity || unlimited,
+          unlimited,
+          trial: recurring_data.trial_period && recurring_data.trial_quantity,
+        },
+      },
+      params: {
+        recurring_data: {
+          ...recurring_data,
+        },
+      },
+      subscription: configSubscription.shown_readonly,
+    }
 
-    Object.assign(this.state.params.recurring_data, order.recurring_data)
-    deepMerge(this.state.subscription, configSubscription.client_enabled)
+    this.setState(config)
   }
   toggleMenu() {
     this.state.options.show_menu_first = !this.state.options.show_menu_first
