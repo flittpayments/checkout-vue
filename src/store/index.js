@@ -199,18 +199,19 @@ class Store {
     )
   }
   initLang() {
+    const cookieLang = 'lang'
     let lang
     let locales = this.state.options.locales
     if (this.state.options.full_screen) {
       lang =
-        sessionStorage.get('lang') ||
-        getCookie('lang') ||
+        sessionStorage.get(cookieLang) ||
+        getCookie(cookieLang) ||
         this.state.params.lang
     } else {
       lang =
         this.state.params.lang ||
-        sessionStorage.get('lang') ||
-        getCookie('lang')
+        sessionStorage.get(cookieLang) ||
+        getCookie(cookieLang)
     }
     if (locales.length) {
       if (locales.indexOf(lang) < 0) {
@@ -219,7 +220,7 @@ class Store {
     }
 
     this.state.params.lang = lang
-    sessionStorage.set('lang', lang)
+    sessionStorage.set(cookieLang, lang)
   }
   initError() {
     const token = findGetParameter('token')
@@ -281,6 +282,7 @@ class Store {
           }
 
           this.setState(response)
+          this.initLang()
         },
         () => {}
       )
@@ -292,6 +294,10 @@ class Store {
     deepMerge(this.state, JSON.parse(JSON.stringify(state)))
   }
   changeLang(lang) {
+    if (this.state.options.full_screen) {
+      document.querySelector('html').setAttribute('lang', lang)
+    }
+
     this.state.params.lang = lang
     sessionStorage.set('lang', lang)
 
