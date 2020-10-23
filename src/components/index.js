@@ -18,6 +18,7 @@ import FFields from '@/components/fields'
 import FOffer from '@/components/offer'
 import FButtonPay from '@/components/button/button-pay'
 import FButtonClose from '@/components/button/button-close'
+import FForm from '@/components/form/form'
 import FFormItem from '@/components/form/item'
 import FFormGroup from '@/components/form/group'
 import FFormItemInput from '@/components/form/item/input'
@@ -51,6 +52,7 @@ const components = {
   FOffer,
   FButtonPay,
   FButtonClose,
+  FForm,
   FFormItem,
   FFormGroup,
   FFormItemInput,
