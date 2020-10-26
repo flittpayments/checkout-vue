@@ -1,5 +1,4 @@
 import configLocales from '@/config/locales.json'
-import configCss from '@/config/css'
 import configTheme from '@/config/theme'
 import configSubscription from '@/config/subscription'
 
@@ -29,7 +28,6 @@ const config = {
     default_country: '',
     countries: [],
     lang: true,
-    css: '',
     theme: {
       type: theme,
       preset: configTheme[theme],
@@ -93,7 +91,6 @@ const config = {
     method: '', // card banklinks_eu local_methods sepa
     system: '',
   },
-  css: configCss.default,
   loading: false,
   cards: [],
   isSubmit: false,

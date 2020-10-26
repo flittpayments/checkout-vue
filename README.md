@@ -25,7 +25,6 @@ Name                  | Type        | Default                 | Description     
 `locales`             | Array       | [all]                   | support `cs`, `de`, `en`, `es`, `fr`, `hu`, `it`, `ko`, `lv`, `pl`, `ro`, `ru`, `sk`, `uk`.|
 `api_domain`          | String      |                         |                                                                                     |
 `endpoint`            | Object      |                         |                                                                                     |
-`css`                 | String      |                         | support `bootstrap3`, `bootstrap4`, `foundation6`.                                  |
 `active_tab`          | String      | 'card'                  | support `card`, `sepa`.                                                             | server or options
 `logo_url`            | String      |                         | format url                                                                          | options or server
 `offerta_url`         | String      |                         | format url                                                                          | options or server
