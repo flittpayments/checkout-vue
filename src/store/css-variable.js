@@ -49,7 +49,7 @@ function hexToHSL(H) {
 
 const prefix = `--${SAAS_TEMPLATE_NAME}-`
 
-export default function(variablesLink) {
+export default function (variablesLink) {
   let variables = Object.fromEntries(
     Object.entries(variablesLink).reduce((acc, [n, v]) => {
       let name = `${prefix}${n}`
