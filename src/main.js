@@ -1,3 +1,6 @@
+import '@/scss/fonts.scss'
+import '@/scss/style.scss'
+
 import Vue from 'vue'
 import Checkout from '@/checkout'
 import i18n from '@/i18n/index'
