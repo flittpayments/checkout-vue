@@ -187,7 +187,27 @@ export default {
     enabled_switch(value) {
       this.enabled = value
     },
-    unlimited(value) {
+    unlimited: 'watchUnlimited',
+  },
+  created() {
+    if (!this.optionTrial) {
+      this.clearTrial()
+    }
+
+    if (!this.showQuantity || this.unlimited) {
+      this.clearQuantity()
+    }
+
+    this.saveTime()
+    this.saveQuantity()
+    this.saveTrial()
+    this.watchUnlimited(this.unlimited)
+  },
+  methods: {
+    onShowError(show, error) {
+      this.error = show && error
+    },
+    watchUnlimited(value) {
       if (value) {
         this.saveQuantity()
         this.saveTrial()
@@ -200,60 +220,6 @@ export default {
         this.setQuantity()
         this.setTrial()
       }
-    },
-  },
-  created() {
-    this.end_time = this.recurringEndTime()
-    this.start_time = this.recurringStartTime()
-
-    if (!this.optionTrial) {
-      this.clearTrial()
-    }
-
-    if (!this.showQuantity || this.unlimited) {
-      this.clearQuantity()
-    }
-
-    this.saveTime()
-    this.saveQuantity()
-    this.saveTrial()
-  },
-  methods: {
-    getDate(date) {
-      date.setHours(0)
-      date.setMinutes(0)
-      date.setSeconds(0)
-      date.setMilliseconds(0)
-      return date
-    },
-    getDateFormat(d) {
-      return (
-        d.getFullYear() +
-        '-' +
-        ('0' + (d.getMonth() + 1)).slice(-2) +
-        '-' +
-        ('0' + d.getDate()).slice(-2)
-      )
-    },
-    recurringTime(field) {
-      let date = this[field]
-      let value = this.getDate(new Date(date))
-      let now = this.getDate(new Date())
-      if (now > value) value = now
-      return this.getDateFormat(value)
-    },
-    recurringStartTime() {
-      if (this.start_time) {
-        return this.recurringTime('start_time')
-      }
-    },
-    recurringEndTime() {
-      if (this.end_time) {
-        return this.recurringTime('end_time')
-      }
-    },
-    onShowError(show, error) {
-      this.error = show && error
     },
     setTime() {
       this.start_time = this.start_time_
