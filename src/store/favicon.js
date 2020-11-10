@@ -5,6 +5,8 @@ import { getId } from '@/utils/helpers'
 export default function (cdnIcons, full_screen) {
   if (!full_screen) return
 
+  let fragment = document.createDocumentFragment()
+
   configFavicon.forEach(([rel, href, sizes, type, color]) => {
     href = `${SAAS_CDN_URL}favicon/${SAAS_TEMPLATE_NAME}/${href}`
     const id = getId(href)
@@ -25,6 +27,8 @@ export default function (cdnIcons, full_screen) {
       setAttr(link, 'color', color)
     }
 
-    document.head.appendChild(link)
+    fragment.appendChild(link)
   })
+
+  document.head.appendChild(fragment)
 }
