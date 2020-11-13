@@ -141,7 +141,6 @@ class Store extends Model {
     this.initError()
     this.initToken()
     this.initApi()
-    this.initReferrer()
     this.initCssDevice()
     this.initIsOnlyCard()
     this.initIsOnlyWallets()
@@ -255,9 +254,6 @@ class Store extends Model {
       }
     )
   }
-  initReferrer() {
-    this.state.params.referrer = document.referrer
-  }
   loadButton() {
     return loadButton().then(config => {
       if (!config) return
@@ -364,6 +360,10 @@ class Store extends Model {
   formParams() {
     // copy params
     let params = JSON.parse(JSON.stringify(this.state.params))
+
+    params.referrer = document.referrer
+    params.embedded = !this.state.options.full_screen
+    params.location = location.href
 
     params.save_card = Boolean(localStorage.get('save_card'))
 
