@@ -19,7 +19,6 @@ import { getLabel } from '@/store/button'
 import initCssVariable from '@/store/css-variable'
 import loadButton from '@/store/button'
 import loadCardImg from '@/store/card-img'
-import { sessionStorage } from '@/utils/store'
 import { methods, tabs } from '@/utils/compatibility'
 import { localStorage } from '@/utils/store'
 import config from '@/config/config'
@@ -94,6 +93,10 @@ class Store extends Model {
       this.state.options.title = 'verification_t'
       this.state.params.order_desc =
         'verification_' + this.state.verification_type + '_d'
+    }
+
+    if (model.attr('lang')) {
+      this.state.params.lang = model.attr('lang')
     }
 
     subscription(model.attr('order'))
@@ -176,19 +179,13 @@ class Store extends Model {
     )
   }
   initLang() {
-    const cookieLang = 'lang'
+    const langKey = 'lang_s'
     let lang
     let locales = this.state.options.locales
     if (this.state.options.full_screen) {
-      lang =
-        sessionStorage.get(cookieLang) ||
-        getCookie(cookieLang) ||
-        this.state.params.lang
+      lang = getCookie(langKey) || this.state.params.lang
     } else {
-      lang =
-        this.state.params.lang ||
-        sessionStorage.get(cookieLang) ||
-        getCookie(cookieLang)
+      lang = this.state.params.lang || getCookie(langKey)
     }
     if (locales.length) {
       if (locales.indexOf(lang) < 0) {
@@ -196,9 +193,7 @@ class Store extends Model {
       }
     }
 
-    this.state.params.lang = lang
-    sessionStorage.set(cookieLang, lang)
-    this.changeLang(this.state.params.lang)
+    this.changeLang(lang)
   }
   initError() {
     const token = findGetParameter('token')
@@ -275,7 +270,6 @@ class Store extends Model {
     }
 
     this.state.params.lang = lang
-    sessionStorage.set('lang', lang)
 
     loadLanguageAsync(lang, this).catch(errorHandler)
   }
