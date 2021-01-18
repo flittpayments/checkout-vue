@@ -46,8 +46,8 @@ class Store extends Model {
       return Promise.reject(model)
     })
   }
-  sendRequestInfo() {
-    this.sendRequest('api.checkout.info', 'get', this.formParams())
+  sendRequestInfo(data) {
+    this.sendRequest('api.checkout.info', 'get', this.formParams(data))
       .then(model => this.infoSuccess(model))
       .catch(errorHandler)
   }
@@ -285,13 +285,18 @@ class Store extends Model {
   getAmountWithFee() {
     if (!this.state.params.amount) return
     if (!this.state.params.fee) return
-    return this.sendRequest('api.checkout.fee', 'get', this.state.params, {
-      cached: true,
-      params: {
+    return this.sendRequest(
+      'api.checkout.fee',
+      'get',
+      {
         amount: this.state.params.amount,
         fee: this.state.params.fee,
+        token: this.state.params.token,
       },
-    })
+      {
+        cached: true,
+      }
+    )
       .then(model => {
         this.state.params.amount_with_fee = parseInt(
           model.attr('amount_with_fee')
@@ -332,7 +337,7 @@ class Store extends Model {
       deepMerge(this.state.params, params)
     }
   }
-  formParams() {
+  formParams(data) {
     // copy params
     let params = JSON.parse(JSON.stringify(this.state.params))
 
@@ -373,7 +378,10 @@ class Store extends Model {
     if (params.recurring === 'n') {
       delete params.recurring_data
     }
-    return params
+
+    delete params.lang
+
+    return Object.assign(params, data)
   }
   setError(errors) {
     this.state.error.errors = errors
