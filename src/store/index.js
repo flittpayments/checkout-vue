@@ -285,8 +285,8 @@ class Store extends Model {
     }
   }
   getAmountWithFee() {
-    if (!this.state.params.amount) return
-    if (!this.state.params.fee) return
+    if (!this.state.params.amount) return Promise.reject()
+    if (!this.state.params.fee) return Promise.reject()
     return this.sendRequest(
       'api.checkout.fee',
       'get',
