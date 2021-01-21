@@ -32,6 +32,7 @@ import FBank from '@/components/bank'
 import FSecurity from '@/components/security'
 import FPreloader from '@/components/preloader'
 import FAmount from '@/components/base/amount'
+import FPlaceholder from '@/components/base/placeholder'
 
 const components = {
   FButtonPayWallet,
@@ -68,6 +69,7 @@ const components = {
   FSecurity,
   FPreloader,
   FAmount,
+  FPlaceholder,
 }
 
 const install = Vue => {
