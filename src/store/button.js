@@ -2,6 +2,7 @@ import axios from 'axios'
 import { deepMerge, findGetParameter } from '@/utils/helpers'
 import optionsDefault from '@/config/options-default'
 import { getType } from '@/store/subscription'
+import { date, createDate } from '@/utils/date'
 import { sort } from '@/utils/sort'
 
 let config = {}
@@ -16,7 +17,7 @@ export default function () {
       config = response.data
       return response.data
     })
-    .then(parseOptions)
+    .then(parseOptions, () => {})
 }
 
 function parseOptions({
@@ -35,8 +36,16 @@ function parseOptions({
   recurring_type,
   button_type,
   response_url,
+  expire,
+  status,
 }) {
   amount = Math.round(amount * 100) || 0
+
+  if (expire && date(expire, 'DD.MM.YYYY hh:mm') < createDate())
+    return Promise.reject({ id: 'button_expired' })
+
+  if (status && status !== 'enabled')
+    return Promise.reject({ id: 'button_status_not_active' })
 
   return {
     options: {
