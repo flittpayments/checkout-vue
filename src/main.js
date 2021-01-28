@@ -53,9 +53,6 @@ const install = function (Vue) {
         },
       },
       template: '<checkout :optionsUser="optionsUser"/>',
-      $_veeValidate: {
-        validator: 'new',
-      },
     }).$mount()
 
     while (node.firstChild) {
