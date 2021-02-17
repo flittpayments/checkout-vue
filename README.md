@@ -76,6 +76,7 @@ Name                  | Type        | Default                 | Description     
 `verification`        | String      |                         | support `Y`, `N`, `y`, `n`. |
 `verification_type`   | String      |                         | support `amount`, `code`    |
 `token`               | String      |                         | length 40                   |
+`button`              | String      |                         | length 20-80                |
 `offer`               | Boolean     | false                   |                             |
 `recurring_data`      | Object      |                         |                             |
 `custom`              | Object      |                         |                             |
