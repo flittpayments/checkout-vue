@@ -5,6 +5,9 @@ const increaseSpecificity = require('./build/postcss-increase-specificity')
 const autoprefixer = require('autoprefixer')
 const argv = require('minimist')(process.argv.slice(2))
 
+const isProduction = process.env.NODE_ENV === 'production'
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 function addF (options) {
   options.plugins = () => [
     increaseSpecificity({ repeat: 1, stackableRoot: '#f', overrideIds: false }),
@@ -33,10 +36,10 @@ module.exports = {
       errors: true
     }
   },
-  lintOnSave: process.env.NODE_ENV !== 'production',
+  lintOnSave: isDevelopment,
   runtimeCompiler: true,
   productionSourceMap: false,
-  publicPath: process.env.NODE_ENV === 'production'
+  publicPath: isProduction
     ? ''
     : '/',
   pluginOptions: {},
@@ -44,7 +47,7 @@ module.exports = {
     const normalRule = config.module.rule('scss').oneOfs.get('normal')
 
     config
-      .when(process.env.NODE_ENV === 'production', config => {
+      .when(isProduction, config => {
         config
           .optimization
             .delete('splitChunks')
@@ -99,7 +102,7 @@ module.exports = {
               .end()
             .end()
       })
-      .when(process.env.NODE_ENV !== 'production', config => {
+      .when(isDevelopment, config => {
         config
           .module
             .rule('eslint')
@@ -198,11 +201,17 @@ module.exports = {
           .end()
         .end()
       .plugin('define-plugin')
-        .use(webpack.DefinePlugin,[{
-          'VERSION': JSON.stringify(gitRevisionPlugin.version()),
-          'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
-          'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
-        }])
+        .use(webpack.DefinePlugin, [
+          Object.fromEntries(
+            Object.entries({
+              VERSION: gitRevisionPlugin.version(),
+              COMMITHASH: gitRevisionPlugin.commithash(),
+              BRANCH: gitRevisionPlugin.branch(),
+              ENVIRONMENT: process.env.NODE_ENV,
+              DSN: argv['sentry-dsn'],
+            }).map(([name, value]) => [name, JSON.stringify(value)])
+          ),
+        ])
         .end()
   }
 }
