@@ -86,7 +86,6 @@ const config = {
     show: false,
     code: '',
     message: '',
-    errors: [], // ошибки валидации конфига
   },
   router: {
     page: '', // payment-method success
