@@ -12,6 +12,7 @@
     "locale": "./node_modules/gulp/bin/gulp.js locale"
   },
   "dependencies": {
+    "@sentry/vue": "^6.2.1",
     "@umpirsky/country-list": "git+https://github.com/umpirsky/country-list.git",
     "async-validator": "^3.5.1",
     "axios": "^0.21.1",
