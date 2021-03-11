@@ -40,7 +40,7 @@ module.exports = {
   runtimeCompiler: true,
   productionSourceMap: false,
   publicPath: isProduction
-    ? ''
+    ? argv['public-path']
     : '/',
   pluginOptions: {},
   chainWebpack: config => {
@@ -50,7 +50,6 @@ module.exports = {
       .when(isProduction, config => {
         config
           .optimization
-            .delete('splitChunks')
             .minimizer('terser')
               .tap(([options]) => {
                 let terserOptions = options.terserOptions
@@ -83,14 +82,17 @@ module.exports = {
             })
             .end()
           .plugin('banner')
-            .use(webpack.BannerPlugin, [[
-              (argv.version ?
-                `npm ${argv.version} parent` :
-                'build'),
-              'commithash',
-              gitRevisionPlugin.commithash(),
-              new Date().toUTCString(),
-            ].join(' ')])
+            .use(webpack.BannerPlugin, [{
+              banner: [
+                (argv.version ?
+                  `npm ${argv.version} parent` :
+                  'build'),
+                'commithash',
+                gitRevisionPlugin.commithash(),
+                new Date().toUTCString(),
+              ].join(' '),
+              entryOnly: true
+            }])
             .end()
           .module
             .rule('scss')
@@ -136,7 +138,6 @@ module.exports = {
         .end()
       .output
         .filename('[name].js')
-        .chunkFilename('[name].js')
         .end()
       .module
         .rule('scss')

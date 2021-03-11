@@ -5,6 +5,7 @@
     "serve": "vue-cli-service serve",
     "serve:dist": "serve -s dist",
     "build": "npm run locale && vue-cli-service build",
+    "build:localhost": "npm run locale && vue-cli-service build --public-path=http://localhost:5000/",
     "lint": "vue-cli-service lint",
     "stylelint:fix": "stylelint src/{**/,**/**/}*.scss --syntax scss --color --formatter verbose --fix",
     "eslint:fix": "eslint src/**/*.{js,vue} --fix",
