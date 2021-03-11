@@ -1,7 +1,5 @@
 import '@/scss/fonts.scss'
 import '@/scss/style.scss'
-import '@/scss/style-adaptive-ss.scss'
-import '@/scss/style-adaptive-sm.scss'
 
 import Vue from 'vue'
 import Checkout from '@/checkout'

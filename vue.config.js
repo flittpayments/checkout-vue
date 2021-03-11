@@ -44,8 +44,6 @@ module.exports = {
     : '/',
   pluginOptions: {},
   chainWebpack: config => {
-    const normalRule = config.module.rule('scss').oneOfs.get('normal')
-
     config
       .when(isProduction, config => {
         config
@@ -75,8 +73,9 @@ module.exports = {
               .end()
             .end()
           .plugin('extract-css')
-            .tap(() => {
+            .tap(([options]) => {
               return [{
+                ...options,
                 filename: '[name].css'
               }]
             })
@@ -91,17 +90,9 @@ module.exports = {
                 gitRevisionPlugin.commithash(),
                 new Date().toUTCString(),
               ].join(' '),
-              entryOnly: true
+              entryOnly: true,
+              exclude: /css$/
             }])
-            .end()
-          .module
-            .rule('scss')
-              .oneOf('normal')
-                .use('extract-css-loader')
-                  .tap(options => ({...options,  publicPath: ''}))
-                  .end()
-                .end()
-              .end()
             .end()
       })
       .when(isDevelopment, config => {
@@ -130,8 +121,8 @@ module.exports = {
       })
 
     config
-      .performance
-        .hints(false)
+      .plugins
+        .delete('prefetch-checkout')
         .end()
       .entryPoints
         .delete('app')
@@ -143,40 +134,6 @@ module.exports = {
         .rule('scss')
           .oneOf('vue').use('postcss-loader').tap(addF).end().end()
           .oneOf('normal').use('postcss-loader').tap(addF).end().end()
-          .oneOf('no-extract')
-            .resourceQuery(/\?no-extract/)
-            .use('vue-style-loader')
-              .loader('vue-style-loader')
-              .options({
-                sourceMap: false,
-                shadowMode: false
-              })
-              .end()
-            .use('css-loader')
-              .loader('css-loader')
-              .options({
-                sourceMap: false,
-                importLoaders: 2
-              })
-              .end()
-            .use('postcss-loader')
-              .loader('postcss-loader')
-              .options({
-                sourceMap: false
-              })
-              .tap(addF)
-              .end()
-            .use('sass-loader')
-              .loader('sass-loader')
-              .options({
-                sourceMap: false
-              })
-              .end()
-            .end()
-            .oneOfs
-              .delete('normal') // TODO https://github.com/neutrinojs/webpack-chain/issues/119
-              .set('normal', normalRule)
-              .end()
           .end()
         .rule('images')
           .use('url-loader')
