@@ -48,6 +48,7 @@ module.exports = {
       .when(isProduction, config => {
         config
           .optimization
+            .splitChunks(false)
             .minimizer('terser')
               .tap(([options]) => {
                 let terserOptions = options.terserOptions
