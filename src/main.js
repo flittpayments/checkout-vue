@@ -54,7 +54,7 @@ const install = function (Vue) {
     )
 
     instance[el] = new Vue({
-      router,
+      router: router(el),
       i18n,
       store: instanceStore,
       components: { Checkout },
