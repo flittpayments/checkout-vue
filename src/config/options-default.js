@@ -82,6 +82,7 @@ const config = {
   css_variable: {},
 
   // not config
+  css_class: {},
   error: {
     show: false,
     code: '',
