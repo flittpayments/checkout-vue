@@ -13,6 +13,7 @@ const BRANCH = gitRevisionPlugin.branch()
 const ENVIRONMENT = process.env.NODE_ENV
 const DSN = argv['sentry-dsn']
 const DOMAIN = ((publicPath || '').match(/https?:\/\/([\w.]+)/) || [])[1]
+const CDN = ''
 const isProduction = ENVIRONMENT === 'production'
 const isDevelopment = ENVIRONMENT === 'development'
 
@@ -189,6 +190,7 @@ module.exports = {
           ENVIRONMENT,
           DSN,
           DOMAIN,
+          CDN,
         })])
         .end()
   }

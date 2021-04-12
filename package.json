@@ -60,6 +60,15 @@
     "webpack-bundle-analyzer": "^4.4.0"
   },
   "eslintConfig": {
+    "globals": {
+      "VERSION": "readonly",
+      "COMMITHASH": "readonly",
+      "BRANCH": "readonly",
+      "ENVIRONMENT": "readonly",
+      "DSN": "readonly",
+      "DOMAIN": "readonly",
+      "CDN": "readonly"
+    },
     "root": true,
     "env": {
       "node": true

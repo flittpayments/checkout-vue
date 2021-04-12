@@ -1,6 +1,5 @@
 import configFavicon from '@/config/favicon'
 import { setAttr } from '@/utils/dom'
-import { cdn } from '@/config/config'
 
 export default function () {
   let fragment = document.createDocumentFragment()
