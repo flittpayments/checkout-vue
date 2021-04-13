@@ -67,7 +67,13 @@ const install = function (Vue) {
           return this
         },
         location(method, system) {
-          this.store.location(method, system)
+          if (system) {
+            this.$router
+              .push({ name: 'system', params: { method, system } })
+              .catch(() => {})
+          } else {
+            this.$router.push({ name: method }).catch(() => {})
+          }
           return this
         },
         setParams(params) {
