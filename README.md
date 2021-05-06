@@ -148,10 +148,13 @@ app.submit()
 app.location({method}, {system})
 
 app.setParams({params})
-
-app.$destroy()
 ```
-full_screen: true - add css
+
+### Destroy app
+```
+app.$destroy()
+app.$el.remove()
+```
 
 ## Use validate
 
