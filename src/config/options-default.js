@@ -21,7 +21,7 @@ const config = {
     link: '',
     locales,
     customer_fields: [],
-    active_tab: 'card',
+    active_tab: '',
     logo_url: '',
     offerta_url: '',
     button: true,
