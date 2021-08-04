@@ -8,22 +8,16 @@ html {
   .modal {
     width: 100%;
     max-width: 590px;
-    &-header {
-      height: 0;
-    }
-    &-close {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-    &-title {
-      display: none;
-    }
-    &-content {
-      min-height: 600px;
-    }
-    &-iframe {
-      height: 600px;
-    }
+  }
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .modal-content {
+    min-height: 600px;
+  }
+  .modal-iframe {
+    height: 600px;
   }
 }
