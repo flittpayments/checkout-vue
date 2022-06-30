@@ -439,7 +439,17 @@
             css_variable: {
               main: '#080043',
             }
-          }
+          },
+          crypto: {
+            options: {
+              methods: ['crypto'],
+            },
+            params: {
+              currency: 'EUR',
+              merchant_id: 1605472,
+              amount: 100,
+            },
+          },
         }
 
         window.app = render('#app', 'max')
