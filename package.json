@@ -18,6 +18,7 @@
     "async-validator": "^3.5.2",
     "axios": "^0.21.4",
     "core-js": "^3.23.3",
+    "countries-languages": "github:arash16/countries-languages",
     "css-vars-ponyfill": "^2.4.7",
     "date-format-parse": "^0.2.7",
     "ismobilejs": "^1.1.1",
