@@ -38,6 +38,7 @@ const install = function (Vue) {
       'https://' +
       (optionsUser.options?.api_domain ||
         optionsUser.options?.apiDomain ||
+        optionsUser.button?.host ||
         optionsDefault.options.api_domain)
     let endpoint =
       optionsUser.options?.endpoint || optionsDefault.options.endpoint

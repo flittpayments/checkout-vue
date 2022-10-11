@@ -137,7 +137,7 @@
                 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
               theme: {
                 type: 'dark',
-                preset: 'euphoric_pink'
+                preset: 'euphoric_pink',
               },
               show_menu_first: false,
               // disable_request: true,
@@ -185,7 +185,7 @@
                   'Благотворительная помощь (ребенку или отделению гематологии, или отделению плановой хирургии с онкологическими койками днепропетровской областной детской клинической больницы)',
               },
               en: {
-                banklinks_eu:'asdasd',
+                banklinks_eu: 'asdasd',
                 UAH: 'гривна',
                 // card_number: 'edit Card number',
                 // card_number_p: 'Card number',
@@ -205,7 +205,7 @@
             },
             validate: {
               en: {
-                ccard: function(field) {
+                ccard: function (field) {
                   return (
                     'edit Поле ' +
                     field +
@@ -214,7 +214,7 @@
                 },
               },
               ru: {
-                ccard: function(field) {
+                ccard: function (field) {
                   return (
                     'edit Поле ' +
                     field +
@@ -223,7 +223,7 @@
                 },
               },
               uk: {
-                ccard: function(field) {
+                ccard: function (field) {
                   return (
                     'edit Поле ' + field + ' має бути дійсним номером карти'
                   )
@@ -272,7 +272,7 @@
               email: 'test@test.test',
               verification_type: 'code',
               verification: 'y',
-              order_desc:'order_desc'
+              order_desc: 'order_desc',
             },
           },
           rectoken1: {
@@ -296,7 +296,7 @@
               // currency: 'UAH',
               // merchant_id: 1396424,
               email: 'test@test.test',
-              token: '83435a7289e11563e36b5e43cb80a088d4863ca4'
+              token: '83435a7289e11563e36b5e43cb80a088d4863ca4',
             },
           },
           banklinks_eu: {
@@ -403,7 +403,8 @@
               currency: 'EUR',
               merchant_id: 900238,
               amount: 500,
-              order_desc: 'Charitable assistance (to a child or a department of hematology, or to a department of planned surgery with oncological beds of the Dnipropetrovsk regional children\'s clinical hospital)',
+              order_desc:
+                "Charitable assistance (to a child or a department of hematology, or to a department of planned surgery with oncological beds of the Dnipropetrovsk regional children's clinical hospital)",
               recurring_data: {
                 every: 2,
                 period: 'week',
@@ -431,15 +432,15 @@
           preset: {
             options: {
               theme: {
-                preset: 'reset'
+                preset: 'reset',
               },
             },
             params: {
-              token: 'd1a9c7d64110c34e3d204a043398d785ab7a8d6c'
+              token: 'd1a9c7d64110c34e3d204a043398d785ab7a8d6c',
             },
             css_variable: {
               main: '#080043',
-            }
+            },
           },
           crypto: {
             options: {
@@ -466,29 +467,66 @@
               amount: 100,
             },
           },
+          button: {
+            button: {
+              id: 22633,
+              host: '',
+              lang: 'uk',
+              name: 'savelife.in.ua',
+              token: 'db4d9835dbd2c4a1023e3f3b8d758b7ad9bda8c5',
+              params: {
+                order_desc: 'Благодійний внесок',
+              },
+              fields: {
+                'id-2jN9zj3lcl': {
+                  label: 'Public offer',
+                  name: 'id-2jN9zj3lcl',
+                  p: 1,
+                  readonly: true,
+                  value: 'https://www.chernobyl-tour.com/public_offer_en.html',
+                },
+                'id-O1QwvxODoL': {
+                  value: 'asd',
+                  label:
+                    '\u041d\u043e\u043c\u0435\u0440 \u0437\u0430\u044f\u0432\u043a\u0438/Order number',
+                  name: 'id-O1QwvxODoL',
+                  p: 0,
+                  placeholder:
+                    '\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0432\u043d\u0435\u0441\u0438\u0442\u0435 \u043d\u043e\u043c\u0435\u0440 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u043f\u043e\u0435\u0437\u0434\u043a\u0443.',
+                },
+              },
+              currency: 'UAH',
+              currencies: [],
+              protocol: 'https',
+              button_type: 'purchase',
+              merchant_id: 1601840,
+            },
+          },
         }
 
         window.app = render('#app', 'max')
         // render('#app2', 'min')
         // render('#app3', 'max2')
 
-        document.querySelector('.submit').addEventListener('click', function() {
-          app.submit()
-          //  this.disabled = app.errors.items.length
-        })
+        document
+          .querySelector('.submit')
+          .addEventListener('click', function () {
+            app.submit()
+            //  this.disabled = app.errors.items.length
+          })
         document
           .querySelector('.go-card')
-          .addEventListener('click', function() {
+          .addEventListener('click', function () {
             app.location('card')
           })
         document
           .querySelector('.go-sepa')
-          .addEventListener('click', function() {
+          .addEventListener('click', function () {
             app.location('sepa')
           })
         document
           .querySelector('.set-params')
-          .addEventListener('click', function() {
+          .addEventListener('click', function () {
             app.setParams({
               order_desc: 'my_desc2',
               amount: 500,
@@ -501,27 +539,29 @@
             })
           })
 
-        document.querySelector('.render').addEventListener('click', function() {
-          render()
-        })
+        document
+          .querySelector('.render')
+          .addEventListener('click', function () {
+            render()
+          })
 
         function render(el, type) {
           return (app = checkout(
             el || '#app',
             options[type || document.querySelector('.options').value]
           )
-            .$on('success', function(model) {
+            .$on('success', function (model) {
               console.log('success', model)
             })
-            .$on('error', function(model) {
+            .$on('error', function (model) {
               console.log('error', model)
             })
-            .$on('ready', function(model) {
+            .$on('ready', function (model) {
               console.log('ready', model)
             }))
-            // .$on('callback', function(model) {
-            //   console.log('callback', model);
-            // })
+          // .$on('callback', function(model) {
+          //   console.log('callback', model);
+          // })
         }
     </script>
   </body>
