@@ -562,65 +562,65 @@
           },
         }
 
-        window.app = render('#app', 'max')
-        // render('#app2', 'min')
-        // render('#app3', 'max2')
+      window.app = render('#app', 'max')
+      // render('#app2', 'min')
+      // render('#app3', 'max2')
 
-        document
-          .querySelector('.submit')
-          .addEventListener('click', function () {
-            app.submit()
-            //  this.disabled = app.errors.items.length
+      document
+        .querySelector('.submit')
+        .addEventListener('click', function () {
+          app.submit()
+          //  this.disabled = app.errors.items.length
+        })
+      document
+        .querySelector('.go-card')
+        .addEventListener('click', function () {
+          app.location('card')
+        })
+      document
+        .querySelector('.go-sepa')
+        .addEventListener('click', function () {
+          app.location('sepa')
+        })
+      document
+        .querySelector('.set-params')
+        .addEventListener('click', function () {
+          app.setParams({
+            order_desc: 'my_desc2',
+            amount: 500,
+            currency: 'UAH',
+            recurring_data: {
+              every: 3,
+              period: 'week',
+              amount: 200,
+            },
           })
-        document
-          .querySelector('.go-card')
-          .addEventListener('click', function () {
-            app.location('card')
-          })
-        document
-          .querySelector('.go-sepa')
-          .addEventListener('click', function () {
-            app.location('sepa')
-          })
-        document
-          .querySelector('.set-params')
-          .addEventListener('click', function () {
-            app.setParams({
-              order_desc: 'my_desc2',
-              amount: 500,
-              currency: 'UAH',
-              recurring_data: {
-                every: 3,
-                period: 'week',
-                amount: 200,
-              },
-            })
-          })
+        })
 
-        document
-          .querySelector('.render')
-          .addEventListener('click', function () {
-            render()
-          })
+      document
+        .querySelector('.render')
+        .addEventListener('click', function () {
+          render()
+        })
 
-        function render(el, type) {
-          return (app = checkout(
-            el || '#app',
-            options[type || document.querySelector('.options').value]
-          )
-            .$on('success', function (model) {
-              console.log('success', model)
-            })
-            .$on('error', function (model) {
-              console.log('error', model)
-            })
-            .$on('ready', function (model) {
-              console.log('ready', model)
-            }))
-          // .$on('callback', function(model) {
-          //   console.log('callback', model);
-          // })
-        }
+      function render(el, type) {
+        return (app = checkout(
+          el || '#app',
+          options[type || document.querySelector('.options').value]
+        )
+          .$on('success', function (model) {
+            console.log('success', model)
+          })
+          .$on('error', function (model) {
+            console.log('error', model)
+          })
+          .$on('ready', function (model) {
+            console.log('ready', model)
+          }))
+        // .$on('callback', function(model) {
+        //   console.log('callback', model);
+        // })
+      }
     </script>
   </body>
 </html>

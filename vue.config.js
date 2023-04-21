@@ -1,5 +1,6 @@
 const webpack = require('webpack')
-const GitRevisionPlugin = require('git-revision-webpack-plugin')
+const { defineConfig } = require('@vue/cli-service')
+const { GitRevisionPlugin } = require('git-revision-webpack-plugin')
 const gitRevisionPlugin = new GitRevisionPlugin()
 const increaseSpecificity = require('./build/postcss-increase-specificity')
 const autoprefixer = require('autoprefixer')
@@ -18,11 +19,15 @@ const isProduction = ENVIRONMENT === 'production'
 const isDevelopment = ENVIRONMENT === 'development'
 
 function addF (options) {
-  options.plugins = () => [
-    increaseSpecificity({ repeat: 1, stackableRoot: '#f', overrideIds: false }),
-    autoprefixer(),
-  ]
-  return options
+  return {
+    ...options,
+    postcssOptions: {
+      plugins: [
+        increaseSpecificity({ repeat: 1, stackableRoot: '#f', overrideIds: false }),
+        autoprefixer(),
+      ]
+    }
+  }
 }
 
 function stringify(obj) {
@@ -31,12 +36,13 @@ function stringify(obj) {
   )
 }
 
-module.exports = {
+module.exports = defineConfig({
   pages: {
     checkout: {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
+      scriptLoading: 'blocking',
       inject: 'head',
       minify: {
         collapseWhitespace: false, // true
@@ -45,19 +51,11 @@ module.exports = {
       },
     },
   },
-  devServer: {
-    overlay: {
-      warnings: true,
-      errors: true
-    }
-  },
-  lintOnSave: isDevelopment,
   runtimeCompiler: true,
   productionSourceMap: false,
   publicPath: isProduction
     ? publicPath
     : '/',
-  pluginOptions: {},
   css: {
     loaderOptions: {
       scss: {
@@ -68,6 +66,14 @@ module.exports = {
           '@import \'~@/scss/core/mixins/index\';',
         ].join('')
       },
+      // postcss: {
+      //   postcssOptions: {
+      //     plugins: [
+      //       increaseSpecificity({ repeat: 1, stackableRoot: '#f', overrideIds: false }),
+      //       autoprefixer(),
+      //     ],
+      //   },
+      // },
     }
   },
   chainWebpack: config => {
@@ -131,19 +137,18 @@ module.exports = {
       })
       .when(isDevelopment, config => {
         config
-          .module
-            .rule('eslint')
-              .use('eslint-loader')
-                .tap(options => {
-                  options.fix = true
-                  return options
-                })
-                .end()
-              .end()
+          .plugin('eslint')
+            .tap(([options]) => [
+              {
+                ...options,
+                fix: true,
+              },
+            ])
             .end()
           .plugin('stylelint')
             .use('stylelint-webpack-plugin',[{
-              files: 'src/**/*.scss'
+              files: 'src/**/*.scss',
+              fix: true,
             }])
             .end()
           .plugin('circular-dependency-plugin')
@@ -153,8 +158,6 @@ module.exports = {
             }])
             .end()
       })
-
-    config
       .plugins
         .delete('prefetch-checkout')
         .end()
@@ -169,14 +172,15 @@ module.exports = {
           .oneOf('vue').use('postcss-loader').tap(addF).end().end()
           .oneOf('normal').use('postcss-loader').tap(addF).end().end()
           .end()
+        .rules.delete('svg').end()
         .rule('svg')
-          .uses.clear()
-            .end()
+          .test(/\.(svg)(\?.*)?$/)
           .use('vue-loader')
             .loader('vue-loader')
             .end()
           .use('vue-svg-loader')
             .loader('vue-svg-loader')
+            .options({ svgo: { plugins: [{ cleanupIDs: false }] } })
             .end()
           .end()
         .end()
@@ -192,4 +196,4 @@ module.exports = {
         })])
         .end()
   }
-}
+})
