@@ -88,479 +88,494 @@
     </script>
 
     <script>
-        var options = {
-          max: {
-            options: {
-              methods: ['card', 'banklinks_eu'],
-              card_icons: [
-                'mastercard',
-                'visa',
-                'mir',
-                'prostir',
-                'diners',
-                'american_express',
-                'jcb',
-                'maestro',
-                'union_pay',
-              ],
-              banklinks_eu_icons: [
-                'bank_of_ireland',
-                'danske_bank',
-                'lloyds',
-                'mizuho',
-                'monzo',
-                'nationwide',
-                'rbs',
-                'revolut',
-                'sofort',
-                'starling',
-              ],
-              local_methods_icons: [
-                'lloyds',
-                'mizuho',
-                'monzo',
-                'nationwide',
-                'rbs',
-                'revolut',
-                'sofort',
-                'starling',
-              ],
-              // fields: true,
-              title: 'my_title',
-              link: 'https://site.com',
-              button: true,
-              // cancel: true,
-              email: true,
-              active_tab: 'card',
-              // logoUrl: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              offerta_url:
-                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              theme: {
-                type: 'dark',
-                preset: 'euphoric_pink',
-              },
-              show_menu_first: false,
-              // disable_request: true,
-              // show_button_amount: false,
-              subscription: {
-                type: 'shown_edit_on',
-              },
-              // countries: ['PL'],
+      var options = {
+        max: {
+          options: {
+            methods: ['card', 'banklinks_eu'],
+            card_icons: [
+              'mastercard',
+              'visa',
+              'mir',
+              'prostir',
+              'diners',
+              'american_express',
+              'jcb',
+              'maestro',
+              'union_pay',
+            ],
+            banklinks_eu_icons: [
+              'bank_of_ireland',
+              'danske_bank',
+              'lloyds',
+              'mizuho',
+              'monzo',
+              'nationwide',
+              'rbs',
+              'revolut',
+              'sofort',
+              'starling',
+            ],
+            local_methods_icons: [
+              'lloyds',
+              'mizuho',
+              'monzo',
+              'nationwide',
+              'rbs',
+              'revolut',
+              'sofort',
+              'starling',
+            ],
+            // fields: true,
+            title: 'my_title',
+            button: true,
+            // cancel: true,
+            email: true,
+            active_tab: 'card',
+            // logoUrl: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+            theme: {
+              type: 'dark',
+              preset: 'euphoric_pink',
             },
-            params: {
-              currency: 'EUR',
-              merchant_id: 1601211,
-              amount: 50400,
-              // merchant_id: 900187,
-              //    verification_type: 'code',
-              //    required_rectoken: 'y',
-              //    verification: 'y',
-              // currency: 'AZN',
-              //    amount: 500,
-              order_desc: 'my_desc',
-              //     token: '6e758ad35a2a03d6fbcc3b9b4da684b397f80e0a',
-              // lang: 'ru',
-              recurring_data: {
-                every: 2,
-                period: 'week',
-                amount: 100,
-                end_time: '2020-11-14',
-                start_time: '2019-11-11',
-              },
-              custom: {
-                field_11: 'field_11_json_value',
-                my_email: 'asd@asd.asd',
-                field_5: 'asd123asd',
-              },
+            show_menu_first: false,
+            // disable_request: true,
+            // show_button_amount: false,
+            subscription: {
+              type: 'shown_edit_on',
             },
-            messages: {
-              ru: {
-                field_11: 'field_11_ru',
-                field_5: 'Номер договора',
-                // card_number: 'edit Номер карты',
-                my_amount: 'Сума к оплате',
-                my_email: 'Эл. адрес',
-                my_title: 'Назначение платежа',
-                my_desc:
-                  'Благотворительная помощь (ребенку или отделению гематологии, или отделению плановой хирургии с онкологическими койками днепропетровской областной детской клинической больницы)',
-              },
-              en: {
-                banklinks_eu: 'asdasd',
-                UAH: 'гривна',
-                // card_number: 'edit Card number',
-                // card_number_p: 'Card number',
-                my_amount: 'Sum to pay',
-                my_email: 'Email',
-                my_title: 'Purpose of payment',
-                my_desc:
-                  "Charitable assistance (to a child or a department of hematology, or to a department of planned surgery with oncological beds of the Dnipropetrovsk regional children's clinical hospital)",
-              },
-              uk: {
-                my_amount: 'Сума до оплати',
-                my_email: 'електронна пошта',
-                my_title: 'Назначення платежа',
-                my_desc:
-                  'Благодійна допомога (дитині або відділенню гематології, або відділенню планової хірургії з онкологічними ліжками дніпропетровської обласної дитячої клінічної лікарні)',
-              },
-            },
-            validate: {
-              en: {
-                ccard: function (field) {
-                  return (
-                    'edit Поле ' +
-                    field +
-                    ' должно быть действительным номером карты'
-                  )
-                },
-              },
-              ru: {
-                ccard: function (field) {
-                  return (
-                    'edit Поле ' +
-                    field +
-                    ' должно быть действительным номером карты'
-                  )
-                },
-              },
-              uk: {
-                ccard: function (field) {
-                  return (
-                    'edit Поле ' + field + ' має бути дійсним номером карти'
-                  )
-                },
-              },
-            },
+            // countries: ['PL'],
           },
-          max2: {
-            options: {
-              methods: ['card', 'banklinks_eu'],
-              full_screen: false,
-            },
-            params: {
-              currency: 'EUR',
-              merchant_id: 900158,
-              amount: 50400,
-            },
-          },
-          min: {
-            options: {
-              full_screen: false,
-              //    fee: true,
-              offerta_url:
-                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-            },
-            params: {
-              amount: 200,
-              currency: 'AZN',
-              //    merchant_id: 1396424,
-              merchant_id: 900187,
-              //    lang: 'ru',
-              order_desc: 'order_desc',
-              //    verification_type: 'code',
-              //    required_rectoken: 'y',
-              //    verification: 'y',
-              //     token: 'ca6be498656fb173d9219b5427828edb69b36542'
-            },
-          },
-          verification: {
-            options: {
-            },
-            params: {
-              amount: 200,
-              currency: 'UAH',
-              merchant_id: 900001,
-              email: 'test@test.test',
-              verification_type: 'code',
-              verification: 'y',
-              order_desc: 'order_desc',
-            },
-          },
-          rectoken1: {
-            options: {
-              full_screen: false,
-            },
-            params: {
-              amount: 200,
-              currency: 'UAH',
-              merchant_id: 1396424,
-              email: 'test@test.test',
-              required_rectoken: 'y',
-            },
-          },
-          rectoken2: {
-            options: {
-              full_screen: false,
-            },
-            params: {
-              // amount: 200,
-              // currency: 'UAH',
-              // merchant_id: 1396424,
-              email: 'test@test.test',
-              token: '83435a7289e11563e36b5e43cb80a088d4863ca4',
-            },
-          },
-          banklinks_eu: {
-            options: {
-              methods: ['banklinks_eu'],
-              active_tab: 'banklinks_eu',
-              default_country: 'PL',
-              // countries: ['PL'],
-              show_menu_first: false,
-            },
-            params: {
+          params: {
+            currency: 'EUR',
+            merchant_id: 1601211,
+            amount: 50400,
+            // merchant_id: 900187,
+            //    verification_type: 'code',
+            //    required_rectoken: 'y',
+            //    verification: 'y',
+            // currency: 'AZN',
+            //    amount: 500,
+            order_desc: 'my_desc',
+            //     token: '6e758ad35a2a03d6fbcc3b9b4da684b397f80e0a',
+            // lang: 'ru',
+            recurring_data: {
+              every: 2,
+              period: 'week',
               amount: 100,
-              currency: 'EUR',
-              merchant_id: 900158,
-              order_desc: 'order_desc',
+              end_time: '2020-11-14',
+              start_time: '2019-11-11',
+            },
+            custom: {
+              field_11: 'field_11_json_value',
+              my_email: 'asd@asd.asd',
+              field_5: 'asd123asd',
             },
           },
-          local_methods: {
-            options: {
-              methods: ['local_methods'],
-              active_tab: 'local_methods',
-              // default_country: 'FI',
-              // countries: ['PL'],
-              show_menu_first: false,
-              local_methods_icons: [
-                'bank_of_ireland',
-                'danske_bank',
-                'lloyds',
-                'mizuho',
-                'monzo',
-                'nationwide',
-                'rbs',
-                'revolut',
-                'sofort',
-                'starling',
-              ],
+          messages: {
+            ru: {
+              field_11: 'field_11_ru',
+              field_5: 'Номер договора',
+              // card_number: 'edit Номер карты',
+              my_amount: 'Сума к оплате',
+              my_email: 'Эл. адрес',
+              my_title: 'Назначение платежа',
+              my_desc:
+                'Благотворительная помощь (ребенку или отделению гематологии, или отделению плановой хирургии с онкологическими койками днепропетровской областной детской клинической больницы)',
             },
-            params: {
-              amount: 100,
-              currency: 'EUR',
-              merchant_id: 900238,
-            },
-          },
-          token: {
-            options: {
-              full_screen: false,
-            },
-            params: {
-              // currency: 'EUR',
-              // merchant_id: 900001,
-              token: 'd198fdadc5545c42516896ebda8e016488ffe298',
-              order_desc: 'order_desc',
-            },
-          },
-          wallet: {
-            options: {
-            },
-            params: {
-              currency: 'USD',
-              merchant_id: 900234,
-              amount: 500,
-              order_desc: 'order_desc',
-              // token: 'ed22d79ca470542e65958e877ddfcc11ad682f0b'
-            },
-          },
-          dark: {
-            options: {
-              methods: ['card', 'banklinks_eu'],
-              card_icons: [
-                'mastercard',
-                'visa',
-                'mir',
-                'prostir',
-                'diners',
-                'american_express',
-                'jcb',
-                'maestro',
-                'union_pay',
-              ],
-              banklinks_eu_icons: [
-                'bank_of_ireland',
-                'danske_bank',
-                'lloyds',
-                'mizuho',
-                'monzo',
-                'nationwide',
-                'rbs',
-                'revolut',
-                'sofort',
-                'starling',
-              ],
-              fields: true,
-              email: true,
-              logo_url:
-                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              offerta_url:
-                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              theme: {
-                type: 'dark',
-                preset: 'euphoric_pink',
-              },
-            },
-            params: {
-              currency: 'EUR',
-              merchant_id: 900238,
-              amount: 500,
-              order_desc:
+            en: {
+              banklinks_eu: 'asdasd',
+              UAH: 'гривна',
+              // card_number: 'edit Card number',
+              // card_number_p: 'Card number',
+              my_amount: 'Sum to pay',
+              my_email: 'Email',
+              my_title: 'Purpose of payment',
+              my_desc:
                 "Charitable assistance (to a child or a department of hematology, or to a department of planned surgery with oncological beds of the Dnipropetrovsk regional children's clinical hospital)",
-              recurring_data: {
-                every: 2,
-                period: 'week',
-                amount: 100,
-                end_time: '2020-11-14',
-                start_time: '2019-11-11',
+            },
+            uk: {
+              my_amount: 'Сума до оплати',
+              my_email: 'електронна пошта',
+              my_title: 'Назначення платежа',
+              my_desc:
+                'Благодійна допомога (дитині або відділенню гематології, або відділенню планової хірургії з онкологічними ліжками дніпропетровської обласної дитячої клінічної лікарні)',
+            },
+          },
+          validate: {
+            en: {
+              ccard: function (field) {
+                return (
+                  'edit Поле ' +
+                  field +
+                  ' должно быть действительным номером карты'
+                )
+              },
+            },
+            ru: {
+              ccard: function (field) {
+                return (
+                  'edit Поле ' +
+                  field +
+                  ' должно быть действительным номером карты'
+                )
+              },
+            },
+            uk: {
+              ccard: function (field) {
+                return (
+                  'edit Поле ' + field + ' має бути дійсним номером карти'
+                )
               },
             },
           },
-          receipt: {
-            options: {
-              methods: ['card', 'receipt', 'sepa'],
-              offerta_url:
-                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
-              active_tab: 'card',
-              show_menu_first: false,
-            },
-            params: {
-              currency: 'UAH',
-              merchant_id: 900231,
-              amount: 500,
-              order_desc: 'order_desc',
+        },
+        max2: {
+          options: {
+            methods: ['card', 'banklinks_eu'],
+            full_screen: false,
+          },
+          params: {
+            currency: 'EUR',
+            merchant_id: 900158,
+            amount: 50400,
+          },
+        },
+        min: {
+          options: {
+            full_screen: false,
+            //    fee: true,
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+          },
+          params: {
+            amount: 200,
+            currency: 'AZN',
+            //    merchant_id: 1396424,
+            merchant_id: 900187,
+            //    lang: 'ru',
+            order_desc: 'order_desc',
+            //    verification_type: 'code',
+            //    required_rectoken: 'y',
+            //    verification: 'y',
+            //     token: 'ca6be498656fb173d9219b5427828edb69b36542'
+          },
+        },
+        verification: {
+          options: {
+          },
+          params: {
+            amount: 200,
+            currency: 'UAH',
+            merchant_id: 900001,
+            email: 'test@test.test',
+            verification_type: 'code',
+            verification: 'y',
+            order_desc: 'order_desc',
+          },
+        },
+        rectoken1: {
+          options: {
+            full_screen: false,
+          },
+          params: {
+            amount: 200,
+            currency: 'UAH',
+            merchant_id: 1396424,
+            email: 'test@test.test',
+            required_rectoken: 'y',
+          },
+        },
+        rectoken2: {
+          options: {
+            full_screen: false,
+          },
+          params: {
+            // amount: 200,
+            // currency: 'UAH',
+            // merchant_id: 1396424,
+            email: 'test@test.test',
+            token: '83435a7289e11563e36b5e43cb80a088d4863ca4',
+          },
+        },
+        banklinks_eu: {
+          options: {
+            methods: ['banklinks_eu'],
+            active_tab: 'banklinks_eu',
+            default_country: 'PL',
+            // countries: ['PL'],
+            show_menu_first: false,
+          },
+          params: {
+            amount: 100,
+            currency: 'EUR',
+            merchant_id: 900158,
+            order_desc: 'order_desc',
+          },
+        },
+        local_methods: {
+          options: {
+            methods: ['local_methods'],
+            active_tab: 'local_methods',
+            // default_country: 'FI',
+            // countries: ['PL'],
+            show_menu_first: false,
+            local_methods_icons: [
+              'bank_of_ireland',
+              'danske_bank',
+              'lloyds',
+              'mizuho',
+              'monzo',
+              'nationwide',
+              'rbs',
+              'revolut',
+              'sofort',
+              'starling',
+            ],
+          },
+          params: {
+            amount: 100,
+            currency: 'EUR',
+            merchant_id: 900238,
+          },
+        },
+        token: {
+          options: {
+          },
+          params: {
+            // currency: 'EUR',
+            // merchant_id: 900001,
+            token: 'd198fdadc5545c42516896ebda8e016488ffe298',
+            order_desc: 'order_desc',
+          },
+        },
+        wallet: {
+          options: {
+          },
+          params: {
+            currency: 'USD',
+            merchant_id: 900234,
+            amount: 500,
+            order_desc: 'order_desc',
+            // token: 'ed22d79ca470542e65958e877ddfcc11ad682f0b'
+          },
+        },
+        dark: {
+          options: {
+            methods: ['card', 'banklinks_eu'],
+            card_icons: [
+              'mastercard',
+              'visa',
+              'mir',
+              'prostir',
+              'diners',
+              'american_express',
+              'jcb',
+              'maestro',
+              'union_pay',
+            ],
+            banklinks_eu_icons: [
+              'bank_of_ireland',
+              'danske_bank',
+              'lloyds',
+              'mizuho',
+              'monzo',
+              'nationwide',
+              'rbs',
+              'revolut',
+              'sofort',
+              'starling',
+            ],
+            fields: true,
+            email: true,
+            logo_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+            theme: {
+              type: 'dark',
+              preset: 'euphoric_pink',
             },
           },
-          preset: {
-            options: {
-              theme: {
-                preset: 'reset',
-              },
-            },
-            params: {
-              token: 'd1a9c7d64110c34e3d204a043398d785ab7a8d6c',
-            },
-            css_variable: {
-              main: '#080043',
-            },
-          },
-          crypto: {
-            options: {
-              methods: ['crypto'],
-            },
-            params: {
-              currency: 'EUR',
-              merchant_id: 1605472,
+          params: {
+            currency: 'EUR',
+            merchant_id: 900238,
+            amount: 500,
+            order_desc:
+              "Charitable assistance (to a child or a department of hematology, or to a department of planned surgery with oncological beds of the Dnipropetrovsk regional children's clinical hospital)",
+            recurring_data: {
+              every: 2,
+              period: 'week',
               amount: 100,
+              end_time: '2020-11-14',
+              start_time: '2019-11-11',
             },
           },
-          most_popular: {
-            options: {
-              theme: {
-                type: 'dark',
-                preset: 'euphoric_pink'
-              },
-              methods: ['most_popular'],
-              active_tab: 'most_popular',
-            },
-            params: {
-              currency: 'EUR',
-              merchant_id: 900158,
-              amount: 100,
+        },
+        receipt: {
+          options: {
+            methods: ['card', 'receipt', 'sepa'],
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+            active_tab: 'card',
+            show_menu_first: false,
+          },
+          params: {
+            currency: 'UAH',
+            merchant_id: 900231,
+            amount: 500,
+            order_desc: 'order_desc',
+          },
+        },
+        preset: {
+          options: {
+            theme: {
+              preset: 'reset',
             },
           },
+          params: {
+            token: 'd1a9c7d64110c34e3d204a043398d785ab7a8d6c',
+          },
+          css_variable: {
+            main: '#080043',
+          },
+        },
+        crypto: {
+          options: {
+            methods: ['crypto'],
+          },
+          params: {
+            currency: 'EUR',
+            merchant_id: 1605472,
+            amount: 100,
+          },
+        },
+        most_popular: {
+          options: {
+            theme: {
+              type: 'dark',
+              preset: 'euphoric_pink'
+            },
+            methods: ['most_popular'],
+            active_tab: 'most_popular',
+          },
+          params: {
+            currency: 'EUR',
+            merchant_id: 900158,
+            amount: 100,
+          },
+        },
+        button: {
           button: {
-            button: {
-              id: 22633,
-              host: '',
-              lang: 'uk',
-              name: 'savelife.in.ua',
-              token: 'db4d9835dbd2c4a1023e3f3b8d758b7ad9bda8c5',
-              params: {
-                order_desc: 'Благодійний внесок',
+            id: 22633,
+            host: '',
+            lang: 'uk',
+            name: 'savelife.in.ua',
+            token: 'db4d9835dbd2c4a1023e3f3b8d758b7ad9bda8c5',
+            params: {
+              order_desc: 'Благодійний внесок',
+            },
+            fields: {
+              'id-2jN9zj3lcl': {
+                label: 'Public offer',
+                name: 'id-2jN9zj3lcl',
+                p: 1,
+                readonly: true,
+                value: 'https://www.chernobyl-tour.com/public_offer_en.html',
               },
-              fields: {
-                'id-2jN9zj3lcl': {
-                  label: 'Public offer',
-                  name: 'id-2jN9zj3lcl',
-                  p: 1,
-                  readonly: true,
-                  value: 'https://www.chernobyl-tour.com/public_offer_en.html',
-                },
-                'id-O1QwvxODoL': {
-                  value: 'asd',
-                  label:
-                    '\u041d\u043e\u043c\u0435\u0440 \u0437\u0430\u044f\u0432\u043a\u0438/Order number',
-                  name: 'id-O1QwvxODoL',
-                  p: 0,
-                  placeholder:
-                    '\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0432\u043d\u0435\u0441\u0438\u0442\u0435 \u043d\u043e\u043c\u0435\u0440 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u043f\u043e\u0435\u0437\u0434\u043a\u0443.',
-                },
+              'id-O1QwvxODoL': {
+                value: 'asd',
+                label:
+                  '\u041d\u043e\u043c\u0435\u0440 \u0437\u0430\u044f\u0432\u043a\u0438/Order number',
+                name: 'id-O1QwvxODoL',
+                p: 0,
+                placeholder:
+                  '\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u0432\u043d\u0435\u0441\u0438\u0442\u0435 \u043d\u043e\u043c\u0435\u0440 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u043f\u043e\u0435\u0437\u0434\u043a\u0443.',
               },
-              currency: 'UAH',
-              currencies: [],
-              protocol: 'https',
-              button_type: 'purchase',
-              merchant_id: 1601840,
+            },
+            currency: 'UAH',
+            currencies: [],
+            protocol: 'https',
+            button_type: 'purchase',
+            merchant_id: 1601840,
+          },
+        },
+        installments: {
+          options: {
+            methods: ['installments'],
+            active_tab: 'installments',
+            theme: {
+              type: 'dark',
+              preset: 'euphoric_pink',
             },
           },
-          installments: {
-            options: {
-              methods: ['installments'],
-              active_tab: 'installments',
-              theme: {
-                type: 'dark',
-                preset: 'euphoric_pink',
-              },
-            },
-            params: {
-              // amount: 500000,
-              // currency: 'UAH',
-              // merchant_id: 5198,
-              token: '77b4d55873c090dfe74a48378c2977854d13ddac',
-            },
+          params: {
+            // amount: 500000,
+            // currency: 'UAH',
+            // merchant_id: 5198,
+            token: '77b4d55873c090dfe74a48378c2977854d13ddac',
+          },
+        },
+        fields_custom: {
+          options: {
+          },
+          params: {
+            amount: 200,
+            currency: 'UAH',
+            merchant_id: 1396424,
           },
           fields_custom: {
-            options: {
+            'id-1': {
+              name: 'id-1',
+              label: 'label1',
+              value: 'https://www.chernobyl-tour.com/public_offer_en.html',
+              readonly: true,
+              p: 1,
             },
-            params: {
-              amount: 200,
-              currency: 'UAH',
-              merchant_id: 1396424,
+            'id-2': {
+              name: 'id-2',
+              label: 'label2',
+              value: 'value2',
+              p: 2,
             },
-            fields_custom: {
-              'id-1': {
-                name: 'id-1',
-                label: 'label1',
-                value: 'https://www.chernobyl-tour.com/public_offer_en.html',
-                readonly: true,
-                p: 1,
-              },
-              'id-2': {
-                name: 'id-2',
-                label: 'label2',
-                value: 'value2',
-                p: 2,
-              },
-              'id-3': {
-                name: 'id-3',
-                label: 'label3',
-                type: 'checkbox',
-                required: true,
-                p: 3,
-              },
-            },
-            messages: {
-              ru: {
-                label3: 'label3_ru',
-              },
-              en: {
-                label3: 'label3_en',
-              },
-              uk: {
-                label3: 'label3_uk',
-              },
+            'id-3': {
+              name: 'id-3',
+              label: 'label3',
+              type: 'checkbox',
+              required: true,
+              p: 3,
             },
           },
-        }
+          messages: {
+            ru: {
+              label3: 'label3_ru',
+            },
+            en: {
+              label3: 'label3_en',
+            },
+            uk: {
+              label3: 'label3_uk',
+            },
+          },
+        },
+        installments_privat: {
+          options: {
+            methods: ['installments'],
+            active_tab: 'installments',
+            theme: {
+              type: 'dark',
+              preset: 'euphoric_pink',
+            },
+          },
+          params: {
+            order_desc: 'installments_privat',
+            amount: 500000,
+            currency: 'UAH',
+            // merchant_id: 5298,
+            merchant_id: 900332,
+          },
+        },
+      }
 
       window.app = render('#app', 'max')
       // render('#app2', 'min')
