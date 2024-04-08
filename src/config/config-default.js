@@ -129,7 +129,6 @@ export const configDefault = {
   init_wallets: false,
   vm_wallets: null,
   mode_test: false,
-  cancel_url: '',
   promo: false,
 }
 
