@@ -2,10 +2,10 @@
   "name": "checkout-vue",
   "author": "Mikhail Golubovsky <lamerumiata@gmail.com>",
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "dev": "vue-cli-service serve --saas_template_name= --saas_cdn_url= --api_domain=",
     "serve": "serve -s dist",
     "build": "npm run gulp && vue-cli-service build --no-module",
-    "build:localhost": "npm run gulp && vue-cli-service build --no-module --public-path=http://localhost:3000/",
+    "build:localhost": "npm run gulp && vue-cli-service build --no-module --public-path=http://localhost:3000/ --saas_template_name= --saas_cdn_url= --api_domain=",
     "lint": "vue-cli-service lint",
     "stylelint:fix": "stylelint src/{**/,**/**/}*.scss --custom-syntax postcss-scss --color --formatter verbose --fix",
     "eslint:fix": "eslint src/**/*.{js,vue} --fix",
@@ -73,7 +73,9 @@
       "ENVIRONMENT": "readonly",
       "DSN": "readonly",
       "DOMAIN": "readonly",
-      "CDN": "readonly"
+      "SAAS_CDN_URL": "readonly",
+      "SAAS_TEMPLATE_NAME": "readonly",
+      "API_DOMAIN": "readonly"
     },
     "root": true,
     "env": {
