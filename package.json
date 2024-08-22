@@ -2,7 +2,7 @@
   "name": "checkout-vue",
   "author": "Mikhail Golubovsky <lamerumiata@gmail.com>",
   "scripts": {
-    "dev": "vue-cli-service serve --saas_template_name= --saas_cdn_url= --api_domain= --c2p_sdk= --c2p_src_initiator_id= --c2p_srci_dpa_id=",
+    "dev": "vue-cli-service serve --saas_template_name= --saas_cdn_url= --api_domain= --c2p_sdk= --c2p_src_initiator_id=",
     "serve": "serve -s dist",
     "build": "npm run gulp && vue-cli-service build --no-module",
     "build:localhost": "npm run gulp && vue-cli-service build --no-module --public-path=http://localhost:3000/ --saas_template_name= --saas_cdn_url= --api_domain=",
@@ -78,8 +78,7 @@
       "SAAS_TEMPLATE_NAME": "readonly",
       "API_DOMAIN": "readonly",
       "C2P_SDK": "readonly",
-      "C2P_SRC_INITIATOR_ID": "readonly",
-      "C2P_SRCI_DPA_ID": "readonly"
+      "C2P_SRC_INITIATOR_ID": "readonly"
     },
     "root": true,
     "env": {
