@@ -24,7 +24,7 @@
           key="trial"
           :value="trial"
           name="trial_period"
-          :disabled="true"
+          disabled
         />
         <div v-if="showQuantity" class="f-row f-align-items-center f-quantity">
           <f-form-group
@@ -33,7 +33,7 @@
             value="∞"
             class="f-col-12 f-col-ss-7"
             name="number_of_payments"
-            :disabled="true"
+            disabled
           />
           <f-form-group
             v-else
@@ -68,7 +68,7 @@
             type="tel"
             inputmode="numeric"
             :disabled="readonly"
-            :hide-error="true"
+            hide-error
             @show-error="onShowError"
           />
           <f-form-group
@@ -79,7 +79,7 @@
             name="subscription_period"
             rules="required"
             :disabled="readonly"
-            :hide-error="true"
+            hide-error
             @show-error="onShowError"
           />
         </div>

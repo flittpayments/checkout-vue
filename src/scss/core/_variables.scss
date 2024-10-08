@@ -59,7 +59,6 @@ $zindex-loading: 1080;
 $grid-columns: 12;
 $grid-gutter-width: px-to-rem(16px);
 $grid-row-columns: 6;
-$header-height: px-to-rem(50px) + px-to-rem(24px) /*+ 2px*/;
 $modal-dialog-margin: 2rem;
 $modal-backdrop-opacity: 0.7;
 $modal-sm: 300px;
@@ -77,8 +76,7 @@ $utilities: (
     responsive: true,
     property: margin,
     class: m,
-    values:
-      map-merge(
+    values: map-merge(
         $spacers,
         (
           auto: auto,
@@ -89,8 +87,7 @@ $utilities: (
     responsive: true,
     property: margin-top,
     class: mt,
-    values:
-      map-merge(
+    values: map-merge(
         $spacers,
         (
           auto: auto,
@@ -101,8 +98,7 @@ $utilities: (
     responsive: true,
     property: margin-right,
     class: mr,
-    values:
-      map-merge(
+    values: map-merge(
         $spacers,
         (
           auto: auto,
@@ -113,8 +109,7 @@ $utilities: (
     responsive: true,
     property: margin-bottom,
     class: mb,
-    values:
-      map-merge(
+    values: map-merge(
         $spacers,
         (
           auto: auto,
@@ -125,8 +120,7 @@ $utilities: (
     responsive: true,
     property: margin-left,
     class: ml,
-    values:
-      map-merge(
+    values: map-merge(
         $spacers,
         (
           auto: auto,

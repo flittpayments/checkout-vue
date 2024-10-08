@@ -55,6 +55,11 @@ module.exports = defineConfig({
       },
     },
   },
+  devServer: {
+    client: {
+      webSocketURL: `wss://${DOMAIN}/ws`
+    },
+  },
   runtimeCompiler: true,
   productionSourceMap: false,
   publicPath: PUBLIC_PATH,

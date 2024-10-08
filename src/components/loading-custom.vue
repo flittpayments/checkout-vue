@@ -24,9 +24,6 @@ export default {
         },
       ]
     },
-    showCustom() {
-      return this.loading
-    },
     style() {
       return {
         'background-image': `url("${this.loading.replace(/"/g, "'")}")`,

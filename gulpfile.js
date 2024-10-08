@@ -1,5 +1,5 @@
 const fsp = require('fs').promises
-const gulp = require('gulp')
+const { task, series, parallel } = require('gulp')
 const xgettext = require('xgettext-utils')
 const configLocale = require('./src/config/locales.json')
 const uk = require('./src/i18n/countries/uk.json')
@@ -7,7 +7,7 @@ const uk = require('./src/i18n/countries/uk.json')
 const excludes = list => item => !list.includes(item)
 const locales = Object.keys(configLocale)
 
-const process = (src, parse) => () =>
+const i18nProcess = (src, parse) => () =>
   fsp
     .readFile(src, 'utf-8')
     .then(content => JSON.parse(content))
@@ -23,26 +23,26 @@ const process = (src, parse) => () =>
       )
     )
 
-gulp.task(
+task(
   'methods',
-  process('./src/config/methods.json', content =>
+  i18nProcess('./src/config/methods.json', content =>
     content.filter(excludes(['trustly', 'wallets']))
   )
 )
 
-gulp.task(
+task(
   'subscription-period',
-  process('./src/config/subscription-period.json')
+  i18nProcess('./src/config/subscription-period.json')
 )
 
-gulp.task(
+task(
   'bins',
-  process('./src/config/bins.json', content =>
+  i18nProcess('./src/config/bins.json', content =>
     Object.entries(content).map(([name]) => name)
   )
 )
 
-gulp.task('po', () =>
+task('po', () =>
   xgettext
     .extract({
       path: ['./src'],
@@ -60,11 +60,11 @@ gulp.task('po', () =>
     })
 )
 
-gulp.task('i18n', gulp.series('methods', 'subscription-period', 'bins', 'po'))
+task('i18n', series(parallel('methods', 'subscription-period', 'bins'), 'po'))
 
-gulp.task(
+task(
   'i18n-need-translation',
-  gulp.series('i18n', () => {
+  series('i18n', () => {
     const from = 'en'
     const dirname = `./src/i18n/need-translation/`
     let translation
@@ -105,7 +105,7 @@ gulp.task(
   })
 )
 
-gulp.task('countries-search', () =>
+task('countries-search', () =>
   fsp
     .readFile('./node_modules/world-countries/dist/countries.json', 'utf-8')
     .then(content => JSON.parse(content))
@@ -161,7 +161,7 @@ gulp.task('countries-search', () =>
     .then(content => fsp.writeFile('./src/config/countries-search.js', content))
 )
 
-gulp.task('countries-calling-codes', () =>
+task('countries-calling-codes', () =>
   fsp
     .readFile('./node_modules/world-countries/dist/countries.json', 'utf-8')
     .then(content => JSON.parse(content))
@@ -182,7 +182,7 @@ gulp.task('countries-calling-codes', () =>
     )
 )
 
-gulp.task('exclude-message', () => {
+task('exclude-message', () => {
   const dirname = './src/'
   return fsp
     .readdir(dirname, {
@@ -219,7 +219,7 @@ gulp.task('exclude-message', () => {
     .then(content => fsp.writeFile('./src/config/exclude-messages.js', content))
 })
 
-gulp.task('svg', () => {
+task('svg', () => {
   let dirname = './src/assets/svg/'
   return fsp
     .readdir(dirname)
@@ -240,7 +240,7 @@ gulp.task('svg', () => {
     .then(content => fsp.writeFile('./src/config/svg.js', content))
 })
 
-gulp.task('presets-with-gradient', () =>
+task('presets-with-gradient', () =>
   fsp
     .readdir('./public/presets/')
     .then(files => files.map(item => item.replace('.jpeg', '')))
@@ -251,9 +251,9 @@ gulp.task('presets-with-gradient', () =>
     )
 )
 
-gulp.task(
+task(
   'default',
-  gulp.series([
+  parallel([
     'i18n',
     'countries-search',
     'countries-calling-codes',
