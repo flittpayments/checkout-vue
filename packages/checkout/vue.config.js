@@ -17,7 +17,6 @@ const VERSION = argv.version || (argv.branch || gitRevisionPlugin.branch()).repl
 const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
 const DOMAIN = PUBLIC_URL.hostname
-const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
 const INITIATOR = argv.library_type || PUBLIC_URL.pathname.split('/').filter(Boolean)[0]
@@ -253,7 +252,6 @@ module.exports = defineConfig({
           ENVIRONMENT,
           SENTRY_DSN,
           DOMAIN,
-          SAAS_CDN_URL,
           SAAS_TEMPLATE_NAME,
           API_DOMAIN,
           X_PAYMENT_GATEWAY,

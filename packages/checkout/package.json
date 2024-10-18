@@ -81,7 +81,6 @@
       "ENVIRONMENT": "readonly",
       "SENTRY_DSN": "readonly",
       "DOMAIN": "readonly",
-      "SAAS_CDN_URL": "readonly",
       "SAAS_TEMPLATE_NAME": "readonly",
       "API_DOMAIN": "readonly",
       "PUBLIC_PATH": "readonly",
