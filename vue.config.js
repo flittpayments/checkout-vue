@@ -7,7 +7,7 @@ const autoprefixer = require('autoprefixer')
 const argv = require('minimist')(process.argv.slice(2))
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const publicPath = argv['public-path']
+const PUBLIC_PATH = argv['public-path'] || '/'
 const VERSION = gitRevisionPlugin.version()
 const COMMITHASH = gitRevisionPlugin.commithash()
 const BRANCH = argv.branch || gitRevisionPlugin.branch()
@@ -15,7 +15,7 @@ const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
 const C2P_SDK = argv.c2p_sdk
 const C2P_SRC_INITIATOR_ID = argv.c2p_src_initiator_id
-const DOMAIN = ((publicPath || '').match(/https?:\/\/([\w.]+)/) || [])[1]
+const DOMAIN = (PUBLIC_PATH.match(/https?:\/\/([\w.]+)/) || [])[1]
 const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
@@ -57,13 +57,12 @@ module.exports = defineConfig({
   },
   runtimeCompiler: true,
   productionSourceMap: false,
-  publicPath: isProduction
-    ? publicPath
-    : '/',
+  publicPath: PUBLIC_PATH,
   css: {
     loaderOptions: {
       scss: {
         additionalData: [
+          `$PUBLIC_PATH: '${PUBLIC_PATH}';`,
           `$cdn: '${SAAS_CDN_URL}';`,
           `$prefix: --${SAAS_TEMPLATE_NAME}-;`,
           '@import \'~@/scss/core/functions\';',
@@ -131,7 +130,7 @@ module.exports = defineConfig({
             }])
             .end()
       })
-      .when(isProduction && !publicPath, config => {
+      .when(isProduction && PUBLIC_PATH === 'http://localhost:3000/', config => {
         config
           .plugin('webpack-bundle-analyzer')
             .use(BundleAnalyzerPlugin)
@@ -174,12 +173,21 @@ module.exports = defineConfig({
         .rules.delete('svg').end()
         .rule('svg')
           .test(/\.(svg)(\?.*)?$/)
-          .use('vue-loader')
-            .loader('vue-loader')
+          .oneOf('svg-component')
+            .test(/src\/svg/)
+            .use('vue-loader')
+              .loader('vue-loader')
+              .end()
+            .use('vue-svg-loader')
+              .loader('vue-svg-loader')
+              .options({ svgo: { plugins: [{ cleanupIDs: false }] } })
+              .end()
             .end()
-          .use('vue-svg-loader')
-            .loader('vue-svg-loader')
-            .options({ svgo: { plugins: [{ cleanupIDs: false }] } })
+          .oneOf('svg')
+            .set('type', 'asset/resource')
+            .set('generator', {
+              filename: 'img/[name].[hash:8][ext]'
+            })
             .end()
           .end()
         .end()
@@ -196,6 +204,7 @@ module.exports = defineConfig({
           API_DOMAIN,
           C2P_SDK,
           C2P_SRC_INITIATOR_ID,
+          PUBLIC_PATH,
         })])
         .end()
   }
