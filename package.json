@@ -10,6 +10,7 @@
   "scripts": {
     "build:checkout": "npm run build --workspace=packages/checkout",
     "build:react": "npm run build --workspace=packages/checkout-react",
+    "submodule": "git submodule update --init --remote",
     "changeset": "changeset",
     "release": "changeset version && changeset publish"
   },
