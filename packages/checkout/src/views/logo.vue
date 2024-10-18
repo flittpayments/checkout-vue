@@ -4,14 +4,25 @@
 
 <script>
 import { mapState } from '@/utils/store'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_BOOLEAN } from '@/constants/props'
+import { logo } from '@/config/logo'
 
 export default {
+  props: {
+    defaultValue: makeProp(PROP_TYPE_BOOLEAN, false),
+  },
   computed: {
-    ...mapState('options', ['logo_url']),
+    ...mapState('options', ['logo_url', 'theme']),
     style() {
       return {
-        'background-image': `url("${this.logo_url.replace(/"/g, "'")}")`,
+        'background-image': `url("${this.url.replace(/"/g, "'")}")`,
       }
+    },
+    url() {
+      return this.logo_url && !this.defaultValue
+        ? this.logo_url
+        : logo[this.theme.type]
     },
   },
 }

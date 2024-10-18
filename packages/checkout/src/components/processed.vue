@@ -8,23 +8,22 @@
   </div>
   <div v-else :class="$style.wrapper">
     <span :class="$style.text" v-text="$t('processed_by')" />
-    <svg-logo :class="$style.svg" />
+    <f-logo :class="$style.logo" default-value />
   </div>
 </template>
 
 <script>
-import SvgLogo from '@/svg/logo.svg'
+import { FLogo } from '@/import'
 import { mapState } from '@/utils/store'
-import { logo_url } from '@/config/config-default'
 
 export default {
   components: {
-    SvgLogo,
+    FLogo,
   },
   computed: {
     ...mapState('options', ['full_screen', 'logo_url']),
     showText() {
-      return this.full_screen && this.logo_url === logo_url
+      return this.full_screen && !this.logo_url
     },
   },
 }
@@ -80,8 +79,9 @@ export default {
   background: $container-bg;
 }
 
-.svg {
+.logo.logo {
   height: px-to-rem(18px);
+  width: px-to-rem(80px);
   margin-left: px-to-rem(12px);
 }
 
