@@ -356,6 +356,12 @@ task('preset', () =>
   }).pipe(dest('./src/config/'))
 )
 
+task('icon', () =>
+  src(
+    'icons/src/(banks|card|crypto|emoney|installments|loans|wallets)/**/*.svg'
+  ).pipe(dest('./public/icon'))
+)
+
 const commonTasks = [
   'countries-search',
   'countries-calling-codes',
@@ -369,6 +375,7 @@ const commonTasks = [
   'saas-config',
   'logo',
   'preset',
+  'icon',
 ]
 
 task('default', parallel(['i18n', ...commonTasks]))

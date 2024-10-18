@@ -2,3 +2,7 @@
 	path = packages/checkout/saas-config
 	url = git@git.flitt.dev:mgolubovsky/saas-config.git
 	branch = master
+[submodule "packages/checkout/icons"]
+	path = packages/checkout/icons
+	url = git@github.com:flittpayments/icons.git
+	branch = main
