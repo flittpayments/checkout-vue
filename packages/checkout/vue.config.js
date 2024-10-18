@@ -86,7 +86,6 @@ module.exports = defineConfig({
       scss: {
         additionalData: [
           `$PUBLIC_PATH: '${PUBLIC_PATH}';`,
-          `$cdn: '${SAAS_CDN_URL}';`,
           `$prefix: --${SAAS_TEMPLATE_NAME}-;`,
           '@import "~@/scss/core/functions";',
           '@import "~@/scss/core/colors";',
@@ -239,6 +238,16 @@ module.exports = defineConfig({
               filename: 'img/[name].[hash:8][ext]'
             })
             .end()
+          .end()
+        .rule('fonts')
+          .set('generator', {
+            filename: 'fonts/[name][ext]'
+          })
+          .set('parser', {
+            dataUrlCondition: {
+              maxSize: 1,
+            },
+          })
           .end()
         .end()
       .plugin('define-plugin')

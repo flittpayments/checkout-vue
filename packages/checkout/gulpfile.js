@@ -1,10 +1,11 @@
 const fsp = require('fs').promises
-const { task, series, parallel } = require('gulp')
+const { task, src, dest, series, parallel } = require('gulp')
 const xgettext = require('xgettext-utils')
 const configLocale = require('./src/config/locales.json')
 const uk = require('./src/i18n/countries/uk.json')
 const bins = require('./src/config/bins.json')
 
+const { SAAS_TEMPLATE_NAME } = process.env
 const excludes = list => item => !list.includes(item)
 const locales = Object.keys(configLocale)
 
@@ -292,6 +293,69 @@ task('check-bin-conflicts', async () => {
   }
 })
 
+task('favicon', () =>
+  src(`./saas-config/${SAAS_TEMPLATE_NAME}/favicon/*`, {
+    encoding: false,
+  }).pipe(dest('./public/favicon'))
+)
+
+task('fonts', () =>
+  src(`./saas-config/${SAAS_TEMPLATE_NAME}/fonts/*`, { encoding: false }).pipe(
+    dest('./src/fonts')
+  )
+)
+
+task('saas-config', () =>
+  Promise.all([
+    fsp
+      .readFile(`./saas-config/${SAAS_TEMPLATE_NAME}/config.json`, 'utf-8')
+      .then(content => JSON.parse(content)),
+    fsp
+      .access(`./saas-config/${SAAS_TEMPLATE_NAME}/loading.svg`)
+      .then(() =>
+        fsp.readFile(
+          `./saas-config/${SAAS_TEMPLATE_NAME}/loading.svg`,
+          'base64'
+        )
+      )
+      .then(content => `data:image/svg+xml;base64,${content}`)
+      .catch(() => {}),
+  ])
+    .then(([config, loading]) => {
+      if (loading) {
+        config.options.loading = loading
+      }
+      return config
+    })
+    .then(content => JSON.stringify(content, null, 2))
+    .then(content => `export const saas = ${content}`)
+    .then(content => fsp.writeFile('./src/config/saas.js', content))
+)
+
+task('logo', () =>
+  Promise.all([
+    fsp
+      .readFile(`./saas-config/${SAAS_TEMPLATE_NAME}/logo/light.svg`, 'base64')
+      .then(content => `data:image/svg+xml;base64,${content}`),
+    fsp
+      .readFile(`./saas-config/${SAAS_TEMPLATE_NAME}/logo/dark.svg`, 'base64')
+      .then(content => `data:image/svg+xml;base64,${content}`),
+  ])
+    .then(([light, dark]) => ({
+      light,
+      dark,
+    }))
+    .then(content => JSON.stringify(content, null, 2))
+    .then(content => `export const logo = ${content}`)
+    .then(content => fsp.writeFile('./src/config/logo.js', content))
+)
+
+task('preset', () =>
+  src(`./saas-config/${SAAS_TEMPLATE_NAME}/preset.json`, {
+    encoding: false,
+  }).pipe(dest('./src/config/'))
+)
+
 const commonTasks = [
   'countries-search',
   'countries-calling-codes',
@@ -300,6 +364,11 @@ const commonTasks = [
   'presets-with-gradient',
   'card-brands',
   'check-bin-conflicts',
+  'favicon',
+  'fonts',
+  'saas-config',
+  'logo',
+  'preset',
 ]
 
 task('default', parallel(['i18n', ...commonTasks]))
