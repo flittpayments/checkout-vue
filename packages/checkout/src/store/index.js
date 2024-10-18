@@ -35,6 +35,7 @@ import { arrayIncludes } from '@/utils/array'
 import { formatKiev } from '@/utils/date'
 import { testCardNumbers } from '@/config/test-card-numbers'
 import { select } from '@/utils/dom'
+import preset from '@/config/preset.json'
 
 const NON_SUBSCRIPTION_METHODS = ['banks', 'installments']
 
@@ -467,7 +468,9 @@ class Store extends Model {
     })
   }
   loadCardImg() {
-    return loadCardImg(this.state.options.theme.preset).then(config => {
+    return loadCardImg(
+      this.state.options.theme.preset || preset[this.state.options.theme.type]
+    ).then(config => {
       if (!config) return
       this.setState(config)
       setCssVariables(config.css_variable)

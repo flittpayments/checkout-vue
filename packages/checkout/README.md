@@ -30,11 +30,11 @@
 | `link`                   | String  |                        | format url                                                                                                                            | server or options                   |
 | `full_screen`            | Boolean | true                   |                                                                                                                                       |                                     |
 | `locales`                | Array   | [all]                  | support `az`, `cs`, `da`, `de`, `en`, `es`, `fi`, `fr`, `hu`, `it`, `ka`, `ko`, `lv`, `nl`, `pl`, `ro`, `ru`, `sk`, `uk`, `uz`, `zh`. |                                     |
-| `api_domain`             | String  | 'pay.flitt.com'        |                                                                                                                                       |                                     |
+| `api_domain`             | String  | `saas config`          |                                                                                                                                       |                                     |
 | `endpoint`               | Object  |                        |                                                                                                                                       |                                     |
 | `active_tab`             | String  | 'card'                 | support `card`, `most_popular`, `banks`, `wallets`.                                                                                   | GET parameters or server or options |
 | `active_method`          | String  |                        |                                                                                                                                       | GET parameters or server or options |
-| `logo_url`               | String  |                        | format url                                                                                                                            | options or server                   |
+| `logo_url`               | String  | `saas config`          | format url                                                                                                                            | options or server                   |
 | `offerta_url`            | String  |                        | format url                                                                                                                            | options or server                   |
 | `default_country`        | String  |                        |                                                                                                                                       |                                     |
 | `countries`              | Array   |                        |                                                                                                                                       |                                     |
@@ -42,7 +42,7 @@
 | `show_menu_first`        | Boolean | false                  |                                                                                                                                       |                                     |
 | `disable_request`        | Boolean | false                  | no requests are sent to the server                                                                                                    |                                     |
 | `subscription`           | Object  |                        |                                                                                                                                       |                                     |
-| `loading`                | String  |                        | format url                                                                                                                            |                                     |
+| `loading`                | String  | `saas config`          | format url                                                                                                                            |                                     |
 | `amount_readonly`        | Boolean | true                   |                                                                                                                                       |                                     |
 | `autosubmit`             | Boolean | false                  |                                                                                                                                       | GET parameters or options           |
 | `show_amount`            | Boolean | true                   |                                                                                                                                       |                                     |
@@ -63,15 +63,15 @@
 ### options.endpoint
 | Name      | Type   | Default                                 | Description |
 |-----------|--------|-----------------------------------------|-------------|
-| `gateway` | String | '/latest/checkout-v2/index.html'        |             |
-| `button`  | String | '/latest/checkout-v2/button/index.html' |             |
+| `gateway` | String | `saas config`                           |             |
+| `button`  | String | `saas config`                           |             |
 
 ### options.theme
-| Name     | Type   | Default   | Description                                                                                                                                                                            |
-|----------|--------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `type`   | String | 'light'   | support `light`, `dark`.                                                                                                                                                               |
-| `preset` | String | 'black'   | support `reset`, `black`, `silver`, `vibrant_silver`, `vibrant_gold`, `solid_black`, `black_and_white`, `euphoric_pink`, `heated_steel`, `nude_pink`, `tropical_gold`, `navy_shimmer`. |
-| `layout` | String | 'default' | support `default`, `plain`, `wallets_only`.                                                                                                                                            |
+| Name     | Type   | Default       | Description                                                                                                                                                                            |
+|----------|--------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`   | String | 'light'       | support `light`, `dark`.                                                                                                                                                               |
+| `preset` | String | `saas config` | support `reset`, `black`, `silver`, `vibrant_silver`, `vibrant_gold`, `solid_black`, `black_and_white`, `euphoric_pink`, `heated_steel`, `nude_pink`, `tropical_gold`, `navy_shimmer`. |
+| `layout` | String | 'default'     | support `default`, `plain`, `wallets_only`.                                                                                                                                            |
 
 ### options.subscription
 | Name        | Type    | Default                   | Description                                                                       |
@@ -87,10 +87,10 @@
 ### params
 | Name                | Type    | Default                 | Description                 | Priority                  |
 |---------------------|---------|-------------------------|-----------------------------|---------------------------|
-| `merchant_id`       | Integer | 1549901                 |                             |                           |
+| `merchant_id`       | Integer | `saas config`           |                             |                           |
 | `order_desc`        | String  |                         |                             | options or server         |
 | `amount`            | Integer | null                    |                             |                           |
-| `currency`          | String  | 'GEL'                   |                             |                           |
+| `currency`          | String  | ''                      |                             |                           |
 | `response_url`      | String  |                         | format url                  |                           |
 | `lang`              | String  | browser language        |                             | server or options         |
 | `required_rectoken` | String  |                         | support `Y`, `N`, `y`, `n`. |                           |
