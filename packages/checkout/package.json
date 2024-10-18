@@ -92,7 +92,6 @@
       "ENVIRONMENT": "readonly",
       "INITIATOR": "readonly",
       "PUBLIC_PATH": "readonly",
-      "SAAS_CDN_URL": "readonly",
       "SAAS_TEMPLATE_NAME": "readonly",
       "SENTRY_DSN": "readonly",
       "VERSION": "readonly",
