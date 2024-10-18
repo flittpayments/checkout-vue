@@ -245,6 +245,17 @@ gulp.task('svg', () => {
     .then(content => fsp.writeFile('./src/config/svg.js', content))
 })
 
+gulp.task('presets-with-gradient', () =>
+  fsp
+    .readdir('./public/presets/')
+    .then(files => files.map(item => item.replace('.jpeg', '')))
+    .then(content => JSON.stringify(content, null, 2))
+    .then(content => `export const presetsWithGradient = ${content}`)
+    .then(content =>
+      fsp.writeFile('./src/config/presets-with-gradient.js', content)
+    )
+)
+
 gulp.task(
   'default',
   gulp.series([
@@ -253,5 +264,6 @@ gulp.task(
     'countries-calling-codes',
     'exclude-message',
     'svg',
+    'presets-with-gradient',
   ])
 )
