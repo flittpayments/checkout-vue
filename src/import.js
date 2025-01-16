@@ -132,7 +132,7 @@ export const inspect = () =>
   import(/* webpackChunkName: "09" */ '@/utils/inspect')
 
 export const loadCheckout = () =>
-  import(/* webpackChunkName: "1" */ 'js-sdk/dist/esm/checkout').then(
+  import(/* webpackChunkName: "1" */ '@flittpayments/js-sdk').then(
     module => module.default
   )
 

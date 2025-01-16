@@ -1,4 +1,5 @@
-# checkout-vue
+![Flitt](https://flitt.com/wp-content/uploads/2024/09/Group.svg)
+# Flitt Checkout
 
 ### config
 ``` js
@@ -32,7 +33,7 @@ Name                  | Type        | Default                 | Description     
 `hide_link`           | Boolean     | false                   |                                                                                     |
 `full_screen`         | Boolean     | true                    |                                                                                     |
 `locales`             | Array       | [all]                   | support `cs`, `de`, `en`, `es`, `fr`, `hu`, `it`, `ko`, `lv`, `pl`, `ro`, `ru`, `sk`, `uk`.|
-`api_domain`          | String      |                         |                                                                                     |
+`api_domain`          | String      | 'pay.flitt.com'         |                                                                                     |
 `endpoint`            | Object      |                         |                                                                                     |
 `active_tab`          | String      | 'card'                  | support `card`, `sepa`.                                                             | server or options
 `active_method`       | String      | ''                      |                                                                                     | server or options

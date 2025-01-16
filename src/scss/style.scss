@@ -5,22 +5,22 @@
 @import 'core/utilities';
 
 html {
-  .modal {
+  .flitt-modal {
     width: 100%;
     max-width: 590px;
   }
 
-  .modal-close {
+  .flitt-modal-close {
     position: absolute;
     top: 0;
     right: 0;
   }
 
-  .modal-content {
+  .flitt-modal-content {
     min-height: 600px;
   }
 
-  .modal-iframe {
+  .flitt-modal-iframe {
     height: 600px;
   }
 }
