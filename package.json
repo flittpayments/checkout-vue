@@ -15,7 +15,6 @@
   "dependencies": {
     "@flittpayments/js-sdk": "^2.0.1",
     "@sentry/vue": "^8.34.0",
-    "@umpirsky/country-list": "github:umpirsky/country-list",
     "async-validator": "^3.5.2",
     "axios": "^1.7.7",
     "core-js": "^3.38.1",
