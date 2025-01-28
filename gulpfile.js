@@ -1,6 +1,6 @@
 const fsp = require('fs').promises
 const gulp = require('gulp')
-const nodeGettextGenerator = require('node-gettext-generator')
+const xgettext = require('xgettext-utils')
 const configLocale = require('./src/config/locales.json')
 const uk = require('./src/i18n/countries/uk.json')
 
@@ -42,26 +42,21 @@ gulp.task(
   )
 )
 
-gulp.task('po', done =>
-  nodeGettextGenerator
-    .process({
-      extract: {
-        path: ['./src'],
-        target: './src/i18n/process/templates.js',
-        match: /\$t\('(.+?)'/g,
-        replace: "_('$1')",
-      },
-      params: {
-        name: 'messages',
-        noLocation: true,
+gulp.task('po', () =>
+  xgettext
+    .extract({
+      path: ['./src'],
+      target: './src/i18n/process/templates.js',
+      match: /\$t\('(.+?)'/g,
+      replace: "_('$1')",
+    })
+    .then(function () {
+      return xgettext.generator({
         keywords: ['_'],
         source: ['./src/i18n/process'],
         target: './src/i18n/po',
         locales,
-      },
-    })
-    .then(function () {
-      done()
+      })
     })
 )
 
@@ -75,7 +70,7 @@ gulp.task(
     let translation
 
     return fsp
-      .readFile(`./src/i18n/po/${from}/translation.json`, 'utf-8')
+      .readFile(`./src/i18n/po/${from}/messages.json`, 'utf-8')
       .then(content => JSON.parse(content))
       .then(content => (translation = content))
       .then(() => fsp.access(dirname).catch(() => fsp.mkdir(dirname)))
@@ -92,7 +87,7 @@ gulp.task(
           .filter(locale => locale !== from)
           .map(locale =>
             fsp
-              .readFile(`./src/i18n/po/${locale}/translation.json`, 'utf-8')
+              .readFile(`./src/i18n/po/${locale}/messages.json`, 'utf-8')
               .then(content => JSON.parse(content))
               .then(content => Object.entries(content))
               .then(content => content.filter(([, value]) => !value))

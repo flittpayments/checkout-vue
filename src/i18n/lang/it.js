@@ -1,4 +1,4 @@
-import translation from '@/i18n/po/it/translation.json'
+import translation from '@/i18n/po/it/messages.json'
 import countries from '@/i18n/countries/it.json'
 import formatLocale from 'date-format-parse/lib/locale/it'
 import locales from '@/config/locales.json'
