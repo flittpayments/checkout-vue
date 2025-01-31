@@ -101,7 +101,6 @@ export const configDefault = {
     message: '',
   },
   loading: false,
-  orderModel: {},
   order: {},
   info: {},
   cards: [],
