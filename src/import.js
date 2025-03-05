@@ -277,13 +277,7 @@ export const FAlertGdprYapily = () =>
   import(/* webpackChunkName: "41" */ '@/components/alert/alert-gdpr-yapily')
 
 export const FLoading = () =>
-  import(/* webpackChunkName: "42" */ '@/components/loading')
-
-export const FLoadingDefault = () =>
-  import(/* webpackChunkName: "43" */ '@/components/loading-default')
-
-export const FLoadingCustom = () =>
-  import(/* webpackChunkName: "44" */ '@/components/loading-custom')
+  import(/* webpackChunkName: "42" */ '@/components/loading-custom')
 
 export const LoadingMono = () =>
   import(/* webpackChunkName: "45" */ '@/views/checkout/loading-monobank')

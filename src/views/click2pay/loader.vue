@@ -1,17 +1,17 @@
 <template>
   <div :class="$style.style">
     <div :class="$style.mb_48" v-text="$t('c2p_card_add_loading_top')" />
-    <f-loading-default :class="$style.mb_48" />
+    <f-loading :class="$style.mb_48" />
     <div v-text="$t('c2p_card_add_loading_bottom')" />
   </div>
 </template>
 
 <script>
-import { FLoadingDefault } from '@/import'
+import { FLoading } from '@/import'
 
 export default {
   components: {
-    FLoadingDefault,
+    FLoading,
   },
 }
 </script>
