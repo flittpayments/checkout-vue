@@ -16,7 +16,7 @@
 
 ### options
 Name                  | Type        | Default                 | Description                                                                         | Priority
----                   | ---         | ---                     | ---                                                                                 | ---
+---                   |-------------|-------------------------| ---                                                                                 | ---
 `methods`             | Array       | ['card']                | support `card`, `sepa`, `banklinks_eu`, `receipt`.                                  |
 `methods_disabled`    | Array       | []                      | support `card`, `sepa`, `banklinks_eu`, `receipt`.                                  |
 `wallet_methods_enabled`| Array     | ['apple', 'google']     | support `apple`, `google`.                                                          |
@@ -28,9 +28,7 @@ Name                  | Type        | Default                 | Description     
 `emoney_icons`        | Array       | []                      |                                                                                     |
 `wallets_icons`       | Array       | []                      |                                                                                     |
 `title`               | String      |                         |                                                                                     | options or server
-`hide_title`          | Boolean     | false                   |                                                                                     |
 `link`                | String      |                         | format url                                                                          | server or options
-`hide_link`           | Boolean     | false                   |                                                                                     |
 `full_screen`         | Boolean     | true                    |                                                                                     |
 `locales`             | Array       | [all]                   | support `cs`, `de`, `en`, `es`, `fr`, `hu`, `it`, `ko`, `lv`, `pl`, `ro`, `ru`, `sk`, `uk`.|
 `api_domain`          | String      | 'pay.flitt.com'         |                                                                                     |
@@ -39,21 +37,25 @@ Name                  | Type        | Default                 | Description     
 `active_method`       | String      | ''                      |                                                                                     | server or options
 `logo_url`            | String      |                         | format url                                                                          | options or server
 `offerta_url`         | String      |                         | format url                                                                          | options or server
-`button`              | Boolean     | true                    |                                                                                     |
-`fee`                 | Boolean     | false                   |                                                                                     |
-`email`               | Boolean     | false                   |                                                                                     | server or options
-`fields`              | Boolean     | false                   |                                                                                     |
 `default_country`     | String      |                         |                                                                                     |
 `countries`           | Array       |                         |                                                                                     |
-`lang`                | Boolean     | true                    |                                                                                     |
 `theme`               | Object      |                         |                                                                                     |
 `show_menu_first`     | Boolean     | false                   |                                                                                     |
 `disable_request`     | Boolean     | false                   | no requests are sent to the server                                                  |
-`show_button_amount`  | Boolean     | true                    | displaying the amount on the button                                                 |
 `subscription`        | Object      |                         |                                                                                     |
 `loading`             | String      |                         | format url                                                                          |
-`hide_button_title`   | Boolean     | false                   |                                                                                     |
 `amount_readonly`     | Boolean     | true                    |                                                                                     |
+`show_amount`         | Boolean     | true                    |                                                                                     |
+`show_email`          | Boolean     | false                   |                                                                                     | server or options
+`show_fee`            | Boolean     | true                    |                                                                                     |
+`show_lang`           | Boolean     | true                    |                                                                                     |
+`show_link`           | Boolean     | true                    |                                                                                     |
+`show_order_desc`     | Boolean     | true                    |                                                                                     |
+`show_pay_button_amount`| Boolean     | true                    | displaying the amount on the button                                                 |
+`show_pay_button`     | Boolean     | true                    |                                                                                     |
+`show_secure_message` | Boolean     | true                    |                                                                                     |
+`show_test_mode`      | Boolean     | true                    |                                                                                     |
+`show_title`          | Boolean     | true                    |                                                                                     |
 
 ### options.endpoint
 Name                  | Type        | Default                                 | Description

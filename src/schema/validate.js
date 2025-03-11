@@ -26,6 +26,42 @@ class Validate extends Model {
   compatibility() {
     this.email()
     this.button()
+    this.supportOldOptions('show_email', 'email')
+    this.supportOldOptions('show_fee', 'fee')
+    this.supportOldOptions('show_lang', 'lang')
+    this.supportOldOptions('show_link', 'hide_link')
+    this.supportOldOptions('show_pay_button', 'button')
+    this.supportOldOptions('show_pay_button_amount', 'show_button_amount')
+    this.supportOldOptions('show_title', 'hide_title')
+    this.depreciatedOptions('fields')
+    this.depreciatedOptions('hide_button_title')
+  }
+
+  supportOldOptions(newName, oldName) {
+    const oldValue = this.data.options?.[oldName]
+    const newValue = this.data.options?.[newName]
+
+    if (!isExist(oldValue)) return
+
+    if (!isExist(newValue)) {
+      this.attr(`data.options.${newName}`, oldValue)
+    }
+
+    const message = `options.${oldName} is depreciated, use options.${newName}`
+    captureMessage(message, 'warning')
+    console.warn(message)
+
+    delete this.data.options[oldName]
+  }
+
+  depreciatedOptions(name) {
+    if (!isExist(this.data.options?.[name])) return
+
+    const message = `options.${name} is depreciated, needs to be deleted`
+    captureMessage(message, 'warning')
+    console.warn(message)
+
+    delete this.data.options[name]
   }
 
   configDefault() {

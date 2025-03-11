@@ -65,21 +65,20 @@ export default {
       'logo_url',
       'full_screen',
       'disable_request',
+      'show_test_mode',
     ]),
-    ...mapState('options', {
-      optionsLang: 'lang',
-    }),
+    ...mapState('options', ['show_lang']),
     show() {
       return this.showMode || this.showLeft || this.showLang
     },
     showMode() {
-      return this.disable_request || this.mode_test
+      return this.disable_request || (this.show_test_mode && this.mode_test)
     },
     showLeft() {
       return this.showBack || this.showLogoCustom || this.showLogo
     },
     showLang() {
-      return this.full_screen && this.optionsLang && this.locales.length > 1
+      return this.full_screen && this.show_lang && this.locales.length > 1
     },
     locale() {
       return this.locales.map(parseSelect).sort(sort('text'))

@@ -23,13 +23,13 @@ export default {
   computed: {
     ...mapState(['ready']),
     ...mapState('order', ['ready_to_submit']),
-    ...mapStateGetSet('options', { showEmail: 'email' }),
+    ...mapStateGetSet('options', ['show_email']),
     ...mapState('params', ['email', 'card_number']),
     ...mapState('info', ['click2pay_checkout_registration_enabled']),
     enabled() {
       return (
         this.click2pay_checkout_registration_enabled &&
-        (this.showEmail || this.email)
+        (this.show_email || this.email)
       )
     },
   },
@@ -52,8 +52,8 @@ export default {
           'Click to Pay new-user-card not click2pay_checkout_registration_enabled && (email || show_email)'
         )
 
-      if (!this.showEmail) {
-        this.showEmail = true
+      if (!this.show_email) {
+        this.show_email = true
         this.readonlyEmail = true
         this.enable(true)
       }

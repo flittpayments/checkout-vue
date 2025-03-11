@@ -51,33 +51,13 @@
 
     <script type="text/x-vue-template" id="f-fields2">
       <div>
-        <div class="f-block f-block-hr">
-          <input-text name="field_11" value="field_11_html_value" validate="required" custom></input-text>
-          <div class="f-row">
-            <div class="f-col-xs-6">
-              <input-text name="email" validate="required|email"></input-text>
-            </div>
-            <div class="f-col-xs-6">
-              <input-text name="phone" label="Телефон" validate="required|numeric"></input-text>
-            </div>
-          </div>
-        </div>
-        <div class="f-block f-block-hr">
-          <div class="f-block-sm">
-            <input-amount name="amount" label="Сума к оплате"></input-amount>
-            <input-text name="field_5" validate="required|alpha_num" custom></input-text>
-          </div>
-        </div>
-      </div>
-    </script>
-    <script type="text/x-vue-template" id="f-fields">
-      <div class="f-block f-block-hr">
-        <div class="f-block-sm">
-          <input-hidden name="test" value="test2" custom></input-hidden>
-          <input-text name="field_11" value="field_11_html_value" validate="required" custom></input-text>
-          <input-text name="my_email" validate="required|email" custom></input-text>
-          <input-amount name="amount" label="my_amount"></input-amount>
-        </div>
+        <input-text name="email" validate="required|email"></input-text>
+        <input-text name="my_email" validate="required|email" custom></input-text>
+        <input-text name="field_11" value="field_11_html_value" validate="required" custom></input-text>
+        <input-text name="field_5" validate="required" custom></input-text>
+        <input-text name="phone" label="Телефон" validate="required|numeric"></input-text>
+        <input-hidden name="test" value="test2" custom></input-hidden>
+        <input-amount name="amount" label="my_amount"></input-amount>
       </div>
     </script>
 
@@ -120,11 +100,9 @@
               'sofort',
               'starling',
             ],
-            // fields: true,
             title: 'my_title',
-            button: true,
-            // cancel: true,
-            email: true,
+            show_pay_button: true,
+            show_email: true,
             api_domain,
             active_tab: 'card',
             // logoUrl: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
@@ -136,7 +114,6 @@
             },
             show_menu_first: false,
             // disable_request: true,
-            // show_button_amount: false,
             subscription: {
               type: 'shown_edit_on',
             },
@@ -242,7 +219,6 @@
           options: {
             api_domain,
             full_screen: false,
-            //    fee: true,
             offerta_url:
               'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
           },
@@ -391,8 +367,7 @@
               'sofort',
               'starling',
             ],
-            fields: true,
-            email: true,
+            show_email: true,
             api_domain,
             logo_url:
               'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
@@ -657,7 +632,7 @@
         click2pay: {
           options: {
             api_domain,
-            email: true,
+            show_email: true,
           },
           params: {
             // click2pay_init_enabled: true

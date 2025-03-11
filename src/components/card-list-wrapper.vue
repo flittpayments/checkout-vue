@@ -31,6 +31,7 @@
       :target="() => $refs.label?.$el"
       custom-class="f-tooltip-select-card"
       triggers="click focus blur"
+      boundary="window"
     >
       <f-scrollbar-vertical :wrap-class="$style.dropdown">
         <f-card-list :list="list" @input="hide" />

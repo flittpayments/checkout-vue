@@ -1,5 +1,5 @@
 <template>
-  <f-preloader :condition="show" class="f-mb-16">
+  <f-preloader :condition="show_email" class="f-mb-16">
     <f-form-save name="params" :includes="['email']">
       <template #default="{ input }">
         <f-form-group
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     ...mapState(['need_validate_card']),
-    ...mapState('options', { show: 'email' }),
+    ...mapState('options', ['show_email']),
     ...mapStateGetSet('params', ['email']),
     ...mapState('info', ['required_one_of_checkout_customer_fields']),
     rules() {

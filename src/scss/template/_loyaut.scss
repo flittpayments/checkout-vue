@@ -58,11 +58,6 @@
 .f-wrapper {
   position: relative;
   height: calc(100% - #{$header-height});
-
-  // stylelint-disable-next-line selector-max-id
-  html #f.f-embed & {
-    min-height: 500px;
-  }
 }
 
 .f-top {

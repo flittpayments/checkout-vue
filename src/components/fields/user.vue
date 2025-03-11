@@ -5,11 +5,14 @@
 <script>
 import { InputText, InputHidden, InputAmount } from '@/import'
 import { mapState } from '@/utils/store'
+import { select } from '@/utils/dom'
+
+const id = '#f-fields'
 
 export default {
   components: {
     FFields: {
-      template: '#f-fields',
+      template: id,
       components: {
         InputText,
         InputHidden,
@@ -19,11 +22,8 @@ export default {
   },
   computed: {
     ...mapState(['fields_custom']),
-    ...mapState('options', {
-      optionsFields: 'fields',
-    }),
     show() {
-      return !this.fields_custom.length && this.optionsFields
+      return !this.fields_custom.length && select(id)
     },
   },
 }

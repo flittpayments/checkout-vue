@@ -110,7 +110,7 @@ export default {
       'total_amount',
       'promo',
     ]),
-    ...mapState('options', ['amount_readonly', 'fee']),
+    ...mapState('options', ['amount_readonly', 'show_amount', 'show_fee']),
     ...mapState('params', [
       'currency',
       'amount',
@@ -124,7 +124,7 @@ export default {
       'start_time',
     ]),
     showFee() {
-      return this.fee && (this.showDiscount || this.fee_amount)
+      return this.show_fee && (this.showDiscount || this.fee_amount)
     },
     showFeeAmount() {
       return this.showFee && this.actualAmount === this.amount
@@ -156,7 +156,7 @@ export default {
       }
     },
     show() {
-      return !this.verification_type
+      return this.show_amount && !this.verification_type
     },
     isSubscription() {
       return this.recurring === 'y'

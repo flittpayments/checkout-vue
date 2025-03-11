@@ -15,9 +15,9 @@ export default {
   },
   computed: {
     ...mapState(['mode_test']),
-    ...mapState('options', ['disable_request']),
+    ...mapState('options', ['disable_request', 'show_test_mode']),
     showMode() {
-      return this.disable_request || this.mode_test
+      return this.disable_request || (this.show_test_mode && this.mode_test)
     },
   },
 }

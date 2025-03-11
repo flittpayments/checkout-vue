@@ -1,11 +1,7 @@
 <template>
   <div :class="$style.wrapper">
-    <div
-      v-if="disable_request"
-      :class="$style.title"
-      v-text="$t('demo_title')"
-    />
-    <div v-if="mode_test" :class="$style.title" v-text="$t('mode_test')" />
+    <div v-if="showDemo" :class="$style.title" v-text="$t('demo_title')" />
+    <div v-if="showTest" :class="$style.title" v-text="$t('mode_test')" />
   </div>
 </template>
 
@@ -15,7 +11,13 @@ import { mapState } from '@/utils/store'
 export default {
   computed: {
     ...mapState(['mode_test']),
-    ...mapState('options', ['disable_request']),
+    ...mapState('options', ['disable_request', 'show_test_mode']),
+    showDemo() {
+      return this.disable_request
+    },
+    showTest() {
+      return this.show_test_mode && this.mode_test
+    },
   },
 }
 </script>

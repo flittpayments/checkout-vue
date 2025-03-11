@@ -1,8 +1,8 @@
 <template>
-  <div class="f-security">
+  <div v-if="show" class="f-security">
     <template v-if="enableModal">
       <f-button-unstyled class="f-title-security" @click="open">
-        <f-svg ref="security" name="security" :size="24" />
+        <f-svg name="security" :size="24" />
         <span v-text="$t('security_title')" />
       </f-button-unstyled>
       <f-modal-base v-model="showModal">
@@ -43,6 +43,7 @@ import FTooltipDefault from '@/components/tooltip/tooltip-default'
 import { FSecurityIcons } from '@/import'
 import { resizeMixin } from '@/mixins/resize'
 import { isPhone } from '@/utils/mobile'
+import { mapState } from '@/utils/store'
 
 export default {
   components: {
@@ -60,6 +61,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('options', { show: 'show_secure_message' }),
     enableModal() {
       return isPhone || this.isWidthSm
     },
@@ -67,10 +69,11 @@ export default {
       return this.isBreakpointDownLg ? 24 : 32
     },
   },
+  watch: {
+    enableModal: 'watchEnableModal',
+  },
   mounted() {
-    if (!this.enableModal) {
-      this.$refs.security.reference = this.$refs.reference.$el
-    }
+    this.watchEnableModal(this.enableModal)
   },
   methods: {
     open() {
@@ -78,6 +81,14 @@ export default {
     },
     shown() {
       this.showTooltip = true
+    },
+    watchEnableModal(value) {
+      if (!this.show) return
+      if (value) return
+
+      this.$nextTick(() => {
+        this.$refs.security.$el.reference = this.$refs.reference.$el
+      })
     },
   },
 }

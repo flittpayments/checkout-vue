@@ -40,14 +40,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('options', ['show_button_amount']),
+    ...mapState('options', ['show_pay_button_amount']),
     ...mapState('params', ['currency']),
     ...mapState(['total_amount']),
     disabled() {
       return this.isError && this.isSubmit
     },
     showAmount() {
-      return this.show_button_amount
+      return this.show_pay_button_amount
     },
   },
   methods: {

@@ -11,7 +11,12 @@
     <div v-if="showLink" class="f-merchant-url">
       <a :href="link" target="_blank">{{ link }}</a>
     </div>
-    <f-preloader :condition="showOrderDesc" size="20" class="f-order-desc">
+    <f-preloader
+      v-if="show_order_desc"
+      :condition="showOrderDesc"
+      size="20"
+      class="f-order-desc"
+    >
       <div ref="wrapper" :class="classOrderDesc">
         <div ref="desc">{{ order_desc_translation }}</div>
       </div>
@@ -53,21 +58,17 @@ export default {
     ...mapState(['order']),
     ...mapState('options', [
       'title',
-      'hide_title',
+      'show_title',
       'link',
-      'hide_link',
-      'hide_button_title',
+      'show_link',
+      'show_order_desc',
     ]),
-    ...mapState('params', ['order_desc', 'verification_type', 'button']),
+    ...mapState('params', ['order_desc', 'verification_type']),
     showTitle() {
-      return (
-        !this.hide_title &&
-        this.title &&
-        (this.button ? !this.hide_button_title : true)
-      )
+      return this.show_title && this.title
     },
     showLink() {
-      return !this.hide_link && this.link
+      return this.show_link && this.link
     },
     showOrderDesc() {
       return this.order_desc && this.order_desc !== ' '

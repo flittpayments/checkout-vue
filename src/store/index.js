@@ -222,8 +222,8 @@ class Store extends Model {
     }
     this.state.options.link =
       model.attr('merchant.merchant_url') || this.state.options.link
-    this.state.options.email =
-      model.attr('checkout_email_required') || this.state.options.email
+    this.state.options.show_email =
+      model.attr('checkout_email_required') || this.state.options.show_email
     this.state.options.title =
       this.state.options.title || model.attr('merchant.localized_name')
     this.state.options.logo_url =
