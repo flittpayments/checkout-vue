@@ -24,7 +24,6 @@ class Validate extends Model {
   }
 
   compatibility() {
-    this.subscription()
     this.email()
     this.button()
   }
@@ -80,27 +79,6 @@ class Validate extends Model {
     return this
   }
 
-  subscription() {
-    let oldSubscription = this.attr('data.regular')
-    let newSubscription = this.attr('data.options.subscription')
-
-    if (!oldSubscription) return
-    if (newSubscription) return this.removeOldSubscription()
-
-    const insert = oldSubscription.insert
-    const open = oldSubscription.open
-    const type = insert
-      ? open
-        ? 'shown_edit_on'
-        : 'shown_edit_off'
-      : 'disabled'
-
-    this.attr('data.options.subscription.type', type)
-    this.attr('data.options.subscription.periods', oldSubscription.period)
-
-    this.removeOldSubscription()
-  }
-
   email() {
     let sender_email = this.data.params?.sender_email
 
@@ -131,10 +109,6 @@ class Validate extends Model {
     if (isExist(preset) || !theme) return
 
     this.attr('data.options.theme.preset', configTheme[theme])
-  }
-
-  removeOldSubscription() {
-    delete this.data.regular
   }
 
   token() {
