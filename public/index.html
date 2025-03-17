@@ -675,6 +675,38 @@
             // amount: 100,
           },
         },
+        layout_plain: {
+          options: {
+            api_domain,
+            methods_disabled: ['banklinks_eu', 'most_popular', 'wallets'],
+            full_screen: false,
+            theme: {
+              type: 'light',
+              preset: 'reset',
+              layout: 'plain'
+            },
+            card_icons: [],
+            show_amount: false,
+            show_email: false,
+            show_fee: false,
+            show_lang: false,
+            show_link: false,
+            show_order_desc: false,
+            show_pay_button: false,
+            show_pay_button_amount: false,
+            show_secure_message: false,
+            show_test_mode: false,
+            show_title: false,
+          },
+          params: {
+            currency: 'GEL',
+            merchant_id: 1549901,
+            amount: 100,
+          },
+          css_variable: {
+            main: '#7D8FF8',
+          },
+        },
       }
 
       setConfigsOption()

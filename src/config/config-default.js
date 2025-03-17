@@ -37,6 +37,7 @@ export const configDefault = {
     theme: {
       type: theme,
       preset: configTheme[theme],
+      layout: 'default',
     },
     show_menu_first: false,
     disable_request: false,

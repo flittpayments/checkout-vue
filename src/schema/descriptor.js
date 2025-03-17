@@ -30,6 +30,7 @@ const cardIcons = [
 const YN = ['Y', 'N', 'y', 'n']
 const verificationType = ['amount', 'code']
 const themeType = Object.keys(configTheme)
+const themeLayout = ['default', 'plain']
 const preset = Object.keys(configPresets)
 const locales = Object.keys(configLocales)
 const options = Object.keys(configDefault.options)
@@ -287,6 +288,7 @@ export default {
             fields: {
               type: typeEnum(themeType),
               preset: validatorPreset(),
+              layout: typeEnum(themeLayout),
             },
           },
           disable_request: typeBoolean,

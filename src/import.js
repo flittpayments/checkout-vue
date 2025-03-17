@@ -163,6 +163,11 @@ export const FIconBin = () =>
 export const FAlertGdpr = () =>
   import(/* webpackChunkName: "8" */ '@/components/alert/alert-gdpr')
 
+export const FCreditCardPlain = () =>
+  import(
+    /* webpackChunkName: "10" */ '@/views/checkout/method/card/credit-card-plain'
+  )
+
 export const Card = () =>
   import(/* webpackChunkName: "11" */ '@/views/checkout/method/card')
 
