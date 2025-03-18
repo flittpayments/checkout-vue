@@ -15,9 +15,9 @@ export default {
   },
   computed: {
     ...mapStateGetSet(['init_wallets', 'vm_wallets']),
-    ...mapState('options', ['methods_disabled']),
+    ...mapState('options', ['disable_request', 'methods_disabled']),
     show() {
-      return !this.methods_disabled.includes('wallets')
+      return !this.methods_disabled.includes('wallets') && !this.disable_request
     },
   },
   created() {
