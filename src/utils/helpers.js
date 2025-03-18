@@ -52,13 +52,6 @@ export const findGetParameter = parameterName => {
   return result
 }
 
-export const loadStyle = css => {
-  const style = document.createElement('style')
-  style.type = 'text/css'
-  style.appendChild(document.createTextNode(css))
-  document.head.appendChild(style)
-}
-
 export const errorHandler = error => {
   if (isError(error)) {
     console.log(error)

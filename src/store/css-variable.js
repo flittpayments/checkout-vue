@@ -1,7 +1,12 @@
 import { loadCssVars } from '@/import'
-import { loadStyle } from '@/utils/helpers'
 import calculator from '@/utils/calculator'
 import { hasCssVariableSupport } from '@/utils/env'
+import { setAttr } from '@/utils/dom'
+
+const style = document.createElement('style')
+setAttr(style, 'type', 'text/css')
+document.head.appendChild(style)
+style.sheet.insertRule(hasCssVariableSupport ? '#f{}' : ':root{}')
 
 function hexToHSL(H) {
   // Convert hex to RGB first
@@ -49,7 +54,15 @@ function hexToHSL(H) {
 
 const prefix = `--${SAAS_TEMPLATE_NAME}-`
 
-export default function (variablesLink) {
+const setCssVariable = (name, value) =>
+  style.sheet.cssRules[0].style.setProperty(name, value)
+
+export const setCssVariables = variables =>
+  Object.entries(variables).forEach(([name, value]) =>
+    setCssVariable(`${prefix}${name}`, value)
+  )
+
+export const initCssVariable = variablesLink => {
   let variables = Object.fromEntries(
     Object.entries(variablesLink).reduce((acc, [n, v]) => {
       let name = `${prefix}${n}`
@@ -84,13 +97,7 @@ export default function (variablesLink) {
     getValueNumber('btn_success_bg-l') < 30
   variablesLink['card_bg_lighten'] = getValueNumber('card_bg-l') < 30
 
-  let css =
-    Object.entries(variables).reduce(
-      (acc, [n, v]) => (acc += `${n}:${getValue(v)};`),
-      hasCssVariableSupport ? '#f{' : ':root{'
-    ) + '}'
-
-  loadStyle(css)
+  Object.entries(variables).forEach(([n, v]) => setCssVariable(n, getValue(v)))
 
   if (!hasCssVariableSupport) {
     loadCssVars().then(cssVars => {

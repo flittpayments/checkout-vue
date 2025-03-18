@@ -15,7 +15,7 @@ import { isExist } from '@/utils/inspect'
 import { i18n, loadLanguageAsync, getBrowserLanguage } from '@/i18n/index'
 import store from '@/store/setup'
 import { loadButton } from '@/store/button'
-import initCssVariable from '@/store/css-variable'
+import { initCssVariable, setCssVariables } from '@/store/css-variable'
 import loadCardImg from '@/store/card-img'
 import { methods, most_popular_icons, tabs, tabs_order } from '@/store/parse'
 import { localStorage } from '@/utils/store'
@@ -418,7 +418,7 @@ class Store extends Model {
     return loadCardImg(this.state.options.theme.preset).then(config => {
       if (!config) return
       this.setState(config)
-      initCssVariable(config.css_variable)
+      setCssVariables(config.css_variable)
     })
   }
   setState(state) {
