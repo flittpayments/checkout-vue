@@ -235,7 +235,7 @@ export default {
 }
 
 .price {
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   height: 100%;
   display: flex;
   align-items: center;

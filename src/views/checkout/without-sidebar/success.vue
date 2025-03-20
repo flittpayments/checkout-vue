@@ -89,7 +89,7 @@ export default {
   padding: px-to-rem(16px);
   word-wrap: break-word;
   border: 1px solid $input_border;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
 }
 
 .right {

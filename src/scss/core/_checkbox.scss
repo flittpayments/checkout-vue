@@ -91,7 +91,7 @@
     content: '';
     border-style: solid;
     border-width: px-to-rem(1.5px);
-    border-radius: px-to-rem(4px);
+    border-radius: $border-radius-sm;
     transition: background-color ease-in-out 0.15s;
   }
 

@@ -148,9 +148,15 @@ Name                  | Type        | Default                 | Description
 }
 ```
 
+### css_variable
+| Name            | Type    | Default | Description         |
+|-----------------|---------|---------|---------------------|
+| `border_radius` | Integer | 8       | from 0 to 24 pixels |
+
+
 ## Use
 ### $on
-``` js
+```
 var app = checkout({css selector}, {config})
 
 app.$on('success', function(model) {})

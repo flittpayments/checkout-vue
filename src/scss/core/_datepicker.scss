@@ -12,7 +12,7 @@
 .f-datepicker-datepicker-popup {
   position: absolute;
   z-index: $zindex-dropdown;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   box-shadow: 0 px-to-rem(8px) px-to-rem(32px) fade($datepicker_shadow, 50%);
 }
 
@@ -91,7 +91,7 @@
   .cell {
     height: px-to-rem(40px);
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: $border-radius;
     transition: all ease-in-out 0.15s;
 
     &:hover {
@@ -124,7 +124,7 @@
 .f-datepicker-table-month,
 .f-datepicker-table-year {
   .cell {
-    border-radius: 0;
+    border-radius: $border-radius;
   }
 }
 

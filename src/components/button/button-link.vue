@@ -60,7 +60,7 @@ export default {
   text-align: center;
   background: none;
   border: none;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   transition: all ease-in-out 0.15s;
   white-space: nowrap;
 

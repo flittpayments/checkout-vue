@@ -7,7 +7,7 @@
     $preloader_bg 59%
   );
   background-size: 200% 100%;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   animation: f-preloader 2s ease-in-out infinite;
 }
 

@@ -52,6 +52,10 @@ function hexToHSL(H) {
   return { h, s, l }
 }
 
+const pxToRem = px => px / 16 + 'rem'
+
+const log = (base, value) => Math.log(value + 1) / Math.log(base)
+
 const prefix = `--${SAAS_TEMPLATE_NAME}-`
 
 const setCssVariable = (name, value) =>
@@ -63,6 +67,12 @@ export const setCssVariables = variables =>
   )
 
 export const initCssVariable = variablesLink => {
+  variablesLink.border_radius_sm = pxToRem(log(2, variablesLink.border_radius))
+  variablesLink.border_radius_lg = pxToRem(
+    log(1.15, variablesLink.border_radius)
+  )
+  variablesLink.border_radius = pxToRem(variablesLink.border_radius)
+
   let variables = Object.fromEntries(
     Object.entries(variablesLink).reduce((acc, [n, v]) => {
       let name = `${prefix}${n}`

@@ -239,6 +239,11 @@ const configCssVariable = {
     ...typeString,
     pattern: patternUrlImg,
   },
+  border_radius: {
+    ...typeInteger,
+    min: 0,
+    max: 24,
+  },
 }
 
 cssVariableKeys.forEach(item => {

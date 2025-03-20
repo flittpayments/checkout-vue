@@ -7,6 +7,7 @@ export default function ({ type, preset }) {
   return Object.assign(
     {
       card_img: '',
+      border_radius: 8,
     },
     cssVariableDefault,
     {

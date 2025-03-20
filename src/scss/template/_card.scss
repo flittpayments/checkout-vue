@@ -14,7 +14,7 @@
   width: 80%;
   height: px-to-rem(32px);
   content: '';
-  border-radius: px-to-rem(16px);
+  border-radius: $border-radius-lg;
   box-shadow: 0 px-to-rem(10px) px-to-rem(25px) fade($card_shadow, 60%);
 
   .f-theme-dark & {
@@ -38,7 +38,7 @@
     custom($card_bg, -0%, -8%) 100%
   );
   background-clip: padding-box;
-  border-radius: px-to-rem(16px);
+  border-radius: $border-radius-lg;
   box-shadow: $card_shadow_custom;
 }
 
@@ -66,7 +66,7 @@
   width: px-to-rem(86px);
   height: px-to-rem(42px);
   border: px-to-rem(1px) solid $white;
-  border-radius: px-to-rem(6px);
+  border-radius: $border-radius;
 }
 
 .f-form-group-card {
@@ -190,5 +190,5 @@
   height: px-to-rem(20px);
   margin-right: px-to-rem(4px);
   color: $icon_color;
-  border-radius: px-to-rem(6px);
+  border-radius: $border-radius-sm;
 }

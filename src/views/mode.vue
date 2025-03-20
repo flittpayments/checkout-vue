@@ -29,13 +29,13 @@ export default {
   left: 0;
   z-index: 1;
   display: block;
-  height: px-to-rem(16px);
   content: '';
   border-top: 2px solid $main;
 
   :global(.f-no-embed) & {
     @include media-breakpoint-up(xl) {
-      border-radius: px-to-rem(16px) px-to-rem(16px) 0 0;
+      height: $border-radius-lg;
+      border-radius: $border-radius-lg $border-radius-lg 0 0;
     }
   }
 }
@@ -48,7 +48,7 @@ export default {
   font-weight: 500;
   color: $white;
   background: $main;
-  border-radius: 0 0 px-to-rem(8px) px-to-rem(8px);
+  border-radius: 0 0 $border-radius-sm $border-radius-sm;
   transform: translateX(-50%);
 }
 </style>

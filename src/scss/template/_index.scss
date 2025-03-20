@@ -124,7 +124,7 @@
 
   .f-icon {
     margin-right: px-to-rem(8px);
-    border-radius: px-to-rem(3px);
+    border-radius: $border-radius-sm;
     box-shadow: 0 px-to-rem(1px) px-to-rem(4px) $menu_icons_shadow;
 
     &:last-child {
@@ -146,7 +146,7 @@
   color: $menu_count_color;
   text-align: center;
   background: $menu_count_bg;
-  border-radius: px-to-rem(3px);
+  border-radius: $border-radius-sm;
   transition: all ease-in-out 0.15s;
 
   @include hover {

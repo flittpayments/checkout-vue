@@ -26,7 +26,7 @@
   font-weight: 400;
   line-height: px-to-rem(20px);
   color: #5a6470;
-  border-radius: px-to-rem(4px);
+  border-radius: $border-radius-sm;
 
   &:focus {
     box-shadow: none;
@@ -67,7 +67,7 @@
 .f-select-secondary-item_focus {
   text-decoration: none;
   border-color: transparent;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
 
   + .f-select-secondary-item {
     border-color: transparent;

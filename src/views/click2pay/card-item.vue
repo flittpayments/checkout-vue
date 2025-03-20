@@ -72,7 +72,7 @@ export default {
   width: px-to-rem(64px);
   height: px-to-rem(40px);
   margin-right: px-to-rem(8px);
-  border-radius: px-to-rem(4px);
+  border-radius: $border-radius-sm;
 }
 
 .number {

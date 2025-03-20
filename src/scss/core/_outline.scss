@@ -17,7 +17,7 @@
 .f-switch:focus + .f-switch-label,
 .f-checkbox:focus + .f-checkbox-label {
   background: $outline_bg;
-  border-radius: px-to-rem(1px);
+  border-radius: $border-radius-sm;
   box-shadow:
     0 0 0 px-to-rem(2px) $container_bg,
     0 0 0 px-to-rem(3.5px) $outline_border;
@@ -26,7 +26,7 @@
 a {
   @include focus-visible(px-to-rem(1.5px), $outline_border);
 
-  border-radius: px-to-rem(1px);
+  border-radius: $border-radius-sm;
 }
 
 .f-btn-success:focus-visible {

@@ -1,12 +1,10 @@
-$bank-inner-border-radius: subtract(px-to-rem(8px), px-to-rem(1px));
-
 .f-bank-item {
   display: flex;
   align-items: center;
   width: 100%;
   color: $bank_item_color;
   cursor: pointer;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   transition:
     background-color ease-in-out 0.15s,
     color ease-in-out 0.15s,
@@ -42,13 +40,13 @@ $bank-inner-border-radius: subtract(px-to-rem(8px), px-to-rem(1px));
 .f-bank-icon {
   min-width: px-to-rem(48px);
   margin-right: px-to-rem(12px);
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   box-shadow: 0 px-to-rem(1px) px-to-rem(4px) $bank_icon_shadow;
 }
 
 .f-bank-icon_list {
   min-width: px-to-rem(24px);
-  border-radius: px-to-rem(3px);
+  border-radius: $border-radius-sm;
   box-shadow: none;
 }
 
@@ -73,7 +71,7 @@ $bank-inner-border-radius: subtract(px-to-rem(8px), px-to-rem(1px));
   align-items: stretch;
   height: px-to-rem(44px);
   border: 1px solid $input_border;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
 }
 
 .f-bank-view-icon {
@@ -92,12 +90,12 @@ $bank-inner-border-radius: subtract(px-to-rem(8px), px-to-rem(1px));
   }
 
   &:first-child {
-    border-radius: $bank-inner-border-radius 0 0 $bank-inner-border-radius;
+    border-radius: $border-radius 0 0 $border-radius;
   }
 
   &:last-child {
     border: none;
-    border-radius: 0 $bank-inner-border-radius $bank-inner-border-radius 0;
+    border-radius: 0 $border-radius $border-radius 0;
   }
 }
 
@@ -112,12 +110,12 @@ $bank-inner-border-radius: subtract(px-to-rem(8px), px-to-rem(1px));
   padding: px-to-rem(12px);
   margin-bottom: px-to-rem(12px);
   background-color: $bank_select_bg;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
 }
 
 .f-system-icon {
   margin-right: px-to-rem(12px);
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
 }
 
 .f-system-name {

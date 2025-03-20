@@ -1,6 +1,5 @@
 // Tooltips
 
-$tooltip-border-radius: px-to-rem(8px);
 $tooltip-arrow-width: px-to-rem(10px);
 $tooltip-arrow-height: px-to-rem(7px);
 
@@ -17,7 +16,7 @@ $tooltip-arrow-height: px-to-rem(7px);
     display: block;
     width: $tooltip-arrow-width;
     height: $tooltip-arrow-height;
-    margin: 0 $tooltip-border-radius;
+    margin: 0 $border-radius;
 
     &::before {
       position: absolute;
@@ -34,7 +33,7 @@ $tooltip-arrow-height: px-to-rem(7px);
   &.f-tooltip-right,
   &.f-tooltip-left {
     .f-tooltip-arrow {
-      margin: $tooltip-border-radius 0;
+      margin: $border-radius 0;
     }
   }
 }
@@ -121,7 +120,7 @@ $tooltip-arrow-height: px-to-rem(7px);
   max-width: px-to-rem(300px);
   padding: px-to-rem(16px);
   font-weight: 500;
-  border-radius: $tooltip-border-radius;
+  border-radius: $border-radius;
 }
 
 @mixin tooltip-variant($bg) {
@@ -155,7 +154,6 @@ $tooltip-arrow-height: px-to-rem(7px);
 
   .f-tooltip-inner {
     color: $tooltip_default_color;
-    border-radius: px-to-rem(6px);
     opacity: 0.95;
   }
 }
@@ -165,7 +163,6 @@ $tooltip-arrow-height: px-to-rem(7px);
 
   .f-tooltip-inner {
     color: $tooltip_secondary2_color;
-    border-radius: px-to-rem(6px);
     opacity: 0.95;
   }
 }

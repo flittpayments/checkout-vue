@@ -20,7 +20,7 @@
   cursor: pointer;
   background-color: $container_bg;
   border: 1px solid $menu_item_border;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   transition:
     background-color ease-in-out 0.15s,
     color ease-in-out 0.15s,

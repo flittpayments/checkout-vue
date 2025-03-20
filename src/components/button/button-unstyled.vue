@@ -17,7 +17,7 @@
   cursor: pointer;
   background: none;
   border: 0;
-  border-radius: px-to-rem(4px);
+  border-radius: $border-radius-sm;
 
   &:focus-visible {
     outline: 0;

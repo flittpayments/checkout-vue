@@ -244,7 +244,7 @@ export default {
 }
 
 :global(#f) .card_number_input {
-  border-radius: px-to-rem(8px) px-to-rem(8px) 0 0;
+  border-radius: $border-radius $border-radius 0 0;
 }
 
 .expiry_date {
@@ -256,7 +256,7 @@ export default {
 }
 
 :global(#f) .expiry_date_input {
-  border-radius: 0 0 0 px-to-rem(8px);
+  border-radius: 0 0 0 $border-radius;
 }
 
 .cvv2 {
@@ -267,7 +267,7 @@ export default {
 }
 
 :global(#f) .cvv2_input {
-  border-radius: 0 0 px-to-rem(8px) 0;
+  border-radius: 0 0 $border-radius 0;
 }
 
 :global(#f) .card_number_input,

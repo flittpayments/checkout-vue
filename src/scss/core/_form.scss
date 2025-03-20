@@ -42,7 +42,7 @@
 
 .f-form-group-inner-select {
   background-color: $input_bg;
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
 }
 
 .f-form-control {
@@ -57,7 +57,7 @@
   font-weight: 500;
   border-style: solid;
   border-width: var(--border);
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   transition:
     color ease-in-out 0.15s,
     box-shadow ease-in-out 0.15s,

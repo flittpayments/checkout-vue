@@ -60,7 +60,7 @@ export default {
 
   :global(.f-no-embed) & {
     @include media-breakpoint-up(xl) {
-      border-radius: px-to-rem(16px);
+      border-radius: $border-radius-lg;
     }
   }
 }

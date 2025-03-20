@@ -66,7 +66,7 @@ export default {
 
 .icon {
   margin-right: px-to-rem(12px);
-  border-radius: px-to-rem(8px);
+  border-radius: $border-radius;
   box-shadow: 0 px-to-rem(1px) px-to-rem(4px) $bank_icon_shadow;
 }
 

@@ -2,7 +2,7 @@
   position: relative;
   padding: px-to-rem(24px) px-to-rem(20px);
   margin-bottom: px-to-rem(16px);
-  border-radius: px-to-rem(16px);
+  border-radius: $border-radius-lg;
 }
 
 @mixin alert-variant($background, $color) {

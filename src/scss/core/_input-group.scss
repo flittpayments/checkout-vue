@@ -6,13 +6,13 @@
 
   > :first-child .f-form-control {
     border-right: none;
-    border-radius: px-to-rem(8px) 0 0 px-to-rem(8px);
+    border-radius: $border-radius 0 0 $border-radius;
   }
 
   > :last-child {
     .f-form-control,
     .f-form-group-inner-select {
-      border-radius: 0 px-to-rem(8px) px-to-rem(8px) 0;
+      border-radius: 0 $border-radius $border-radius 0;
     }
 
     .f-form-control {
