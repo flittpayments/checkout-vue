@@ -1,5 +1,5 @@
 import { deepMerge, findGetParameter, removeWallets } from '@/utils/helpers'
-import { isPlainObject, isExist } from '@/utils/inspect'
+import { isPlainObject, isExist, isArray } from '@/utils/inspect'
 import descriptor from '@/schema/descriptor'
 import { sentry } from '@/import'
 import { loadAsyncValidator } from '@/import'
@@ -35,6 +35,11 @@ class Validate {
     this.supportOldOptions('show_pay_button', 'button')
     this.supportOldOptions('show_pay_button_amount', 'show_button_amount')
     this.supportOldOptions('show_title', 'hide_title')
+    this.supportOldOptions('banks_icons', 'banklinks_eu_icons')
+    this.supportOldOptionsArray('methods', 'banks', 'trustly')
+    this.supportOldOptionsArray('methods', 'banks', 'banklinks_eu')
+    this.supportOldOptionsArray('methods_disabled', 'banks', 'trustly')
+    this.supportOldOptionsArray('methods_disabled', 'banks', 'banklinks_eu')
     this.deprecatedOptions('fields')
     this.deprecatedOptions('hide_button_title')
   }
@@ -49,21 +54,40 @@ class Validate {
       this.options[newName] = oldValue
     }
 
-    const message = `options.${oldName} is deprecated, use options.${newName}`
-    sentry().then(({ captureMessage }) => captureMessage(message, 'warning'))
-    console.warn(message)
+    this.log(`options.${oldName} is deprecated, use options.${newName}`)
 
     delete this.options[oldName]
+  }
+
+  supportOldOptionsArray(field, newName, oldName) {
+    const value = this.options[field]
+
+    if (!isArray(value)) return
+
+    this.options[field] = value.map(item => {
+      if (item === oldName) {
+        this.log(
+          `${oldName} is deprecated in the options.${field}, use ${newName}`
+        )
+
+        return newName
+      } else {
+        return item
+      }
+    })
   }
 
   deprecatedOptions(name) {
     if (!isExist(this.options[name])) return
 
-    const message = `options.${name} is deprecated, needs to be deleted`
-    sentry().then(({ captureMessage }) => captureMessage(message, 'warning'))
-    console.warn(message)
+    this.log(`options.${name} is deprecated, needs to be deleted`)
 
     delete this.options[name]
+  }
+
+  log(message) {
+    sentry().then(({ captureMessage }) => captureMessage(message, 'warning'))
+    console.warn(message)
   }
 
   format(options) {

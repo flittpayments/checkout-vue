@@ -42,7 +42,7 @@ msgstr "ბარათი"
 msgid "sepa"
 msgstr "სეფა"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "ბანკით გადახდა"
 
 msgid "receipt"
@@ -294,11 +294,9 @@ msgstr "საკომისიო"
 msgid "total_amount"
 msgstr "სრული თანხა"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -741,7 +739,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

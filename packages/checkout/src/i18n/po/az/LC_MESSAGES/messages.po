@@ -50,7 +50,7 @@ msgstr "kart"
 msgid "sepa"
 msgstr "sepa birbaşa debet"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "internet bankı"
 
 msgid "receipt"
@@ -309,11 +309,9 @@ msgstr "komissiya"
 msgid "total_amount"
 msgstr "ümumi"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -767,7 +765,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

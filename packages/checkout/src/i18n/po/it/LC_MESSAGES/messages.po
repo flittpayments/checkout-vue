@@ -50,7 +50,7 @@ msgstr "Carta"
 msgid "sepa"
 msgstr "Addebito SEPA"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "Internet bank"
 
 msgid "receipt"
@@ -312,11 +312,9 @@ msgstr "Commissione"
 msgid "total_amount"
 msgstr "Importo totale"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -765,7 +763,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

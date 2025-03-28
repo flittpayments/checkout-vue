@@ -11,9 +11,9 @@ export default {
     FBank,
   },
   computed: {
-    ...mapState('tabs', ['banklinks_eu']),
+    ...mapState('tabs', ['banks']),
     config() {
-      return this.banklinks_eu || {}
+      return this.banks || {}
     },
   },
 }

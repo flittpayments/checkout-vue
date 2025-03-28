@@ -50,7 +50,7 @@ msgstr "Kortti"
 msgid "sepa"
 msgstr "SEPA-suoraveloitus"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "Verkkopankki"
 
 msgid "receipt"
@@ -313,11 +313,9 @@ msgstr "Käsittelykulut"
 msgid "total_amount"
 msgstr "Kokonaissumman maksun eräpäivä"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -764,7 +762,6 @@ msgstr "Google Pay"
 msgid "wallets_apple"
 msgstr "Apple Pay"
 
-#
 msgid "wallets_apple_google"
 msgstr ""
 
@@ -902,6 +899,3 @@ msgstr ""
 
 msgid "card_does_not_participate_in_discount_program"
 msgstr ""
-
-#~ msgid "wallets_card"
-#~ msgstr "Google Pay"

@@ -37,9 +37,9 @@
     <div class="btns">
       <button class="submit">submit</button>
       <button class="wallet">submit wallet</button>
-      <button class="go-ibank">go ibank</button>
-      <button class="go-local">go local methods</button>
-      <button class="go-card">go card</button>
+      <button class="banks">go ibank</button>
+      <button class="local_methods">go local methods</button>
+      <button class="card">go card</button>
       <button class="set-params">set params</button>
       <select class="configs"></select>
       <button class="render">render</button>
@@ -66,7 +66,7 @@
       var configs = {
         max: {
           options: {
-            methods: ['card', 'banklinks_eu'],
+            methods: ['card', 'banks'],
             card_icons: [
               'mastercard',
               'visa',
@@ -77,7 +77,7 @@
               'maestro',
               'union_pay',
             ],
-            banklinks_eu_icons: [
+            banks_icons: [
               'bank_of_ireland',
               'danske_bank',
               'lloyds',
@@ -147,7 +147,6 @@
             ru: {
               field_11: 'field_11_ru',
               field_5: 'Номер договора',
-              // card_number: 'edit Номер карты',
               my_amount: 'Сума к оплате',
               my_email: 'Эл. адрес',
               my_title: 'Назначение платежа',
@@ -155,10 +154,6 @@
                 'Благотворительная помощь (ребенку или отделению гематологии, или отделению плановой хирургии с онкологическими койками днепропетровской областной детской клинической больницы)',
             },
             en: {
-              banklinks_eu: 'asdasd',
-              UAH: 'гривна',
-              // card_number: 'edit Card number',
-              // card_number_p: 'Card number',
               my_amount: 'Sum to pay',
               my_email: 'Email',
               my_title: 'Purpose of payment',
@@ -203,7 +198,7 @@
         },
         max2: {
           options: {
-            methods: ['card', 'banklinks_eu'],
+            methods: ['card', 'banks'],
             api_domain,
             full_screen: false,
           },
@@ -272,11 +267,11 @@
             token: '',
           },
         },
-        banklinks_eu: {
+        banks: {
           options: {
-            methods: ['banklinks_eu'],
+            methods: ['banks'],
             api_domain,
-            active_tab: 'banklinks_eu',
+            active_tab: 'banks',
             default_country: 'PL',
             // countries: ['PL'],
             show_menu_first: false,
@@ -340,7 +335,7 @@
         },
         dark: {
           options: {
-            methods: ['card', 'banklinks_eu'],
+            methods: ['card', 'banks'],
             card_icons: [
               'mastercard',
               'visa',
@@ -351,7 +346,7 @@
               'maestro',
               'union_pay',
             ],
-            banklinks_eu_icons: [
+            banks_icons: [
               'bank_of_ireland',
               'danske_bank',
               'lloyds',
@@ -649,8 +644,8 @@
         },
         yapily: {
           options: {
-            methods: ['banklinks_eu'],
-            active_tab: 'banklinks_eu',
+            methods: ['banks'],
+            active_tab: 'banks',
             api_domain,
           },
           params: {
@@ -723,17 +718,17 @@
           app.$emit('click-wallet')
         })
       document
-        .querySelector('.go-card')
+        .querySelector('.card')
         .addEventListener('click', function () {
           app.location('card')
         })
       document
-        .querySelector('.go-ibank')
+        .querySelector('.banks')
         .addEventListener('click', function () {
-          app.location('banklinks_eu')
+          app.location('banks')
         })
       document
-        .querySelector('.go-local')
+        .querySelector('.local_methods')
         .addEventListener('click', function () {
           app.location('local_methods')
         })

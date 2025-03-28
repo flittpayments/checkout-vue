@@ -16,12 +16,12 @@
 
 ### options
 Name                  | Type        | Default                 | Description                                                                         | Priority
----                   |-------------|-------------------------| ---                                                                                 | ---
-`methods`             | Array       | ['card']                | support `card`, `sepa`, `banklinks_eu`, `receipt`.                                  |
-`methods_disabled`    | Array       | []                      | support `card`, `sepa`, `banklinks_eu`, `receipt`.                                  |
+---                   | ---         | ---                     | ---                                                                                 | ---
+`methods`             | Array       | ['card']                | support `card`, `sepa`, `banks`, `receipt`.                                         |
+`methods_disabled`    | Array       | []                      | support `card`, `sepa`, `banks`, `receipt`.                                         |
 `wallet_methods_enabled`| Array     | ['apple', 'google']     | support `apple`, `google`.                                                          |
 `card_icons`          | Array       | ['mastercard', 'visa']  | support `mastercard`, `visa`, `mir`, `prostir`, `diners`, `american_express` , `jcb`, `maestro`, `union_pay`.|
-`banklinks_eu_icons`  | Array       | []                      |                                                                                     |
+`banks_icons`         | Array       | []                      |                                                                                     |
 `local_methods_icons` | Array       | []                      |                                                                                     |
 `crypto_icons`        | Array       | []                      |                                                                                     |
 `loans_icons`         | Array       | []                      |                                                                                     |

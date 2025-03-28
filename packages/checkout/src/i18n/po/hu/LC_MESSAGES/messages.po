@@ -50,7 +50,7 @@ msgstr "Kártya"
 msgid "sepa"
 msgstr "SEPA Direct Debit"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "Internet bank"
 
 msgid "receipt"
@@ -313,11 +313,9 @@ msgstr "Jutalék összege"
 msgid "total_amount"
 msgstr "Teljes összeg"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -764,7 +762,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

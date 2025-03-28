@@ -1,5 +1,5 @@
 let mapping = {
-  trustly: 'banklinks_eu',
+  trustly: 'banks',
 }
 
 export const mappingMethod = item => mapping[item] || item

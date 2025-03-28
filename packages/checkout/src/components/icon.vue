@@ -21,7 +21,6 @@ export default {
   data() {
     return {
       map: {
-        banklinks_eu: 'banks',
         local_methods: 'banks',
       },
     }

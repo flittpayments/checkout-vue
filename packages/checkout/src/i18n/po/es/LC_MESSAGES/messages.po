@@ -50,7 +50,7 @@ msgstr "Tarjeta"
 msgid "sepa"
 msgstr "Débito directo SEPA "
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "Banco por Internet"
 
 msgid "receipt"
@@ -311,11 +311,9 @@ msgstr "Monto de la comisión"
 msgid "total_amount"
 msgstr "Monto total"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -762,7 +760,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

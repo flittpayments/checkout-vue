@@ -50,7 +50,7 @@ msgstr "kaart"
 msgid "sepa"
 msgstr "sepa-incasso systeem"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "internetbank"
 
 msgid "receipt"
@@ -312,11 +312,9 @@ msgstr "commissie"
 msgid "total_amount"
 msgstr "totaal bedrag"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -766,7 +764,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

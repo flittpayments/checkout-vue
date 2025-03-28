@@ -101,7 +101,7 @@ import { resizeMixin } from '@/mixins/resize'
 import { upperFirst } from '@/utils/string'
 
 const supportSystemRoute = [
-  'banklinks_eu',
+  'banks',
   'local_methods',
   'loans',
   'emoney',
@@ -286,7 +286,7 @@ export default {
       this.view_ = view
     },
     listSelectFilter({ country, method }) {
-      return this.enableCountry && method === 'banklinks_eu'
+      return this.enableCountry && method === 'banks'
         ? [this.default_country, 'XX'].includes(country)
         : true
     },

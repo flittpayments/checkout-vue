@@ -50,7 +50,7 @@ msgstr "카드"
 msgid "sepa"
 msgstr "SEPA Direct Debit"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "인터넷 뱅크"
 
 msgid "receipt"
@@ -307,11 +307,9 @@ msgstr "수수료"
 msgid "total_amount"
 msgstr "합계"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -757,7 +755,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 

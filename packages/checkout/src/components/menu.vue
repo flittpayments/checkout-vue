@@ -50,7 +50,7 @@ export default {
     return {
       icon: {
         sepa: 'local',
-        banklinks_eu: 'bank',
+        banks: 'bank',
         local_methods: 'local',
         emoney: 'wallet',
         most_popular: 'star',

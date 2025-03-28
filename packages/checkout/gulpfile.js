@@ -26,7 +26,7 @@ const i18nProcess = (src, parse) => () =>
 task(
   'methods',
   i18nProcess('./src/config/methods.json', content =>
-    content.filter(excludes(['trustly', 'wallets']))
+    content.filter(excludes(['wallets']))
   )
 )
 

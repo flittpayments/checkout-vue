@@ -1,5 +1,5 @@
 export const activeMethod = [
-  'banklinks_eu',
+  'banks',
   'local_methods',
   'loans',
   'emoney',

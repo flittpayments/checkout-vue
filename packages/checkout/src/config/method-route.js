@@ -1,5 +1,5 @@
 export const methodRoute = {
-  banklinks_eu: 'system',
+  banks: 'system',
   local_methods: 'system',
   loans: 'system',
   emoney: 'system',

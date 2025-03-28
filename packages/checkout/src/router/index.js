@@ -14,7 +14,7 @@ import {
   Click2payUserExists,
   CardVerify,
   Click2payOtp,
-  Banklinks_eu,
+  Banks,
   Local_methods,
   Crypto,
   Sepa,
@@ -41,7 +41,7 @@ const click2pay = 'click2pay'
 const verify = 'verify'
 const click2pay_otp = 'click2pay_otp'
 const click2pay_switch_id = 'click2pay_switch_id'
-const banklinks_eu = 'banklinks_eu'
+const banks = 'banks'
 const local_methods = 'local_methods'
 const crypto = 'crypto'
 const sepa = 'sepa'
@@ -145,11 +145,11 @@ export const createRouter = name => {
                 ],
               },
               {
-                path: banklinks_eu,
-                name: banklinks_eu,
-                component: Banklinks_eu,
+                path: banks,
+                name: banks,
+                component: Banks,
                 meta: {
-                  method: banklinks_eu,
+                  method: banks,
                 },
               },
               {

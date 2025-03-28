@@ -50,7 +50,7 @@ msgstr "Банковская карта"
 msgid "sepa"
 msgstr "SEPA Direct Debit"
 
-msgid "banklinks_eu"
+msgid "banks"
 msgstr "Интернет-банкинг"
 
 msgid "receipt"
@@ -318,11 +318,9 @@ msgstr "С учетом комиссии"
 msgid "total_amount"
 msgstr "Сумма к оплате"
 
-#
 msgid "processed_by"
 msgstr ""
 
-#
 msgid "saas_name"
 msgstr ""
 
@@ -792,7 +790,9 @@ msgstr ""
 msgid "wallets_apple"
 msgstr ""
 
-#
+msgid "wallets_apple_google"
+msgstr ""
+
 msgid "wallets_apple_google"
 msgstr ""
 
