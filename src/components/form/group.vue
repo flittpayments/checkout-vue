@@ -163,7 +163,7 @@ export default {
     },
     showError() {
       let showError = !this.tooltip && this.hasError && this.focus
-      this.$emit('show-error', showError, this.error)
+      this.$emit('error', showError && this.error)
       return showError && !this.hideError
     },
     showErrorTooltip() {

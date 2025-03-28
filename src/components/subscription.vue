@@ -69,7 +69,7 @@
             inputmode="numeric"
             :disabled="readonly"
             hide-error
-            @show-error="onShowError"
+            @error="onShowError"
           />
           <f-form-group
             v-model="period"
@@ -80,7 +80,7 @@
             rules="required"
             :disabled="readonly"
             hide-error
-            @show-error="onShowError"
+            @error="onShowError"
           />
         </div>
         <div class="f-mb-16">
@@ -220,8 +220,8 @@ export default {
         this.start_time = format(createDate(), formatServer)
       }
     },
-    onShowError(show, error) {
-      this.error = show && error
+    onShowError(error) {
+      this.error = error
     },
     watchEnable(value) {
       this.recurring = value ? 'y' : 'n'
