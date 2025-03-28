@@ -46,7 +46,7 @@
 
   .f-tooltip-inner {
     display: block;
-    padding: 0;
+    padding: px-to-rem(8px) 0;
   }
 }
 

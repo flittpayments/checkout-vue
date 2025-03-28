@@ -7,7 +7,6 @@
       <slot name="text" />
       <f-modal-base
         v-model="modal"
-        content-class="f-p-0"
         header-class="f-p-0"
         :body-class="modalBodyClass"
         :scrollable="scrollable"
@@ -60,9 +59,9 @@ export default {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
     modalBodyClass: makeProp(PROP_TYPE_STRING, 'f-p-0'),
-    modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-p-20'),
+    modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-20 f-pl-20'),
     dropdownClass: makeProp(PROP_TYPE_STRING, 'f-tooltip-select'),
-    dropdownWrapperClass: makeProp(PROP_TYPE_STRING, 'f-p-4'),
+    dropdownWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-4 f-pl-4'),
     dropdownPlacement: makeProp(PROP_TYPE_STRING, 'bottomleft'),
   },
   data() {

@@ -127,14 +127,13 @@
 }
 
 .f-select-search {
-  padding-top: px-to-rem(20px);
+  padding-top: px-to-rem(4px);
   padding-bottom: px-to-rem(20px);
-  margin-top: px-to-rem(-20px);
   background-image: linear-gradient(
     to bottom,
     $white,
     $white calc(100% - #{px-to-rem(20px)}),
     fade($white, 0)
   );
-  @include sticky-top(px-to-rem(-20px));
+  @include sticky-top;
 }
