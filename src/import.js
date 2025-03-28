@@ -169,8 +169,8 @@ export const Card = () =>
 export const CardFields = () =>
   import(/* webpackChunkName: "11" */ '@/views/checkout/method/card/fields')
 
-export const CardCard = () =>
-  import(/* webpackChunkName: "11" */ '@/views/checkout/method/card/card')
+export const CardWrapper = () =>
+  import(/* webpackChunkName: "11" */ '@/views/checkout/method/card/wrapper')
 
 export const Banklinks_eu = () =>
   import(/* webpackChunkName: "12" */ '@/views/checkout/method/banklinks_eu')

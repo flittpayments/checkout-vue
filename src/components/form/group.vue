@@ -145,6 +145,7 @@ export default {
     },
     classLabelFloating() {
       return [
+        this.labelClass,
         'f-control-label',
         'f-control-label-floating',
         {

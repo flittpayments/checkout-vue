@@ -1,57 +1,6 @@
 <template>
   <div>
-    <div class="f-card">
-      <div class="f-card-shadow" />
-      <f-card-bg />
-      <transition name="f-fade">
-        <f-icon-bin
-          v-if="card_number"
-          class="f-card-brand"
-          :bin="card_number"
-        />
-      </transition>
-      <f-form-group
-        :value="card_number"
-        class="f-form-group-card f-form-group-card-number"
-        name="card_number"
-        placeholder="____ ____ ____ ____"
-        mask="XXXX XXXX XXXX XXXX XXX"
-        :disabled="true"
-        no-label-floating
-        dynamic-placeholder
-      >
-        <template #label="{ label }">
-          <label class="f-card_label">
-            {{ label }} <f-svg name="lock-alt" size="lg" />
-          </label>
-        </template>
-      </f-form-group>
-
-      <f-form-group
-        :value="expiry_date"
-        class="f-form-group-card"
-        label-class="f-card_label"
-        input-class="f-form-control-expiry-date"
-        name="expiry_date"
-        placeholder="__/__"
-        mask="##/##"
-        :disabled="true"
-        no-label-floating
-        dynamic-placeholder
-      />
-      <f-form-group
-        :value="cvv2"
-        class="f-form-group-card"
-        label-class="f-card_label"
-        input-class="f-form-control-cvv2"
-        name="cvv2"
-        placeholder="___"
-        mask="####"
-        :disabled="true"
-        no-label-floating
-        dynamic-placeholder
-      />
-    </div>
+    <f-credit-card disabled />
     <f-field-email />
     <f-form-group
       v-if="isCode"
@@ -76,9 +25,7 @@
 </template>
 
 <script>
-import FCardBg from '@/components/card-bg'
-import FIconBin from '@/components/icon-bin'
-import FSvg from '@/components/svg'
+import FCreditCard from '@/views/checkout/method/card/card'
 import FFieldEmail from '@/components/fields/email'
 import FSubscriptionWrapper from '@/components/subscription-wrapper'
 import FOffer from '@/components/offer'
@@ -88,9 +35,7 @@ import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
   components: {
-    FCardBg,
-    FIconBin,
-    FSvg,
+    FCreditCard,
     FFieldEmail,
     FSubscriptionWrapper,
     FOffer,

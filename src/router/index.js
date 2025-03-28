@@ -10,7 +10,7 @@ import Click2payButtonPay from '@/views/click2pay/button-pay'
 import {
   Card,
   CardFields,
-  CardCard,
+  CardWrapper,
   Click2payUserExists,
   CardVerify,
   Click2payOtp,
@@ -87,7 +87,7 @@ export const createRouter = name => {
                         path: '',
                         name: card,
                         components: {
-                          default: CardCard,
+                          default: CardWrapper,
                           'button-pay': ButtonPay,
                         },
                         beforeEnter: (to, from, next) => {
