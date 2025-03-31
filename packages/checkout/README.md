@@ -45,6 +45,7 @@ Name                  | Type        | Default                 | Description     
 `subscription`        | Object      |                         |                                                                                     |
 `loading`             | String      |                         | format url                                                                          |
 `amount_readonly`     | Boolean     | true                    |                                                                                     |
+`autosubmit`          | Boolean     | false                   |                                                                                     |
 `show_amount`         | Boolean     | true                    |                                                                                     |
 `show_email`          | Boolean     | false                   |                                                                                     | server or options
 `show_fee`            | Boolean     | true                    |                                                                                     |

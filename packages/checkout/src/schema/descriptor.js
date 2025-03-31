@@ -315,6 +315,7 @@ export default {
             pattern: patternUrlImg,
           },
           amount_readonly: typeBoolean,
+          autosubmit: typeBoolean,
           show_amount: typeBoolean,
           show_email: typeBoolean,
           show_fee: typeBoolean,

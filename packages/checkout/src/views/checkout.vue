@@ -1,5 +1,7 @@
 <template>
+  <f-loading v-if="showFirstLoading" backdrop />
   <f-form
+    v-else
     class="f-container"
     :class="classNameContainer"
     :data-e2e-ready="ready"
@@ -64,7 +66,7 @@ export default {
   computed: {
     ...mapState('options.theme', ['type']),
     ...mapState(['loading', 'info']),
-    ...mapState('options', ['methods']),
+    ...mapState('options', ['autosubmit']),
     ...mapState('params', ['token', 'fee']),
 
     ...mapStateGetSet(['ready', 'order']),
@@ -75,6 +77,9 @@ export default {
       'order_id',
       'verification_type',
     ]),
+    showFirstLoading() {
+      return this.autosubmit && !this.ready
+    },
     showLoading() {
       return !this.$route.meta.noLoading && this.loading
     },

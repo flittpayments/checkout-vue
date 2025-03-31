@@ -28,6 +28,7 @@ class Validate {
   compatibility() {
     this.email()
     this.button()
+    this.autosubmit()
     this.supportOldOptions('show_email', 'email')
     this.supportOldOptions('show_fee', 'fee')
     this.supportOldOptions('show_lang', 'lang')
@@ -156,6 +157,14 @@ class Validate {
     if (!button) return
 
     this.params.button = button
+  }
+
+  autosubmit() {
+    let autosubmit =
+      findGetParameter('autosubmit') === 'true' || this.options.autosubmit
+    if (!autosubmit) return
+
+    this.options.autosubmit = autosubmit
   }
 
   activeTab() {
