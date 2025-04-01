@@ -1,5 +1,5 @@
 <template>
-  <f-modal-error v-if="showInner" />
+  <f-modal-error v-if="show" />
 </template>
 
 <script>
@@ -10,18 +10,8 @@ export default {
   components: {
     FModalError,
   },
-  data() {
-    return {
-      showInner: false,
-    }
-  },
   computed: {
     ...mapState('error', ['show']),
-  },
-  watch: {
-    show(value) {
-      this.showInner = this.showInner || value
-    },
   },
 }
 </script>

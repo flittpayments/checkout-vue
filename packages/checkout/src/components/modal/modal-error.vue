@@ -1,10 +1,5 @@
 <template>
-  <f-modal-base
-    v-if="isCodeMessage"
-    v-model="show"
-    v-bind="attrs"
-    v-on="$listeners"
-  >
+  <f-modal-base v-if="isCodeMessage" visible v-bind="attrs" v-on="$listeners">
     <template #title>
       <svg-decline :class="$style.svg" />
       <h5 class="f-modal-title" v-text="$t('declined')" />
@@ -13,7 +8,7 @@
       <b>{{ code }}</b> {{ message }}
     </p>
   </f-modal-base>
-  <f-modal-base v-else v-model="show" v-bind="attrs" v-on="$listeners">
+  <f-modal-base v-else visible v-bind="attrs" v-on="$listeners">
     <template #title>
       <svg-server-trouble :class="$style.svg" />
       <h5 class="f-modal-title" v-text="$t('server_trouble_title')" />
@@ -27,7 +22,7 @@
 import FModalBase from '@/components/modal/modal-base'
 import SvgServerTrouble from '@/svg/server-trouble.svg'
 import SvgDecline from '@/svg/decline.svg'
-import { mapState, mapStateGetSet } from '@/utils/store'
+import { mapState } from '@/utils/store'
 
 export default {
   components: {
@@ -36,7 +31,6 @@ export default {
     SvgDecline,
   },
   computed: {
-    ...mapStateGetSet('error', ['show']),
     ...mapState('error', ['code', 'message']),
     attrs() {
       return {
