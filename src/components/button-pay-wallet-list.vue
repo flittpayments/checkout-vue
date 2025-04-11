@@ -1,6 +1,6 @@
 <template>
   <transition name="f-fade-enter">
-    <div v-if="show">
+    <div v-if="show" :class="classname">
       <f-button-pay-wallet-inner
         v-for="(item, index) in list"
         :key="item"
@@ -21,6 +21,8 @@ import { api } from '@/api'
 import { captureMessage } from '@/sentry'
 import { listenOnRootMixin } from '@/mixins/listen-on-root'
 import { loadCheckout } from '@/import'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_STRING } from '@/constants/props'
 
 export default Vue.extend({
   components: {
@@ -28,6 +30,9 @@ export default Vue.extend({
   },
   mixins: [listenOnRootMixin],
   inject: ['formRequest'],
+  props: {
+    classname: makeProp(PROP_TYPE_STRING),
+  },
   data() {
     return {
       paymentRequest: null,

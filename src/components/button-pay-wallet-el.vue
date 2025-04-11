@@ -8,6 +8,7 @@ import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
   inject: ['formRequest', '$_veeObserver'],
+  inheritAttrs: false,
   computed: {
     ...mapStateGetSet(['init_wallets', 'vm_wallets']),
     ...mapState('options', [
@@ -42,6 +43,7 @@ export default {
           return { formRequest: this.formRequest }
         },
         parent: this.$_veeObserver,
+        propsData: this.$attrs,
       }).$mount()
     },
     append() {
