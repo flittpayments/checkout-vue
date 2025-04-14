@@ -6,10 +6,13 @@ import {
   captureMessage as msg,
 } from '@sentry/vue'
 
+let isInit
 const enable = SENTRY_DSN && DOMAIN === location.hostname
 
 export const install = router => Vue => {
   if (!enable) return
+  if (isInit) return
+  isInit = true
 
   init({
     Vue,
