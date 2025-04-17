@@ -10,7 +10,7 @@ export default {
   inject: ['formRequest', '$_veeObserver'],
   inheritAttrs: false,
   computed: {
-    ...mapStateGetSet(['init_wallets', 'vm_wallets']),
+    ...mapStateGetSet(['vm_wallets']),
     ...mapState('options', [
       'disable_request',
       'wallet_methods_enabled',
@@ -33,9 +33,7 @@ export default {
   methods: {
     init() {
       if (!this.show) return
-      if (this.init_wallets) return
-
-      this.init_wallets = true
+      if (this.vm_wallets) return
 
       this.vm_wallets = new ButtonPayWalletList({
         store: this.store,
@@ -47,7 +45,9 @@ export default {
       }).$mount()
     },
     append() {
+      if (!this.$el.checkVisibility()) return
       if (!this.show) return
+      this.vm_wallets.className = this.$attrs.classname
       this.vm_wallets.load = false
       this.$el.appendChild(this.vm_wallets.$el)
     },

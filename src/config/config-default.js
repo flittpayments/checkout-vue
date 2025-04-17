@@ -138,7 +138,6 @@ export const configDefault = {
   notification: '',
   cvv2_requirement: 'mandatory',
   currencies: [],
-  init_wallets: false,
   vm_wallets: null,
   mode_test: false,
   promo: false,

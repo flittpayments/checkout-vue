@@ -1,6 +1,6 @@
 <template>
   <transition name="f-fade-enter">
-    <div v-if="show" :class="classname">
+    <div v-if="show" :class="className">
       <f-button-pay-wallet-inner
         v-for="(item, index) in list"
         :key="item"
@@ -35,6 +35,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      className: this.classname,
       paymentRequest: null,
       supported: [],
       allowed: [],
