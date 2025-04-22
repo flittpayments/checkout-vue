@@ -6,7 +6,7 @@
   >
     <f-alert-notification-wrapper />
     <transition name="f-fade-enter">
-      <router-view class="f-loyaut" />
+      <router-view class="f-layout" />
     </transition>
     <f-loading v-if="showLoading" backdrop />
     <f-modal-error-wrapper />

@@ -115,7 +115,6 @@ export default {
 <style lang="scss" module>
 .dropdown {
   max-height: px-to-rem(316px);
-  overflow: hidden;
 }
 
 .arrow {

@@ -11,8 +11,8 @@
 .f-method {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: inherit;
+  flex-grow: 1;
+  padding-bottom: px-to-rem(32px);
 }
 
 .f-container-sm {

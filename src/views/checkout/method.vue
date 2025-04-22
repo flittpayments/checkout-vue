@@ -9,8 +9,9 @@
         </div>
         <div :class="className">
           <transition name="f-fade-enter">
-            <router-view class="f-pb-32" />
+            <router-view />
           </transition>
+          <div class="f-flex-grow-1" />
           <f-security class="f-center-security" />
         </div>
       </f-scrollbar-vertical>

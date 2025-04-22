@@ -58,7 +58,5 @@ export default {
 <style lang="scss" module>
 .dropdown {
   max-height: px-to-rem(316px);
-  padding: px-to-rem(2px);
-  overflow: hidden;
 }
 </style>

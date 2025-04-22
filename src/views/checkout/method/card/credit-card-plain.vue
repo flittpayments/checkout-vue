@@ -57,13 +57,11 @@
         @error="onError"
       />
     </div>
-    <div class="f-mb-16">
-      <transition name="f-slide-fade">
-        <div v-if="error" class="f-error">
-          {{ error }}
-        </div>
-      </transition>
-    </div>
+    <transition name="f-slide-fade">
+      <div v-if="error" class="f-error">
+        {{ error }}
+      </div>
+    </transition>
     <f-loading v-if="loading" backdrop />
   </div>
 </template>
@@ -229,6 +227,7 @@ export default {
 <style lang="scss" module>
 .wrapper {
   position: relative;
+  margin-bottom: px-to-rem(16px);
 }
 
 .group {

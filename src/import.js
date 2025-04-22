@@ -351,7 +351,7 @@ export const Click2paySwitchId = () =>
 
 export const Click2payUserExistsNeedOtpCardPage = () =>
   import(
-    /* webpackChunkName: "63" */ '@/views/click2pay/user-exists-need-otp-card-page.vue'
+    /* webpackChunkName: "63" */ '@/views/click2pay/user-exists-need-otp-card-page'
   )
 
 export const FModalQr = () =>

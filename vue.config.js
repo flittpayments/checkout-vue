@@ -100,12 +100,6 @@ module.exports = defineConfig({
                 default: {
                   minChunks: 2,
                 },
-                styles: {
-                  name: 'styles',
-                  test: /[\\/]components[\\/]/,
-                  type: 'css/mini-extract',
-                  enforce: true,
-                },
               },
             })
             .end()

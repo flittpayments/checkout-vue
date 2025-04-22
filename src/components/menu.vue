@@ -1,34 +1,28 @@
 <template>
-  <div class="f-menu">
-    <template v-for="method in list">
-      <f-button-unstyled
-        :key="method"
-        :ref="method"
-        :class="className(method)"
-        :data-e2e-menu-item="method"
-        @click="click(method)"
+  <div>
+    <f-button-unstyled
+      v-for="method in list"
+      :key="method"
+      :ref="method"
+      :class="className(method)"
+      :data-e2e-menu-item="method"
+      @click="click(method)"
+    >
+      <f-svg class="f-menu-icon" :name="icon[method] || method" size="lg" fw />
+      <span v-text="title(method)" />
+      <f-icons :ref="`${method}_icons`" class="f-menu-icons" :type="method" />
+      <f-tooltip-default
+        v-if="showTooltip(method)"
+        :ref="`${method}_tooltip`"
+        custom-class="f-tooltip-menu"
+        :target="() => $refs[method][0].$el"
+        placement="topright"
+        boundary-padding="30"
       >
-        <f-svg
-          class="f-menu-icon"
-          :name="icon[method] || method"
-          size="lg"
-          fw
-        />
-        <span v-text="title(method)" />
-        <f-icons :ref="`${method}_icons`" class="f-menu-icons" :type="method" />
-        <f-tooltip-default
-          v-if="showTooltip(method)"
-          :ref="`${method}_tooltip`"
-          custom-class="f-tooltip-menu"
-          :target="() => $refs[method][0].$el"
-          placement="topright"
-          boundary-padding="30"
-        >
-          <component :is="tooltipIcon(method)" />
-          <span v-text="$t(`${method}_tooltip`)" />
-        </f-tooltip-default>
-      </f-button-unstyled>
-    </template>
+        <component :is="tooltipIcon(method)" />
+        <span v-text="$t(`${method}_tooltip`)" />
+      </f-tooltip-default>
+    </f-button-unstyled>
   </div>
 </template>
 

@@ -121,7 +121,7 @@ export default {
 
 <style lang="scss" module>
 .dropdown {
-  padding: px-to-rem(20px);
+  padding: 0 px-to-rem(20px);
   max-height: px-to-rem(400px);
 }
 </style>
