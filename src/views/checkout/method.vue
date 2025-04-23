@@ -12,6 +12,7 @@
             <router-view />
           </transition>
           <div class="f-flex-grow-1" />
+          <f-processed-wrapper v-if="isBreakpointDownLg" />
           <f-secure-message-wrapper />
         </div>
       </f-scrollbar-vertical>
@@ -23,16 +24,20 @@
 import FHeader from '@/components/header'
 import FSidebar from '@/components/sidebar'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
+import FProcessedWrapper from '@/components/processed-wrapper'
 import FSecureMessageWrapper from '@/components/secure-message-wrapper'
 import { mapState } from '@/utils/store'
+import { resizeMixin } from '@/mixins/resize'
 
 export default {
   components: {
     FHeader,
     FSidebar,
     FScrollbarVertical,
+    FProcessedWrapper,
     FSecureMessageWrapper,
   },
+  mixins: [resizeMixin],
   computed: {
     ...mapState('options', ['full_screen']),
     className() {

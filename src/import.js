@@ -360,3 +360,6 @@ export const FModalQr = () =>
 
 export const FSecureMessage = () =>
   import(/* webpackChunkName: "65" */ '@/components/secure-message')
+
+export const FProcessed = () =>
+  import(/* webpackChunkName: "66" */ '@/components/processed')

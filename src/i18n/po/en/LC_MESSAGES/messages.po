@@ -661,6 +661,12 @@ msgstr "Demo mode"
 msgid "mode_test"
 msgstr "Test mode"
 
+msgid "processed_by"
+msgstr "Processed by"
+
+msgid "saas_name"
+msgstr "Flitt"
+
 msgid "title_declined"
 msgstr "Unfortunately, your payment was unsuccessful"
 

@@ -60,6 +60,7 @@ export const configDefault = {
     show_order_desc: true,
     show_pay_button: true,
     show_pay_button_amount: true,
+    show_processed: true,
     show_secure_message: true,
     show_test_mode: true,
     show_title: true,

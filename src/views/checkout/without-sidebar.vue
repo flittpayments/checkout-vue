@@ -11,6 +11,7 @@
             <router-view />
           </transition>
           <div class="f-flex-grow-1" />
+          <f-processed-wrapper />
           <f-secure-message-wrapper />
         </div>
       </f-scrollbar-vertical>
@@ -21,6 +22,7 @@
 <script>
 import FHeader from '@/components/header'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
+import FProcessedWrapper from '@/components/processed-wrapper'
 import FSecureMessageWrapper from '@/components/secure-message-wrapper'
 import { mapState } from '@/utils/store'
 
@@ -28,6 +30,7 @@ export default {
   components: {
     FHeader,
     FScrollbarVertical,
+    FProcessedWrapper,
     FSecureMessageWrapper,
   },
   computed: {

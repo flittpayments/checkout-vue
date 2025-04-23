@@ -53,6 +53,7 @@ Name                  | Type        | Default                 | Description     
 `show_order_desc`     | Boolean     | true                    |                                                                                     |
 `show_pay_button_amount`| Boolean     | true                    | displaying the amount on the button                                                 |
 `show_pay_button`     | Boolean     | true                    |                                                                                     |
+`show_processed`      | Boolean     | true                    |                                                                                     |
 `show_secure_message` | Boolean     | true                    |                                                                                     |
 `show_test_mode`      | Boolean     | true                    |                                                                                     |
 `show_title`          | Boolean     | true                    |                                                                                     |

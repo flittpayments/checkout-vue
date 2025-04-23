@@ -321,6 +321,7 @@ export default {
           show_order_desc: typeBoolean,
           show_pay_button: typeBoolean,
           show_pay_button_amount: typeBoolean,
+          show_processed: typeBoolean,
           show_secure_message: typeBoolean,
           show_test_mode: typeBoolean,
           show_title: typeBoolean,
