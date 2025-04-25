@@ -1,6 +1,6 @@
 <template>
   <div v-if="show" class="f-header">
-    <f-mode v-if="showMode" />
+    <f-mode-wrapper />
     <div v-if="showLeft" class="f-header-logo">
       <transition name="f-fade-enter">
         <f-button-link
@@ -32,9 +32,10 @@
 </template>
 
 <script>
+import FModeWrapper from '@/components/mode-wrapper'
 import FButtonLink from '@/components/button/button-link'
 import FSvg from '@/components/svg'
-import { FMode, FLogoCustom, FLogo } from '@/import'
+import { FLogoCustom, FLogo } from '@/import'
 import FFormBase from '@/components/form/form/form-base'
 import { resizeMixin } from '@/mixins/resize'
 import { mapState } from '@/utils/store'
@@ -45,7 +46,7 @@ import FFormItemSelect2 from '@/components/form/item/select2'
 
 export default {
   components: {
-    FMode,
+    FModeWrapper,
     FButtonLink,
     FSvg,
     FLogoCustom,

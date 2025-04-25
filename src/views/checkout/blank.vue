@@ -1,24 +1,16 @@
 <template>
   <div>
-    <f-mode v-if="showMode" />
+    <f-mode-wrapper />
     <router-view />
   </div>
 </template>
 
 <script>
-import { FMode } from '@/import'
-import { mapState } from '@/utils/store'
+import FModeWrapper from '@/components/mode-wrapper'
 
 export default {
   components: {
-    FMode,
-  },
-  computed: {
-    ...mapState(['mode_test']),
-    ...mapState('options', ['disable_request', 'show_test_mode']),
-    showMode() {
-      return this.disable_request || (this.show_test_mode && this.mode_test)
-    },
+    FModeWrapper,
   },
 }
 </script>

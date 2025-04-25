@@ -297,7 +297,8 @@ export const InstallmentsSystem = () =>
     /* webpackChunkName: "47" */ '@/views/checkout/method/installments/system'
   )
 
-export const FMode = () => import(/* webpackChunkName: "48" */ '@/views/mode')
+export const FMode = () =>
+  import(/* webpackChunkName: "48" */ '@/components/mode')
 
 export const FButtonCancel = () =>
   import(/* webpackChunkName: "49" */ '@/components/button/button-cancel')
