@@ -359,4 +359,4 @@ export const FModalQr = () =>
   import(/* webpackChunkName: "64" */ '@/components/modal/modal-qr')
 
 export const FSecureMessage = () =>
-  import(/* webpackChunkName: "65" */ '@/components/security')
+  import(/* webpackChunkName: "65" */ '@/components/secure-message')
