@@ -12,7 +12,7 @@
             <router-view />
           </transition>
           <div class="f-flex-grow-1" />
-          <f-security class="f-center-security" />
+          <f-secure-message-wrapper />
         </div>
       </f-scrollbar-vertical>
     </div>
@@ -23,7 +23,7 @@
 import FHeader from '@/components/header'
 import FSidebar from '@/components/sidebar'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
-import FSecurity from '@/components/security'
+import FSecureMessageWrapper from '@/components/secure-message-wrapper'
 import { mapState } from '@/utils/store'
 
 export default {
@@ -31,7 +31,7 @@ export default {
     FHeader,
     FSidebar,
     FScrollbarVertical,
-    FSecurity,
+    FSecureMessageWrapper,
   },
   computed: {
     ...mapState('options', ['full_screen']),

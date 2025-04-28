@@ -155,35 +155,6 @@
   }
 }
 
-.f-title-security {
-  display: inline-flex;
-  align-items: center;
-  padding: px-to-rem(3px);
-  font-size: px-to-rem(12px);
-  color: $security_color;
-  cursor: pointer;
-  transition: color ease-in-out 0.15s;
-
-  &:hover {
-    color: $security_hover_color;
-    text-decoration: none;
-
-    .f-svg-security {
-      color: $security_icon_hover_color;
-    }
-  }
-
-  svg {
-    margin-right: px-to-rem(10px);
-  }
-}
-
-.f-svg-security {
-  color: $security_icon_color;
-  vertical-align: middle;
-  transition: color ease-in-out 0.15s;
-}
-
 .f-form-group-currency {
   position: absolute;
   top: px-to-rem(17px);

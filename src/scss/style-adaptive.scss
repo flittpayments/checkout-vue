@@ -137,44 +137,6 @@
   }
 }
 
-.f-security {
-  @include media-breakpoint-up(lg) {
-    position: absolute;
-    bottom: px-to-rem(32px);
-    right: px-to-rem(32px);
-  }
-}
-
-.f-center-security {
-  @include media-breakpoint-up(lg) {
-    display: flex;
-    justify-content: flex-end;
-    margin-left: auto;
-  }
-}
-
-.f-title-security {
-  @include media-breakpoint-up(lg) {
-    display: flex;
-    width: 90px;
-    padding: 0;
-    font-size: px-to-rem(8px);
-    font-weight: 500;
-    line-height: px-to-rem(10px);
-    text-align: left;
-    background-color: $container_bg;
-
-    svg {
-      min-width: px-to-rem(32px);
-      margin-right: px-to-rem(2px);
-    }
-
-    span {
-      padding-top: px-to-rem(1px);
-    }
-  }
-}
-
 @include media-breakpoint-up(md) {
   .f-modal {
     &.f-fade .f-modal-dialog {

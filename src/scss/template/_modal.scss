@@ -1,27 +1,3 @@
-.f-modal-security-title {
-  display: flex;
-  align-items: center;
-  margin-bottom: px-to-rem(32px);
-  color: $modal_security_title_color;
-
-  svg {
-    margin-right: px-to-rem(10px);
-    color: $modal_security_title_svg_color;
-  }
-}
-
-.f-modal-security-content {
-  margin-bottom: px-to-rem(32px);
-  font-weight: 300;
-}
-
-.f-modal-security-icons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0;
-  opacity: 0.5;
-}
-
 .f-modal-body-card-list {
   padding: 0;
 }

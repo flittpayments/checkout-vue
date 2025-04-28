@@ -206,8 +206,8 @@ export const Success = () =>
     /* webpackChunkName: "19" */ '@/views/checkout/without-sidebar/success'
   )
 
-export const FSecurityIcons = () =>
-  import(/* webpackChunkName: "20" */ '@/components/security-icons')
+export const FSecureMessageIcons = () =>
+  import(/* webpackChunkName: "20" */ '@/components/secure-message-icons')
 
 export const Error = () => import(/* webpackChunkName: "21" */ '@/views/error')
 
@@ -357,3 +357,6 @@ export const Click2payUserExistsNeedOtpCardPage = () =>
 
 export const FModalQr = () =>
   import(/* webpackChunkName: "64" */ '@/components/modal/modal-qr')
+
+export const FSecureMessage = () =>
+  import(/* webpackChunkName: "65" */ '@/components/security')

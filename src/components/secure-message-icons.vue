@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.wrapper">
     <svg-verified-by-visa />
     <svg-master-card-secure-code />
     <svg-pci-dss />
@@ -19,3 +19,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.5;
+}
+</style>
