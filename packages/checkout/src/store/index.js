@@ -301,7 +301,6 @@ class Store extends Model {
     this.initCssDevice()
     this.initHasFields()
     this.initIsOnlyCard()
-    this.initShowMenuFirst()
     initCssVariable(this.state.css_variable)
     this.initTotalAmount()
   }
@@ -344,19 +343,6 @@ class Store extends Model {
     let methods = this.state.options.methods.filter(removeWallets)
     this.state.isOnlyCard = methods.length === 1 && methods[0] === 'card'
   }
-  initShowMenuFirst() {
-    let methodsLength = this.state.options.methods.filter(removeWallets).length
-
-    if (isExist(this.user.options?.show_menu_first)) return
-
-    if (methodsLength > 1) {
-      this.state.options.show_menu_first = true
-    }
-
-    if (methodsLength === 1) {
-      this.state.options.show_menu_first = false
-    }
-  }
   initTotalAmount() {
     this.state.total_amount = this.state.params.amount
   }
@@ -378,7 +364,7 @@ class Store extends Model {
 
     if (active_tab) return active_tab
 
-    if (isExist(this.user.options?.show_menu_first)) return
+    if (this.user.options?.active_tab) return
 
     if (methodsLength > 1) {
       return 'menu'

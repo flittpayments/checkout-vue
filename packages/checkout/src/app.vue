@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapStateGetSet } from '@/utils/store'
+import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'
 import { errorHandler, getRouteName, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
@@ -25,13 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapStateGetSet('options', ['active_tab']),
-    ...mapState('options', [
-      'show_menu_first',
-      'full_screen',
-      'methods',
-      'theme',
-    ]),
+    ...mapState('options', ['active_tab', 'full_screen', 'methods', 'theme']),
     ...mapState(['has_fields']),
     className() {
       return [
@@ -84,20 +78,12 @@ export default {
       this.initHeight()
     },
     go() {
-      const isMenu = this.isBreakpointDownLg && this.show_menu_first
-      const name = getRouteName(this.methods, this.active_tab, this.has_fields)
-
-      if (!isMenu && name) {
-        this.goMethod(name)
-      } else {
-        this.goMenu()
-      }
-    },
-    goMenu() {
-      this.active_tab = 'menu'
-      this.$router.push({ name: 'menu' }).catch(() => {})
-    },
-    goMethod(name) {
+      const name = getRouteName(
+        this.methods,
+        this.active_tab,
+        this.has_fields,
+        this.isBreakpointDownLg
+      )
       this.$router.push({ name }).catch(() => {})
     },
     goErrorModal(error) {

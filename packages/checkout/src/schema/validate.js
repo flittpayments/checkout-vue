@@ -1,4 +1,4 @@
-import { deepMerge, findGetParameter } from '@/utils/helpers'
+import { deepMerge, findGetParameter, removeWallets } from '@/utils/helpers'
 import { isPlainObject, isExist } from '@/utils/inspect'
 import configTheme from '@/config/theme'
 import descriptor from '@/schema/descriptor'
@@ -68,7 +68,6 @@ class Validate {
   }
 
   configDefault() {
-    this.showMenuFirst()
     this.preset()
   }
 
@@ -109,6 +108,7 @@ class Validate {
   }
 
   afterValidate() {
+    this.activeTab()
     this.token()
     this.parse()
   }
@@ -138,12 +138,6 @@ class Validate {
     this.params.button = button
   }
 
-  showMenuFirst() {
-    if (!this.data.options.active_tab) return
-
-    this.data.options.show_menu_first = false
-  }
-
   preset() {
     const preset = this.options.theme.preset
     const theme = this.options.theme.type
@@ -151,6 +145,20 @@ class Validate {
     if (isExist(preset) || !theme) return
 
     this.options.theme.preset = configTheme[theme]
+  }
+
+  activeTab() {
+    const active_tab = this.options.active_tab
+    const show_menu_first = this.options.show_menu_first
+    const methods = this.options.methods || []
+    const methodsLength = methods.filter(removeWallets).length
+
+    if (
+      !active_tab &&
+      (show_menu_first || (!isExist(show_menu_first) && methodsLength > 1))
+    ) {
+      this.options.active_tab = 'menu'
+    }
   }
 
   token() {
