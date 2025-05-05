@@ -151,9 +151,12 @@ function conflictTokenButton() {
 
 function validatorCurrencyRequired() {
   return {
-    validator(rule, value, callback, { token, button }) {
+    validator(rule, value, callback, source) {
+      const { token, button } = source
+      const len = Object.keys(source).length
+
       let errors = []
-      if (!token && !button && !value) {
+      if (!token && !button && !value && len) {
         errors.push([rule.fullField, 'is required'].join(' '))
       }
       callback(errors)
