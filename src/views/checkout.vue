@@ -140,6 +140,7 @@ export default {
       }
     },
     appError(model) {
+      this.$root.$emit('error', model)
       if (!isError(model)) {
         this.appFinally(model)
       }
