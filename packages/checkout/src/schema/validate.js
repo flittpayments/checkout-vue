@@ -186,10 +186,33 @@ class Validate {
         },
       })
     }
+    if (layout === 'plain') {
+      this.setDefaultData({
+        options: {
+          card_icons: [],
+          show_amount: false,
+          // show_email: false, by default
+          show_fee: false,
+          show_lang: false,
+          show_link: false,
+          show_order_desc: false,
+          // show_pay_button: true, by default
+          // show_pay_button_amount: true, by default
+          // show_processed: true, by default
+          show_secure_message: false,
+          show_test_mode: false,
+          show_title: false,
+        },
+      })
+    }
   }
 
   setData(data) {
     deepMerge(this.data, data)
+  }
+
+  setDefaultData(data) {
+    deepMerge(this.data, data, JSON.parse(JSON.stringify(this.data)))
   }
 
   fieldsCustom() {
