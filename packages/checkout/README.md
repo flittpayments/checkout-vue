@@ -69,6 +69,7 @@ Name                  | Type        | Default                 | Description
 ---                   | ---         | ---                     | ---
 `type`                | String      | 'light'                 | support `light`, `dark`.
 `preset`              | String      | 'black'                 | support `reset`, `black`, `silver`, `vibrant_silver`, `vibrant_gold`, `solid_black`, `black_and_white`, `euphoric_pink`, `heated_steel`, `nude_pink`, `tropical_gold`, `navy_shimmer`.
+`layout`              | String      | 'default'               | support `default`, `plain`, `wallets_only`.
 
 ### options.subscription
 Name                  | Type        | Default                 | Description

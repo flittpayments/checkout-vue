@@ -1,8 +1,6 @@
 <template>
   <div class="f-container-sm">
-    <template v-if="isBreakpointDownLg">
-      <f-price />
-    </template>
+    <f-price v-if="isBreakpointDownLg" />
     <f-fields-customer />
     <f-fields-custom />
     <f-fields-user />
@@ -28,9 +26,9 @@ export default {
     FFieldsCustomer,
     FFieldsCustom,
     FFieldsUser,
-    FButtonCancelWrapper,
     FOffer,
     FButtonWalletEl,
+    FButtonCancelWrapper,
   },
   mixins: [resizeMixin],
 }

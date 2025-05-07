@@ -26,7 +26,6 @@ export default {
   },
   computed: {
     ...mapState('options', ['active_tab', 'full_screen', 'methods', 'theme']),
-    ...mapState(['has_fields']),
     className() {
       return [
         `f-theme-${this.theme.type}`,
@@ -47,11 +46,9 @@ export default {
   },
   watch: {
     isBreakpointDownLg(value) {
-      if (value || !this.isMenu) return
-
-      let name = getRouteName(this.methods, '', this.has_fields)
-
-      this.$router.push({ name }).catch(() => {})
+      if (!value && this.isMenu) {
+        this.$router.push({ name: this.methods[0] }).catch(() => {})
+      }
     },
   },
   created() {
@@ -81,7 +78,6 @@ export default {
       const name = getRouteName(
         this.methods,
         this.active_tab,
-        this.has_fields,
         this.isBreakpointDownLg
       )
       this.$router.push({ name }).catch(() => {})

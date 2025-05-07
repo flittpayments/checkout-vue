@@ -8,6 +8,7 @@ import { sort } from '@/utils/sort'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { createDate, format } from '@/utils/date'
 import { formatServer } from '@/config/date'
+import configMethods from '@/config/methods.json'
 
 class Validate {
   constructor(data) {
@@ -110,6 +111,7 @@ class Validate {
   afterValidate() {
     this.activeTab()
     this.token()
+    this.layout()
     this.parse()
   }
 
@@ -170,6 +172,24 @@ class Validate {
     delete this.options.amount_readonly
 
     this.params.token = token
+  }
+
+  layout() {
+    const layout = this.options.theme.layout
+
+    if (layout === 'wallets_only') {
+      this.setData({
+        options: {
+          methods: ['wallets'],
+          methods_disabled: configMethods.filter(removeWallets),
+          full_screen: false,
+        },
+      })
+    }
+  }
+
+  setData(data) {
+    deepMerge(this.data, data)
   }
 
   fieldsCustom() {

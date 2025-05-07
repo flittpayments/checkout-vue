@@ -176,7 +176,6 @@ class Store extends Model {
         name: getRouteName(
           this.state.options.methods,
           this.state.options.active_tab,
-          this.state.has_fields,
           isBreakpointDownLg
         ),
       }
