@@ -45,7 +45,7 @@ export default {
       }).$mount()
     },
     append() {
-      if (!this.$el.checkVisibility()) return
+      if (window.getComputedStyle(this.$el).display === 'none') return
       if (!this.show) return
       this.vm_wallets.className = this.$attrs.classname
       this.vm_wallets.load = false
