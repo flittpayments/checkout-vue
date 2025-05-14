@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -276,6 +276,12 @@ msgstr "哎呀.."
 msgid "server_trouble_desc"
 msgstr "出现问题，我们已经在处理. 请返回到 你的订单，然后再结帐."
 
+msgid "demo_title"
+msgstr "演示模式"
+
+msgid "mode_test"
+msgstr ""
+
 msgid "offer_t"
 msgstr "我同意接受 <a href=\"{0}\" target=\"_blank\">bid 条件和条款. </a>"
 
@@ -296,6 +302,14 @@ msgstr "佣金"
 
 msgid "total_amount"
 msgstr "应付总额"
+
+#
+msgid "processed_by"
+msgstr ""
+
+#
+msgid "saas_name"
+msgstr ""
 
 msgid "enter_promo_code"
 msgstr ""
@@ -595,12 +609,6 @@ msgstr ""
 msgid "c2p_need_otp_desc"
 msgstr ""
 
-msgid "demo_title"
-msgstr "演示模式"
-
-msgid "mode_test"
-msgstr ""
-
 msgid "title_declined"
 msgstr "很抱歉，你的付款未成功"
 
@@ -732,11 +740,12 @@ msgstr "IBAN"
 msgid "wallets_google"
 msgstr "谷歌支付"
 
-msgid "wallets_card"
-msgstr "谷歌支付"
-
 msgid "wallets_apple"
 msgstr "苹果支付"
+
+#
+msgid "wallets_apple_google"
+msgstr ""
 
 msgid "3ds_title"
 msgstr "你将被重定向到 3ds 页面. 如果没有看到，请点击"
@@ -872,3 +881,6 @@ msgstr ""
 
 msgid "card_does_not_participate_in_discount_program"
 msgstr ""
+
+#~ msgid "wallets_card"
+#~ msgstr "谷歌支付"

@@ -106,18 +106,12 @@ export const Vue = () =>
 export const App = () =>
   import(/* webpackChunkName: "01" */ '@/app').then(module => module.default)
 
-export const installValidate = () =>
-  import(/* webpackChunkName: "02" */ '@/validate').then(
-    ({ install }) => install
-  )
+export const validate = () => import(/* webpackChunkName: "02" */ '@/validate')
 
-export const installComponents = () =>
-  import(/* webpackChunkName: "03" */ '@/components').then(
-    ({ install }) => install
-  )
+export const components = () =>
+  import(/* webpackChunkName: "03" */ '@/components')
 
-export const installApi = () =>
-  import(/* webpackChunkName: "04" */ '@/api').then(({ install }) => install)
+export const api = () => import(/* webpackChunkName: "04" */ '@/api')
 
 export const i18n = () => import(/* webpackChunkName: "05" */ '@/i18n')
 
@@ -141,27 +135,31 @@ export const loadCssVars = () =>
     module => module.default
   )
 
-export const installSentry = () =>
-  import(/* webpackChunkName: "3" */ '@/sentry').then(({ install }) => install)
+export const sentry = () =>
+  Promise.resolve().then(() =>
+    SENTRY_DSN && DOMAIN === location.hostname
+      ? import(/* webpackChunkName: "3" */ '@/sentry')
+      : import(/* webpackChunkName: "4" */ '@/sentry-mock')
+  )
 
 export const loadAsyncValidator = () =>
-  import(/* webpackChunkName: "4" */ 'async-validator').then(
+  import(/* webpackChunkName: "5" */ 'async-validator').then(
     module => module.default
   )
 
 export const loadAxios = () =>
-  import(/* webpackChunkName: "5" */ 'axios').then(module => module.default)
+  import(/* webpackChunkName: "6" */ 'axios').then(module => module.default)
 
 export const DatePicker = () =>
   import(
-    /* webpackChunkName: "6" */ '@/components/form/item/helpers/date-picker'
+    /* webpackChunkName: "7" */ '@/components/form/item/helpers/date-picker'
   )
 
 export const FIconBin = () =>
-  import(/* webpackChunkName: "7" */ '@/components/icon-bin')
+  import(/* webpackChunkName: "8" */ '@/components/icon-bin')
 
 export const FAlertGdpr = () =>
-  import(/* webpackChunkName: "8" */ '@/components/alert/alert-gdpr')
+  import(/* webpackChunkName: "9" */ '@/components/alert/alert-gdpr')
 
 export const FCreditCardPlain = () =>
   import(

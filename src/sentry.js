@@ -7,10 +7,8 @@ import {
 } from '@sentry/vue'
 
 let isInit
-const enable = SENTRY_DSN && DOMAIN === location.hostname
 
 export const install = router => Vue => {
-  if (!enable) return
   if (isInit) return
   isInit = true
 
@@ -21,18 +19,15 @@ export const install = router => Vue => {
     tracesSampleRate: 1.0,
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
-    release: BRANCH,
+    release: VERSION,
     environment: ENVIRONMENT,
   })
 
   setTag('commithash', COMMITHASH)
 }
 
-export const captureMessage = (message, level, extra) => {
-  if (!enable) return
-
+export const captureMessage = (message, level, extra) =>
   msg(message, {
     level,
     extra,
   })
-}

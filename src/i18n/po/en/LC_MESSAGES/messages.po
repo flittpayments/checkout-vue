@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -225,8 +225,8 @@ msgstr ""
 "which parts of the website you visit, so we can assess the effectiveness of "
 "the site and provide a better user experience or serve Flitt adverts to you "
 "whilst browsing other sites. For more information, please visit <a "
-"href='https://flitt.com/wp-content/uploads/2024/11/Privacy_Policy_flitt.pdf' target='_blank'>https://flitt.com/privacy-policy/"
-"</a>"
+"href='https://flitt.com/wp-content/uploads/2024/11/Privacy_Policy_flitt.pdf' "
+"target='_blank'>https://flitt.com/privacy-policy/</a>"
 
 msgid "remember_card_for_quick_re_payment"
 msgstr "Save my card for future payments"
@@ -309,6 +309,12 @@ msgstr ""
 "A problem has occurred, and we are already working on it. Please return to "
 "your order and check out again."
 
+msgid "demo_title"
+msgstr "Demo mode"
+
+msgid "mode_test"
+msgstr "Test mode"
+
 msgid "offer_t"
 msgstr ""
 "I accept the <a href=\"{0}\" target=\"_blank\">bid terms and conditions. </a>"
@@ -330,6 +336,12 @@ msgstr "Commission"
 
 msgid "total_amount"
 msgstr "Total amount due"
+
+msgid "processed_by"
+msgstr "Processed by"
+
+msgid "saas_name"
+msgstr "Flitt"
 
 msgid "enter_promo_code"
 msgstr "Enter promo code"
@@ -655,18 +667,6 @@ msgstr ""
 msgid "c2p_need_otp_desc"
 msgstr "You are registered with {click2pay}. Click to pay with the saved card."
 
-msgid "demo_title"
-msgstr "Demo mode"
-
-msgid "mode_test"
-msgstr "Test mode"
-
-msgid "processed_by"
-msgstr "Processed by"
-
-msgid "saas_name"
-msgstr "Flitt"
-
 msgid "title_declined"
 msgstr "Unfortunately, your payment was unsuccessful"
 
@@ -799,9 +799,6 @@ msgid "iban"
 msgstr "IBAN"
 
 msgid "wallets_google"
-msgstr "Google Pay"
-
-msgid "wallets_card"
 msgstr "Google Pay"
 
 msgid "wallets_apple"
@@ -945,3 +942,6 @@ msgstr "Other promotional propositions will not work"
 
 msgid "card_does_not_participate_in_discount_program"
 msgstr "Card does no participate in discount program"
+
+#~ msgid "wallets_card"
+#~ msgstr "Google Pay"

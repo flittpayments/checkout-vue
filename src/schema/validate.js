@@ -3,7 +3,7 @@ import Model from '@/class/model'
 import { isPlainObject, isExist } from '@/utils/inspect'
 import configTheme from '@/config/theme'
 import descriptor from '@/schema/descriptor'
-import { captureMessage } from '@/sentry'
+import { sentry } from '@/import'
 import { loadAsyncValidator } from '@/import'
 import { sort } from '@/utils/sort'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
@@ -48,7 +48,7 @@ class Validate extends Model {
     }
 
     const message = `options.${oldName} is depreciated, use options.${newName}`
-    captureMessage(message, 'warning')
+    sentry().then(({ captureMessage }) => captureMessage(message, 'warning'))
     console.warn(message)
 
     delete this.data.options[oldName]
@@ -58,7 +58,7 @@ class Validate extends Model {
     if (!isExist(this.data.options?.[name])) return
 
     const message = `options.${name} is depreciated, needs to be deleted`
-    captureMessage(message, 'warning')
+    sentry().then(({ captureMessage }) => captureMessage(message, 'warning'))
     console.warn(message)
 
     delete this.data.options[name]
@@ -97,7 +97,9 @@ class Validate extends Model {
       .then(Schema => new Schema(descriptor).validate({ config: this.data }))
       .catch(({ errors }) => {
         errors = errors.map(({ message }) => message)
-        captureMessage('config', 'info', errors)
+        sentry().then(({ captureMessage }) =>
+          captureMessage('config', 'info', errors)
+        )
 
         return Promise.reject(errors)
       })

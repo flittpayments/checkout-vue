@@ -8,9 +8,8 @@ const argv = require('minimist')(process.argv.slice(2))
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const PUBLIC_PATH = argv['public-path'] || '/'
-const VERSION = gitRevisionPlugin.version()
 const COMMITHASH = gitRevisionPlugin.commithash()
-const BRANCH = argv.branch || gitRevisionPlugin.branch()
+const VERSION = (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
 const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
 const C2P_SDK = argv.c2p_sdk
@@ -43,7 +42,7 @@ function stringify(obj) {
 module.exports = defineConfig({
   pages: {
     checkout: {
-      entry: 'src/main.js',
+      entry: ['src/main.js', 'src/scss/fonts.scss'],
       template: 'public/index.html',
       filename: 'index.html',
       scriptLoading: 'blocking',
@@ -158,12 +157,6 @@ module.exports = defineConfig({
             }])
             .end()
       })
-      .plugins
-        .delete('prefetch-checkout')
-        .end()
-      .entryPoints
-        .delete('app')
-        .end()
       .module
         .rule('scss')
           .oneOf('vue').use('postcss-loader').tap(addF).end().end()
@@ -194,7 +187,6 @@ module.exports = defineConfig({
         .use(webpack.DefinePlugin, [stringify({
           VERSION,
           COMMITHASH,
-          BRANCH,
           ENVIRONMENT,
           SENTRY_DSN,
           DOMAIN,

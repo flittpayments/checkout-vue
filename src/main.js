@@ -1,10 +1,10 @@
 import {
   Vue,
   App,
-  installValidate,
-  installSentry,
-  installComponents,
-  installApi,
+  validate,
+  sentry,
+  components,
+  api,
   store,
   router,
   i18n,
@@ -14,18 +14,16 @@ import {
   loadAsyncValidator,
 } from '@/import'
 
-import '@/scss/fonts.scss'
-
 loadCheckout()
 loadAsyncValidator()
 
 const load = Promise.all([
   Vue(),
   App(),
-  installValidate(),
-  installSentry(),
-  installComponents(),
-  installApi(),
+  validate(),
+  sentry(),
+  components(),
+  api(),
   store(),
   router(),
   i18n(),
@@ -97,6 +95,8 @@ class F {
   }
 }
 
+console.log('commithash', COMMITHASH)
+
 window.checkout = function (el, optionsUser = {}) {
   let app = new F()
 
@@ -104,10 +104,10 @@ window.checkout = function (el, optionsUser = {}) {
     ([
       Vue,
       App,
-      installValidate,
-      installSentry,
-      installComponents,
-      installApi,
+      { install: installValidate },
+      { install: installSentry },
+      { install: installComponents },
+      { install: installApi },
       { createStore },
       { createRouter },
       { i18n },

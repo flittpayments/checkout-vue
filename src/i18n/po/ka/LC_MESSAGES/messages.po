@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,6 +267,12 @@ msgstr "შეცდომა..."
 msgid "server_trouble_desc"
 msgstr "გთხოვთ დაბრუნდეთ რამოდენიმე ნაბიჯით უკან და ხელახლა სცადოთ"
 
+msgid "demo_title"
+msgstr ""
+
+msgid "mode_test"
+msgstr "სატესტო რეჟიმი"
+
 msgid "offer_t"
 msgstr "ვეთანხმები <a href=\\\"{0}\\\" target=\\\"_blank\\\">პირობებს</a>"
 
@@ -287,6 +293,14 @@ msgstr "საკომისიო"
 
 msgid "total_amount"
 msgstr "სრული თანხა"
+
+#
+msgid "processed_by"
+msgstr ""
+
+#
+msgid "saas_name"
+msgstr ""
 
 msgid "enter_promo_code"
 msgstr ""
@@ -588,12 +602,6 @@ msgstr ""
 msgid "c2p_need_otp_desc"
 msgstr ""
 
-msgid "demo_title"
-msgstr ""
-
-msgid "mode_test"
-msgstr "სატესტო რეჟიმი"
-
 msgid "title_declined"
 msgstr "სამწუხაროდ გადახდა წარუმატებელია"
 
@@ -727,10 +735,11 @@ msgstr "IBAN"
 msgid "wallets_google"
 msgstr ""
 
-msgid "wallets_card"
+msgid "wallets_apple"
 msgstr ""
 
-msgid "wallets_apple"
+#
+msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"

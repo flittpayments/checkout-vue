@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "PO-Revision-Date: 2020-10-05 18:03+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -280,6 +280,12 @@ msgid "server_trouble_desc"
 msgstr ""
 "오류가 발생했지만 이미 작업 중입니다. 몇 단계 뒤로 가서 다시 결제 해보십시오."
 
+msgid "demo_title"
+msgstr ""
+
+msgid "mode_test"
+msgstr ""
+
 msgid "offer_t"
 msgstr "<a href=\"{0}\" target=\"_blank\">주문의 조건에 동의합니다.</a>"
 
@@ -300,6 +306,14 @@ msgstr "수수료"
 
 msgid "total_amount"
 msgstr "합계"
+
+#
+msgid "processed_by"
+msgstr ""
+
+#
+msgid "saas_name"
+msgstr ""
 
 msgid "enter_promo_code"
 msgstr ""
@@ -604,12 +618,6 @@ msgstr ""
 msgid "c2p_need_otp_desc"
 msgstr ""
 
-msgid "demo_title"
-msgstr ""
-
-msgid "mode_test"
-msgstr ""
-
 msgid "title_declined"
 msgstr "죄송하지만, 결제가 처리되지 않았습니다"
 
@@ -746,10 +754,11 @@ msgstr "국제은행계좌번호(IBAN)"
 msgid "wallets_google"
 msgstr ""
 
-msgid "wallets_card"
+msgid "wallets_apple"
 msgstr ""
 
-msgid "wallets_apple"
+#
+msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"

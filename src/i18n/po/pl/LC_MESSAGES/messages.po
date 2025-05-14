@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -285,6 +285,12 @@ msgstr ""
 "Coś jest nie tak, ale już nad tym pracujemy. Cofnij się o kilka kroków i "
 "spróbuj ponownie dokonać płatności."
 
+msgid "demo_title"
+msgstr ""
+
+msgid "mode_test"
+msgstr ""
+
 msgid "offer_t"
 msgstr "Akceptuję <a href=\"{0}\" target=\"_blank\">warunki oferty </a>"
 
@@ -305,6 +311,14 @@ msgstr "Komisja"
 
 msgid "total_amount"
 msgstr "Kwota całkowita"
+
+#
+msgid "processed_by"
+msgstr ""
+
+#
+msgid "saas_name"
+msgstr ""
 
 msgid "enter_promo_code"
 msgstr ""
@@ -613,12 +627,6 @@ msgstr ""
 msgid "c2p_need_otp_desc"
 msgstr ""
 
-msgid "demo_title"
-msgstr ""
-
-msgid "mode_test"
-msgstr ""
-
 msgid "title_declined"
 msgstr "Niestety Twoja płatność nie została zrealizowana"
 
@@ -753,10 +761,11 @@ msgstr "IBAN"
 msgid "wallets_google"
 msgstr ""
 
-msgid "wallets_card"
+msgid "wallets_apple"
 msgstr ""
 
-msgid "wallets_apple"
+#
+msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"

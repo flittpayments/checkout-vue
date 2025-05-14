@@ -18,9 +18,8 @@ import Vue from 'vue'
 import FButtonPayWalletInner from '@/components/button-pay-wallet-inner'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { api } from '@/api'
-import { captureMessage } from '@/sentry'
 import { listenOnRootMixin } from '@/mixins/listen-on-root'
-import { loadCheckout } from '@/import'
+import { loadCheckout, sentry } from '@/import'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 
@@ -131,7 +130,9 @@ export default Vue.extend({
         name.push(error.message)
       }
 
-      captureMessage(name.join(' '), 'error', error)
+      sentry().then(({ captureMessage }) =>
+        captureMessage(name.join(' '), 'error', error)
+      )
     },
     click(method = this.list[0]) {
       this.paymentRequest.pay(method)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "PO-Revision-Date: 2020-09-30 12:49+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -291,6 +291,12 @@ msgstr ""
 "Что-то пошло не по плану, но мы уже решаем эту проблему. Пожалуйста, "
 "вернитесь на несколько шагов назад и попробуйте провести платеж заново."
 
+msgid "demo_title"
+msgstr ""
+
+msgid "mode_test"
+msgstr "Тестовый режим"
+
 msgid "offer_t"
 msgstr "Я принимаю <a href=\"{0}\" target=\"_blank\">условия оферты</a>"
 
@@ -311,6 +317,14 @@ msgstr "С учетом комиссии"
 
 msgid "total_amount"
 msgstr "Сумма к оплате"
+
+#
+msgid "processed_by"
+msgstr ""
+
+#
+msgid "saas_name"
+msgstr ""
 
 msgid "enter_promo_code"
 msgstr "Введите промокод"
@@ -639,12 +653,6 @@ msgid "c2p_need_otp_desc"
 msgstr ""
 "Вы зарегистрированы в {click2pay}. Нажмите для оплаты сохраненной картой."
 
-msgid "demo_title"
-msgstr ""
-
-msgid "mode_test"
-msgstr "Тестовый режим"
-
 msgid "title_declined"
 msgstr "Увы…Мы не смогли принять ваш платеж."
 
@@ -781,10 +789,11 @@ msgstr "IBAN"
 msgid "wallets_google"
 msgstr ""
 
-msgid "wallets_card"
+msgid "wallets_apple"
 msgstr ""
 
-msgid "wallets_apple"
+#
+msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"

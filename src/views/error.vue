@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li>{{ commithash }} {{ branch }}</li>
+    <li>{{ commithash }} {{ version }}</li>
     <li v-for="error in $route.query.errors" :key="error">
       {{ error }}
     </li>
@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       commithash: COMMITHASH,
-      branch: BRANCH,
+      version: VERSION,
     }
   },
 }

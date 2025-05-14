@@ -63,7 +63,6 @@
     "globals": {
       "VERSION": "readonly",
       "COMMITHASH": "readonly",
-      "BRANCH": "readonly",
       "ENVIRONMENT": "readonly",
       "SENTRY_DSN": "readonly",
       "DOMAIN": "readonly",

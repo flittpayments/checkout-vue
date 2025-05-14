@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 17:14+0300\n"
+"POT-Creation-Date: 2025-05-08 16:12+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -286,6 +286,12 @@ msgstr ""
 "Virhe on tapahtunut, ja pyrimme jo korjaamaan sitä. Palaa tilaukseesi ja "
 "suorita maksu uudelleen."
 
+msgid "demo_title"
+msgstr "Esittelymuoto"
+
+msgid "mode_test"
+msgstr ""
+
 msgid "offer_t"
 msgstr "Hyväksyn <a href=\"{0}\" target=\"_blank\">tilauksen käyttöehdot. </a>"
 
@@ -306,6 +312,14 @@ msgstr "Käsittelykulut"
 
 msgid "total_amount"
 msgstr "Kokonaissumman maksun eräpäivä"
+
+#
+msgid "processed_by"
+msgstr ""
+
+#
+msgid "saas_name"
+msgstr ""
 
 msgid "enter_promo_code"
 msgstr ""
@@ -614,12 +628,6 @@ msgstr ""
 msgid "c2p_need_otp_desc"
 msgstr ""
 
-msgid "demo_title"
-msgstr "Esittelymuoto"
-
-msgid "mode_test"
-msgstr ""
-
 msgid "title_declined"
 msgstr "Valitettavasti maksusi epäonnistui"
 
@@ -753,11 +761,12 @@ msgstr "IBAN"
 msgid "wallets_google"
 msgstr "Google Pay"
 
-msgid "wallets_card"
-msgstr "Google Pay"
-
 msgid "wallets_apple"
 msgstr "Apple Pay"
+
+#
+msgid "wallets_apple_google"
+msgstr ""
 
 msgid "3ds_title"
 msgstr "Sinut siirretään 3ds-sivulle. Jos et näe sitä, napsauta"
@@ -893,3 +902,6 @@ msgstr ""
 
 msgid "card_does_not_participate_in_discount_program"
 msgstr ""
+
+#~ msgid "wallets_card"
+#~ msgstr "Google Pay"

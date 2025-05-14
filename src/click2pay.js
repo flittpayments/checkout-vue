@@ -1,7 +1,6 @@
-import { loadUuid } from '@/import'
+import { loadUuid, sentry } from '@/import'
 import { loadScript } from '@/utils/load-script'
 import { memoizePromise } from '@/utils/memoize-promise'
-import { captureMessage } from '@/sentry'
 import { i18n } from '@/i18n/index'
 import { sessionStorage } from '@/utils/store'
 import { validate } from 'vee-validate'
@@ -58,7 +57,9 @@ const onError = name => response => {
   const message = `${clickToPay} ${name} ${reason}`
 
   console.warn(message, JSON.stringify(response, null, 2))
-  captureMessage(message, 'warning', response)
+  sentry().then(({ captureMessage }) =>
+    captureMessage(message, 'warning', response)
+  )
   return Promise.reject(`c2p_${reason.replace(/ /g, '_').toLowerCase()}`)
 }
 
