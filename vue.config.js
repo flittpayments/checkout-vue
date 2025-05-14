@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const path = require('path')
 const { defineConfig } = require('@vue/cli-service')
 const { GitRevisionPlugin } = require('git-revision-webpack-plugin')
 const gitRevisionPlugin = new GitRevisionPlugin()
@@ -9,7 +10,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const PUBLIC_PATH = argv['public-path'] || '/'
 const COMMITHASH = gitRevisionPlugin.commithash()
-const VERSION = (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
+const VERSION = argv.version || (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
 const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
 const C2P_SDK = argv.c2p_sdk
@@ -18,8 +19,10 @@ const DOMAIN = (PUBLIC_PATH.match(/https?:\/\/([\w.]+)/) || [])[1]
 const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
+const LIBRARY_TYPE = argv.library_type
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
+const isModule = LIBRARY_TYPE === 'module'
 
 function addF (options) {
   return {
@@ -134,6 +137,35 @@ module.exports = defineConfig({
             .use(BundleAnalyzerPlugin)
             .end()
       })
+      .when(isModule, config => {
+        config
+          .entry('checkout')
+            .clear()
+            .add('./src/main.js')
+            .end()
+          .plugin('copy')
+            .tap(options => {
+              options[0].patterns[0].globOptions.ignore.push(
+                path.join(process.cwd(), 'public', 'buttons', '**')
+              )
+              return options
+            })
+            .end()
+          .plugins
+            .delete('html-checkout')
+            .end()
+          .merge({
+            output: {
+              filename: '[name].mjs',
+              library: {
+                type: 'module',
+              },
+            },
+            experiments: {
+              outputModule: true,
+            },
+          })
+      })
       .when(isDevelopment, config => {
         config
           .plugin('eslint')
@@ -196,6 +228,7 @@ module.exports = defineConfig({
           C2P_SDK,
           C2P_SRC_INITIATOR_ID,
           PUBLIC_PATH,
+          LIBRARY_TYPE,
         })])
         .end()
   }

@@ -9,7 +9,6 @@ import {
   router,
   i18n,
   configDefault,
-  inspect,
   loadCheckout,
   loadAsyncValidator,
 } from '@/import'
@@ -28,7 +27,6 @@ const load = Promise.all([
   router(),
   i18n(),
   configDefault(),
-  inspect(),
 ])
 
 let instance = {}
@@ -97,7 +95,7 @@ class F {
 
 console.log('commithash', COMMITHASH)
 
-window.checkout = function (el, optionsUser = {}) {
+export const checkout = (window.checkout = function (el, optionsUser) {
   let app = new F()
 
   load.then(
@@ -112,16 +110,42 @@ window.checkout = function (el, optionsUser = {}) {
       { createRouter },
       { i18n },
       { configDefault },
-      { isString, isPlainObject },
     ]) => {
-      if (!isString(el)) return console.error('Selector not a string')
-      if (!isPlainObject(optionsUser))
-        return console.error('Options not an object')
-      let node = document.querySelector(el)
-      if (!node) return console.error(['Selector', el, 'not found'].join(' '))
+      let id
+      let node
+      const isString = typeof el === 'string'
+      const isElement = el && el.nodeType === Node.ELEMENT_NODE
+      const makeID = () => {
+        const chars =
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        const getRandomChar = () =>
+          chars[Math.floor(Math.random() * chars.length)]
+        return 'id-' + Array.from({ length: 12 }, getRandomChar).join('')
+      }
 
-      let store = createStore(el)
-      let router = createRouter(el)
+      if (isString || isElement) {
+        if (isString) {
+          id = el
+          node = document.querySelector(el)
+
+          if (!node)
+            return console.error(['Selector', el, 'not found'].join(' '))
+
+          if (instance[id]) instance[id].$destroy()
+        }
+        if (isElement) {
+          id = makeID()
+          node = el
+        }
+      } else {
+        return console.error('Selector not a string or element')
+      }
+
+      if (Object.prototype.toString.call(optionsUser) !== '[object Object]')
+        return console.error('Options not an object')
+
+      let store = createStore(id)
+      let router = createRouter(id)
 
       Vue.use(installValidate)
       Vue.use(installSentry(router))
@@ -145,9 +169,7 @@ window.checkout = function (el, optionsUser = {}) {
         }
       )
 
-      if (instance[el]) instance[el].$destroy()
-
-      instance[el] = new Vue({
+      instance[id] = new Vue({
         store,
         router,
         i18n,
@@ -177,13 +199,13 @@ window.checkout = function (el, optionsUser = {}) {
       while (node.firstChild) {
         node.removeChild(node.firstChild)
       }
-      node.appendChild(instance[el].$el)
+      node.appendChild(instance[id].$el)
 
-      app.run(instance[el])
+      app.run(instance[id])
 
-      return instance[el]
+      return instance[id]
     }
   )
 
   return app
-}
+})

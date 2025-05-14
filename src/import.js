@@ -122,9 +122,6 @@ export const store = () => import(/* webpackChunkName: "07" */ '@/store')
 export const configDefault = () =>
   import(/* webpackChunkName: "08" */ '@/config/config-default')
 
-export const inspect = () =>
-  import(/* webpackChunkName: "09" */ '@/utils/inspect')
-
 export const loadCheckout = () =>
   import(/* webpackChunkName: "1" */ '@flittpayments/js-sdk').then(
     module => module.default
@@ -137,7 +134,7 @@ export const loadCssVars = () =>
 
 export const sentry = () =>
   Promise.resolve().then(() =>
-    SENTRY_DSN && DOMAIN === location.hostname
+    SENTRY_DSN && DOMAIN === location.hostname && LIBRARY_TYPE !== 'module'
       ? import(/* webpackChunkName: "3" */ '@/sentry')
       : import(/* webpackChunkName: "4" */ '@/sentry-mock')
   )

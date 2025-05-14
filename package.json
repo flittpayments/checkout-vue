@@ -1,6 +1,7 @@
 {
-  "name": "checkout-vue",
-  "author": "Mikhail Golubovsky <lamerumiata@gmail.com>",
+  "version": "0.0.0",
+  "name": "@flittpayments/checkout",
+  "author": "Mykhailo Holubovskyi <lamerumiata@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --c2p_sdk= --c2p_src_initiator_id= --sentry_dsn= --environment=development",
     "serve": "serve -s dist",
@@ -10,7 +11,13 @@
     "stylelint:fix": "stylelint src/{**/,**/**/}*.scss --custom-syntax postcss-scss --color --formatter verbose --fix",
     "eslint:fix": "eslint src/**/*.{js,vue} --fix",
     "prettier:fix": "prettier src/**/*.{js,vue,scss} --write",
-    "gulp": "./node_modules/gulp/bin/gulp.js"
+    "gulp": "gulp"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "import": "./dist/checkout.mjs"
   },
   "dependencies": {
     "@flittpayments/js-sdk": "^2.0.5",
@@ -71,7 +78,8 @@
       "API_DOMAIN": "readonly",
       "C2P_SDK": "readonly",
       "C2P_SRC_INITIATOR_ID": "readonly",
-      "PUBLIC_PATH": "readonly"
+      "PUBLIC_PATH": "readonly",
+      "LIBRARY_TYPE": "readonly"
     },
     "root": true,
     "env": {
@@ -148,6 +156,9 @@
     "Android >= 4.4",
     "Opera >= 30"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

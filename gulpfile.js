@@ -107,7 +107,7 @@ task(
 
 task('countries-search', () =>
   fsp
-    .readFile('./node_modules/world-countries/dist/countries.json', 'utf-8')
+    .readFile(require.resolve('world-countries/dist/countries.json'), 'utf-8')
     .then(content => JSON.parse(content))
     .then(content =>
       content.map(
@@ -163,7 +163,7 @@ task('countries-search', () =>
 
 task('countries-calling-codes', () =>
   fsp
-    .readFile('./node_modules/world-countries/dist/countries.json', 'utf-8')
+    .readFile(require.resolve('world-countries/dist/countries.json'), 'utf-8')
     .then(content => JSON.parse(content))
     .then(content => content.filter(({ callingCodes }) => callingCodes.length))
     .then(content =>
