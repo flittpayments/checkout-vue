@@ -6,8 +6,23 @@
 
 html {
   .flitt-modal {
-    width: 100%;
-    max-width: 590px;
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    @include media-breakpoint-up(md) {
+      margin: px-to-rem(100px) auto;
+      height: auto;
+      max-width: px-to-rem(590px);
+    }
+  }
+
+  .flitt-modal-header {
+    border-radius: 0;
   }
 
   .flitt-modal-close {
@@ -17,10 +32,14 @@ html {
   }
 
   .flitt-modal-content {
-    min-height: 600px;
+    overflow: auto;
+    min-height: auto;
+    border-radius: 0;
+    flex-grow: 1;
   }
 
   .flitt-modal-iframe {
-    height: 600px;
+    height: 100%;
+    min-height: px-to-rem(600px);
   }
 }
