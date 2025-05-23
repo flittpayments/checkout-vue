@@ -12,7 +12,6 @@
           <f-svg class="f-mr-8" name="bars" size="lg" />
           <span v-text="$t('all_methods')" />
         </f-button-link>
-        <f-logo-custom v-else-if="showLogoCustom" key="logo-custom" />
         <f-logo v-else-if="showLogo" key="logo-svg" />
       </transition>
     </div>
@@ -35,7 +34,7 @@
 import FModeWrapper from '@/components/mode-wrapper'
 import FButtonLink from '@/components/button/button-link'
 import FSvg from '@/components/svg'
-import { FLogoCustom, FLogo } from '@/import'
+import { FLogo } from '@/import'
 import FFormBase from '@/components/form/form/form-base'
 import { resizeMixin } from '@/mixins/resize'
 import { mapState } from '@/utils/store'
@@ -49,7 +48,6 @@ export default {
     FModeWrapper,
     FButtonLink,
     FSvg,
-    FLogoCustom,
     FLogo,
     FFormBase,
     FFormItemSelect2,
@@ -63,7 +61,6 @@ export default {
     ...mapState('params', ['lang']),
     ...mapState('options', [
       'locales',
-      'logo_url',
       'full_screen',
       'disable_request',
       'show_test_mode',
@@ -76,7 +73,7 @@ export default {
       return this.disable_request || (this.show_test_mode && this.mode_test)
     },
     showLeft() {
-      return this.showBack || this.showLogoCustom || this.showLogo
+      return this.showBack || this.showLogo
     },
     showLang() {
       return this.full_screen && this.show_lang && this.locales.length > 1
@@ -92,9 +89,6 @@ export default {
         (this.isOnlyCard && this.$route.meta.method === 'card') ||
         this.$route.name === 'most_popular'
       )
-    },
-    showLogoCustom() {
-      return this.logo_url && this.full_screen
     },
     showLogo() {
       return this.full_screen

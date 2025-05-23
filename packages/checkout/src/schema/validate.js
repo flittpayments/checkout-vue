@@ -1,6 +1,5 @@
 import { deepMerge, findGetParameter, removeWallets } from '@/utils/helpers'
 import { isPlainObject, isExist } from '@/utils/inspect'
-import configTheme from '@/config/theme'
 import descriptor from '@/schema/descriptor'
 import { sentry } from '@/import'
 import { loadAsyncValidator } from '@/import'
@@ -23,7 +22,6 @@ class Validate {
   init() {
     this.format(this.data)
     this.compatibility()
-    this.configDefault()
     return this.validate().then(this.afterValidate.bind(this))
   }
 
@@ -66,10 +64,6 @@ class Validate {
     console.warn(message)
 
     delete this.options[name]
-  }
-
-  configDefault() {
-    this.preset()
   }
 
   format(options) {
@@ -138,15 +132,6 @@ class Validate {
     if (!button) return
 
     this.params.button = button
-  }
-
-  preset() {
-    const preset = this.options.theme.preset
-    const theme = this.options.theme.type
-
-    if (isExist(preset) || !theme) return
-
-    this.options.theme.preset = configTheme[theme]
   }
 
   activeTab() {

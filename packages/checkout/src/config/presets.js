@@ -38,9 +38,8 @@ export default {
     main: '#000',
   },
   black: {
-    main: '#444749',
+    main: '#7d8ff8',
     ...card_black,
-    ...btn_green,
   },
   silver: {
     main: '#121517',

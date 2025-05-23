@@ -1,15 +1,18 @@
 <template>
-  <div :class="$style.style">
-    <svg-logo :class="$style.svg" />
-  </div>
+  <div :class="$style.style" :style="style" />
 </template>
 
 <script>
-import SvgLogo from '@/svg/logo.svg'
+import { mapState } from '@/utils/store'
 
 export default {
-  components: {
-    SvgLogo,
+  computed: {
+    ...mapState('options', ['logo_url']),
+    style() {
+      return {
+        'background-image': `url("${this.logo_url.replace(/"/g, "'")}")`,
+      }
+    },
   },
 }
 </script>
@@ -23,17 +26,5 @@ export default {
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: contain;
-
-  :global(.f-theme-light) & {
-    color: #000;
-  }
-
-  :global(.f-theme-dark) & {
-    color: #fff;
-  }
-}
-
-.svg {
-  height: 100%;
 }
 </style>
