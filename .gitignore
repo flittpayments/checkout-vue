@@ -1,6 +1,7 @@
-.DS_Store
-node_modules
-/dist
+**/.DS_Store
+**/node_modules
+**/dist/
+**/CHANGELOG.md
 
 /tests/e2e/reports/
 selenium-debug.log
@@ -23,19 +24,19 @@ yarn-error.log*
 *.sln
 *.sw?
 
-/public/buttons/*.json
+/packages/checkout/public/buttons/*.json
 
 *.mo
 *.po~
 *.pot
-/src/i18n/po/**/*.json
-/src/i18n/po/**/*.js
-/src/i18n/process/*
-!/src/i18n/process/translate.js
-/src/config/countries-search.js
-/src/config/exclude-messages.js
-/src/config/svg.js
-/src/config/countries-calling-codes.js
-/src/config/presets-with-gradient.js
-/src/i18n/need-translation/*
+/packages/checkout/src/i18n/po/**/*.json
+/packages/checkout/src/i18n/po/**/*.js
+/packages/checkout/src/i18n/process/*
+!/packages/checkout/src/i18n/process/translate.js
+/packages/checkout/src/config/countries-search.js
+/packages/checkout/src/config/exclude-messages.js
+/packages/checkout/src/config/svg.js
+/packages/checkout/src/config/countries-calling-codes.js
+/packages/checkout/src/config/presets-with-gradient.js
+/packages/checkout/src/i18n/need-translation/*
 

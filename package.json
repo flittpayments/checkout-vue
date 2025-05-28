@@ -1,0 +1,22 @@
+{
+  "name": "checkout",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "Mykhailo Holubovskyi <lamerumiata@gmail.com>",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:checkout": "npm run build --workspace=packages/checkout",
+    "build:react": "npm run build --workspace=packages/checkout-react",
+    "changeset": "changeset",
+    "release": "changeset version && changeset publish"
+  },
+  "engines": {
+    "node": ">=20.x"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.4"
+  }
+}
