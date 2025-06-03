@@ -13,10 +13,10 @@
     "changeset": "changeset",
     "release": "changeset version && changeset publish"
   },
-  "engines": {
-    "node": ">=20.x"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.29.4"
+  },
+  "engines": {
+    "node": ">=20.x"
   }
 }

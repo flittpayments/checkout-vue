@@ -1,6 +1,11 @@
 {
   "name": "@flittpayments/checkout-react",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flittpayments/checkout-vue.git",
+    "directory": "packages/checkout-react"
+  },
   "license": "MIT",
   "author": "Mykhailo Holubovskyi <lamerumiata@gmail.com>",
   "type": "module",
