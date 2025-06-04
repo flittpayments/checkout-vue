@@ -274,7 +274,7 @@ msgid "mode_test"
 msgstr "სატესტო რეჟიმი"
 
 msgid "offer_t"
-msgstr "ვეთანხმები <a href=\\\"{0}\\\" target=\\\"_blank\\\">პირობებს</a>"
+msgstr "ვეთანხმები <a href=\"{0}\" target=\"_blank\">პირობებს</a>"
 
 msgid "trial_period"
 msgstr "გამოსაცდელი პერიოდი"
