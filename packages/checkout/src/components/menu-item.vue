@@ -1,29 +1,19 @@
 <template>
-  <div>
-    <f-button-unstyled
-      v-for="method in list"
-      :key="method"
-      :ref="method"
-      :class="className(method)"
-      :data-e2e-menu-item="method"
-      @click="click(method)"
+  <f-button-unstyled :class="className" @click="click">
+    <f-svg class="f-menu-icon" :name="icon[method] || method" size="lg" fw />
+    <span v-text="title" />
+    <f-icons ref="icons" class="f-menu-icons" :type="method" />
+    <f-tooltip-default
+      v-if="showTooltip"
+      custom-class="f-tooltip-menu"
+      :target="() => $el"
+      placement="topright"
+      boundary-padding="30"
     >
-      <f-svg class="f-menu-icon" :name="icon[method] || method" size="lg" fw />
-      <span v-text="title(method)" />
-      <f-icons :ref="`${method}_icons`" class="f-menu-icons" :type="method" />
-      <f-tooltip-default
-        v-if="showTooltip(method)"
-        :ref="`${method}_tooltip`"
-        custom-class="f-tooltip-menu"
-        :target="() => $refs[method][0].$el"
-        placement="topright"
-        boundary-padding="30"
-      >
-        <component :is="tooltipIcon(method)" />
-        <span v-text="$t(`${method}_tooltip`)" />
-      </f-tooltip-default>
-    </f-button-unstyled>
-  </div>
+      <component :is="tooltipIcon" />
+      <span v-text="$t(`${method}_tooltip`)" />
+    </f-tooltip-default>
+  </f-button-unstyled>
 </template>
 
 <script>
@@ -32,10 +22,11 @@ import FSvg from '@/components/svg'
 import FIcons from '@/components/icons'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
 import SvgTimer from '@/svg/timer.svg'
-import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'
-import { removeWallets } from '@/utils/helpers'
 import { isFunction } from '@/utils/inspect'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_STRING } from '@/constants/props'
+import { mapState } from '@/utils/store'
 
 export default {
   components: {
@@ -46,6 +37,9 @@ export default {
     SvgTimer,
   },
   mixins: [resizeMixin],
+  props: {
+    method: makeProp(PROP_TYPE_STRING),
+  },
   data() {
     return {
       icon: {
@@ -59,53 +53,44 @@ export default {
     }
   },
   computed: {
-    ...mapState('options', ['methods']),
-    ...mapState(['has_fields', 'can_make_payment']),
+    ...mapState(['can_make_payment']),
     className() {
-      return function (item) {
-        return [
-          'f-menu-item',
-          {
-            active: this.meta.method === item && !this.isBreakpointDownLg,
-          },
-        ]
-      }
+      return [
+        'f-menu-item',
+        {
+          active: this.isActive,
+        },
+      ]
+    },
+    isActive() {
+      return this.meta.method === this.method && !this.isBreakpointDownLg
     },
     meta() {
-      if (isFunction(this.$route.meta)) {
-        return this.$route.meta(this.$route)
-      } else {
-        return this.$route.meta
-      }
-    },
-    list() {
-      return this.has_fields && this.can_make_payment
-        ? this.methods
-        : this.methods.filter(removeWallets)
+      return isFunction(this.$route.meta)
+        ? this.$route.meta(this.$route)
+        : this.$route.meta
     },
     showTooltip() {
-      return method =>
-        this.$te(`${method}_tooltip`, 'en') || this.$te(`${method}_tooltip`)
+      return (
+        this.$te(`${this.method}_tooltip`, 'en') ||
+        this.$te(`${this.method}_tooltip`)
+      )
     },
     tooltipIcon() {
-      return method => (method === 'loans' ? 'svg-timer' : 'span')
+      return this.method === 'loans' ? 'svg-timer' : 'span'
     },
     title() {
-      return method =>
-        method === 'wallets'
-          ? this.$t(`${method}_${this.can_make_payment}`)
-          : this.$t(method)
+      return this.method === 'wallets'
+        ? this.$t(`${this.method}_${this.can_make_payment}`)
+        : this.$t(this.method)
     },
   },
   mounted() {
-    this.methods.forEach(method => {
-      if (!this.$refs[method]) return
-      this.$refs[method][0].$el.reference = this.$refs[`${method}_icons`][0].$el
-    })
+    this.$el.reference = this.$refs.icons.$el
   },
   methods: {
-    click(method) {
-      this.$router.push({ name: method }).catch(() => {})
+    click() {
+      this.$router.push({ name: this.method }).catch(() => {})
     },
   },
 }
