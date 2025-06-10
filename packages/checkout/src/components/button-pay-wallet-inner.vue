@@ -163,6 +163,7 @@ export default Vue.extend({
   height: 100%;
   width: 100%;
   border: 0;
+  color-scheme: light;
 }
 
 .click {
