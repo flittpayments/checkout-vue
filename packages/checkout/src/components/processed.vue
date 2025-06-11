@@ -1,5 +1,5 @@
 <template>
-  <div v-if="full_screen" :class="[$style.wrapper, $style.wrapper_line]">
+  <div v-if="showText" :class="[$style.wrapper, $style.wrapper_line]">
     <span :class="$style.hr" />
     <span :class="[$style.text, $style.text_line]">
       <span v-text="$t('processed_by')" />&nbsp;
@@ -15,13 +15,17 @@
 <script>
 import SvgLogo from '@/svg/logo.svg'
 import { mapState } from '@/utils/store'
+import { logo_url } from '@/config/config-default'
 
 export default {
   components: {
     SvgLogo,
   },
   computed: {
-    ...mapState('options', ['full_screen']),
+    ...mapState('options', ['full_screen', 'logo_url']),
+    showText() {
+      return this.full_screen && this.logo_url === logo_url
+    },
   },
 }
 </script>
