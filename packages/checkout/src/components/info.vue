@@ -13,15 +13,13 @@
     </div>
     <f-preloader
       v-if="show_order_desc"
-      :condition="showOrderDesc"
+      :condition="order_desc"
       size="20"
       class="f-order-desc"
     >
-      <div ref="wrapper" :class="classOrderDesc">
-        <div ref="desc">{{ order_desc_translation }}</div>
-      </div>
+      <div ref="desc" class="f-order-desc-text" v-text="$t(order_desc)" />
       <f-button-unstyled
-        v-if="showMore"
+        v-if="more"
         class="f-order-desc-more"
         @click="clickMore"
       >
@@ -39,6 +37,7 @@ import FPreloader from '@/components/preloader'
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
 import FModalBase from '@/components/modal/modal-base'
+import { resizeMixin } from '@/mixins/resize'
 import { mapState } from '@/utils/store'
 
 export default {
@@ -48,6 +47,7 @@ export default {
     FSvg,
     FModalBase,
   },
+  mixins: [resizeMixin],
   data() {
     return {
       more: false,
@@ -70,36 +70,25 @@ export default {
     showLink() {
       return this.show_link && this.link
     },
-    showOrderDesc() {
-      return this.order_desc && this.order_desc !== ' '
+  },
+  watch: {
+    order_desc() {
+      this.$nextTick().then(this.resize)
     },
-    order_desc_translation() {
-      this.nextResize()
-      return this.$t(this.order_desc)
-    },
-    showMore() {
-      return this.more && !this.verification_type
-    },
-    classOrderDesc() {
-      return {
-        'f-order-desc-text': !this.verification_type,
-      }
-    },
+  },
+  mounted() {
+    this.resize()
   },
   methods: {
     clickMore() {
       this.modalMore = true
     },
-    nextResize() {
-      this.$nextTick().then(this.resize)
-    },
     resize() {
+      if (!this.$refs.desc) return
+
       this.more = false
 
-      if (!this.$refs.wrapper) return
-      if (!this.$refs.desc) return
-      if (this.$refs.wrapper.offsetHeight >= this.$refs.desc.offsetHeight)
-        return
+      if (this.$refs.desc.offsetHeight >= this.$refs.desc.scrollHeight) return
 
       this.more = true
     },
