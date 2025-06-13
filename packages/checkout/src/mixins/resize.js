@@ -35,6 +35,9 @@ export const resizeMixin = {
     let handler = resize.bind(this)
     this.listenOnWindow('resize', handler)
     this.listenOnWindow('orientationchange', handler)
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(handler)
+    }
     init.apply(this)
   },
 }
