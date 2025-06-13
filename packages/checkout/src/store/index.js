@@ -303,7 +303,7 @@ class Store extends Model {
     }
 
     this.state.params.order_desc =
-      this.state.params.order_desc || model.attr('order.order_desc') || ' '
+      this.state.params.order_desc || model.attr('order.order_desc')
 
     this.state.show_gdpr_frame = model.attr('show_gdpr_frame')
 
