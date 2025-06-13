@@ -46,7 +46,13 @@
 }
 
 .f-order-desc-text {
-  @include clip-row($container_bg);
+  max-height: $line-height-base * $font-size-base * 2;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
 }
 
 .f-order-desc-more {
