@@ -25,7 +25,7 @@
     "import": "./dist/checkout.mjs"
   },
   "dependencies": {
-    "@flittpayments/js-sdk": "^2.0.5",
+    "@flittpayments/js-sdk": "^2.0.7",
     "@sentry/vue": "^8.55.0",
     "async-validator": "^3.5.2",
     "axios": "^1.9.0",
