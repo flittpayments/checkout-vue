@@ -8,6 +8,7 @@ import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { createDate, format } from '@/utils/date'
 import { formatServer } from '@/config/date'
 import configMethods from '@/config/methods.json'
+import { mappingMethod } from '@/config/mapping-method'
 
 class Validate {
   constructor(data) {
@@ -29,6 +30,7 @@ class Validate {
     this.email()
     this.button()
     this.autosubmit()
+    this.activeTab()
     this.supportOldOptions('show_email', 'email')
     this.supportOldOptions('show_fee', 'fee')
     this.supportOldOptions('show_lang', 'lang')
@@ -37,6 +39,8 @@ class Validate {
     this.supportOldOptions('show_pay_button_amount', 'show_button_amount')
     this.supportOldOptions('show_title', 'hide_title')
     this.supportOldOptions('banks_icons', 'banklinks_eu_icons')
+    this.supportOldOptionsValue('active_tab', 'banks', 'trustly')
+    this.supportOldOptionsValue('active_tab', 'banks', 'banklinks_eu')
     this.supportOldOptionsArray('methods', 'banks', 'trustly')
     this.supportOldOptionsArray('methods', 'banks', 'banklinks_eu')
     this.supportOldOptionsArray('methods_disabled', 'banks', 'trustly')
@@ -58,6 +62,18 @@ class Validate {
     this.log(`options.${oldName} is deprecated, use options.${newName}`)
 
     delete this.options[oldName]
+  }
+
+  supportOldOptionsValue(field, newValue, oldValue) {
+    const value = this.options[field]
+
+    if (value !== oldValue) return
+
+    this.options[field] = newValue
+
+    this.log(
+      `value ${oldValue} is deprecated in the options.${field}, use ${newValue}`
+    )
   }
 
   supportOldOptionsArray(field, newName, oldName) {
@@ -128,7 +144,6 @@ class Validate {
   }
 
   afterValidate() {
-    this.activeTab()
     this.token()
     this.layout()
     this.parse()
@@ -168,17 +183,23 @@ class Validate {
   }
 
   activeTab() {
-    const active_tab = this.options.active_tab
+    const getParameter = findGetParameter('active_tab')
+    const active_tab = getParameter || this.options.active_tab
     const show_menu_first = this.options.show_menu_first
     const methods = this.options.methods || []
     const methodsLength = methods.filter(removeWallets).length
 
-    if (
+    if (getParameter && !configMethods.includes(mappingMethod(getParameter))) {
+      this.log(
+        `GET parameter active_tab=${getParameter} must be one of ${configMethods.join(', ')}`
+      )
+    }
+
+    this.options.active_tab =
       !active_tab &&
       (show_menu_first || (!isExist(show_menu_first) && methodsLength > 1))
-    ) {
-      this.options.active_tab = 'menu'
-    }
+        ? 'menu'
+        : active_tab
   }
 
   token() {

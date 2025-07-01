@@ -33,8 +33,8 @@ Name                  | Type        | Default                 | Description     
 `locales`             | Array       | [all]                   | support `cs`, `de`, `en`, `es`, `fr`, `hu`, `it`, `ko`, `lv`, `pl`, `ro`, `ru`, `sk`, `uk`.|
 `api_domain`          | String      | 'pay.flitt.com'         |                                                                                     |
 `endpoint`            | Object      |                         |                                                                                     |
-`active_tab`          | String      | 'card'                  | support `card`, `sepa`.                                                             | server or options
-`active_method`       | String      | ''                      |                                                                                     | server or options
+`active_tab`          | String      | 'card'                  | support `card`, `sepa`.                                                             | GET parameters or server or options
+`active_method`       | String      | ''                      |                                                                                     | GET parameters or server or options
 `logo_url`            | String      |                         | format url                                                                          | options or server
 `offerta_url`         | String      |                         | format url                                                                          | options or server
 `default_country`     | String      |                         |                                                                                     |
@@ -45,7 +45,7 @@ Name                  | Type        | Default                 | Description     
 `subscription`        | Object      |                         |                                                                                     |
 `loading`             | String      |                         | format url                                                                          |
 `amount_readonly`     | Boolean     | true                    |                                                                                     |
-`autosubmit`          | Boolean     | false                   |                                                                                     |
+`autosubmit`          | Boolean     | false                   |                                                                                     | GET parameters or options
 `show_amount`         | Boolean     | true                    |                                                                                     |
 `show_email`          | Boolean     | false                   |                                                                                     | server or options
 `show_fee`            | Boolean     | true                    |                                                                                     |
@@ -94,8 +94,8 @@ Name                  | Type        | Default                 | Description     
 `required_rectoken`   | String      |                         | support `Y`, `N`, `y`, `n`. |
 `verification`        | String      |                         | support `Y`, `N`, `y`, `n`. |
 `verification_type`   | String      |                         | support `amount`, `code`    |
-`token`               | String      |                         | length 40                   |
-`button`              | String      |                         | length 20-80                |
+`token`               | String      |                         | length 40                   | GET parameters or options
+`button`              | String      |                         | length 20-80                | GET parameters or options
 `offer`               | Boolean     | false                   |                             |
 `recurring_data`      | Object      |                         |                             |
 `custom`              | Object      |                         |                             |

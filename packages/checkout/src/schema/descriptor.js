@@ -281,7 +281,7 @@ export default {
               button: typeString,
             },
           },
-          active_tab: typeEnum(methods),
+          active_tab: typeEnum([...methods, 'menu']),
           active_method: typeString,
           logo_url: {
             ...typeString,

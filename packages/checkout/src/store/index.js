@@ -9,6 +9,7 @@ import {
   errorHandler,
   removeWallets,
   getRouteName,
+  findGetParameter,
 } from '@/utils/helpers'
 import { sendRequest } from '@/api'
 import { isExist } from '@/utils/inspect'
@@ -148,9 +149,13 @@ class Store extends Model {
     this.info(model)
 
     this.state.options.active_tab =
-      this.parseActiveTab(model) || this.state.options.active_tab
+      findGetParameter('active_tab') ||
+      this.parseActiveTab(model) ||
+      this.state.options.active_tab
     this.state.options.active_method =
-      model.attr('active_method') || this.state.options.active_method
+      findGetParameter('active_method') ||
+      model.attr('active_method') ||
+      this.state.options.active_method
 
     let lang = model.attr('lang')
     if (arrayIncludes(keys(locales), lang) && !this.user.params?.lang) {
