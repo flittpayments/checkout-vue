@@ -1,10 +1,10 @@
 <template>
   <div>
     <f-header back />
-    <div class="f-wrapper">
+    <div v-if="full_screen" class="f-wrapper">
       <f-sidebar />
       <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
-        <div v-if="full_screen" class="f-top">
+        <div class="f-top">
           <div class="f-top-inner" />
         </div>
         <div :class="className">
@@ -16,6 +16,13 @@
           <f-secure-message-wrapper />
         </div>
       </f-scrollbar-vertical>
+    </div>
+    <div v-else :class="className">
+      <transition name="f-fade-enter">
+        <router-view />
+      </transition>
+      <f-processed-wrapper v-if="isBreakpointDownLg" />
+      <f-secure-message-wrapper />
     </div>
   </div>
 </template>
