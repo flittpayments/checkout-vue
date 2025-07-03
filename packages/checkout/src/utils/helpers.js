@@ -76,8 +76,6 @@ export const createConfig = (names, values) =>
     return result
   }, {})
 
-export const key = (...arr) => arr.join('_')
-
 export const windowWidth = () => window.innerWidth
 
 export const windowHeight = () => window.innerHeight

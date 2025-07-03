@@ -23,21 +23,19 @@
           />
         </template>
         <template v-else>
-          <input-amount name="amount" label="amount">
-            <template #default="{ id }">
-              <div ref="amount" class="f-form-control f-hidden">
-                {{ totalAmount }}
-              </div>
-              <label
-                v-if="showAdjustmentAmount"
-                :for="id"
-                class="f-fee"
-                :style="style"
-              >
-                {{ adjustmentSign }}
-                <f-amount :value="adjustmentAbsoluteAmount" />
-              </label>
-            </template>
+          <input-amount v-slot="{ id }" name="amount" label="amount">
+            <div ref="amount" class="f-form-control f-hidden">
+              {{ totalAmount }}
+            </div>
+            <label
+              v-if="showAdjustmentAmount"
+              :for="id"
+              class="f-fee"
+              :style="style"
+            >
+              {{ adjustmentSign }}
+              <f-amount :value="adjustmentAbsoluteAmount" />
+            </label>
           </input-amount>
         </template>
         <f-fee
