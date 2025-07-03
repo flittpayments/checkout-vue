@@ -11,8 +11,7 @@
 import Vue from 'vue'
 import FButton from '@/components/button/button'
 import { mapState, mapStateGetSet } from '@/utils/store'
-import { errorHandler, key } from '@/utils/helpers'
-import { btn, pay, wallet, variant, color } from '@/config/const'
+import { errorHandler } from '@/utils/helpers'
 import { makeProp } from '@/utils/props'
 import {
   PROP_TYPE_BOOLEAN,
@@ -65,13 +64,9 @@ export default Vue.extend({
     load: makeProp(PROP_TYPE_BOOLEAN),
   },
   computed: {
-    ...mapState('css_class', {
-      variant: key(btn, pay, wallet, variant),
-      color: key(btn, pay, wallet, color),
-    }),
     ...mapStateGetSet(['need_validate_card']),
     ...mapState(['has_fields']),
-    ...mapState('options', ['wallets_icons']),
+    ...mapState('options', ['wallets_icons', 'theme']),
     ...mapStateGetSet('tabs', ['most_popular']),
     classButton() {
       return [
@@ -82,6 +77,18 @@ export default Vue.extend({
           [this.$style[`${this.method}-load`]]: this.load,
         },
       ]
+    },
+    variant() {
+      return {
+        light: 'dark',
+        dark: 'light',
+      }[this.theme.type]
+    },
+    color() {
+      return {
+        light: 'black',
+        dark: 'white',
+      }[this.theme.type]
     },
     isGooglePay() {
       return (

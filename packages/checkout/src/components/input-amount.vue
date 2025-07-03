@@ -1,9 +1,12 @@
 <template>
   <f-input-group v-if="showCurrencies">
-    <f-form-group v-model="form[name]" v-bind="attrs" class="f-col">
-      <template #default="{ id }">
-        <slot :id="id" />
-      </template>
+    <f-form-group
+      v-slot="scope"
+      v-model="form[name]"
+      v-bind="attrs"
+      class="f-col"
+    >
+      <slot v-bind="scope" />
     </f-form-group>
     <f-form-group
       v-model="currency"
@@ -17,11 +20,9 @@
       :disabled="disabled"
     />
   </f-input-group>
-  <f-form-group v-else v-model="form[name]" v-bind="attrs">
-    <template #default="{ id }">
-      <slot :id="id" />
-      <span class="f-form-group-currency" v-text="$t(currency)" />
-    </template>
+  <f-form-group v-else v-slot="scope" v-model="form[name]" v-bind="attrs">
+    <slot v-bind="scope" />
+    <span class="f-form-group-currency" v-text="$t(currency)" />
   </f-form-group>
 </template>
 
@@ -96,7 +97,6 @@ export default {
       return isNumber(value) ? String(value / 100) : ''
     },
     parse(value) {
-      value = value.replace(',', '.')
       this.last = value
 
       return amountToCoins(value)

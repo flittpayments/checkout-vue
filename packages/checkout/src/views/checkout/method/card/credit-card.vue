@@ -25,9 +25,9 @@
       @input="inputCardNumber"
     >
       <template v-if="disabled" #label="{ label }">
-        <label class="f-card_label">
+        <span class="f-card_label">
           {{ label }} <f-svg class="f-ml-4" name="lock-alt" size="lg" />
-        </label>
+        </span>
       </template>
       <template v-else-if="isCards" #label="{ label }">
         <f-card-list-wrapper class="f-card_label" :label="label" />

@@ -275,7 +275,7 @@ export const countriesSearch = () =>
   import(/* webpackChunkName: "40" */ '@/config/countries-search')
 
 export const FLoading = () =>
-  import(/* webpackChunkName: "42" */ '@/components/loading-custom')
+  import(/* webpackChunkName: "42" */ '@/components/loading')
 
 export const Installments = () =>
   import(/* webpackChunkName: "46" */ '@/views/checkout/method/installments')

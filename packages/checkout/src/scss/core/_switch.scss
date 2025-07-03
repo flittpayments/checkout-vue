@@ -33,6 +33,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   position: relative;
   right: -$padding;
   display: block;
+  min-height: $switch-height + $padding * 2;
   padding: $padding $switch-width + $padding $padding $padding;
   cursor: pointer;
 

@@ -1,12 +1,11 @@
-import Vue from 'vue'
+<script>
 import { scopedStyleAttrsMixin } from '@/mixins/scoped-style-attrs'
 import { isFunction, isUndefinedOrNull } from '@/utils/inspect'
 import { Popper } from '@/components/tooltip/helpers/popper'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
-// @vue/component
-export const TooltipTemplate = Vue.extend({
+export default {
   extends: Popper,
   mixins: [scopedStyleAttrsMixin],
   props: {
@@ -102,4 +101,5 @@ export const TooltipTemplate = Vue.extend({
       )
     },
   },
-})
+}
+</script>

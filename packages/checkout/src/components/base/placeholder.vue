@@ -15,7 +15,7 @@ import { makeProp } from '@/utils/props'
 export default {
   inheritAttrs: false,
   props: {
-    id: makeProp(PROP_TYPE_STRING, undefined, true),
+    id: makeProp(PROP_TYPE_STRING),
     value: makeProp(PROP_TYPE_NUMBER_STRING),
     placeholder: makeProp(PROP_TYPE_STRING),
     mask: makeProp(PROP_TYPE_STRING),

@@ -79,7 +79,7 @@ export default {
     transform: translateY(0);
   }
 
-  :not(:disabled, .disabled) {
+  &:not(:disabled) {
     cursor: pointer;
   }
 }

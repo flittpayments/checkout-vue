@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { configDefault } from '@/config/config-default'
 import notSet from '@/config/not-set'
 import cssVariable from '@/config/css-variable'
-import cssClass from '@/config/css-class'
 import { deepMerge, errorHandler, findGetParameter } from '@/utils/helpers'
 import {
   removeWallets,
@@ -336,7 +335,6 @@ class Store extends Model {
       cssVariable(this.state.options.theme),
       this.user.css_variable
     )
-    Object.assign(this.state.css_class, cssClass(this.state.options.theme.type))
     Object.assign(
       this.state.subscription,
       configSubscription[this.state.options.subscription.type]

@@ -137,12 +137,11 @@ select {
   line-height: inherit;
 }
 
-button,
 input {
   overflow: visible; // Show the overflow in Edge
 }
 
-button,
+// stylelint-disable-next-line no-duplicate-selectors
 select {
   text-transform: none; // Remove the inheritance of text transform in Firefox
 }
@@ -157,6 +156,7 @@ select {
 // Remove the inheritance of word-wrap in Safari.
 //
 // Details at https://github.com/twbs/bootstrap/issues/24990
+// stylelint-disable-next-line no-duplicate-selectors
 select {
   word-wrap: normal;
 }
@@ -168,11 +168,6 @@ button,
 [type="button"], // 1
 [type="submit"] {
   -webkit-appearance: button; // 2
-
-  // Opinionated: add "hand" cursor to non-disabled button elements.
-  &:not(:disabled) {
-    cursor: pointer;
-  }
 }
 
 // Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
@@ -193,14 +188,4 @@ input[type='checkbox'] {
 [type='number']::-webkit-inner-spin-button,
 [type='number']::-webkit-outer-spin-button {
   height: auto;
-}
-
-//
-// 1. Correct the inability to style clickable types in iOS and Safari.
-// 2. Change font properties to `inherit` in Safari.
-//
-
-::-webkit-file-upload-button {
-  font: inherit; // 2
-  -webkit-appearance: button; // 1
 }

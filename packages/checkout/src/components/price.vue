@@ -23,20 +23,13 @@
           />
         </template>
         <template v-else>
-          <input-amount name="amount" label="amount">
-            <template #default="{ id }">
-              <div ref="amount" class="f-form-control f-hidden">
-                {{ totalAmount }}
-              </div>
-              <label
-                v-if="showFeeAmount"
-                :for="id"
-                class="f-fee"
-                :style="style"
-              >
-                + <f-amount :value="fee_amount" />
-              </label>
-            </template>
+          <input-amount v-slot="{ id }" name="amount" label="amount">
+            <div ref="amount" class="f-form-control f-hidden">
+              {{ totalAmount }}
+            </div>
+            <label v-if="showFeeAmount" :for="id" class="f-fee" :style="style">
+              + <f-amount :value="fee_amount" />
+            </label>
           </input-amount>
         </template>
         <table v-if="showFee" class="f-table">
