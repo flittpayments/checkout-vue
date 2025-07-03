@@ -11,15 +11,16 @@ const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity')
 const { WebpackAssetsManifest } = require("webpack-assets-manifest")
 
 const PUBLIC_PATH = argv['public-path'] || '/'
+const PUBLIC_URL = new URL(PUBLIC_PATH, 'https://checkout')
 const COMMITHASH = gitRevisionPlugin.commithash()
 const VERSION = argv.version || (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
 const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
-const DOMAIN = new URL(PUBLIC_PATH).hostname
+const DOMAIN = PUBLIC_URL.hostname
 const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
-const INITIATOR = argv.library_type || new URL(PUBLIC_PATH).pathname.split('/').filter(Boolean)[0]
+const INITIATOR = argv.library_type || PUBLIC_URL.pathname.split('/').filter(Boolean)[0]
 const X_PAYMENT_GATEWAY = argv['x-payment-gateway']
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -112,6 +113,14 @@ module.exports = defineConfig({
             .filename('[name].js')
             .crossOriginLoading('anonymous')
             .end()
+          .plugin('copy')
+            .tap(options => {
+              options[0].patterns[0].globOptions.ignore.push(
+                path.join(process.cwd(), 'public', 'buttons', '**')
+              )
+              return options
+            })
+            .end()
           .plugin('extract-css')
             .tap(([options]) => {
               return [{
@@ -166,14 +175,6 @@ module.exports = defineConfig({
           .entry('checkout')
             .clear()
             .add('./src/main.js')
-            .end()
-          .plugin('copy')
-            .tap(options => {
-              options[0].patterns[0].globOptions.ignore.push(
-                path.join(process.cwd(), 'public', 'buttons', '**')
-              )
-              return options
-            })
             .end()
           .merge({
             output: {
