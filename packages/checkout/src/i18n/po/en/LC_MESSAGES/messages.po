@@ -332,7 +332,7 @@ msgid "discount"
 msgstr "discount"
 
 msgid "fee"
-msgstr "Commission"
+msgstr "Payment fee"
 
 msgid "total_amount"
 msgstr "Total amount due"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-08 16:12+0300\n"
+"POT-Creation-Date: 2025-07-09 10:30+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -500,6 +500,10 @@ msgstr ""
 msgid "return_to_site"
 msgstr ""
 
+#
+msgid "will_be_redirected_to_merchant_site"
+msgstr ""
+
 msgid "download_receipt"
 msgstr ""
 
@@ -770,9 +774,6 @@ msgid "wallets_google"
 msgstr ""
 
 msgid "wallets_apple"
-msgstr ""
-
-msgid "wallets_apple_google"
 msgstr ""
 
 msgid "wallets_apple_google"

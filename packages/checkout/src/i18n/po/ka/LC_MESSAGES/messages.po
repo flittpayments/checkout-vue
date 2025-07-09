@@ -742,9 +742,6 @@ msgstr ""
 msgid "wallets_apple_google"
 msgstr ""
 
-msgid "wallets_apple_google"
-msgstr ""
-
 msgid "3ds_title"
 msgstr ""
 "თქვენ გადამისამართდებით 3D-ს გვერდზე, თუ ავტომატურად არ გადამისამართდით "
