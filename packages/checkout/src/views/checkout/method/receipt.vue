@@ -90,7 +90,7 @@
                 :text="$t('save_qr_code')"
                 @click="click"
               />
-              <f-modal-base v-model="showQrCode" size="sm">
+              <f-modal-wrapper ref="modal" size="sm">
                 <f-loading v-if="loadingQrCode" />
                 <div class="f-qr-code-img">
                   <img :src="qrCode" @load="loadQrCode" />
@@ -100,7 +100,7 @@
                   class="f-qr-code-text"
                   v-text="$t('qr_code_text')"
                 />
-              </f-modal-base>
+              </f-modal-wrapper>
             </div>
           </template>
         </div>
@@ -116,7 +116,7 @@
 
 <script>
 import FButton from '@/components/button/button'
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import { FLoading } from '@/import'
 import FSvg from '@/components/svg'
 import { isDesktop } from '@/utils/mobile'
@@ -125,7 +125,7 @@ import { errorHandler } from '@/utils/helpers'
 export default {
   components: {
     FButton,
-    FModalBase,
+    FModalWrapper,
     FLoading,
     FSvg,
   },
@@ -133,7 +133,6 @@ export default {
   data() {
     return {
       model: null,
-      showQrCode: false,
       loadingQrCode: false,
     }
   },
@@ -157,7 +156,7 @@ export default {
   },
   methods: {
     click() {
-      this.showQrCode = true
+      this.$refs.modal.show()
       this.loadingQrCode = true
     },
     loadQrCode() {

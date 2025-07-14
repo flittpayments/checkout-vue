@@ -3,11 +3,14 @@
     <f-button-unstyled v-if="disabled" :disabled="disabled">
       <slot name="text" />
     </f-button-unstyled>
-    <f-button-unstyled v-else-if="isPhone" key="modal" @click="modal = true">
+    <f-button-unstyled
+      v-else-if="isPhone"
+      key="modal"
+      @click="$refs.modal.show()"
+    >
       <slot name="text" />
-      <f-modal-base
-        v-model="modal"
-        header-class="f-p-0"
+      <f-modal-wrapper
+        ref="modal"
         :body-class="modalBodyClass"
         :scrollable="scrollable"
         @shown="shown"
@@ -16,7 +19,7 @@
         <component :is="component" v-bind="attrs">
           <slot />
         </component>
-      </f-modal-base>
+      </f-modal-wrapper>
     </f-button-unstyled>
     <f-button-unstyled v-else key="tooltip" ref="target">
       <slot name="text" />
@@ -39,7 +42,7 @@
 <script>
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FTooltipSelect from '@/components/tooltip/dropdown'
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import { timeoutMixin } from '@/mixins/timeout'
 import { resizeMixin } from '@/mixins/resize'
 import { isPhone } from '@/utils/mobile'
@@ -51,7 +54,7 @@ export default {
   components: {
     FButtonUnstyled,
     FTooltipSelect,
-    FModalBase,
+    FModalWrapper,
     FScrollbarVertical,
   },
   mixins: [timeoutMixin, resizeMixin],
@@ -66,7 +69,6 @@ export default {
   },
   data() {
     return {
-      modal: false,
       tooltip: false,
     }
   },
@@ -92,7 +94,7 @@ export default {
   },
   methods: {
     onHide() {
-      this.modal = false
+      this.$refs.modal?.hide()
       this.tooltip = false
     },
     shown() {

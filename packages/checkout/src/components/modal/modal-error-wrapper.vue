@@ -1,5 +1,5 @@
 <template>
-  <f-modal-error v-if="show" />
+  <f-modal-error v-if="show" @hidden="onHidden" />
 </template>
 
 <script>
@@ -12,6 +12,11 @@ export default {
   },
   computed: {
     ...mapState('error', ['show']),
+  },
+  methods: {
+    onHidden() {
+      this.store.hideError()
+    },
   },
 }
 </script>

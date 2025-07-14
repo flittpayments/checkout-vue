@@ -1,22 +1,31 @@
 <template>
-  <f-modal-base visible no-close-on-esc no-close-on-backdrop hide-header-close>
-    <template #title>
+  <f-modal v-bind="attrs">
+    <template #image>
       <svg-decline :class="$style.svg" />
-      <h5 class="f-modal-title" v-text="$t(`${$route.query.error}_title`)" />
     </template>
 
     <p class="f-text-center" v-text="$t(`${$route.query.error}_text`)" />
-  </f-modal-base>
+  </f-modal>
 </template>
 
 <script>
-import FModalBase from '@/components/modal/modal-base'
+import FModal from '@/components/modal/modal'
 import SvgDecline from '@/svg/decline.svg'
 
 export default {
   components: {
-    FModalBase,
+    FModal,
     SvgDecline,
+  },
+  computed: {
+    attrs() {
+      return {
+        noCloseOnEsc: true,
+        noCloseOnBackdrop: true,
+        noHeaderClose: true,
+        title: this.$t(`${this.$route.query.error}_title`),
+      }
+    },
   },
 }
 </script>

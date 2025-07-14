@@ -1,43 +1,45 @@
 <template>
-  <f-modal-base v-if="isCodeMessage" visible v-bind="attrs" v-on="$listeners">
-    <template #title>
+  <f-modal
+    v-if="isCodeMessage"
+    :title="$t('declined')"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <template #image>
       <svg-decline :class="$style.svg" />
-      <h5 class="f-modal-title" v-text="$t('declined')" />
     </template>
     <p>
       <b>{{ code }}</b> {{ message }}
     </p>
-  </f-modal-base>
-  <f-modal-base v-else visible v-bind="attrs" v-on="$listeners">
-    <template #title>
+  </f-modal>
+  <f-modal
+    v-else
+    :title="$t('server_trouble_title')"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <template #image>
       <svg-server-trouble :class="$style.svg" />
-      <h5 class="f-modal-title" v-text="$t('server_trouble_title')" />
     </template>
 
     <p v-text="$t('server_trouble_desc')" />
-  </f-modal-base>
+  </f-modal>
 </template>
 
 <script>
-import FModalBase from '@/components/modal/modal-base'
+import FModal from '@/components/modal/modal'
 import SvgServerTrouble from '@/svg/server-trouble.svg'
 import SvgDecline from '@/svg/decline.svg'
 import { mapState } from '@/utils/store'
 
 export default {
   components: {
-    FModalBase,
+    FModal,
     SvgServerTrouble,
     SvgDecline,
   },
   computed: {
     ...mapState('error', ['code', 'message']),
-    attrs() {
-      return {
-        titleTag: 'div',
-        ...this.$attrs,
-      }
-    },
     isCodeMessage() {
       return this.code || this.message
     },

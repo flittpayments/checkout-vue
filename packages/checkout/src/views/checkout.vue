@@ -12,9 +12,9 @@
     </transition>
     <f-loading v-if="showLoading" backdrop />
     <f-modal-error-wrapper />
-    <f-modal-3ds
-      v-model="show3ds"
-      :duration.sync="duration3ds"
+    <f-modal-3ds-wrapper
+      ref="modal"
+      :duration="duration3ds"
       @submit3ds="submit3ds"
     />
     <f-alert-gdpr-wrapper />
@@ -24,7 +24,7 @@
 <script>
 import FForm from '@/components/form/form'
 import FModalErrorWrapper from '@/components/modal/modal-error-wrapper'
-import FModal3ds from '@/components/modal/modal-3ds'
+import FModal3dsWrapper from '@/components/modal/modal-3ds-wrapper'
 import FAlertGdprWrapper from '@/components/alert/alert-gdpr-wrapper'
 import FAlertNotificationWrapper from '@/components/alert/alert-notification-wrapper'
 import { errorHandler, findGetParameter } from '@/utils/helpers'
@@ -45,7 +45,7 @@ export default {
     FForm,
     FLoading,
     FModalErrorWrapper,
-    FModal3ds,
+    FModal3dsWrapper,
     FAlertGdprWrapper,
     FAlertNotificationWrapper,
   },
@@ -60,7 +60,6 @@ export default {
   data() {
     return {
       timeoutId: 0,
-      show3ds: false,
       duration3ds: 0,
       count: 0,
     }
@@ -181,8 +180,8 @@ export default {
     submit3dsSuccess(model) {
       if (!model.waitOn3dsDecline()) return
 
-      this.show3ds = true
       this.duration3ds = model.waitOn3dsDecline()
+      this.$refs.modal.show()
       model3ds = model
     },
     location(model) {
@@ -255,7 +254,6 @@ export default {
       } else if (model.needVerifyCode()) {
         this.$router.push({ name: 'verify' }).catch(() => {})
       } else if (model.inProgress()) {
-        this.store.hideError()
         this.$router.push({ name: 'success' }).catch(() => {})
       } else if (
         !this.flag &&

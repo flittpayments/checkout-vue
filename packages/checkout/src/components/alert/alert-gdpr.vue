@@ -2,10 +2,10 @@
   <f-alert-storage name="show_gdpr_frame" @ok="ok">
     <div class="f-mb-16">
       <span v-text="$t('gdpr_alert_text')" />&nbsp;
-      <a href="#" @click="showGdprText = true" v-text="$t('learn_more')" />
-      <f-modal-base v-model="showGdprText" header-class="f-p-0">
-        <span v-html="$t('gdpr_modal_text')" />
-      </f-modal-base>
+      <a href="#" @click="$refs.text.show()" v-text="$t('learn_more')" />
+      <f-modal-wrapper ref="text"
+        ><span v-html="$t('gdpr_modal_text')"
+      /></f-modal-wrapper>
     </div>
 
     <f-form-base>
@@ -17,24 +17,23 @@
         variant="secondary"
       >
         <span v-text="$t('remember_card_for_quick_re_payment')" />&nbsp;
-        <a href="#" @click="showGdprSafe = true" v-text="$t('its_safe')" />
+        <a href="#" @click="$refs.safe.show()" v-text="$t('its_safe')" />
       </f-form-group>
     </f-form-base>
 
-    <f-modal-base v-model="showGdprSafe" size="lg">
-      <template #title>
+    <f-modal-wrapper ref="safe" size="lg" :title="$t('gdpr_modal_safe_title')">
+      <template #image>
         <svg-safe :class="$style.svg" />
-        <h5 class="f-modal-title" v-text="$t('gdpr_modal_safe_title')" />
       </template>
 
       <div v-html="$t('gdpr_modal_safe')" />
-    </f-modal-base>
+    </f-modal-wrapper>
   </f-alert-storage>
 </template>
 
 <script>
 import FAlertStorage from '@/components/alert/alert-storage'
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import FFormBase from '@/components/form/form/form-base'
 import SvgSafe from '@/svg/safe.svg'
 
@@ -43,15 +42,9 @@ import { mapStateGetSet, localStorage } from '@/utils/store'
 export default {
   components: {
     FAlertStorage,
-    FModalBase,
+    FModalWrapper,
     FFormBase,
     SvgSafe,
-  },
-  data() {
-    return {
-      showGdprText: false,
-      showGdprSafe: false,
-    }
   },
   computed: {
     ...mapStateGetSet('params', ['save_card']),
