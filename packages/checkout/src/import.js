@@ -277,6 +277,12 @@ export const countriesSearch = () =>
 export const FLoading = () =>
   import(/* webpackChunkName: "42" */ '@/components/loading')
 
+export const FModal = () =>
+  import(/* webpackChunkName: "43" */ '@/components/modal/modal')
+
+export const FModal3ds = () =>
+  import(/* webpackChunkName: "44" */ '@/components/modal/modal-3ds')
+
 export const Installments = () =>
   import(/* webpackChunkName: "46" */ '@/views/checkout/method/installments')
 

@@ -21,14 +21,14 @@
       <f-button-unstyled
         v-if="more"
         class="f-order-desc-more"
-        @click="clickMore"
+        @click="$refs.modal.show()"
       >
         <span v-text="$t('see_more')" /> <f-svg name="angle-right" />
+        <f-modal-wrapper ref="modal" :title="$t('order_details')" size="xl">
+          <span v-text="$t(order_desc)" />
+        </f-modal-wrapper>
       </f-button-unstyled>
     </f-preloader>
-    <f-modal-base v-model="modalMore" :title="$t('order_details')" size="xl">
-      <span v-text="$t(order_desc)" />
-    </f-modal-base>
   </div>
 </template>
 
@@ -36,7 +36,7 @@
 import FPreloader from '@/components/preloader'
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import { resizeMixin } from '@/mixins/resize'
 import { mapState } from '@/utils/store'
 
@@ -45,13 +45,12 @@ export default {
     FPreloader,
     FButtonUnstyled,
     FSvg,
-    FModalBase,
+    FModalWrapper,
   },
   mixins: [resizeMixin],
   data() {
     return {
       more: false,
-      modalMore: false,
     }
   },
   computed: {
@@ -80,9 +79,6 @@ export default {
     this.resize()
   },
   methods: {
-    clickMore() {
-      this.modalMore = true
-    },
     resize() {
       if (!this.$refs.desc) return
 
