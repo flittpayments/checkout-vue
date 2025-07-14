@@ -1,8 +1,7 @@
 <template>
-  <f-modal-base v-bind="attrs" v-on="$listeners">
-    <template #title>
+  <f-modal-wrapper v-bind="attrs" v-on="$listeners">
+    <template #image>
       <svg-click2pay-circle :class="$style.svg" />
-      <h5 class="f-modal-title" v-text="$t('c2p_how_does_work')" />
     </template>
     <div :class="$style.box">
       <svg-click2pay-about />
@@ -11,18 +10,18 @@
     <div :class="$style.center">
       <svg-click2pay-visa-mastercard :class="$style.icon" />
     </div>
-  </f-modal-base>
+  </f-modal-wrapper>
 </template>
 
 <script>
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import SvgClick2payCircle from '@/svg/click2pay-circle.svg'
 import SvgClick2payAbout from '@/svg/click2pay-about.svg'
 import SvgClick2payVisaMastercard from '@/svg/click2pay-visa-mastercard.svg'
 
 export default {
   components: {
-    FModalBase,
+    FModalWrapper,
     SvgClick2payCircle,
     SvgClick2payAbout,
     SvgClick2payVisaMastercard,
@@ -30,9 +29,9 @@ export default {
   computed: {
     attrs() {
       return {
-        titleTag: 'div',
         ...this.$attrs,
         ref: 'modal',
+        title: this.$t('c2p_how_does_work'),
       }
     },
   },

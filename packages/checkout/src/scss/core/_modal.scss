@@ -81,7 +81,7 @@ html {
   display: flex;
   flex-direction: column;
   width: 100%; // Ensure `.f-modal-content` extends the full width of the parent `.f-modal-dialog`
-  padding: $border-radius-lg 0 0;
+  padding: px-to-rem(20px) 0 0;
   margin-top: px-to-rem(88px);
   font-size: px-to-rem(14px);
 
@@ -121,12 +121,13 @@ html {
 // Modal header
 // Top section of the modal w/ title and dismiss
 .f-modal-header {
+  text-align: center;
   position: relative;
   padding: 0 px-to-rem(20px) px-to-rem(16px);
 
   .f-close {
     position: absolute;
-    top: calc(-60px - $border-radius-lg);
+    top: calc(-60px - 20px);
     right: px-to-rem(4px);
     padding: px-to-rem(16px);
     font-size: px-to-rem(32px);
