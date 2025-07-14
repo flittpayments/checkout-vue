@@ -1,18 +1,18 @@
 <template>
   <div :class="$style.wrapper">
     <template v-if="enableModal">
-      <f-button-unstyled :class="$style.title" @click="open">
+      <f-button-unstyled :class="$style.title" @click="$refs.modal.show()">
         <f-svg :class="$style.svg" name="security" :size="24" />
         <span v-text="$t('security_title')" />
       </f-button-unstyled>
-      <f-modal-base v-model="showModal">
+      <f-modal-wrapper ref="modal" v-slot="{ visible }">
         <div :class="$style.modal_title">
           <f-svg :class="$style.modal_svg" name="security" size="lg" />
           <span v-text="$t('security_title')" />
         </div>
         <div :class="$style.modal_content" v-html="$t('security_text')" />
-        <f-secure-message-icons v-if="showModal" />
-      </f-modal-base>
+        <f-secure-message-icons v-if="visible" />
+      </f-modal-wrapper>
     </template>
     <template v-else>
       <f-button-unstyled ref="security" :class="$style.title">
@@ -37,7 +37,7 @@
 <script>
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
 import { FSecureMessageIcons } from '@/import'
 import { resizeMixin } from '@/mixins/resize'
@@ -47,14 +47,13 @@ export default {
   components: {
     FButtonUnstyled,
     FSvg,
-    FModalBase,
+    FModalWrapper,
     FTooltipDefault,
     FSecureMessageIcons,
   },
   mixins: [resizeMixin],
   data() {
     return {
-      showModal: false,
       showTooltip: false,
     }
   },
@@ -73,9 +72,6 @@ export default {
     this.watchEnableModal(this.enableModal)
   },
   methods: {
-    open() {
-      this.showModal = true
-    },
     shown() {
       this.showTooltip = true
     },

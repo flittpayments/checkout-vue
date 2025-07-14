@@ -555,10 +555,6 @@ class Store extends Model {
   formLoading(loading) {
     if (this.state.options.disable_request) return
 
-    if (loading) {
-      this.hideError()
-    }
-
     this.state.loading = loading
   }
   setParams(params) {
