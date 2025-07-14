@@ -1,17 +1,16 @@
 <template>
   <span v-if="read_only">{{ label }}</span>
-  <f-button-unstyled v-else-if="enableModal" @click="showModalCard = true">
+  <f-button-unstyled v-else-if="enableModal" @click="$refs.modal.show()">
     {{ label }} <f-svg :class="$style.arrow" name="angle-down" size="lg" />
-    <f-modal-base
-      v-model="showModalCard"
-      header-class="f-p-0"
+    <f-modal-wrapper
+      ref="modal"
       body-class="f-modal-body-card-list"
       :scrollable="scrollable"
     >
       <component :is="component">
         <f-card-list :list="list" @input="hide" />
       </component>
-    </f-modal-base>
+    </f-modal-wrapper>
   </f-button-unstyled>
   <f-button-unstyled
     v-else
@@ -42,7 +41,7 @@
 
 <script>
 import FButtonUnstyled from '@/components/button/button-unstyled'
-import FModalBase from '@/components/modal/modal-base'
+import FModalWrapper from '@/components/modal/modal-wrapper'
 import FSvg from '@/components/svg'
 import FTooltipSelect from '@/components/tooltip/dropdown'
 import FCardList from '@/components/card-list'
@@ -57,7 +56,7 @@ import FScrollbarVertical from '@/components/scrollbar-vertical'
 export default {
   components: {
     FButtonUnstyled,
-    FModalBase,
+    FModalWrapper,
     FSvg,
     FTooltipSelect,
     FCardList,
@@ -69,7 +68,6 @@ export default {
   },
   data() {
     return {
-      showModalCard: false,
       showTooltipCard: false,
     }
   },
@@ -99,7 +97,7 @@ export default {
   },
   methods: {
     hide() {
-      this.showModalCard = false
+      this.$refs.modal?.hide()
       this.showTooltipCard = false
     },
     blurTooltipCard() {
