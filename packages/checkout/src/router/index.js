@@ -281,7 +281,7 @@ export const createRouter = name => {
                 props: true,
                 meta: {
                   noLoading: true,
-                  noTop: true,
+                  noShadow: true,
                   isCentered: true,
                   method: installments,
                 },
