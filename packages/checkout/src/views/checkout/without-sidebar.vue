@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapState('options', ['full_screen']),
     showShadow() {
-      return this.full_screen && !this.$meta.noTop
+      return this.full_screen && !this.$meta.noShadow
     },
     isCentered() {
       return this.full_screen && this.$meta.isCentered
