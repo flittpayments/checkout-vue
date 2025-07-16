@@ -48,9 +48,7 @@
       <f-svg class="f-mr-8" name="warning" size="md" />
       {{ error }}
     </f-tooltip-error>
-    <transition name="f-slide-fade">
-      <div v-if="showError" class="f-error">{{ error }}</div>
-    </transition>
+    <f-error :show="showError">{{ error }}</f-error>
   </div>
 </template>
 
@@ -59,6 +57,7 @@ import FSvg from '@/components/svg'
 import FFormItem from '@/components/form/item'
 import FPlaceholder from '@/components/base/placeholder'
 import FTooltipError from '@/components/tooltip/tooltip-error'
+import FError from '@/components/base/error'
 import { mapState } from '@/utils/store'
 import { isExist } from '@/utils/inspect'
 import { idMixin, idProps } from '@/mixins/id'
@@ -74,6 +73,7 @@ export default {
     FFormItem,
     FPlaceholder,
     FTooltipError,
+    FError,
   },
   mixins: [idMixin, isMountedMixin, timeoutMixin],
   inheritAttrs: false,
