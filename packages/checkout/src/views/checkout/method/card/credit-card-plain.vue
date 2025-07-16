@@ -57,16 +57,13 @@
         @error="onError"
       />
     </div>
-    <transition name="f-slide-fade">
-      <div v-if="error" class="f-error">
-        {{ error }}
-      </div>
-    </transition>
+    <f-error :show="!!error">{{ error }}</f-error>
     <f-loading v-if="loading" backdrop />
   </div>
 </template>
 
 <script>
+import FError from '@/components/base/error'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { createDate, format } from '@/utils/date'
 import { errorHandler } from '@/utils/helpers'
@@ -77,6 +74,7 @@ import { getCardConfig } from '@/utils/get-bin-name'
 
 export default {
   components: {
+    FError,
     FLoading,
   },
   props: {

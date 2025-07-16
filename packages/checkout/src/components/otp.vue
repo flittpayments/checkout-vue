@@ -40,16 +40,7 @@
         @paste="onPaste"
       />
     </div>
-    <transition name="f-slide-fade">
-      <div
-        v-if="showError"
-        :id="safeId('error')"
-        class="f-error"
-        aria-live="polite"
-      >
-        {{ errors[0] }}
-      </div>
-    </transition>
+    <f-error :id="safeId('error')" :show="showError">{{ errors[0] }}</f-error>
     <ValidationProvider v-slot="scope" v-bind="attrsValidation">
       <input :value="innerValue" type="hidden" />
       <template v-if="updateState(scope)" />
@@ -60,6 +51,7 @@
 <script>
 import { ValidationProvider } from 'vee-validate'
 import FFormItemInput from '@/components/form/item/input'
+import FError from '@/components/base/error'
 import { makeProp } from '@/utils/props'
 import {
   PROP_TYPE_BOOLEAN,
@@ -75,6 +67,7 @@ export default {
   components: {
     ValidationProvider,
     FFormItemInput,
+    FError,
   },
   mixins: [timeoutMixin, idMixin],
   inject: ['isSubmit'],

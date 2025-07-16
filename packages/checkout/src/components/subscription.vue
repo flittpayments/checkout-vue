@@ -84,11 +84,7 @@
           />
         </f-input-group>
         <div class="f-mb-16">
-          <transition name="f-slide-fade">
-            <div v-if="error" class="f-error">
-              {{ error }}
-            </div>
-          </transition>
+          <f-error :show="!!error">{{ error }}</f-error>
         </div>
         <f-form-group
           v-if="showStartTime"
@@ -127,6 +123,7 @@
 import FBox from '@/components/box'
 import FInputGroup from '@/components/base/input-group'
 import { InputAmount } from '@/import'
+import FError from '@/components/base/error'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { parseSelect } from '@/utils/sort'
 import { createDate, format } from '@/utils/date'
@@ -137,6 +134,7 @@ export default {
     FBox,
     FInputGroup,
     InputAmount,
+    FError,
   },
   data() {
     return {
