@@ -1,7 +1,7 @@
 <template>
   <div :class="className">
     <template v-if="isBreakpointDownLg">
-      <div v-if="full_screen" class="f-top"><div class="f-top-inner" /></div>
+      <f-shadow v-if="full_screen" />
       <f-info />
       <f-price />
       <f-button-wallet-el :no-append="showWalletsTab" classname="f-mb-24" />
@@ -26,6 +26,7 @@
 
 <script>
 import { mapState } from '@/utils/store'
+import FShadow from '@/components/base/shadow'
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
@@ -36,6 +37,7 @@ import { resizeMixin } from '@/mixins/resize'
 
 export default {
   components: {
+    FShadow,
     FInfo,
     FPrice,
     FButtonWalletEl,

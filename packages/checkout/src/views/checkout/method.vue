@@ -4,9 +4,7 @@
     <div v-if="full_screen" class="f-wrapper">
       <f-sidebar />
       <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
-        <div class="f-top">
-          <div class="f-top-inner" />
-        </div>
+        <f-shadow />
         <div :class="className">
           <transition name="f-fade-enter">
             <router-view />
@@ -31,6 +29,7 @@
 import FHeader from '@/components/header'
 import FSidebar from '@/components/sidebar'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
+import FShadow from '@/components/base/shadow'
 import FProcessedWrapper from '@/components/processed-wrapper'
 import FSecureMessageWrapper from '@/components/secure-message-wrapper'
 import { mapState } from '@/utils/store'
@@ -41,6 +40,7 @@ export default {
     FHeader,
     FSidebar,
     FScrollbarVertical,
+    FShadow,
     FProcessedWrapper,
     FSecureMessageWrapper,
   },
