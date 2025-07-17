@@ -1,5 +1,5 @@
 <template>
-  <div class="f-container-sm">
+  <f-container>
     <click2pay-header :class="$style.mb_16" :email-short="email">
       <f-link @click="goSwitchId">{{ $t('another_user') }}</f-link>
     </click2pay-header>
@@ -46,10 +46,11 @@
       :text="$t('enter_card_details')"
       @click="goCard"
     />
-  </div>
+  </f-container>
 </template>
 
 <script>
+import FContainer from '@/components/base/container'
 import Click2payHeader from '@/views/click2pay/header'
 import FForm from '@/components/form/form/form'
 import FLink from '@/components/link'
@@ -63,6 +64,7 @@ import { mask } from '@/utils/mask'
 
 export default {
   components: {
+    FContainer,
     Click2payHeader,
     FForm,
     FLink,
