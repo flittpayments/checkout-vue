@@ -53,13 +53,6 @@
   }
 }
 
-.f-container-sm {
-  @include media-breakpoint-up(ss) {
-    width: 100%;
-    max-width: 335px;
-  }
-}
-
 .f-placeholder {
   @include media-breakpoint-up(ss) {
     font-size: px-to-rem(20px);

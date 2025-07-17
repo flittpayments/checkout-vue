@@ -1,5 +1,5 @@
 <template>
-  <div :class="className">
+  <component :is="component" :class="$style.wrapper">
     <template v-if="isBreakpointDownLg">
       <f-shadow v-if="full_screen" />
       <f-info />
@@ -21,11 +21,12 @@
         <span><f-svg class="f-ml-8" name="arrow-right" size="lg" /></span>
       </f-button>
     </div>
-  </div>
+  </component>
 </template>
 
 <script>
 import { mapState } from '@/utils/store'
+import FContainer from '@/components/base/container'
 import FShadow from '@/components/base/shadow'
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
@@ -37,6 +38,7 @@ import { resizeMixin } from '@/mixins/resize'
 
 export default {
   components: {
+    FContainer,
     FShadow,
     FInfo,
     FPrice,
@@ -49,13 +51,8 @@ export default {
   computed: {
     ...mapState('tabs', ['most_popular']),
     ...mapState(['ready', 'has_fields', 'showWalletsTab']),
-    className() {
-      return [
-        this.$style.wrapper,
-        {
-          'f-container-sm': this.isBreakpointDownLg,
-        },
-      ]
+    component() {
+      return this.isBreakpointDownLg ? 'FContainer' : 'div'
     },
     config() {
       return this.most_popular || {}

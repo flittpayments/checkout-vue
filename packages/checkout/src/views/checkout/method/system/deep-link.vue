@@ -4,31 +4,34 @@
       :class="$uiClass('title')"
       v-text="$t('confirm_details_in_app', { name: info.name })"
     />
-    <f-button
-      v-if="target === '_blank'"
-      :href="link"
-      target="_blank"
-      tag="a"
-      variant="success"
-      size="lg"
-      block
-      :text="$t('open_mobile_app', { name: info.name })"
-      @click="clickNonBlocking"
-    />
-    <f-button
-      v-else
-      :href="link"
-      tag="a"
-      variant="success"
-      size="lg"
-      block
-      :text="$t('open_mobile_app', { name: info.name })"
-      @click="click"
-    />
+    <f-container>
+      <f-button
+        v-if="target === '_blank'"
+        :href="link"
+        target="_blank"
+        tag="a"
+        variant="success"
+        size="lg"
+        block
+        :text="$t('open_mobile_app', { name: info.name })"
+        @click="clickNonBlocking"
+      />
+      <f-button
+        v-else
+        :href="link"
+        tag="a"
+        variant="success"
+        size="lg"
+        block
+        :text="$t('open_mobile_app', { name: info.name })"
+        @click="click"
+      />
+    </f-container>
   </div>
 </template>
 
 <script>
+import FContainer from '@/components/base/container'
 import FButton from '@/components/button/button'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
@@ -37,6 +40,7 @@ import { timeoutMixin } from '@/mixins/timeout'
 
 export default {
   components: {
+    FContainer,
     FButton,
   },
   mixins: [timeoutMixin],

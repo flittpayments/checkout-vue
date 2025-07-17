@@ -1,5 +1,5 @@
 <template>
-  <div class="f-container-sm">
+  <f-container>
     <template v-if="isBreakpointDownLg">
       <f-info v-if="isOnlyCard" />
       <f-price />
@@ -16,11 +16,12 @@
       <router-view />
     </transition>
     <click2pay-redirect-wrapper />
-  </div>
+  </f-container>
 </template>
 
 <script>
 import { mapState } from '@/utils/store'
+import FContainer from '@/components/base/container'
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FIcons from '@/components/icons'
@@ -31,6 +32,7 @@ import Click2payRedirectWrapper from '@/views/click2pay/redirect-wrapper'
 
 export default {
   components: {
+    FContainer,
     FInfo,
     FPrice,
     FIcons,
