@@ -2,7 +2,7 @@
   <div>
     <div :class="$uiClass('title')" v-text="$t('enter_details_to_continue')" />
     <div class="f-bank-desc" v-text="$t('bank_desc', { name: info.name })" />
-    <div class="f-container-sm">
+    <f-container>
       <f-fields-bank :fields="info.form?.fields" />
       <f-fields-customer />
       <f-fields-custom />
@@ -10,11 +10,12 @@
       <f-offer />
       <f-button-pay />
       <f-button-cancel-wrapper />
-    </div>
+    </f-container>
   </div>
 </template>
 
 <script>
+import FContainer from '@/components/base/container'
 import FFieldsBank from '@/components/fields/bank'
 import FFieldsCustomer from '@/components/fields/customer'
 import FFieldsCustom from '@/components/fields/custom'
@@ -29,6 +30,7 @@ import { errorHandler } from '@/utils/helpers'
 
 export default {
   components: {
+    FContainer,
     FFieldsBank,
     FFieldsCustomer,
     FFieldsCustom,

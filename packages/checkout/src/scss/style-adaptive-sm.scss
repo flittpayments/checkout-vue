@@ -3,12 +3,6 @@
 @import 'core/variables';
 @import 'core/mixins/index';
 
-.f-container-sm {
-  @include media-breakpoint-up(sm) {
-    max-width: 360px;
-  }
-}
-
 .f-bank-country {
   @include media-breakpoint-up(sm) {
     flex: 0 0 px-to-rem(220px);

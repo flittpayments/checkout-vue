@@ -1,5 +1,5 @@
 <template>
-  <div class="f-container-sm">
+  <f-container>
     <template v-if="isBreakpointDownLg">
       <f-info v-if="isOnlyWallets" />
       <f-price />
@@ -10,10 +10,11 @@
     <f-offer />
     <f-button-wallet-el />
     <f-button-cancel-wrapper />
-  </div>
+  </f-container>
 </template>
 
 <script>
+import FContainer from '@/components/base/container'
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FFieldsCustomer from '@/components/fields/customer'
@@ -27,6 +28,7 @@ import { mapState } from '@/utils/store'
 
 export default {
   components: {
+    FContainer,
     FInfo,
     FPrice,
     FFieldsCustomer,
