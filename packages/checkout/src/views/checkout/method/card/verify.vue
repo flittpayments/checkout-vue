@@ -21,7 +21,7 @@
     />
     <f-subscription-wrapper />
     <f-offer />
-    <f-button-pay :no-amount="isAmount" />
+    <f-button-pay />
     <f-button-cancel-wrapper />
   </div>
 </template>

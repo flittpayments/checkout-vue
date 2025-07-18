@@ -14,12 +14,9 @@
           @click.prevent="open"
           v-html="$t('c2p_save_card_desc', { masked_card, click2pay })"
         />
-        <f-button
+        <f-button-success
           class="f-mb-24"
-          variant="success"
-          size="lg"
           :text="$t('save_card')"
-          block
           @click="click"
         />
       </div>
@@ -30,7 +27,7 @@
 
 <script>
 import Click2payHeader from '@/views/click2pay/header'
-import FButton from '@/components/button/button'
+import FButtonSuccess from '@/components/button/button-success'
 import Click2payCheckoutForm from '@/views/click2pay/checkout-form'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
 import { mapState } from '@/utils/store'
@@ -40,7 +37,7 @@ import { getCards } from '@/click2pay'
 export default {
   components: {
     Click2payHeader,
-    FButton,
+    FButtonSuccess,
     Click2payCheckoutForm,
     Click2payModalAbout,
   },

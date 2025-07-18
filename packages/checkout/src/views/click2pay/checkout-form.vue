@@ -41,23 +41,13 @@
         />
         <click2pay-remember-me :class="$style.mb_16" />
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
-        <f-button
+        <f-button-success
           class="f-mb-20"
-          variant="success"
-          size="lg"
-          block
           :disabled="disabled"
+          :loading="loading"
+          :text="$t('registration')"
           @click="submit"
-        >
-          <span v-text="$t('registration')" />
-          <f-svg
-            v-if="loading"
-            :class="$style.spin"
-            name="redo"
-            size="20"
-            spin
-          />
-        </f-button>
+        />
       </f-form>
       <div
         :class="$style.agreement"
@@ -89,8 +79,7 @@ import FForm from '@/components/form/form/form'
 import FInputGroup from '@/components/base/input-group'
 import FCallingCodes from '@/components/calling-codes'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
-import FButton from '@/components/button/button'
-import FSvg from '@/components/svg'
+import FButtonSuccess from '@/components/button/button-success'
 import Click2payLoader from '@/views/click2pay/loader'
 import { checkout } from '@/click2pay'
 import { mapState } from '@/utils/store'
@@ -104,8 +93,7 @@ export default {
     FInputGroup,
     FCallingCodes,
     Click2payRememberMe,
-    FButton,
-    FSvg,
+    FButtonSuccess,
     Click2payLoader,
   },
   data() {
@@ -270,12 +258,6 @@ export default {
   font-weight: 500;
   color: $error;
   margin-bottom: px-to-rem(8px);
-}
-
-.spin {
-  position: relative;
-  z-index: 1;
-  margin-left: px-to-rem(4px);
 }
 
 .registered {

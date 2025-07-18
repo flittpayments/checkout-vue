@@ -4,24 +4,16 @@
       :class="$uiClass('title')"
       v-text="$t('confirm_details_in_app', { name: info.name })"
     />
-    <f-button
+    <f-button-success
       v-if="target === '_blank'"
       :href="link"
       target="_blank"
-      tag="a"
-      variant="success"
-      size="lg"
-      block
       :text="$t('open_mobile_app', { name: info.name })"
       @click="clickNonBlocking"
     />
-    <f-button
+    <f-button-success
       v-else
       :href="link"
-      tag="a"
-      variant="success"
-      size="lg"
-      block
       :text="$t('open_mobile_app', { name: info.name })"
       @click="click"
     />
@@ -29,7 +21,7 @@
 </template>
 
 <script>
-import FButton from '@/components/button/button'
+import FButtonSuccess from '@/components/button/button-success'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 import { mapState } from '@/utils/store'
@@ -37,7 +29,7 @@ import { timeoutMixin } from '@/mixins/timeout'
 
 export default {
   components: {
-    FButton,
+    FButtonSuccess,
   },
   mixins: [timeoutMixin],
   props: {
