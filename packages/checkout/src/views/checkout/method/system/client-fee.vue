@@ -20,17 +20,10 @@
           <template #fees><b v-text="$t('fees')" /></template>
         </i18n>
       </f-form-group>
-      <f-button
-        class="f-button-pay"
-        variant="success"
-        size="lg"
-        block
-        :disabled="disabled"
-        @click="submit"
-      >
+      <f-button-success :disabled="disabled" @click="submit">
         <span v-text="$t('pay')" />&nbsp;
         <f-amount :value="data.total_amount" :currency="currency" />
-      </f-button>
+      </f-button-success>
     </f-form>
   </f-container>
 </template>
@@ -39,7 +32,7 @@
 import FContainer from '@/components/base/container'
 import { FFee } from '@/import'
 import FForm from '@/components/form/form/form.vue'
-import FButton from '@/components/button/button'
+import FButtonSuccess from '@/components/button/button-success'
 import FAmount from '@/components/base/amount.vue'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
@@ -51,7 +44,7 @@ export default {
     FContainer,
     FFee,
     FForm,
-    FButton,
+    FButtonSuccess,
     FAmount,
   },
   inject: ['formRequest'],
