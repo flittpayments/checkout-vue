@@ -20,22 +20,12 @@
           rules="required|email"
         />
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
-        <f-button
-          variant="success"
-          size="lg"
-          block
+        <f-button-success
           :disabled="disabled"
+          :loading="loading"
+          :text="$t('change_user')"
           @click="submit"
-        >
-          <span v-text="$t('change_user')" />
-          <f-svg
-            v-if="loading"
-            :class="$style.spin"
-            name="redo"
-            size="20"
-            spin
-          />
-        </f-button>
+        />
       </f-form>
       <f-button-link block size="56" @click="goCard">{{
         $t('cancel')
@@ -49,8 +39,7 @@ import Click2payHeader from '@/views/click2pay/header'
 import { getCards, switchUser } from '@/click2pay'
 import FBox from '@/components/box'
 import FForm from '@/components/form/form/form'
-import FButton from '@/components/button/button'
-import FSvg from '@/components/svg'
+import FButtonSuccess from '@/components/button/button-success'
 import FButtonLink from '@/components/button/button-link'
 
 export default {
@@ -58,8 +47,7 @@ export default {
     Click2payHeader,
     FBox,
     FForm,
-    FButton,
-    FSvg,
+    FButtonSuccess,
     FButtonLink,
   },
   data() {
@@ -140,12 +128,6 @@ export default {
   font-weight: 500;
   color: $error;
   margin-bottom: px-to-rem(8px);
-}
-
-.spin {
-  position: relative;
-  z-index: 1;
-  margin-left: px-to-rem(4px);
 }
 
 .mb_4 {

@@ -72,13 +72,9 @@
 
         <div class="f-row f-receipt-buttons">
           <div class="f-col">
-            <f-button
+            <f-button-success
               :href="model.url"
-              variant="success"
-              tag="a"
               target="_blank"
-              size="lg"
-              block
               :text="$t('save_receipt')"
             />
           </div>
@@ -115,6 +111,7 @@
 </template>
 
 <script>
+import FButtonSuccess from '@/components/button/button-success'
 import FButton from '@/components/button/button'
 import FModalWrapper from '@/components/modal/modal-wrapper'
 import { FLoading } from '@/import'
@@ -124,6 +121,7 @@ import { errorHandler } from '@/utils/helpers'
 
 export default {
   components: {
+    FButtonSuccess,
     FButton,
     FModalWrapper,
     FLoading,
