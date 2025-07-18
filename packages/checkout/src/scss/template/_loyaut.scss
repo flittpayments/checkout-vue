@@ -56,11 +56,6 @@
   padding: px-to-rem(24px) px-to-rem(20px) 0 0;
 }
 
-.f-wrapper {
-  position: relative;
-  height: calc(100% - #{$header-height});
-}
-
 .f-center-wrap {
   display: flex;
   flex-direction: column;
