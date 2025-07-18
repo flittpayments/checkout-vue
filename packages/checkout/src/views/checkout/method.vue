@@ -1,7 +1,7 @@
 <template>
   <f-main>
     <f-header back />
-    <div v-if="full_screen" class="f-wrapper">
+    <f-content v-if="full_screen">
       <f-sidebar />
       <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
         <f-shadow />
@@ -14,7 +14,7 @@
           <f-secure-message-wrapper />
         </div>
       </f-scrollbar-vertical>
-    </div>
+    </f-content>
     <div v-else :class="className">
       <transition name="f-fade-enter">
         <router-view />
@@ -28,6 +28,7 @@
 <script>
 import FMain from '@/components/base/main'
 import FHeader from '@/components/header'
+import FContent from '@/components/base/content'
 import FSidebar from '@/components/sidebar'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
 import FShadow from '@/components/base/shadow'
@@ -40,6 +41,7 @@ export default {
   components: {
     FMain,
     FHeader,
+    FContent,
     FSidebar,
     FScrollbarVertical,
     FShadow,
