@@ -1,7 +1,7 @@
 <template>
   <f-main class="f-without-sidebar">
     <f-header />
-    <div class="f-wrapper">
+    <f-content>
       <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
         <f-shadow v-if="showShadow" />
         <div class="f-method">
@@ -14,13 +14,14 @@
           <f-secure-message-wrapper />
         </div>
       </f-scrollbar-vertical>
-    </div>
+    </f-content>
   </f-main>
 </template>
 
 <script>
 import FMain from '@/components/base/main'
 import FHeader from '@/components/header'
+import FContent from '@/components/base/content'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
 import FShadow from '@/components/base/shadow'
 import FProcessedWrapper from '@/components/processed-wrapper'
@@ -31,6 +32,7 @@ export default {
   components: {
     FMain,
     FHeader,
+    FContent,
     FScrollbarVertical,
     FShadow,
     FProcessedWrapper,
