@@ -79,13 +79,6 @@
   }
 }
 
-.f-wrapper {
-  @include media-breakpoint-up(lg) {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
 .f-sidebar {
   @include media-breakpoint-up(lg) {
     flex: 0 0 410px;
