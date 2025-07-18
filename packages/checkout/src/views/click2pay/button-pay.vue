@@ -1,24 +1,16 @@
 <template>
   <div>
     <div v-if="error" :class="$style.error" v-text="$t(error)" />
-    <f-button
-      class="f-button-pay"
-      variant="success"
-      size="lg"
-      block
+    <f-button-success-pay
+      :disabled="disabled"
+      :loading="loading"
       @click="click"
-    >
-      <span v-text="$t('pay')" />&nbsp;
-      <f-amount v-if="showAmount" :value="total_amount" :currency="currency" />
-      <f-svg v-if="loading" :class="$style.spin" name="redo" size="20" spin />
-    </f-button>
+    />
   </div>
 </template>
 
 <script>
-import FButton from '@/components/button/button'
-import FAmount from '@/components/base/amount'
-import FSvg from '@/components/svg'
+import FButtonSuccessPay from '@/components/button/button-success-pay'
 import { validatorMixin } from '@/mixins/validator'
 import { mapState } from '@/utils/store'
 import { checkoutSelectedCard } from '@/click2pay'
@@ -27,9 +19,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default {
   components: {
-    FButton,
-    FAmount,
-    FSvg,
+    FButtonSuccessPay,
   },
   mixins: [validatorMixin],
   inject: ['validate', 'formRequest'],
@@ -41,15 +31,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('options', ['show_pay_button_amount', 'title']),
+    ...mapState('options', ['title']),
     ...mapState('params', ['currency', 'order_id', 'merchant_id']),
     ...mapState(['total_amount']),
     ...mapState('info', ['click2pay']),
     disabled() {
       return this.isError && this.isSubmit
-    },
-    showAmount() {
-      return this.show_pay_button_amount
     },
   },
   methods: {
@@ -117,11 +104,5 @@ export default {
   font-weight: 500;
   color: $error;
   margin-bottom: px-to-rem(8px);
-}
-
-.spin {
-  position: relative;
-  z-index: 1;
-  margin-left: px-to-rem(4px);
 }
 </style>

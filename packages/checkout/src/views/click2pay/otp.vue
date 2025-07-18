@@ -24,16 +24,12 @@
       <transition name="fade-enter">
         <div v-if="messageOk" :class="$style.message_ok">{{ messageOk }}</div>
       </transition>
-      <f-button
-        variant="success"
-        size="lg"
-        block
+      <f-button-success
         :disabled="disabled"
+        :loading="loading"
+        :text="$t('check_and_continue')"
         @click="submit"
-      >
-        <span v-text="$t('check_and_continue')" />
-        <f-svg v-if="loading" :class="$style.spin" name="redo" size="20" spin />
-      </f-button>
+      />
     </f-form>
     <div :class="$style.or">
       <div :class="$style.or_hr" />
@@ -56,8 +52,8 @@ import FForm from '@/components/form/form/form'
 import FLink from '@/components/link'
 import FOtp from '@/components/otp'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
+import FButtonSuccess from '@/components/button/button-success'
 import FButton from '@/components/button/button'
-import FSvg from '@/components/svg'
 import { timeoutMixin } from '@/mixins/timeout'
 import { getCards, initiateIdentityValidation, complete } from '@/click2pay'
 import { mask } from '@/utils/mask'
@@ -70,8 +66,8 @@ export default {
     FLink,
     FOtp,
     Click2payRememberMe,
+    FButtonSuccess,
     FButton,
-    FSvg,
   },
   mixins: [timeoutMixin],
   data() {
@@ -238,11 +234,6 @@ export default {
   margin-bottom: px-to-rem(8px);
 }
 
-.spin {
-  position: relative;
-  z-index: 1;
-  margin-left: px-to-rem(4px);
-}
 .or {
   position: relative;
   display: flex;
