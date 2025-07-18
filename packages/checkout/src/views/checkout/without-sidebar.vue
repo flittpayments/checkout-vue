@@ -1,5 +1,5 @@
 <template>
-  <div class="f-without-sidebar">
+  <f-main class="f-without-sidebar">
     <f-header />
     <div class="f-wrapper">
       <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
@@ -15,10 +15,11 @@
         </div>
       </f-scrollbar-vertical>
     </div>
-  </div>
+  </f-main>
 </template>
 
 <script>
+import FMain from '@/components/base/main'
 import FHeader from '@/components/header'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
 import FShadow from '@/components/base/shadow'
@@ -28,6 +29,7 @@ import { mapState } from '@/utils/store'
 
 export default {
   components: {
+    FMain,
     FHeader,
     FScrollbarVertical,
     FShadow,
