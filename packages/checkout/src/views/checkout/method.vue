@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <f-main>
     <f-header back />
     <div v-if="full_screen" class="f-wrapper">
       <f-sidebar />
@@ -22,10 +22,11 @@
       <f-processed-wrapper v-if="isBreakpointDownLg" />
       <f-secure-message-wrapper />
     </div>
-  </div>
+  </f-main>
 </template>
 
 <script>
+import FMain from '@/components/base/main'
 import FHeader from '@/components/header'
 import FSidebar from '@/components/sidebar'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
@@ -37,6 +38,7 @@ import { resizeMixin } from '@/mixins/resize'
 
 export default {
   components: {
+    FMain,
     FHeader,
     FSidebar,
     FScrollbarVertical,
