@@ -4,34 +4,13 @@ import { makeProp } from '@/utils/props'
 
 export default {
   inheritAttrs: false,
-  model: {
-    prop: 'show',
-    event: 'input',
-  },
   props: {
     variant: makeProp(PROP_TYPE_STRING, 'info'),
     show: makeProp(PROP_TYPE_BOOLEAN, false),
   },
-  data() {
-    return {
-      // If initially shown, we need to set these for SSR
-      localShow: this.show,
-    }
-  },
-  watch: {
-    show(newVal) {
-      this.localShow = newVal
-    },
-  },
-  created() {
-    this.localShow = this.show
-  },
-  mounted() {
-    this.localShow = this.show
-  },
   render(h) {
     let $alert // undefined
-    if (this.localShow) {
+    if (this.show) {
       $alert = h(
         'div',
         {
@@ -44,7 +23,7 @@ export default {
             'aria-atomic': true,
           },
         },
-        [this.$slots.default]
+        this.$scopedSlots.default()
       )
       $alert = [$alert]
     }
