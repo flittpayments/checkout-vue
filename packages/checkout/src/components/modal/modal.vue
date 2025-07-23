@@ -1,14 +1,7 @@
 <template>
   <f-modal-base v-bind="attrs" v-on="$listeners">
     <template #header>
-      <f-button-unstyled
-        v-if="!$attrs.noHeaderClose"
-        class="f-close"
-        aria-label="Close"
-        @click="hide"
-      >
-        &times;
-      </f-button-unstyled>
+      <f-button-close v-if="!$attrs.noHeaderClose" @click="hide" />
       <slot name="image" />
       <h5 v-if="title" class="f-modal-title">{{ title }}</h5>
     </template>
@@ -23,14 +16,14 @@
 
 <script>
 import FModalBase from '@/components/modal/modal-base'
-import FButtonUnstyled from '@/components/button/button-unstyled'
+import FButtonClose from '@/components/button/button-close'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 
 export default {
   components: {
     FModalBase,
-    FButtonUnstyled,
+    FButtonClose,
   },
   inheritAttrs: false,
   props: {

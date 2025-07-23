@@ -24,7 +24,7 @@
 
 <script>
 import FIcon from '@/components/icon'
-import { FButtonClose } from '@/components/button/button-close'
+import FButtonClose from '@/components/button/button-close'
 import { mapState } from '@/utils/store'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
