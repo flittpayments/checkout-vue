@@ -1,9 +1,6 @@
 <template>
-  <f-button-unstyled
-    :class="['f-card-list-item', { active: active }]"
-    v-on="$listeners"
-  >
-    <f-icon-bin class="f-card-list-icon" :bin="item.card_number" />
+  <f-button-unstyled :class="className" v-on="$listeners">
+    <f-icon-bin :class="style.icon" :bin="item.card_number" />
     <div>
       <div :class="$style.number">{{ cardNumber }}</div>
       <div :class="$style['expiry-date']">
@@ -70,6 +67,9 @@ export default {
   computed: {
     ...mapState('params', ['card_number']),
     ...mapState(['mode_test']),
+    className() {
+      return [this.style.style, { [this.style.active]: this.active }]
+    },
     active() {
       return this.item.card_number === this.card_number
     },
@@ -91,6 +91,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module="style">
+@import '@/scss/template/card-list-item.module';
+</style>
 
 <style lang="scss" module>
 .number {

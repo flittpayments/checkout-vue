@@ -1,18 +1,19 @@
 <template>
-  <f-main class="f-without-sidebar">
-    <f-header />
+  <f-main>
+    <f-header without-sidebar />
     <f-content>
-      <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
+      <f-scrollbar-vertical
+        :class="$uiClass('center')"
+        :wrap-class="$uiClass('wrap')"
+      >
         <f-shadow v-if="showShadow" />
-        <div class="f-method">
-          <div v-if="isCentered" class="f-flex-grow-1" />
-          <transition name="f-fade-enter">
-            <router-view />
-          </transition>
-          <div class="f-flex-grow-1" />
-          <f-processed-wrapper />
-          <f-secure-message-wrapper />
-        </div>
+        <div v-if="isCentered" :class="$style.flex_grow_1" />
+        <transition name="f-fade-enter">
+          <router-view />
+        </transition>
+        <div :class="$style.flex_grow_1" />
+        <f-processed-wrapper />
+        <f-secure-message-wrapper />
       </f-scrollbar-vertical>
     </f-content>
   </f-main>
@@ -49,3 +50,35 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.center_adaptive {
+  @include media-breakpoint-up(lg) {
+    flex: 1;
+  }
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 0 px-to-rem(20px) px-to-rem(32px);
+}
+
+.wrap_adaptive {
+  @include media-breakpoint-up(md) {
+    padding: 0 px-to-rem(40px) px-to-rem(32px);
+  }
+
+  @include media-breakpoint-up(lg) {
+    min-height: auto;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    padding: 0 px-to-rem(60px) px-to-rem(32px);
+  }
+}
+
+.flex_grow_1 {
+  flex-grow: 1;
+}
+</style>

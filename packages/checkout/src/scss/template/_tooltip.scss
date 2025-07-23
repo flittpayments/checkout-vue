@@ -1,24 +1,3 @@
-.f-tooltip-icons {
-  .f-tooltip-inner {
-    flex-wrap: wrap;
-    max-width: px-to-rem(304px);
-    padding: px-to-rem(12px) px-to-rem(4px) px-to-rem(4px) px-to-rem(12px);
-  }
-
-  .f-icon {
-    margin: 0 px-to-rem(8px) px-to-rem(8px) 0;
-    border-radius: $border-radius-sm;
-    box-shadow: 0 px-to-rem(1px) px-to-rem(4px) $tooltip_icons_shadow;
-  }
-}
-
-.f-tooltip-error {
-  .f-tooltip-inner {
-    align-items: center;
-    color: $error;
-  }
-}
-
 .f-tooltip-select {
   &.f-tooltip-auto {
     padding: px-to-rem(4px) 0;
@@ -40,16 +19,5 @@
     width: px-to-rem(360px);
     max-width: px-to-rem(360px);
     padding: $border-radius 0;
-  }
-}
-
-.f-tooltip-menu {
-  .f-tooltip-inner {
-    align-items: center;
-  }
-
-  svg {
-    flex: 0 0 px-to-rem(50px);
-    max-width: px-to-rem(50px);
   }
 }
