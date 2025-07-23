@@ -66,13 +66,6 @@ export default {
 
 .icon {
   min-width: px-to-rem(100px);
-
-  :global(.f-theme-light) & {
-    color: #1434cb;
-  }
-
-  :global(.f-theme-dark) & {
-    color: #fff;
-  }
+  color: #1434cb;
 }
 </style>

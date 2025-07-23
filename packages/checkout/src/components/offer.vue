@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" :class="['f-offer', $style.wrapper]">
+  <div v-if="show" :class="$style.wrapper">
     <f-form-group
       v-if="merchant.offerta_url_show_checkbox"
       v-model="offer"

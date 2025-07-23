@@ -10,7 +10,7 @@
     <f-subscription-wrapper />
     <f-offer />
     <router-view name="button-pay" />
-    <div v-if="isDemo" class="f-demo-desc" v-text="$t('demo_desc')" />
+    <div v-if="isDemo" :class="$style.demo" v-text="$t('demo_desc')" />
     <f-button-cancel-wrapper />
   </div>
 </template>
@@ -43,3 +43,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.demo {
+  margin-top: px-to-rem(16px);
+  font-size: px-to-rem(14px);
+  text-align: center;
+}
+</style>

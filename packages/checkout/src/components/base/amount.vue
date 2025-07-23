@@ -1,6 +1,6 @@
 <template>
   <span>
-    <component :is="tagAmount" :class="amountClass"
+    <component :is="tagAmount" :class="amountClass" data-e2e-amount
       >{{ integer }}<component :is="tagFractional">{{ fractional }}</component>
     </component>
     <span v-if="currency" :class="classCurrency" v-text="$t(currency)" />

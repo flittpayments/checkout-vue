@@ -1,25 +1,24 @@
 <template>
-  <div class="f-scrollbar" :style="style">
+  <div :class="$style.style">
     <div
       ref="wrap"
-      class="f-scrollbar-wrap"
-      :class="wrapClass"
+      :class="[$style.wrap, wrapClass]"
       :style="styleWrap"
       @scroll="scroll"
     >
       <slot />
     </div>
-    <div class="f-scrollbar-track">
+    <div :class="$style.track">
       <div
         v-if="isMobile"
         ref="thumb"
-        class="f-scrollbar-thumb"
+        :class="$style.thumb"
         :style="styleThumb"
       />
       <div
         v-else
         ref="thumb"
-        class="f-scrollbar-thumb"
+        :class="$style.thumb"
         :style="styleThumb"
         @mousedown="dragstart"
       />
@@ -32,13 +31,13 @@ import getScrollbarWidth from '@/utils/scrollbar-width'
 import { resizeMixin } from '@/mixins/resize'
 import { isMobile } from '@/utils/mobile'
 import { contains } from '@/utils/dom'
-import { PROP_TYPE_STRING } from '@/constants/props'
+import { PROP_TYPE_ARRAY_STRING } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
 export default {
   mixins: [resizeMixin],
   props: {
-    wrapClass: makeProp(PROP_TYPE_STRING),
+    wrapClass: makeProp(PROP_TYPE_ARRAY_STRING),
   },
   data() {
     return {
@@ -49,12 +48,6 @@ export default {
     }
   },
   computed: {
-    style() {
-      return {
-        position: 'relative',
-        overflow: 'hidden',
-      }
-    },
     styleWrap() {
       return { marginRight: `-${this.scrollbarWidth}px` }
     },
@@ -135,3 +128,46 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  height: 100%;
+  min-height: inherit;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .track {
+      opacity: 1;
+    }
+  }
+}
+
+.wrap {
+  height: 100%;
+  min-height: inherit;
+  overflow: hidden scroll;
+}
+
+.track {
+  position: absolute;
+  top: px-to-rem(2px);
+  right: px-to-rem(2px);
+  bottom: px-to-rem(2px);
+  z-index: 1;
+  width: px-to-rem(4px);
+  border-radius: $border-radius-sm;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+
+.thumb {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  cursor: pointer;
+  user-select: none;
+  background-color: fade($scrollbar_thumb_bg, 30%);
+  border-radius: inherit;
+}
+</style>

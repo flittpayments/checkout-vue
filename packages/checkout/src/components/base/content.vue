@@ -1,25 +1,11 @@
 <template>
-  <div :class="className">
+  <div :class="$uiClass('style')">
     <slot />
   </div>
 </template>
 
 <script>
-import { mapState } from '@/utils/store'
-
-export default {
-  computed: {
-    ...mapState('options', ['full_screen']),
-    className() {
-      return [
-        this.$style.style,
-        {
-          [this.$style.style_adaptive]: this.full_screen,
-        },
-      ]
-    },
-  },
-}
+export default {}
 </script>
 
 <style lang="scss" module>
