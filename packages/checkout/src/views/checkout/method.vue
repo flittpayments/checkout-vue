@@ -3,19 +3,20 @@
     <f-header back />
     <f-content v-if="full_screen">
       <f-sidebar />
-      <f-scrollbar-vertical class="f-center" wrap-class="f-center-wrap">
+      <f-scrollbar-vertical
+        :class="$uiClass('center')"
+        :wrap-class="$uiClass('wrap')"
+      >
         <f-shadow />
-        <div :class="className">
-          <transition name="f-fade-enter">
-            <router-view />
-          </transition>
-          <div class="f-flex-grow-1" />
-          <f-processed-wrapper v-if="isBreakpointDownLg" />
-          <f-secure-message-wrapper />
-        </div>
+        <transition name="f-fade-enter">
+          <router-view />
+        </transition>
+        <div :class="$style.flex_grow_1" />
+        <f-processed-wrapper v-if="isBreakpointDownLg" />
+        <f-secure-message-wrapper />
       </f-scrollbar-vertical>
     </f-content>
-    <div v-else :class="className">
+    <div v-else :class="$style.wrap">
       <transition name="f-fade-enter">
         <router-view />
       </transition>
@@ -51,9 +52,38 @@ export default {
   mixins: [resizeMixin],
   computed: {
     ...mapState('options', ['full_screen']),
-    className() {
-      return ['f-method', `f-method-${this.$route.name}`]
-    },
   },
 }
 </script>
+
+<style lang="scss" module>
+.center_adaptive {
+  @include media-breakpoint-up(lg) {
+    flex: 1;
+  }
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 0 px-to-rem(20px) px-to-rem(32px);
+}
+
+.wrap_adaptive {
+  @include media-breakpoint-up(md) {
+    padding: 0 px-to-rem(40px) px-to-rem(32px);
+  }
+
+  @include media-breakpoint-up(lg) {
+    min-height: auto;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    padding: 0 px-to-rem(60px) px-to-rem(32px);
+  }
+}
+
+.flex_grow_1 {
+  flex-grow: 1;
+}
+</style>

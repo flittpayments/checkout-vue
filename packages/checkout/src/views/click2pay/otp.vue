@@ -5,8 +5,11 @@
         $t('another_user')
       }}</f-link>
     </click2pay-header>
-    <h3 :class="$style.h3" v-text="$t('c2p_access_to_saved_cards')" />
-    <div :class="$style.desc" v-text="$t('c2p_otp_desc', { email, phone })" />
+    <h3 :class="$uiClass('h3')" v-text="$t('c2p_access_to_saved_cards')" />
+    <div
+      :class="$uiClass('desc')"
+      v-text="$t('c2p_otp_desc', { email, phone })"
+    />
     <div v-if="second" :class="$style.time">
       <span v-text="$t('invite_new_code', { time })" />
     </div>
@@ -36,8 +39,8 @@
       />
     </f-form>
     <div :class="$style.or">
-      <div :class="$style.or_hr" />
-      <div :class="$style.or_text" v-text="$t('or')" />
+      <div :class="$uiClass('or_hr')" />
+      <div :class="$uiClass('or_text')" v-text="$t('or')" />
     </div>
     <f-button
       :class="$style.mb_32"
@@ -183,10 +186,10 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 600;
   margin-bottom: px-to-rem(8px);
+}
 
-  :global(.f-theme-light) & {
-    color: #313539;
-  }
+.h3_light {
+  color: #313539;
 }
 
 .desc {
@@ -194,10 +197,10 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 400;
   margin-bottom: px-to-rem(8px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .time {
@@ -253,10 +256,10 @@ export default {
   top: 50%;
   left: 0;
   right: 0;
+}
 
-  :global(.f-theme-light) & {
-    background-color: #d5dae0;
-  }
+.or_hr_light {
+  background-color: #d5dae0;
 }
 
 .or_text {
@@ -266,10 +269,10 @@ export default {
   font-weight: 400;
   padding: 0 px-to-rem(12px);
   background-color: $container-bg;
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.or_text_light {
+  color: #5a6470;
 }
 
 .mb_32 {

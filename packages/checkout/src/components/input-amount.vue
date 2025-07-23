@@ -16,13 +16,13 @@
       label=""
       rules="required"
       class="f-col-4 f-col-sm-3"
-      input-class="f-form-control-no-label"
+      :input-class="$style.pt_8"
       :disabled="disabled"
     />
   </f-input-group>
   <f-form-group v-else v-slot="scope" v-model="form[name]" v-bind="attrs">
     <slot v-bind="scope" />
-    <span class="f-form-group-currency" v-text="$t(currency)" />
+    <span :class="$style.currency" v-text="$t(currency)" />
   </f-form-group>
 </template>
 
@@ -117,5 +117,21 @@ export default {
     appearance: none;
     margin: 0;
   }
+}
+
+.currency {
+  position: absolute;
+  top: px-to-rem(17px);
+  right: px-to-rem(12px);
+  z-index: 1;
+  font-size: px-to-rem(16px);
+  font-weight: 500;
+  color: $label_color;
+  transition: all ease-in-out 0.15s;
+  transform-origin: 0 0;
+}
+
+:global(#f) .pt_8 {
+  padding-top: px-to-rem(8px);
 }
 </style>

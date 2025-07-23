@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.wrapper">
-    <svg-click2pay-visa-mastercard :class="$style.icon" />
+    <svg-click2pay-visa-mastercard :class="$uiClass('icon')" />
     <div :class="$style.right">
-      <div v-if="emailShort" :class="$style.email">{{ emailShort }}</div>
-      <div v-else-if="email" :class="$style.email">{{ emailText }}</div>
+      <div v-if="emailShort" :class="$uiClass('email')">{{ emailShort }}</div>
+      <div v-else-if="email" :class="$uiClass('email')">{{ emailText }}</div>
       <slot />
     </div>
   </div>
@@ -40,24 +40,28 @@ export default {
 
 .icon {
   min-width: px-to-rem(149px);
+}
 
-  :global(.f-theme-light) & {
-    color: #1434cb;
-  }
+.icon_light {
+  color: #1434cb;
+}
 
-  :global(.f-theme-dark) & {
-    color: #fff;
-  }
+.icon_dark {
+  color: #fff;
 }
 
 .email {
   font-size: px-to-rem(14px);
   font-weight: 400;
   line-height: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.email_light {
+  color: #5a6470;
+}
+
+.email_dark {
+  color: #fff;
 }
 
 .right {

@@ -75,9 +75,7 @@ export default {
         arrayIncludes(['ok', 'cancel', 'close'], value)
       )
     }),
-    bodyBgVariant: makeProp(PROP_TYPE_STRING),
     bodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
-    bodyTextVariant: makeProp(PROP_TYPE_STRING),
     busy: makeProp(PROP_TYPE_BOOLEAN, false),
     buttonSize: makeProp(PROP_TYPE_STRING),
     cancelDisabled: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -86,17 +84,11 @@ export default {
     contentClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     dialogClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     footer: makeProp(PROP_TYPE_BOOLEAN, false),
-    footerBgVariant: makeProp(PROP_TYPE_STRING),
-    footerBorderVariant: makeProp(PROP_TYPE_STRING),
     footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
-    footerTextVariant: makeProp(PROP_TYPE_STRING),
-    headerBgVariant: makeProp(PROP_TYPE_STRING),
-    headerBorderVariant: makeProp(PROP_TYPE_STRING),
     headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     headerCloseContent: makeProp(PROP_TYPE_STRING, '&times;'),
     headerCloseLabel: makeProp(PROP_TYPE_STRING, 'Close'),
     headerCloseVariant: makeProp(PROP_TYPE_STRING),
-    headerTextVariant: makeProp(PROP_TYPE_STRING),
     ignoreEnforceFocusSelector: makeProp(PROP_TYPE_ARRAY_STRING),
     lazy: makeProp(PROP_TYPE_BOOLEAN, false),
     modalClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
@@ -113,13 +105,10 @@ export default {
     okVariant: makeProp(PROP_TYPE_STRING, 'default'),
     // HTML Element, CSS selector string or Vue component instance
     returnFocus: makeProp([HTMLElement, PROP_TYPE_OBJECT, PROP_TYPE_STRING]),
-    scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
-    size: makeProp(PROP_TYPE_STRING, 'md'),
     static: makeProp(PROP_TYPE_BOOLEAN, false),
     title: makeProp(PROP_TYPE_STRING),
     titleClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     titleHtml: makeProp(PROP_TYPE_STRING),
-    titleSrOnly: makeProp(PROP_TYPE_BOOLEAN, false),
     titleTag: makeProp(PROP_TYPE_STRING, 'h5'),
     visible: makeProp(PROP_TYPE_BOOLEAN, false),
   },
@@ -172,7 +161,7 @@ export default {
         {
           'f-fade': !this.noFade,
           'f-show': this.isShow,
-          'f-overflow-hidden': this.isTransitioning,
+          'f-is-transitioning': this.isTransitioning,
         },
         this.modalClass,
       ]
@@ -188,47 +177,6 @@ export default {
         // Even though we are using v-show, we must ensure 'none' is restored in the styles
         display: this.isBlock ? 'block' : 'none',
       }
-    },
-    dialogClasses() {
-      return [
-        {
-          [`f-modal-${this.size}`]: this.size,
-          'f-modal-dialog-scrollable': this.scrollable,
-        },
-        this.dialogClass,
-      ]
-    },
-    headerClasses() {
-      return [
-        {
-          [`bg-${this.headerBgVariant}`]: this.headerBgVariant,
-          [`text-${this.headerTextVariant}`]: this.headerTextVariant,
-          [`border-${this.headerBorderVariant}`]: this.headerBorderVariant,
-        },
-        this.headerClass,
-      ]
-    },
-    titleClasses() {
-      return [{ 'sr-only': this.titleSrOnly }, this.titleClass]
-    },
-    bodyClasses() {
-      return [
-        {
-          [`bg-${this.bodyBgVariant}`]: this.bodyBgVariant,
-          [`text-${this.bodyTextVariant}`]: this.bodyTextVariant,
-        },
-        this.bodyClass,
-      ]
-    },
-    footerClasses() {
-      return [
-        {
-          [`bg-${this.footerBgVariant}`]: this.footerBgVariant,
-          [`text-${this.footerTextVariant}`]: this.footerTextVariant,
-          [`border-${this.footerBorderVariant}`]: this.footerBorderVariant,
-        },
-        this.footerClass,
-      ]
     },
     modalOuterStyle() {
       // Styles needed for proper stacking of modals
@@ -715,8 +663,7 @@ export default {
                   content: this.headerCloseContent,
                   disabled: this.isTransitioning,
                   ariaLabel: this.headerCloseLabel,
-                  textVariant:
-                    this.headerCloseVariant || this.headerTextVariant,
+                  textVariant: this.headerCloseVariant,
                 },
                 on: { click: this.onClose },
                 ref: 'close-button',
@@ -729,8 +676,7 @@ export default {
             h(
               this.titleTag,
               {
-                staticClass: 'f-modal-title',
-                class: this.titleClasses,
+                class: this.titleClass,
                 attrs: { id: this.modalTitleId },
                 domProps: this.hasNormalizedSlot('title')
                   ? {}
@@ -745,8 +691,7 @@ export default {
         $header = h(
           'header',
           {
-            staticClass: 'f-modal-header',
-            class: this.headerClasses,
+            class: this.headerClass,
             attrs: { id: this.modalHeaderId },
             ref: 'header',
           },
@@ -758,8 +703,7 @@ export default {
       const $body = h(
         'div',
         {
-          staticClass: 'f-modal-body',
-          class: this.bodyClasses,
+          class: this.bodyClass,
           attrs: { id: this.modalBodyId },
           ref: 'body',
         },
@@ -813,8 +757,7 @@ export default {
         $footer = h(
           'footer',
           {
-            staticClass: 'f-modal-footer',
-            class: this.footerClasses,
+            class: this.footerClass,
             attrs: { id: this.modalFooterId },
             ref: 'footer',
           },
@@ -831,6 +774,7 @@ export default {
           attrs: {
             id: this.modalContentId,
             tabindex: '-1',
+            'data-e2e-modal-content': '',
           },
           ref: 'content',
         },
@@ -853,8 +797,7 @@ export default {
       const $modalDialog = h(
         'div',
         {
-          staticClass: 'f-modal-dialog',
-          class: this.dialogClasses,
+          class: this.dialogClass,
           on: { mousedown: this.onDialogMousedown },
           ref: 'dialog',
         },

@@ -37,7 +37,6 @@ export default {
     className() {
       return [
         this.$style.wrapper,
-        `f-svg-${this.name}`,
         this.$style.w_16,
         this.$style[`s_${this.size}`],
         {
