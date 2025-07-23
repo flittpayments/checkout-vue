@@ -1,10 +1,10 @@
 <template>
-  <f-box v-if="show" class="f-subscription">
+  <f-box v-if="show" :class="$style.wrapper" data-e2e-subscription>
     <f-form-group
       v-if="show_switch"
       v-model="enabled_switch"
       name="switch"
-      class="f-mt-4 f-mb-4"
+      :class="$style.switch"
       component="checkbox"
       switch
     >
@@ -12,7 +12,7 @@
     </f-form-group>
     <div v-else v-text="$t('subscription')" />
     <transition name="f-collapse">
-      <div v-if="enabled_switch" class="f-subscription-wrapper">
+      <div v-if="enabled_switch" :class="$style.content">
         <input-amount
           name="amount"
           :label="$t('subscription_amount')"
@@ -26,7 +26,11 @@
           name="trial_period"
           disabled
         />
-        <div v-if="showQuantity" class="f-row f-align-items-center f-quantity">
+        <div
+          v-if="showQuantity"
+          class="f-row"
+          :class="$style.align_items_center"
+        >
           <f-form-group
             v-if="unlimited"
             key="checked_unlimited"
@@ -83,7 +87,7 @@
             @error="onShowError"
           />
         </f-input-group>
-        <div class="f-mb-16">
+        <div :class="$style.mb_16">
           <f-error :show="!!error">{{ error }}</f-error>
         </div>
         <f-form-group
@@ -111,7 +115,7 @@
         />
         <div
           v-if="showVerificationDesc"
-          class="f-verification-desc"
+          :class="$style.desc"
           v-text="$t('verification_desc')"
         />
       </div>
@@ -278,3 +282,34 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.wrapper {
+  margin-top: px-to-rem(24px);
+  margin-bottom: px-to-rem(16px);
+}
+
+.switch {
+  margin: px-to-rem(4px) 0;
+}
+
+.content {
+  margin-top: px-to-rem(12px);
+
+  > :last-child {
+    margin: 0;
+  }
+}
+
+.align_items_center {
+  align-items: center;
+}
+
+.mb_16 {
+  margin-bottom: px-to-rem(16px);
+}
+
+.desc {
+  font-size: px-to-rem(12px);
+}
+</style>

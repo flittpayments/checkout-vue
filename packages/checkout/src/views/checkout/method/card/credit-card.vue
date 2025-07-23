@@ -1,16 +1,16 @@
 <template>
-  <div class="f-card">
-    <div class="f-card-shadow" />
+  <div data-e2e-card :class="$style.wrapper">
+    <div :class="$uiClass('shadow')" />
     <f-card-bg />
     <transition name="f-fade">
-      <f-icon-bin v-if="card_number" class="f-card-brand" :bin="card_number" />
+      <f-icon-bin v-if="card_number" :class="$style.brand" :bin="card_number" />
     </transition>
     <f-form-group
       ref="card_number"
       v-model="card_number"
-      class="f-form-group-card f-form-group-card-number"
-      label-class="f-card_label"
-      :name-class="['f-placeholder', $style.placeholder]"
+      :class="[$style.wrapper_input, $style.wrapper_card_number]"
+      :label-class="$style.label"
+      :name-class="[$style.input, $style.placeholder]"
       name="card_number"
       placeholder="____ ____ ____ ____"
       :rules="validCardNumber"
@@ -26,22 +26,22 @@
       @input="inputCardNumber"
     >
       <template v-if="disabled" #label="{ label }">
-        <span class="f-card_label">
-          {{ label }} <f-svg class="f-ml-4" name="lock-alt" size="lg" />
+        <span :class="$style.label">
+          {{ label }} <f-svg :class="$style.ml_4" name="lock-alt" size="lg" />
         </span>
       </template>
       <template v-else-if="isCards" #label="{ label }">
-        <f-card-list-wrapper class="f-card_label" :label="label" />
+        <f-card-list-wrapper :class="$style.label" :label="label" />
       </template>
     </f-form-group>
 
     <f-form-group
       ref="expiry_date"
       v-model="expiry_date"
-      class="f-form-group-card"
-      label-class="f-card_label"
-      input-class="f-form-control-expiry-date"
-      :name-class="['f-placeholder', $style.placeholder]"
+      :class="$style.wrapper_input"
+      :label-class="$style.label"
+      :input-class="$style.expiry_date"
+      :name-class="[$style.input, $style.placeholder]"
       name="expiry_date"
       placeholder="__/__"
       :rules="validExpiryDate"
@@ -61,10 +61,10 @@
       v-if="showCvv"
       ref="cvv2"
       v-model="cvv2"
-      class="f-form-group-card"
-      label-class="f-card_label"
-      input-class="f-form-control-cvv2"
-      :name-class="['f-placeholder', $style.placeholder]"
+      :class="$style.wrapper_input"
+      :label-class="$style.label"
+      :input-class="$style.cvv2"
+      :name-class="[$style.input, $style.placeholder]"
       name="cvv2"
       placeholder="___"
       :rules="validCvv"
@@ -79,7 +79,7 @@
       autocomplete="cc-csc"
     >
       <template v-if="!disabled" #label="{ id, label }">
-        <label class="f-card_label" :for="id">
+        <label :class="$style.label" :for="id">
           <span ref="label_cvv">{{ label }}</span>
         </label>
 
@@ -88,7 +88,7 @@
           :target="() => $refs.label_cvv"
           variant="secondary"
         >
-          <f-svg name="info-circle" class="f-mr-8" size="md" />
+          <f-svg name="info-circle" :class="$style.mr_8" size="md" />
           <span v-text="$t('cvv2_help', [digitsCvv])" />
         </f-tooltip-default>
       </template>
@@ -286,7 +286,151 @@ export default {
 </script>
 
 <style lang="scss" module>
-:global(#f) .placeholder.placeholder {
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: px-to-rem(63px) 0 px-to-rem(16px) px-to-rem(16px);
+  margin-bottom: px-to-rem(32px);
+
+  @include media-breakpoint-up(ss) {
+    padding: px-to-rem(94px) 0 px-to-rem(19px) px-to-rem(16px);
+  }
+}
+
+.shadow {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: px-to-rem(32px);
+  content: '';
+  border-radius: $border-radius-lg;
+  box-shadow: 0 px-to-rem(10px) px-to-rem(25px) fade($card_shadow, 60%);
+}
+
+.shadow_dark {
+  box-shadow: 0 px-to-rem(10px) px-to-rem(25px) rgb(0 0 0 / 60%);
+}
+
+.brand {
+  position: absolute;
+  top: px-to-rem(14px);
+  right: px-to-rem(14px);
+  width: px-to-rem(86px);
+  height: px-to-rem(42px);
+  border: px-to-rem(1px) solid $white;
+  border-radius: $border-radius;
+}
+
+.wrapper_input {
+  position: relative;
+  margin: 0 px-to-rem(20px) 0 0;
+
+  // WAL-436
+  :global(.f-form-item-input) {
+    z-index: 1;
+    position: relative;
+  }
+}
+
+.wrapper_card_number {
+  width: 100%;
+  margin: 0 0 px-to-rem(15px);
+}
+
+.input,
+:global(#f) .wrapper_input :global(.f-form-control) {
+  color: #{$card_input_color};
+
+  padding: 0;
+  font-weight: 400;
+  text-shadow: px-to-rem(1px) px-to-rem(1px) px-to-rem(2px)
+    fade($card_input_shadow, 15%);
+  background-color: rgb(0 0 0 / 0%);
+  border: none;
+  border-radius: 0;
+
+  &,
+  &:-webkit-autofill::first-line,
+  &::placeholder {
+    font-family: $font-family-card-number;
+    height: px-to-rem(18px);
+    font-size: px-to-rem(15px);
+    line-height: px-to-rem(18px);
+
+    @include media-breakpoint-up(ss) {
+      height: px-to-rem(25px);
+      font-size: px-to-rem(20px);
+      line-height: px-to-rem(25px);
+    }
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: $card_input_color;
+
+    &::first-line {
+      color: $card_input_color;
+    }
+  }
+
+  &:hover {
+    background-color: inherit;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &[disabled] {
+    color: #{fade($card_input_color, 60%)};
+  }
+
+  &::placeholder {
+    color: #{fade($card_input_color, 30%)};
+  }
+}
+
+.placeholder {
   color: fade($card_input_color, 30%);
+}
+
+:global(#f) .expiry_date.expiry_date {
+  width: px-to-rem(80px);
+}
+
+:global(#f) .cvv2.cvv2 {
+  width: px-to-rem(75px);
+  font-family: $font-family-cvv;
+
+  &:-webkit-autofill::first-line {
+    font-family: $font-family-cvv;
+  }
+}
+
+:global(#f) .label.label {
+  display: flex;
+  margin-bottom: px-to-rem(6px);
+  font-size: px-to-rem(10px);
+  line-height: px-to-rem(12px);
+  color: $card_label_color;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.7;
+
+  @include media-breakpoint-up(ss) {
+    margin-bottom: px-to-rem(3px);
+    font-size: px-to-rem(11px);
+    line-height: px-to-rem(18px);
+  }
+}
+
+.mr_8 {
+  margin-right: px-to-rem(8px);
+}
+
+.ml_4 {
+  margin-left: px-to-rem(4px);
 }
 </style>

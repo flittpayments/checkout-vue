@@ -6,8 +6,8 @@
       @input="setDigitalCardId"
     />
     <div :class="$style.or">
-      <div :class="$style.or_hr" />
-      <div :class="$style.or_text" v-text="$t('or')" />
+      <div :class="$uiClass('or_hr')" />
+      <div :class="$uiClass('or_text')" v-text="$t('or')" />
     </div>
     <f-button
       :class="$style.mb_32"
@@ -78,10 +78,10 @@ export default {
   top: 50%;
   left: 0;
   right: 0;
+}
 
-  :global(.f-theme-light) & {
-    background-color: #d5dae0;
-  }
+.or_hr_light {
+  background-color: #d5dae0;
 }
 
 .or_text {
@@ -91,10 +91,10 @@ export default {
   font-weight: 400;
   padding: 0 px-to-rem(12px);
   background-color: $container-bg;
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.or_text_light {
+  color: #5a6470;
 }
 
 .mb_32 {

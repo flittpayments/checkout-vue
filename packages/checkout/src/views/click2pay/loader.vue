@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.style">
+  <div :class="$uiClass('style')">
     <div :class="$style.mb_48" v-text="$t('c2p_card_add_loading_top')" />
     <f-loading :class="$style.mb_48" />
     <div v-text="$t('c2p_card_add_loading_bottom')" />
@@ -22,10 +22,10 @@ export default {
   font-weight: 400;
   line-height: px-to-rem(20px);
   text-align: center;
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.style_light {
+  color: #5a6470;
 }
 
 .mb_48 {

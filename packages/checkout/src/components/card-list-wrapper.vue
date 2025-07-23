@@ -2,11 +2,7 @@
   <span v-if="read_only">{{ label }}</span>
   <f-button-unstyled v-else-if="enableModal" @click="$refs.modal.show()">
     {{ label }} <f-svg :class="$style.arrow" name="angle-down" size="lg" />
-    <f-modal-wrapper
-      ref="modal"
-      body-class="f-modal-body-card-list"
-      :scrollable="scrollable"
-    >
+    <f-modal-wrapper ref="modal" no-body-padding :scrollable="scrollable">
       <component :is="component">
         <f-card-list :list="list" @input="hide" />
       </component>

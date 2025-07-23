@@ -1,7 +1,7 @@
 <template>
   <transition name="f-fade-enter">
     <f-box v-if="isRegistration">
-      <div :class="$style.desc">
+      <div :class="$uiClass('desc')">
         {{ $t('c2p_registration_desc') }}
       </div>
       <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
@@ -50,7 +50,7 @@
         />
       </f-form>
       <div
-        :class="$style.agreement"
+        :class="$uiClass('agreement')"
         v-html="
           $t('c2p_agreement_with_processing_of_data', {
             terms,
@@ -236,20 +236,20 @@ export default {
   font-weight: 400;
   line-height: px-to-rem(20px);
   margin-bottom: px-to-rem(12px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .agreement {
   font-size: px-to-rem(14px);
   font-weight: 400;
   line-height: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.agreement_light {
+  color: #5a6470;
 }
 
 .error {

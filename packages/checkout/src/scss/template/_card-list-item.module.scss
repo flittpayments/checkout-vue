@@ -1,0 +1,32 @@
+.style {
+  display: flex;
+  width: 100%;
+  height: px-to-rem(60px);
+  padding: px-to-rem(10px);
+  margin-bottom: px-to-rem(4px);
+  color: $tooltip_card_color;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition:
+    background-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.style:hover,
+.active {
+  text-decoration: none;
+  background-color: $card_list_item_active_bg;
+}
+
+.icon {
+  width: px-to-rem(40px);
+  height: px-to-rem(20px);
+  margin-right: px-to-rem(4px);
+  color: $icon_color;
+  border-radius: $border-radius-sm;
+}

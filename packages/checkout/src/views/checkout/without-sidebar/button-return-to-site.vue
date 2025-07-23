@@ -6,6 +6,7 @@
       size="lg"
       block
       :disabled="loading"
+      data-e2e-button-return-to-site
       @click="click"
     />
     <div

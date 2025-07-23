@@ -22,7 +22,8 @@ export default {
     attrs() {
       return {
         ...this.$attrs,
-        class: 'f-button-pay',
+        class: this.$style.style,
+        'data-e2e-btn-pay': '',
       }
     },
     showAmount() {
@@ -35,3 +36,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  font-weight: 400;
+}
+</style>

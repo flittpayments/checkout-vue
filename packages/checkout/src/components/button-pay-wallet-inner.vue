@@ -183,17 +183,13 @@ export default Vue.extend({
   z-index: 2;
 }
 
-:global(#f) .google-light,
-:global(#f) .google-dark {
-  padding: 0;
-}
-
 .apple {
   min-width: px-to-rem(100px);
 }
 
-.google {
+.google.google {
   min-width: px-to-rem(240px);
+  padding: 0;
 }
 
 .google-light::after {

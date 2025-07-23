@@ -11,7 +11,7 @@
       <slot name="text" />
       <f-modal-wrapper
         ref="modal"
-        :body-class="modalBodyClass"
+        no-body-padding
         :scrollable="scrollable"
         @shown="shown"
         @hide="hide"
@@ -61,7 +61,6 @@ export default {
   props: {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
-    modalBodyClass: makeProp(PROP_TYPE_STRING, 'f-p-0'),
     modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-20 f-pl-20'),
     dropdownClass: makeProp(PROP_TYPE_STRING, 'f-tooltip-select'),
     dropdownWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-4 f-pl-4'),

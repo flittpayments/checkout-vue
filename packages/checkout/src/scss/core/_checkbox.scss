@@ -71,6 +71,13 @@
       opacity: 1;
     }
   }
+
+  &:focus + .f-checkbox-label {
+    background-color: $outline_bg;
+    box-shadow:
+      0 0 0 px-to-rem(2px) $container_bg,
+      0 0 0 px-to-rem(3.5px) $outline_border;
+  }
 }
 
 .f-checkbox-label {
@@ -81,6 +88,8 @@
   line-height: px-to-rem(20px);
   word-wrap: break-word;
   cursor: pointer;
+  transition: box-shadow ease-in-out 0.15s, background-color ease-in-out 0.15s;
+  border-radius: $border-radius-sm;
 
   &::before {
     position: absolute;

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="f-price">
+  <div v-if="show" :class="$style.wrapper">
     <f-preloader :condition="showAmount" :size="sizePreloader">
       <template v-if="isTrialPeriod">
         <span v-text="$t('trial_period')" />: {{ trial_quantity }}
@@ -12,13 +12,13 @@
         </template>
       </template>
       <template v-else>
-        <f-promo v-if="showPromoTop" class="f-mb-12" />
+        <f-promo v-if="showPromoTop" :class="$style.mb_12" />
         <template v-if="showAmountReadOnly">
           <f-amount
             :value="total_amount"
             :currency="currency"
-            amount-class="f-amount"
-            currency-class="f-currency"
+            :amount-class="$style.amount"
+            :currency-class="$style.currency"
             sup
           />
         </template>
@@ -30,19 +30,19 @@
               :value="totalAmount"
               :offset="5"
               :name-class="['f-form-control']"
-              text-class="f-fee"
+              :text-class="$style.fee"
             >
               + <f-amount :value="fee_amount" />
             </f-placeholder>
           </input-amount>
         </template>
-        <table v-if="showFee" class="f-table">
+        <table v-if="showFee">
           <tr>
-            <td class="f-pr-16" v-text="$t('amount')" />
+            <td :class="$style.pr_16" v-text="$t('amount')" />
             <td><f-amount :value="actualAmount" no-bold /></td>
           </tr>
           <tr v-if="showDiscount">
-            <td class="f-pr-16" v-text="$t('discount')" />
+            <td :class="$style.pr_16" v-text="$t('discount')" />
             <td>
               <f-percent v-if="discount_percent" :value="discount_percent" />
               <span v-if="discount_percent && discount_amount"> + </span>
@@ -54,15 +54,15 @@
             </td>
           </tr>
           <tr v-if="fee_amount">
-            <td class="f-pr-16" v-text="$t('fee')" />
+            <td :class="$style.pr_16" v-text="$t('fee')" />
             <td><f-amount :value="fee_amount" no-bold /></td>
           </tr>
           <tr>
-            <td class="f-pr-16" v-text="$t('total_amount')" />
+            <td :class="$style.pr_16" v-text="$t('total_amount')" />
             <td><f-amount :value="total_amount" no-bold /></td>
           </tr>
         </table>
-        <f-promo v-if="showPromoBottom" class="f-mt-20" />
+        <f-promo v-if="showPromoBottom" :class="$style.mt_20" />
       </template>
     </f-preloader>
   </div>
@@ -207,3 +207,56 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.wrapper {
+  position: relative;
+  margin-bottom: px-to-rem(24px);
+}
+
+.mb_12 {
+  margin-bottom: px-to-rem(12px);
+}
+
+.amount {
+  display: inline-block;
+  font-size: px-to-rem(28px);
+  line-height: 1.2;
+  color: $amount_color;
+
+  @include media-breakpoint-up(ss) {
+    font-size: px-to-rem(32px);
+  }
+
+  sup {
+    font-size: px-to-rem(16px);
+  }
+}
+
+.currency {
+  display: inline-block;
+  margin-left: px-to-rem(8px);
+  font-size: px-to-rem(20px);
+  color: $currency_color;
+
+  @include media-breakpoint-up(ss) {
+    font-size: px-to-rem(22px);
+  }
+}
+
+.fee {
+  position: absolute;
+  top: px-to-rem(26px);
+  z-index: 1;
+  font-weight: 500;
+  color: $fee_color;
+}
+
+.pr_16 {
+  padding-right: px-to-rem(16px);
+}
+
+.mt_20 {
+  margin-top: px-to-rem(20px);
+}
+</style>

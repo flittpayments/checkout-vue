@@ -10,7 +10,7 @@
       <div v-else :class="$style.mb_44">
         <div
           ref="desc"
-          :class="$style.desc"
+          :class="$uiClass('desc')"
           @click.prevent="open"
           v-html="$t('c2p_save_card_desc', { masked_card, click2pay })"
         />
@@ -53,7 +53,7 @@ export default {
     ...mapState('order', ['order_data']),
     masked_card() {
       const card = this.order_data.masked_card.split('X').slice(-1)
-      return `<span class="${this.$style.bold}">**** ${card}</span>`
+      return `<span class="${this.$uiClass('bold')}">**** ${card}</span>`
     },
     click2pay() {
       return `<a href="">${this.$t('click2pay')}</a>`
@@ -95,18 +95,18 @@ export default {
   font-weight: 400;
   line-height: px-to-rem(20px);
   margin-bottom: px-to-rem(24px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .bold {
   font-weight: 600;
+}
 
-  :global(.f-theme-light) & {
-    color: #313539;
-  }
+.bold_light {
+  color: #313539;
 }
 
 .mb_24 {

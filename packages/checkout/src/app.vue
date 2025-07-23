@@ -1,5 +1,11 @@
 <template>
-  <div id="f" :style="style" :class="className">
+  <div
+    id="f"
+    :style="style"
+    :class="$uiClass('style')"
+    :data-e2e-embed="String(!full_screen)"
+    :data-e2e-theme="theme.type"
+  >
     <router-view />
   </div>
 </template>
@@ -26,15 +32,6 @@ export default {
   },
   computed: {
     ...mapState('options', ['full_screen', 'theme', 'show_3ds_close']),
-    className() {
-      return [
-        `f-theme-${this.theme.type}`,
-        {
-          'f-embed': !this.full_screen,
-          'f-no-embed': this.full_screen,
-        },
-      ]
-    },
     style() {
       return {
         height: this.height,
@@ -116,3 +113,21 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  font-family: $font-family-inter;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $main_color;
+  background-color: $main_bg;
+}
+
+.style_adaptive {
+  @include media-breakpoint-up(xl) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+</style>

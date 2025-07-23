@@ -1,6 +1,6 @@
 <template>
   <f-alert-storage name="show_gdpr_frame" @ok="ok">
-    <div class="f-mb-16">
+    <div :class="$style.mb_16">
       <span v-text="$t('gdpr_alert_text')" />&nbsp;
       <a href="#" @click="$refs.text.show()" v-text="$t('learn_more')" />
       <f-modal-wrapper ref="text"
@@ -11,7 +11,7 @@
     <f-form-base>
       <f-form-group
         v-model="save_card"
-        class="f-mb-0"
+        :class="$style.mb_0"
         name="save_card"
         component="checkbox"
         variant="secondary"
@@ -60,5 +60,13 @@ export default {
 <style lang="scss" module>
 .svg {
   margin: px-to-rem(-16px) 0;
+}
+
+.mb_16 {
+  margin-bottom: px-to-rem(16px);
+}
+
+.mb_0 {
+  margin-bottom: 0;
 }
 </style>

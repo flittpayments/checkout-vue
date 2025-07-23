@@ -2,10 +2,10 @@
   <div>
     <f-button-unstyled
       v-if="showAdd"
-      :class="['f-card-list-item f-card-list-item_add']"
+      :class="[style.style, $style.add]"
       @click="setCardNumber({})"
     >
-      <f-svg name="plus-circle" class="f-card-list-icon" size="lg" fw />
+      <f-svg name="plus-circle" :class="style.icon" size="lg" fw />
       <span v-text="$t('use_other_card')" />
     </f-button-unstyled>
     <f-card-list-item
@@ -49,3 +49,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module="style">
+@import '@/scss/template/card-list-item.module';
+</style>
+
+<style lang="scss" module>
+.add {
+  align-items: center;
+  font-weight: 500;
+}
+</style>

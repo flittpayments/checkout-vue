@@ -14,21 +14,50 @@ export default {
   },
   computed: {
     className() {
-      return [
-        'f-preloader',
-        this.$style[`s_${this.size}`],
-        {
-          [`f-h-${this.size}`]: this.size,
-        },
-      ]
+      return [this.$style.style, this.$style[`s_${this.size}`]]
     },
   },
 }
 </script>
 
 <style lang="scss" module>
-:global(#f) .s_48x48 {
+.style {
+  height: px-to-rem(56px);
+  background: linear-gradient(
+    120deg,
+    $preloader_bg 41%,
+    $preloader_inner_bg 50%,
+    $preloader_bg 59%
+  );
+  background-size: 200% 100%;
+  border-radius: $border-radius;
+  animation: f-preloader 2s ease-in-out infinite;
+}
+
+.s_20 {
+  height: px-to-rem(20px);
+}
+
+.s_38 {
+  height: px-to-rem(38px);
+}
+
+.s_48x48 {
   width: px-to-rem(48px);
   height: px-to-rem(48px);
+}
+
+@keyframes f-preloader {
+  0% {
+    background-position: 80% 0;
+  }
+
+  50% {
+    background-position: 20% 0;
+  }
+
+  100% {
+    background-position: 80% 0;
+  }
 }
 </style>

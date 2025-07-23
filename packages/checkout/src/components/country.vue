@@ -13,13 +13,13 @@
     @search="onSearch"
   >
     <template #text="{ item }">
-      <span class="f-pr-8">{{ flag(item.value) }}</span>
+      <span :class="$style.mr_8">{{ flag(item.value) }}</span>
       {{ item.text }}
     </template>
     <template #item="{ item, isActive }">
-      <span class="f-pr-8">{{ flag(item.value) }}</span>
+      <span :class="$style.mr_8">{{ flag(item.value) }}</span>
       {{ item.text }}
-      <f-svg v-if="isActive" class="f-ml-auto" name="check" size="lg" />
+      <f-svg v-if="isActive" :class="$style.ml_auto" name="check" size="lg" />
     </template>
   </f-form-group>
 </template>
@@ -125,5 +125,13 @@ export default {
 .dropdown {
   padding: 0 px-to-rem(20px);
   max-height: px-to-rem(400px);
+}
+
+.mr_8 {
+  margin-right: px-to-rem(8px);
+}
+
+.ml_auto {
+  margin-left: auto;
 }
 </style>

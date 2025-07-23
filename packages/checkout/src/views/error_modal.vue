@@ -4,7 +4,7 @@
       <svg-decline :class="$style.svg" />
     </template>
 
-    <p class="f-text-center" v-text="$t(`${$route.query.error}_text`)" />
+    <p :class="$style.text_center" v-text="$t(`${$route.query.error}_text`)" />
   </f-modal>
 </template>
 
@@ -33,5 +33,9 @@ export default {
 <style lang="scss" module>
 .svg {
   margin: px-to-rem(-16px) 0;
+}
+
+.text_center {
+  text-align: center;
 }
 </style>
