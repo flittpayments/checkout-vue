@@ -6,6 +6,7 @@
       :href="receipt_url"
       target="_blank"
       download
+      data-e2e-link-download-receipt
     >
       <span v-text="$t('download_receipt')" />
       <f-svg :class="$style.ml_4" name="download" :size="24" />

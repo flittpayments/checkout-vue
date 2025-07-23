@@ -25,6 +25,13 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
       transform: translateX($switch-indicator-transform);
     }
   }
+
+  &:focus + .f-switch-label {
+    background-color: $outline_bg;
+    box-shadow:
+      0 0 0 px-to-rem(2px) $container_bg,
+      0 0 0 px-to-rem(3.5px) $outline_border;
+  }
 }
 
 .f-switch-label {
@@ -36,6 +43,8 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   min-height: $switch-height + $padding * 2;
   padding: $padding $switch-width + $padding $padding $padding;
   cursor: pointer;
+  transition: box-shadow ease-in-out 0.15s, background-color ease-in-out 0.15s;
+  border-radius: $border-radius-sm;
 
   &::before {
     position: absolute;

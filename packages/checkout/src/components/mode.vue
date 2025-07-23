@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrapper">
+  <div :class="$uiClass('style')">
     <div v-if="showDemo" :class="$style.title" v-text="$t('demo_title')" />
     <div v-if="showTest" :class="$style.title" v-text="$t('mode_test')" />
   </div>
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-.wrapper {
+.style {
   position: absolute;
   right: 0;
   left: 0;
@@ -31,12 +31,12 @@ export default {
   display: block;
   content: '';
   border-top: 2px solid $main;
+}
 
-  :global(.f-no-embed) & {
-    @include media-breakpoint-up(xl) {
-      height: $border-radius-lg;
-      border-radius: $border-radius-lg $border-radius-lg 0 0;
-    }
+.style_adaptive {
+  @include media-breakpoint-up(xl) {
+    height: $border-radius-lg;
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
   }
 }
 

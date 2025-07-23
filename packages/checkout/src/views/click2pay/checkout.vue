@@ -97,10 +97,10 @@ export default {
   font-weight: 400;
   line-height: px-to-rem(20px);
   margin-bottom: px-to-rem(24px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .click2pay {
@@ -109,10 +109,10 @@ export default {
 
 .bold {
   font-weight: 600;
+}
 
-  :global(.f-theme-light) & {
-    color: #313539;
-  }
+.bold_light {
+  color: #313539;
 }
 
 .mb_24 {
