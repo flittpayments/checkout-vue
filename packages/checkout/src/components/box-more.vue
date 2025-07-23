@@ -1,13 +1,13 @@
 <template>
   <f-box :class="$style.style">
-    <div :class="$style.head">
+    <div :class="$uiClass('head')">
       <slot />
       <f-button-unstyled @click="click">
         <f-svg :class="classArrow" name="angle-down" size="20" />
       </f-button-unstyled>
     </div>
     <transition name="f-collapse">
-      <div v-if="open" :class="$style.more">
+      <div v-if="open" :class="$uiClass('more')">
         <slot name="more" />
       </div>
     </transition>
@@ -32,12 +32,9 @@ export default {
   },
   computed: {
     classArrow() {
-      return [
-        this.$style.arrow,
-        {
-          [this.$style.arrow_open]: this.open,
-        },
-      ]
+      return this.$uiClass('arrow', {
+        open: this.open,
+      })
     },
   },
   methods: {
@@ -65,7 +62,7 @@ export default {
   margin: 0;
 }
 
-:global(#f.f-theme-light) .head div {
+:global(#f) .head_light div {
   color: #000;
 }
 
@@ -73,10 +70,10 @@ export default {
   display: block;
   transition: transform 0.225s cubic-bezier(0.4, 0, 0.6, 1);
   transform: rotate(0deg);
+}
 
-  :global(.f-theme-light) & {
-    color: #000;
-  }
+.arrow_light {
+  color: #000;
 }
 
 .arrow_open {
@@ -87,9 +84,9 @@ export default {
   font-size: px-to-rem(12px);
   line-height: px-to-rem(20px);
   margin-top: px-to-rem(10px);
+}
 
-  :global(.f-theme-light) & {
-    color: #000;
-  }
+.more_light {
+  color: #000;
 }
 </style>

@@ -105,6 +105,12 @@ module.exports = defineConfig({
                 default: {
                   minChunks: 2,
                 },
+                styles: {
+                  name: 'styles',
+                  test: /\/components\/(button\/button-unstyled|svg)/,
+                  type: 'css/mini-extract',
+                  enforce: true,
+                },
               },
             })
             .end()
@@ -119,6 +125,17 @@ module.exports = defineConfig({
               )
               return options
             })
+            .end()
+          .module
+            .rule('scss')
+              .oneOf('vue-modules')
+                .use('css-loader')
+                  .tap(options => {
+                    options.modules.localIdentName = '[hash:base64:6]'
+                    return options
+                  }).end()
+                .end()
+              .end()
             .end()
           .plugin('extract-css')
             .tap(([options]) => {
