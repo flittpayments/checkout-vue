@@ -17,7 +17,7 @@ export default {
       return {
         triggers: 'focus',
         placement: 'top',
-        'custom-class': 'f-tooltip-error',
+        'custom-class': this.$style.style,
         variant: 'secondary',
         ...this.$attrs,
       }
@@ -25,3 +25,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+:global(#f) .style {
+  :global(.f-tooltip-inner) {
+    align-items: center;
+    color: $error;
+  }
+}
+</style>

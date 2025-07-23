@@ -74,9 +74,21 @@ a {
   color: $link_color;
   text-decoration: none;
   background-color: transparent; // Remove the gray background on active links in IE 10.
+  transition:
+    box-shadow ease-in-out 0.15s,
+    background-color ease-in-out 0.15s;
+  border-radius: $border-radius-sm;
 
-  @include hover {
+  &:hover {
     text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 0;
+    background-color: $outline_bg;
+    box-shadow:
+      0 0 0 px-to-rem(2px) $container_bg,
+      0 0 0 px-to-rem(3.5px) $outline_border;
   }
 }
 
@@ -89,7 +101,7 @@ a:not([href]) {
   color: inherit;
   text-decoration: none;
 
-  @include hover {
+  &:hover {
     color: inherit;
     text-decoration: none;
   }

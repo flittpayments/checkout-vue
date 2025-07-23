@@ -2,17 +2,17 @@
   <div v-if="show" :class="$style.wrapper">
     <div :class="$style.header">
       <svg-click2pay-visa-mastercard
-        :class="$style.icon"
+        :class="$uiClass('icon')"
         @click.native="goClick2pay"
       />
       <div :class="$style.right">
-        <div :class="$style.email">{{ email }}</div>
+        <div :class="$uiClass('email')">{{ email }}</div>
         <f-link @click="goSwitchId">{{ $t('another_user') }}</f-link>
       </div>
     </div>
     <div v-if="showMessage">
-      <h3 :class="$style.h3" v-text="$t('c2p_access_to_saved_cards')" />
-      <div :class="$style.desc" v-text="$t('c2p_no_saved_cards')" />
+      <h3 :class="$uiClass('h3')" v-text="$t('c2p_access_to_saved_cards')" />
+      <div :class="$uiClass('desc')" v-text="$t('c2p_no_saved_cards')" />
     </div>
   </div>
 </template>
@@ -74,24 +74,24 @@ export default {
 .icon {
   cursor: pointer;
   min-width: px-to-rem(149px);
+}
 
-  :global(.f-theme-light) & {
-    color: #1434cb;
-  }
+.icon_light {
+  color: #1434cb;
+}
 
-  :global(.f-theme-dark) & {
-    color: #fff;
-  }
+.icon_dark {
+  color: #fff;
 }
 
 .email {
   font-size: px-to-rem(14px);
   font-weight: 400;
   line-height: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.email_light {
+  color: #5a6470;
 }
 
 .h3 {
@@ -99,10 +99,10 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 600;
   margin-bottom: px-to-rem(8px);
+}
 
-  :global(.f-theme-light) & {
-    color: #313539;
-  }
+.h3_light {
+  color: #313539;
 }
 
 .desc {
@@ -110,10 +110,10 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 400;
   margin-bottom: px-to-rem(8px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .right {

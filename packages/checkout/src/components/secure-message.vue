@@ -1,8 +1,12 @@
 <template>
-  <div :class="$style.wrapper">
+  <div :class="$uiClass('style')">
     <template v-if="enableModal">
-      <f-button-unstyled :class="$style.title" @click="$refs.modal.show()">
-        <f-svg :class="$style.svg" name="security" :size="24" />
+      <f-button-unstyled
+        :class="$uiClass('title')"
+        data-e2e-secure-message
+        @click="$refs.modal.show()"
+      >
+        <f-svg :class="$uiClass('svg')" name="security" :size="24" />
         <span v-text="$t('security_title')" />
       </f-button-unstyled>
       <f-modal-wrapper ref="modal" v-slot="{ visible }">
@@ -15,10 +19,14 @@
       </f-modal-wrapper>
     </template>
     <template v-else>
-      <f-button-unstyled ref="security" :class="$style.title">
+      <f-button-unstyled
+        ref="security"
+        :class="$uiClass('title')"
+        data-e2e-secure-message
+      >
         <f-svg
           ref="reference"
-          :class="$style.svg"
+          :class="$uiClass('svg')"
           name="security"
           :size="svgSize"
         />
@@ -87,19 +95,19 @@ export default {
 </script>
 
 <style lang="scss" module>
-.wrapper {
+.style {
   margin-top: px-to-rem(32px);
   text-align: center;
+}
 
-  :global(.f-no-embed) & {
-    @include media-breakpoint-up(lg) {
-      position: absolute;
-      bottom: px-to-rem(32px);
-      right: px-to-rem(32px);
-      display: flex;
-      justify-content: flex-end;
-      margin-left: auto;
-    }
+.style_adaptive {
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    bottom: px-to-rem(32px);
+    right: px-to-rem(32px);
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
   }
 }
 
@@ -120,21 +128,21 @@ export default {
       color: $security_icon_hover_color;
     }
   }
+}
 
-  :global(.f-no-embed) & {
-    @include media-breakpoint-up(lg) {
-      display: flex;
-      width: 90px;
-      padding: 0;
-      font-size: px-to-rem(8px);
-      font-weight: 500;
-      line-height: px-to-rem(10px);
-      text-align: left;
-      background-color: $container_bg;
+.title_adaptive {
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    width: 90px;
+    padding: 0;
+    font-size: px-to-rem(8px);
+    font-weight: 500;
+    line-height: px-to-rem(10px);
+    text-align: left;
+    background-color: $container_bg;
 
-      span {
-        padding-top: px-to-rem(1px);
-      }
+    span {
+      padding-top: px-to-rem(1px);
     }
   }
 }
@@ -144,12 +152,12 @@ export default {
   vertical-align: middle;
   transition: color ease-in-out 0.15s;
   margin-right: px-to-rem(10px);
+}
 
-  :global(.f-no-embed) & {
-    @include media-breakpoint-up(lg) {
-      min-width: px-to-rem(32px);
-      margin-right: px-to-rem(2px);
-    }
+.svg_adaptive {
+  @include media-breakpoint-up(lg) {
+    min-width: px-to-rem(32px);
+    margin-right: px-to-rem(2px);
   }
 }
 

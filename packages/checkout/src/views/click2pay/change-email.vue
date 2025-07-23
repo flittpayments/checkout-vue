@@ -3,9 +3,9 @@
     <template v-if="showCheck">
       <f-box :class="$style.box" @click.native="click">
         <div :class="$style.box_title">
-          <svg-click2pay :class="$style.svg" />
+          <svg-click2pay :class="$uiClass('svg')" />
           <span
-            :class="$style.title"
+            :class="$uiClass('title')"
             v-text="$t('c2p_pay_with_click_to_pay')"
           />
           <f-svg
@@ -16,7 +16,7 @@
             spin
           />
         </div>
-        <div :class="$style.desc" v-text="$t('c2p_registered_message')" />
+        <div :class="$uiClass('desc')" v-text="$t('c2p_registered_message')" />
       </f-box>
     </template>
     <transition name="f-fade-enter">
@@ -28,7 +28,7 @@
         @input="input"
       >
         <div ref="save" :class="$style.save" @click="open">
-          <svg-click2pay :class="$style.svg" />
+          <svg-click2pay :class="$uiClass('svg')" />
           <span v-html="$t('c2p_save_card_desc', { click2pay })" />
           <click2pay-modal-about ref="about" />
         </div>
@@ -141,37 +141,37 @@ export default {
   font-weight: 400;
   font-size: px-to-rem(14px);
   line-height: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .title {
   font-weight: 700;
   font-size: px-to-rem(14px);
   line-height: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #313539;
-  }
+.title_light {
+  color: #313539;
+}
 
-  :global(.f-theme-dark) & {
-    color: #fff;
-  }
+.title_dark {
+  color: #fff;
 }
 
 .svg {
   margin-right: px-to-rem(8px);
   min-width: px-to-rem(36px);
+}
 
-  :global(.f-theme-light) & {
-    color: #1434cb;
-  }
+.svg_light {
+  color: #1434cb;
+}
 
-  :global(.f-theme-dark) & {
-    color: #fff;
-  }
+.svg_dark {
+  color: #fff;
 }
 
 .spin {

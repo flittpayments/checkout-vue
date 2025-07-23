@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="showTitle"
-      class="f-menu-title"
+      :class="$style.title"
       v-text="$t('other_payment_method')"
     />
     <f-menu-item
@@ -43,3 +43,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.title {
+  margin-bottom: px-to-rem(16px);
+  font-weight: 300;
+}
+</style>

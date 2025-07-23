@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     classNumber() {
-      return [this.$style.number, this.$style[this.variant]]
+      return [this.$style.number, this.$uiClass(this.variant)]
     },
     classInfo() {
       return [this.$style.status, this.$style[this.status]]
@@ -81,10 +81,12 @@ export default {
   line-height: px-to-rem(20px);
 }
 
-.default {
-  :global(.f-theme-light) & {
-    color: #3d3d3d;
-  }
+.default_light {
+  color: #3d3d3d;
+}
+
+.default_dark {
+  color: #fff;
 }
 
 .secondary {

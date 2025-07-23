@@ -27,6 +27,7 @@ export default {
       'button',
       {
         staticClass: 'f-close',
+        class: this.$style.style,
         domProps: {
           innerHTML: this.$scopedSlots.default ? undefined : this.content,
         },
@@ -43,3 +44,37 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  padding: 0;
+  font-size: px-to-rem(24px);
+  font-weight: 600;
+  line-height: 1;
+  color: $close_color;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  border-radius: $border-radius;
+  opacity: 1;
+
+  // Override <a>'s hover style
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.75;
+  }
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 px-to-rem(2px) $outline_border;
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+</style>

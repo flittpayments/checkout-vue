@@ -97,7 +97,7 @@ export default {
       }
     },
     showError() {
-      return this.errors.length && this.isSubmit() && this.focused
+      return Boolean(this.errors.length && this.isSubmit() && this.focused)
     },
   },
   watch: {

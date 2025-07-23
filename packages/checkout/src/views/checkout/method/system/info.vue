@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="$uiClass('title')" v-text="$t('enter_details_to_continue')" />
-    <div class="f-bank-desc" v-text="$t('bank_desc', { name: info.name })" />
+    <div :class="$style.desc" v-text="$t('bank_desc', { name: info.name })" />
     <f-container>
       <f-fields-bank :fields="info.form?.fields" />
       <f-fields-customer />
@@ -77,5 +77,9 @@ export default {
 
 .title_dark {
   color: #fff;
+}
+
+.desc {
+  margin-bottom: px-to-rem(20px);
 }
 </style>

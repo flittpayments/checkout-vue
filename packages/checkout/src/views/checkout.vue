@@ -1,16 +1,15 @@
 <template>
   <f-loading v-if="showFirstLoading" backdrop />
-  <f-form
-    v-else
-    class="f-container"
-    :class="classNameContainer"
-    :data-e2e-ready="ready"
-  >
+  <f-form v-else :class="$uiClass('wrapper')" :data-e2e-ready="ready">
     <f-alert-notification-wrapper />
     <transition name="f-fade-enter">
-      <router-view class="f-layout" />
+      <router-view />
     </transition>
-    <f-loading v-if="showLoading" backdrop />
+    <f-loading
+      v-if="showLoading"
+      backdrop
+      :backdrop-class="$uiClass('backdrop')"
+    />
     <f-modal-error-wrapper />
     <f-modal-3ds-wrapper
       ref="modal"
@@ -65,11 +64,9 @@ export default {
     }
   },
   computed: {
-    ...mapState('options.theme', ['type']),
     ...mapState(['loading', 'info']),
     ...mapState('options', ['autosubmit']),
     ...mapState('params', ['token', 'fee', 'payment_system']),
-
     ...mapStateGetSet(['ready', 'order']),
     ...mapStateGetSet('params', [
       'amount',
@@ -83,9 +80,6 @@ export default {
     },
     showLoading() {
       return !this.$meta.noLoading && this.loading
-    },
-    classNameContainer() {
-      return [`f-page-${this.$route.name}`, `f-theme-${this.type}`]
     },
   },
   created() {
@@ -304,3 +298,31 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $container_bg;
+}
+
+.wrapper_adaptive {
+  @include media-breakpoint-up(xl) {
+    max-width: 1140px;
+    max-height: 686px;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 24px 40px fade($container_box_shadow, 60%);
+  }
+
+  @include media-breakpoint-up(xxl) {
+    max-width: 1280px;
+  }
+}
+
+.backdrop_adaptive {
+  @include media-breakpoint-up(xl) {
+    border-radius: $border-radius-lg;
+  }
+}
+</style>
