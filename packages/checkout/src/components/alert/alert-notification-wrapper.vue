@@ -22,7 +22,7 @@ export default {
     },
   },
   watch: {
-    show(newVal) {
+    notification(newVal) {
       this.showInner = !!newVal
     },
   },
