@@ -1,4 +1,4 @@
-import { FButtonClose } from '@/components/button/button-close'
+import FButtonClose from '@/components/button/button-close'
 import FButton from '@/components/button/button'
 import { htmlOrText } from '@/utils/html'
 import { Transition } from '@/utils/transition'
