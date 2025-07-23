@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <f-button-link variant="default" @click="click">{{
+    <f-button-link variant="default" data-e2e-button-cancel @click="click">{{
       $t('cancel')
     }}</f-button-link>
   </div>

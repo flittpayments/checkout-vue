@@ -1,18 +1,19 @@
 <template>
   <div :class="className">
-    <div v-if="backdrop" :class="$style.backdrop" />
+    <div v-if="backdrop" :class="[$style.backdrop, backdropClass]" />
     <div :class="$style.custom" :style="style" />
   </div>
 </template>
 
 <script>
 import { mapState } from '@/utils/store'
-import { PROP_TYPE_BOOLEAN } from '@/constants/props'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
 export default {
   props: {
     backdrop: makeProp(PROP_TYPE_BOOLEAN, false),
+    backdropClass: makeProp(PROP_TYPE_STRING),
   },
   computed: {
     ...mapState('options', ['loading']),
@@ -57,12 +58,6 @@ export default {
   left: 0;
   background-color: $container_bg;
   opacity: $modal-backdrop-opacity;
-
-  :global(.f-no-embed) & {
-    @include media-breakpoint-up(xl) {
-      border-radius: $border-radius-lg;
-    }
-  }
 }
 
 .custom {

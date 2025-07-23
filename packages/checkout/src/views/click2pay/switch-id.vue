@@ -3,9 +3,9 @@
     <click2pay-header :class="$style.mb_16" :email-short="emailShort" />
 
     <f-box>
-      <h3 :class="$style.h3" v-text="$t('another_user')" />
+      <h3 :class="$uiClass('h3')" v-text="$t('another_user')" />
       <div
-        :class="$style.desc"
+        :class="$uiClass('desc')"
         v-text="$t('enter_another_email_to_download_set_of_stored_cards')"
       />
       <f-form
@@ -105,10 +105,10 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 600;
   margin-bottom: px-to-rem(4px);
+}
 
-  :global(.f-theme-light) & {
-    color: #3d3d3d;
-  }
+.h3_light {
+  color: #3d3d3d;
 }
 
 .desc {
@@ -116,10 +116,10 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 400;
   margin-bottom: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #5a6470;
-  }
+.desc_light {
+  color: #5a6470;
 }
 
 .error {

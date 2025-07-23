@@ -1,15 +1,15 @@
 <template>
-  <div class="f-receipt">
+  <div :class="$uiClass('wrapper')">
     <transition name="f-fade">
       <div v-if="model">
         <div
           v-if="model.send_data.mfo"
-          class="f-title f-title-lg"
+          :class="$style.title"
           v-text="$t('mfo_title', [model.send_data.receipt_orig])"
         />
         <template v-if="isIbox">
           <div
-            class="f-title f-title-lg f-receipt-title"
+            :class="[$style.title, $style.text_left]"
             v-text="$t('ibox_title')"
           />
 
@@ -17,60 +17,60 @@
           <div v-text="$t('full_requesites_explain')" />
         </template>
 
-        <div class="f-receipt-props">
-          <div v-if="model.send_data.amount" class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('amount')" />
-            <div class="f-receipt-value">
+        <div :class="$uiClass('props')">
+          <div v-if="model.send_data.amount" :class="$style.row">
+            <div :class="$style.key" v-text="$t('amount')" />
+            <div :class="$uiClass('value')">
               {{ model.send_data.amount }} <span v-text="$t('UAH')" />
             </div>
           </div>
-          <div class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('receiver')" />
-            <div class="f-receipt-value">{{ model.send_data.receiver }}</div>
+          <div :class="$style.row">
+            <div :class="$style.key" v-text="$t('receiver')" />
+            <div :class="$uiClass('value')">{{ model.send_data.receiver }}</div>
           </div>
-          <div v-if="model.send_data.current_bill" class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('current_bill')" />
-            <div class="f-receipt-value">
+          <div v-if="model.send_data.current_bill" :class="$style.row">
+            <div :class="$style.key" v-text="$t('current_bill')" />
+            <div :class="$uiClass('value')">
               {{ model.send_data.current_bill }}
             </div>
           </div>
-          <div v-if="model.send_data.usreou" class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('usreou')" />
-            <div class="f-receipt-value">{{ model.send_data.usreou }}</div>
+          <div v-if="model.send_data.usreou" :class="$style.row">
+            <div :class="$style.key" v-text="$t('usreou')" />
+            <div :class="$uiClass('value')">{{ model.send_data.usreou }}</div>
           </div>
-          <div v-if="model.send_data.bank" class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('bank')" />
-            <div class="f-receipt-value">{{ model.send_data.bank }}</div>
+          <div v-if="model.send_data.bank" :class="$style.row">
+            <div :class="$style.key" v-text="$t('bank')" />
+            <div :class="$uiClass('value')">{{ model.send_data.bank }}</div>
           </div>
-          <div v-if="model.send_data.mfo" class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('mfo')" />
-            <div class="f-receipt-value">{{ model.send_data.mfo }}</div>
+          <div v-if="model.send_data.mfo" :class="$style.row">
+            <div :class="$style.key" v-text="$t('mfo')" />
+            <div :class="$uiClass('value')">{{ model.send_data.mfo }}</div>
           </div>
           <template v-if="model.send_data.mfo">
-            <div v-if="model.send_data.receipt_id" class="f-receipt-row">
-              <div class="f-receipt-key" v-text="$t('purpose')" />
-              <div class="f-receipt-value">
+            <div v-if="model.send_data.receipt_id" :class="$style.row">
+              <div :class="$style.key" v-text="$t('purpose')" />
+              <div :class="$uiClass('value')">
                 {{ model.send_data.receipt_id }}
               </div>
             </div>
           </template>
           <template v-else>
-            <div v-if="model.send_data.receipt_orig" class="f-receipt-row">
-              <div class="f-receipt-key" v-text="$t('receipt_id')" />
-              <div class="f-receipt-value">
+            <div v-if="model.send_data.receipt_orig" :class="$style.row">
+              <div :class="$style.key" v-text="$t('receipt_id')" />
+              <div :class="$uiClass('value')">
                 № {{ model.send_data.receipt_orig }}
               </div>
             </div>
           </template>
-          <div v-if="model.send_data.end_date" class="f-receipt-row">
-            <div class="f-receipt-key" v-text="$t('end_date')" />
-            <div class="f-receipt-value">{{ model.send_data.end_date }}</div>
+          <div v-if="model.send_data.end_date" :class="$style.row">
+            <div :class="$style.key" v-text="$t('end_date')" />
+            <div :class="$uiClass('value')">{{ model.send_data.end_date }}</div>
           </div>
         </div>
 
         <div v-if="isIbox" v-html="$t('ibox_desc')" />
 
-        <div class="f-row f-receipt-buttons">
+        <div :class="['f-row', $style.buttons]">
           <div class="f-col">
             <f-button-success
               :href="model.url"
@@ -88,12 +88,12 @@
               />
               <f-modal-wrapper ref="modal" size="sm">
                 <f-loading v-if="loadingQrCode" />
-                <div class="f-qr-code-img">
+                <div :class="$style.img">
                   <img :src="qrCode" @load="loadQrCode" />
                 </div>
                 <div
                   v-if="!loadingQrCode"
-                  class="f-qr-code-text"
+                  :class="$style.text"
                   v-text="$t('qr_code_text')"
                 />
               </f-modal-wrapper>
@@ -101,8 +101,8 @@
           </template>
         </div>
 
-        <div v-if="isIbox" class="f-receipt-ibox-info">
-          <f-svg name="warning" />
+        <div v-if="isIbox" :class="$style.info">
+          <f-svg :class="$style.svg" name="warning" />
           <div v-html="$t('ibox_info')" />
         </div>
       </div>
@@ -163,3 +163,106 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.wrapper_adaptive {
+  @include media-breakpoint-up(xl) {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.title {
+  font-size: px-to-rem(24px);
+  font-weight: 600;
+  text-align: center;
+  color: $title_color;
+  margin: 0 0 px-to-rem(20px);
+}
+
+.text_left {
+  text-align: left;
+}
+
+.props {
+  padding: px-to-rem(16px) px-to-rem(20px);
+  margin: 0 px-to-rem(-20px) px-to-rem(12px);
+}
+
+.props_light {
+  background: #f7f8f9;
+}
+
+.props_dark {
+  background: #3b3f43;
+}
+
+.props_adaptive {
+  @include media-breakpoint-up(md) {
+    padding-right: px-to-rem(40px);
+    padding-left: px-to-rem(40px);
+    margin-right: px-to-rem(-40px);
+    margin-left: px-to-rem(-40px);
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: px-to-rem(20px);
+    margin-right: 0;
+    margin-left: 0;
+    border-radius: $border-radius;
+  }
+}
+
+.row {
+  margin-bottom: px-to-rem(18px);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-up(sm) {
+    display: flex;
+  }
+}
+
+.key {
+  font-size: px-to-rem(14px);
+
+  @include media-breakpoint-up(sm) {
+    flex: 0 0 160px;
+  }
+}
+
+.value_light {
+  color: #3d3d3d;
+  font-weight: 600;
+}
+
+.value_dark {
+  color: #fff;
+}
+
+.buttons {
+  margin-top: px-to-rem(24px);
+  margin-bottom: px-to-rem(34px);
+}
+
+.img {
+  margin-bottom: px-to-rem(24px);
+  text-align: center;
+}
+
+.text {
+  margin: 0 px-to-rem(-32px);
+  font-size: px-to-rem(14px);
+  text-align: center;
+}
+
+.info {
+  display: flex;
+}
+
+.svg {
+  margin: px-to-rem(10px) px-to-rem(12px) 0 0;
+}
+</style>

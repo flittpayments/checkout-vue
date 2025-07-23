@@ -43,7 +43,6 @@ export default {
         variantItem: 'card',
         component: 'select2',
         noLabelFloating: true,
-        modalBodyClass: 'f-modal-body-card-list',
         modalWrapperClass: '',
         dropdownClass: 'f-tooltip-select-card',
         dropdownWrapperClass: this.$style.dropdown,

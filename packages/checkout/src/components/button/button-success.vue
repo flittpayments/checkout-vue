@@ -14,7 +14,6 @@ export default {
   },
   computed: {
     ...mapState('css_variable', [
-      'btn_success_gradient_enable',
       'btn_success_gradient_custom',
       'btn_success_bg_lighten',
     ]),
@@ -28,14 +27,57 @@ export default {
       }
     },
     className() {
-      return {
-        'f-btn-success-gradient':
-          this.btn_success_gradient_enable && !this.btn_success_gradient_custom,
-        'f-btn-success-gradient-custom':
-          this.btn_success_gradient_custom && !this.btn_success_gradient_enable,
-        'f-btn-success-bg-lighten': this.btn_success_bg_lighten,
-      }
+      if (this.btn_success_gradient_custom)
+        return this.$style['gradient-custom']
+
+      if (this.btn_success_bg_lighten) return this.$style['bg-lighten']
+
+      return ''
     },
   },
 }
 </script>
+
+<style lang="scss" module>
+.gradient-custom {
+  &::after,
+  &:hover::after,
+  &:focus::after,
+  &:active::after {
+    background: $btn_success_gradient_custom;
+    background-repeat: no-repeat;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      background-position-x: -25px;
+    }
+  }
+
+  &:active {
+    &::after {
+      background-position-x: -50px;
+    }
+  }
+
+  @include disabled;
+}
+
+.bg-lighten {
+  &:hover,
+  &:focus {
+    &::after {
+      background-color: lighten($btn_success_bg, 20%);
+    }
+  }
+
+  &:active {
+    &::after {
+      background-color: lighten($btn_success_bg, 40%);
+    }
+  }
+
+  @include disabled;
+}
+</style>

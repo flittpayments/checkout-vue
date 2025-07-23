@@ -1,13 +1,17 @@
 <template>
   <div v-if="showText" :class="[$style.wrapper, $style.wrapper_line]">
-    <span :class="$style.hr" />
-    <span :class="[$style.text, $style.text_line]">
-      <span v-text="$t('processed_by')" />&nbsp;
+    <span :class="$uiClass('hr')" />
+    <span :class="[$uiClass('text'), $style.text_line]">
+      <span data-e2e-processed-text v-text="$t('processed_by')" />&nbsp;
       <span :class="$style.saas" v-text="$t('saas_name')" />
     </span>
   </div>
   <div v-else :class="$style.wrapper">
-    <span :class="$style.text" v-text="$t('processed_by')" />
+    <span
+      :class="$uiClass('text')"
+      data-e2e-processed-text
+      v-text="$t('processed_by')"
+    />
     <svg-logo :class="$style.svg" />
   </div>
 </template>
@@ -51,27 +55,27 @@ export default {
   top: 50%;
   left: 0;
   right: 0;
+}
 
-  :global(.f-theme-light) & {
-    background: #eeeeee;
-  }
+.hr_light {
+  background: #eeeeee;
+}
 
-  :global(.f-theme-dark) & {
-    background: #45474b;
-  }
+.hr_dark {
+  background: #45474b;
 }
 
 .text {
   font-size: px-to-rem(14px);
   line-height: px-to-rem(20px);
+}
 
-  :global(.f-theme-light) & {
-    color: #747578;
-  }
+.text_light {
+  color: #747578;
+}
 
-  :global(.f-theme-dark) & {
-    color: #a2a3a5;
-  }
+.text_dark {
+  color: #a2a3a5;
 }
 
 .text_line {
