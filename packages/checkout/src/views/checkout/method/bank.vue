@@ -68,12 +68,7 @@
           :key="item"
           :class="classBankItemWrapper"
         >
-          <div class="f-bank-item">
-            <f-progress class="f-mr-12" size="48x48" />
-            <div class="f-bank-item-wrapper">
-              <f-progress size="20" />
-            </div>
-          </div>
+          <f-progress-bank-item />
         </div>
       </div>
     </div>
@@ -87,7 +82,7 @@ import FSvg from '@/components/svg'
 import FIcon from '@/components/icon'
 import FButton from '@/components/button/button'
 import { FCountry } from '@/import'
-import FProgress from '@/components/base/progress'
+import FProgressBankItem from '@/components/base/progress-bank-item'
 import { sort } from '@/utils/sort'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { removeDuplicate } from '@/utils/helpers'
@@ -119,7 +114,7 @@ export default {
     FIcon,
     FButton,
     FCountry,
-    FProgress,
+    FProgressBankItem,
   },
   mixins: [timeoutMixin, resizeMixin],
   props: {
