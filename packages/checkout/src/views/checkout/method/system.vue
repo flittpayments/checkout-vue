@@ -1,21 +1,13 @@
 <template>
   <div>
-    <div class="f-system">
-      <f-icon
-        :name="info.logo"
-        :type="method"
-        class="f-system-icon"
-        size="48"
-      />
-      <div class="f-system-name">{{ info.name }}</div>
-
-      <div>{{ info.iban }}</div>
-      <f-button-close
-        v-if="showClose"
-        class="f-system-close"
-        @click="goMethod"
-      />
-    </div>
+    <f-title-system
+      :logo="info.logo"
+      :method="method"
+      :name="info.name"
+      @click="goMethod"
+    >
+      {{ info.iban }}
+    </f-title-system>
     <transition name="f-fade-enter">
       <router-view />
     </transition>
@@ -23,8 +15,7 @@
 </template>
 
 <script>
-import FIcon from '@/components/icon'
-import FButtonClose from '@/components/button/button-close'
+import FTitleSystem from '@/components/base/title-system'
 import { mapState } from '@/utils/store'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
@@ -32,8 +23,7 @@ import { isNotButtonOnly } from '@/utils/method'
 
 export default {
   components: {
-    FIcon,
-    FButtonClose,
+    FTitleSystem,
   },
   inheritAttrs: false,
   props: {
