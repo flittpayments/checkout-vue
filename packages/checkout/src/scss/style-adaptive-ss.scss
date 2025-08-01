@@ -18,25 +18,16 @@
 }
 
 .f-form-group-card {
+  .f-placeholder,
   .f-form-control {
-    @include media-breakpoint-up(ss) {
-      height: px-to-rem(25px);
-      font-size: px-to-rem(20px);
-      line-height: px-to-rem(25px);
-    }
-
-    &:-webkit-autofill {
-      &::first-line {
-        @include media-breakpoint-up(ss) {
-          font-size: px-to-rem(20px);
-          line-height: px-to-rem(25px);
-        }
-      }
-    }
-
+    &,
+    &:-webkit-autofill::first-line,
     &::placeholder {
-      font-size: px-to-rem(20px);
-      line-height: px-to-rem(25px);
+      @include media-breakpoint-up(ss) {
+        height: px-to-rem(25px);
+        font-size: px-to-rem(20px);
+        line-height: px-to-rem(25px);
+      }
     }
   }
 }
@@ -50,12 +41,5 @@
 .f-currency {
   @include media-breakpoint-up(ss) {
     font-size: px-to-rem(22px);
-  }
-}
-
-.f-placeholder {
-  @include media-breakpoint-up(ss) {
-    font-size: px-to-rem(20px);
-    line-height: px-to-rem(25px);
   }
 }
