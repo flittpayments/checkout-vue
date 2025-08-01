@@ -77,51 +77,39 @@
     z-index: 1;
   }
 
+  .f-placeholder,
   .f-form-control {
-    height: px-to-rem(18px);
+    color: #{$card_input_color};
     padding: 0;
-    font-family: $font-family-card-number;
-    font-size: px-to-rem(15px);
     font-weight: 400;
-    line-height: px-to-rem(18px);
-    color: $card_input_color;
-    text-shadow: px-to-rem(1px) px-to-rem(1px) px-to-rem(2px)
-      fade($card_input_shadow, 15%);
+    text-shadow: px-to-rem(1px) px-to-rem(1px) px-to-rem(2px) fade($card_input_shadow, 15%);
     background-color: rgb(0 0 0 / 0%);
     border: none;
     border-radius: 0;
+
+    &,
+    &:-webkit-autofill::first-line,
+    &::placeholder {
+      font-family: $font-family-card-number;
+      height: px-to-rem(18px);
+      font-size: px-to-rem(15px);
+      line-height: px-to-rem(18px);
+    }
 
     &:hover {
       background-color: inherit;
     }
 
     &:focus {
-      padding: 0;
+      box-shadow: none;
     }
 
-    &:-webkit-autofill {
-      -webkit-text-fill-color: $card_input_color;
-
-      &::first-line {
-        font-family: $font-family-card-number;
-        font-size: px-to-rem(15px);
-        line-height: px-to-rem(18px);
-        color: $card_input_color;
-      }
+    &[disabled] {
+      color: #{fade($card_input_color, 60%)};
     }
 
     &::placeholder {
-      font-family: $font-family-card-number;
-      color: fade($card_input_color, 30%);
-    }
-
-    &[readonly] {
-      opacity: 0.6;
-
-      &::placeholder {
-        font-family: $font-family-cvv;
-        color: $card_input_color;
-      }
+      color: #{fade($card_input_color, 30%)};
     }
   }
 
@@ -165,9 +153,8 @@
   text-decoration: none;
   cursor: pointer;
   border-radius: 0;
-  transition:
-    background-color ease-in-out 0.15s,
-    box-shadow ease-in-out 0.15s;
+  transition: background-color ease-in-out 0.15s,
+  box-shadow ease-in-out 0.15s;
 
   &:last-child {
     margin-bottom: 0;
