@@ -24,12 +24,16 @@
         </template>
         <template v-else>
           <input-amount v-slot="{ id }" name="amount" label="amount">
-            <div ref="amount" class="f-form-control f-hidden">
-              {{ totalAmount }}
-            </div>
-            <label v-if="showFeeAmount" :for="id" class="f-fee" :style="style">
+            <f-placeholder
+              v-if="showFeeAmount"
+              :id="id"
+              :value="totalAmount"
+              :offset="5"
+              :name-class="['f-form-control']"
+              text-class="f-fee"
+            >
               + <f-amount :value="fee_amount" />
-            </label>
+            </f-placeholder>
           </input-amount>
         </template>
         <table v-if="showFee" class="f-table">
@@ -68,6 +72,7 @@
 import FPreloader from '@/components/preloader'
 import FAmount from '@/components/base/amount'
 import FDate from '@/components/base/date'
+import FPlaceholder from '@/components/base/placeholder'
 import { InputAmount, FPromo } from '@/import'
 import { mapState } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
@@ -83,6 +88,7 @@ export default {
     FAmount,
     InputAmount,
     FDate,
+    FPlaceholder,
     FPromo,
   },
   mixins: [timeoutMixin],
@@ -92,7 +98,6 @@ export default {
   data() {
     return {
       actualAmount: 0,
-      left: 0,
       loading: false,
     }
   },
@@ -145,11 +150,6 @@ export default {
     sizePreloader() {
       return this.amount_readonly ? '38' : null
     },
-    style() {
-      return {
-        left: `${this.left}px`,
-      }
-    },
     show() {
       return this.show_amount && !this.verification_type
     },
@@ -178,10 +178,10 @@ export default {
   },
   watch: {
     amount: 'feeCalc',
-    ready: 'setLeft',
+    ready: 'setActualAmount',
   },
   mounted() {
-    this.setLeft()
+    this.setActualAmount()
   },
   methods: {
     feeCalc() {
@@ -195,15 +195,14 @@ export default {
 
       this.store
         .feeCalc()
-        .then(this.setLeft)
+        .then(this.setActualAmount)
         .finally(() => {
           this.loading = false
         })
         .catch(errorHandler)
     },
-    setLeft() {
+    setActualAmount() {
       this.actualAmount = this.amount
-      this.left = this.$refs.amount?.offsetWidth + 5
     },
   },
 }
