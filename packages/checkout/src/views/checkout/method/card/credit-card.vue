@@ -10,6 +10,7 @@
       v-model="card_number"
       class="f-form-group-card f-form-group-card-number"
       label-class="f-card_label"
+      :name-class="['f-placeholder', $style.placeholder]"
       name="card_number"
       :placeholder="cardConfig.cardNumberPlaceholder"
       :rules="cardNumberValid"
@@ -40,6 +41,7 @@
       class="f-form-group-card"
       label-class="f-card_label"
       input-class="f-form-control-expiry-date"
+      :name-class="['f-placeholder', $style.placeholder]"
       name="expiry_date"
       placeholder="__/__"
       :rules="expiryDateValid"
@@ -62,6 +64,7 @@
       class="f-form-group-card"
       label-class="f-card_label"
       input-class="f-form-control-cvv2"
+      :name-class="['f-placeholder', $style.placeholder]"
       name="cvv2"
       :placeholder="cardConfig.cvvPlaceholder"
       :rules="cvvValid"
@@ -268,3 +271,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+:global(#f) .placeholder.placeholder {
+  color: fade($card_input_color, 30%);
+}
+</style>
