@@ -48,7 +48,7 @@ export const parse = (date, format) => {
 
   d.year = `20${d.year}`.slice(-4)
 
-  if (d.month > 12) return new Date('')
+  if (d.month < 1 || d.month > 12) return new Date('')
 
   return createDate(d.year, d.month - 1, d.day, d.hour, d.minute)
 }
