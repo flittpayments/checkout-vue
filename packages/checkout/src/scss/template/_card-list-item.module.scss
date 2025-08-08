@@ -4,7 +4,7 @@
   height: px-to-rem(60px);
   padding: px-to-rem(10px);
   margin-bottom: px-to-rem(4px);
-  color: $tooltip_card_color;
+  color: $grey_2;
   text-decoration: none;
   cursor: pointer;
   border-radius: 0;
@@ -20,13 +20,13 @@
 .style:hover,
 .active {
   text-decoration: none;
-  background-color: $card_list_item_active_bg;
+  background-color: $ash_200;
 }
 
 .icon {
   width: px-to-rem(40px);
   height: px-to-rem(20px);
   margin-right: px-to-rem(4px);
-  color: $icon_color;
+  color: $ash_800;
   border-radius: $border-radius-sm;
 }

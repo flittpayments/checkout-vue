@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     className() {
-      return this.$style.style
+      return this.$uiClass('style')
     },
     attrs() {
       return {
@@ -59,6 +59,20 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   position: relative;
 }
 
+.style_light {
+  --bg: #{$ash_400};
+  --indicator-bg: #{$white};
+  --hover-bg: #{$ash_600};
+  --checked-bg: #{$grey_2};
+}
+
+.style_dark {
+  --bg: #{$white_02};
+  --indicator-bg: #{$grey_9};
+  --hover-bg: #{$white_03};
+  --checked-bg: #{$white_08};
+}
+
 .input {
   position: absolute;
   left: 0;
@@ -71,7 +85,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
 
   &:checked + .label {
     &::before {
-      background-color: $switch_checked_bg;
+      background: var(--checked-bg);
     }
 
     &::after {
@@ -81,7 +95,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   }
 
   &:focus-visible + .label {
-    background-color: $outline_bg;
+    background: $outline_bg;
     box-shadow:
       0 0 0 px-to-rem(2px) $container_bg,
       0 0 0 px-to-rem(3.5px) $outline_border;
@@ -99,7 +113,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   cursor: pointer;
   transition:
     box-shadow ease-in-out 0.15s,
-    background-color ease-in-out 0.15s;
+    background ease-in-out 0.15s;
   border-radius: $border-radius-sm;
 
   &::before {
@@ -112,9 +126,9 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
     height: $switch-height;
     pointer-events: all;
     content: '';
-    background-color: $switch_bg;
+    background: var(--bg);
     border-radius: $border-radius-lg;
-    transition: background-color ease-in-out 0.15s;
+    transition: background ease-in-out 0.15s;
   }
 
   &::after {
@@ -131,7 +145,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
     width: $switch-indicator-size;
     height: $switch-indicator-size;
     content: '';
-    background-color: $switch_indicator_bg;
+    background: var(--indicator-bg);
     border-radius: $border-radius;
     box-shadow: 0 2px 4px rgb(0 0 0 / 25%);
     transition:
@@ -141,7 +155,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
 
   &:hover {
     &::before {
-      background-color: $switch_hover_bg;
+      background: var(--hover-bg);
     }
 
     &::after {

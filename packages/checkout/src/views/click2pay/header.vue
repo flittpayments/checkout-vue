@@ -39,29 +39,31 @@ export default {
 }
 
 .icon {
+  color: var(--color);
   min-width: px-to-rem(149px);
 }
 
 .icon_light {
-  color: #1434cb;
+  --color: #1434cb;
 }
 
 .icon_dark {
-  color: #fff;
+  --color: #fff;
 }
 
 .email {
+  color: var(--color);
   font-size: px-to-rem(14px);
   font-weight: 400;
   line-height: px-to-rem(20px);
 }
 
 .email_light {
-  color: #5a6470;
+  --color: #5a6470;
 }
 
 .email_dark {
-  color: #fff;
+  --color: #fff;
 }
 
 .right {

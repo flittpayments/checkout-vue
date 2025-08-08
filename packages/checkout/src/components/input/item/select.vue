@@ -126,7 +126,7 @@ export default {
       return [
         this.$style.select,
         this.style.input,
-        this.style[this.variant],
+        this.$uiClass(this.variant, {}, 'style'),
         this.style[`size_${this.size}`],
         this.inputClass,
         {
@@ -295,7 +295,7 @@ export default {
   }
 
   &:hover {
-    background-color: $card_list_item_hover_bg;
+    background-color: $ash_100;
   }
 }
 
@@ -313,11 +313,11 @@ export default {
 }
 
 .item_secondary_focus {
-  background-color: $card_list_item_hover_bg;
+  background-color: $ash_100;
 }
 
 .item_secondary_active {
-  background-color: $card_list_item_active_bg;
+  background-color: $ash_200;
 }
 
 .item_card {
@@ -327,7 +327,7 @@ export default {
   height: px-to-rem(60px);
   padding: px-to-rem(10px);
   margin-bottom: px-to-rem(4px);
-  color: $tooltip_card_color;
+  color: $grey_2;
   cursor: pointer;
   border-radius: 0;
   transition:
@@ -339,12 +339,12 @@ export default {
   }
 
   &:hover {
-    background-color: $card_list_item_hover_bg;
+    background-color: $ash_100;
   }
 }
 
 .item_card_active {
-  background-color: $card_list_item_active_bg;
+  background-color: $ash_200;
 }
 
 .arrow {
@@ -352,12 +352,22 @@ export default {
   top: 50%;
   right: var(--right);
   transform: translateY(-50%) rotate(0deg);
-  color: $label_color;
+  color: var(--color);
   transition: transform 0.225s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
+.arrow_light {
+  --color: #{$grey_1};
+  --open-color: #{$grey};
+}
+
+.arrow_dark {
+  --color: #{$white_04};
+  --open-color: #{$white};
+}
+
 .arrow_open {
-  color: $input_color;
+  color: var(--open-color);
   transform: translateY(-50%) rotate(-180deg);
 }
 

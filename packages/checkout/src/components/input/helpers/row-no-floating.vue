@@ -13,7 +13,7 @@
       <label
         v-if="prepend"
         :for="id"
-        :class="$style.prepend"
+        :class="$uiClass('prepend')"
         @click="emitFocus"
       >
         <f-svg :name="prepend" fw />
@@ -21,7 +21,7 @@
       <label
         v-if="prependText"
         :for="id"
-        :class="$style.prepend_text"
+        :class="$uiClass('prepend_text')"
         @click="emitFocus"
       >
         {{ prependText }}
@@ -69,15 +69,31 @@ export default {
   bottom: 0;
   display: flex;
   align-items: center;
-  color: $input_prepend_color;
+  color: var(--color);
 }
 
 .prepend {
   left: 0;
 }
 
+.prepend_light {
+  --color: #{$grey};
+}
+
+.prepend_dark {
+  --color: #{$white_04};
+}
+
 .prepend_text {
   left: px-to-rem(12px);
+}
+
+.prepend_text_light {
+  --color: #{$grey};
+}
+
+.prepend_text_dark {
+  --color: #{$white_04};
 }
 
 .label {

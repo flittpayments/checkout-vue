@@ -3,13 +3,13 @@
     <div :class="$style.center">
       <svg-approved v-if="isApproved" :class="$style.svg" />
       <svg-decline v-if="isDeclined" :class="$style.svg" />
-      <div :class="$style.title" v-text="title" />
+      <div :class="$uiClass('title')" v-text="title" />
     </div>
     <click2pay-checkout-wrapper />
     <f-info />
     <f-price readonly />
     <f-link-download-receipt v-if="receipt_url" />
-    <div :class="$style.box">
+    <div :class="$uiClass('box')">
       <div class="f-row">
         <div class="f-col" v-text="$t('payment_id')" />
         <div class="f-col" :class="$style.right" data-e2e-payment-id>
@@ -74,19 +74,35 @@ export default {
 }
 
 .title {
+  color: var(--color);
   margin: 0;
   margin-bottom: px-to-rem(20px);
   font-size: px-to-rem(20px);
   font-weight: 500;
   text-align: center;
-  color: $title_color;
+}
+
+.title_light {
+  --color: #{$grey};
+}
+
+.title_dark {
+  --color: #{$white};
 }
 
 .box {
   padding: px-to-rem(16px);
   word-wrap: break-word;
-  border: 1px solid $input_border;
+  border: px-to-rem(1px) solid var(--border-color);
   border-radius: $border-radius;
+}
+
+.box_light {
+  --border-color: #{$ash_500};
+}
+
+.box_dark {
+  --border-color: #{$white_02};
 }
 
 .right {

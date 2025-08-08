@@ -23,12 +23,7 @@ export default {
 <style lang="scss" module>
 .style {
   height: px-to-rem(56px);
-  background: linear-gradient(
-    120deg,
-    $preloader_bg 41%,
-    $preloader_inner_bg 50%,
-    $preloader_bg 59%
-  );
+  background: linear-gradient(120deg, #d5dae0 41%, #f7f8f9 50%, #d5dae0 59%);
   background-size: 200% 100%;
   border-radius: $border-radius;
   animation: f-preloader 2s ease-in-out infinite;

@@ -17,7 +17,7 @@ export default {
       return {
         ...this.$attrs,
         triggers: 'hover focus',
-        customClass: this.$style.style,
+        customClass: this.$uiClass('style'),
       }
     },
   },
@@ -26,11 +26,19 @@ export default {
 
 <style lang="scss" module>
 .style {
-  --color: #{$tooltip_default_color};
-  --bg: #{$tooltip_default_bg};
   --shadow: initial;
   --opacity: 1;
   --padding: #{px-to-rem(16px)};
   --max-width: #{px-to-rem(300px)};
+}
+
+.style_light {
+  --color: #{$white};
+  --bg: #{$grey_9};
+}
+
+.style_dark {
+  --color: #{$grey_2};
+  --bg: #{$white};
 }
 </style>

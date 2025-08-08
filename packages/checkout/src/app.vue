@@ -116,11 +116,19 @@ export default {
 
 <style lang="scss" module>
 .style {
+  background: var(--bg);
   font-family: $font-family-inter;
   font-size: $font-size-base;
   line-height: $line-height-base;
-  color: $main_color;
-  background-color: $main_bg;
+  color: var(#{$prefix}main_color);
+}
+
+.style_light {
+  --bg: #{$ash_400};
+}
+
+.style_dark {
+  --bg: #1c1f22;
 }
 
 .style_adaptive {

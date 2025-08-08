@@ -14,7 +14,7 @@
   </f-input-group>
   <f-row v-else v-slot="scope" v-bind="attrs" v-model="value">
     <slot v-bind="scope" />
-    <span :class="$style.currency" v-text="$t(currency)" />
+    <span :class="$uiClass('currency')" v-text="$t(currency)" />
   </f-row>
 </template>
 
@@ -109,8 +109,16 @@ export default {
   z-index: 1;
   font-size: px-to-rem(16px);
   font-weight: 500;
-  color: $label_color;
+  color: var(--color);
   transition: all ease-in-out 0.15s;
   transform-origin: 0 0;
+}
+
+.currency_light {
+  --color: #{$grey_1};
+}
+
+.currency_dark {
+  --color: #{$white_04};
 }
 </style>

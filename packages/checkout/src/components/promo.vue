@@ -8,8 +8,7 @@
         size="44"
         :disabled="disabledInput"
       />
-      <f-button
-        variant="default"
+      <f-button-default
         :text="$t('add')"
         :disabled="disabledButton"
         data-e2e-btn-promo-code
@@ -22,14 +21,14 @@
 
 <script>
 import FRow from '@/components/input/row'
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import { errorHandler } from '@/utils/helpers'
 import { mapState } from '@/utils/store'
 
 export default {
   components: {
     FRow,
-    FButton,
+    FButtonDefault,
   },
   data() {
     return {

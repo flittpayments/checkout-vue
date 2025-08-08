@@ -54,13 +54,14 @@ export default {
 
 <style lang="scss" module>
 .style {
-  --color: #{$tooltip_secondary_color};
-  --bg: #{$tooltip_secondary_bg};
-  --shadow: #{0 px-to-rem(8px) px-to-rem(32px)
-    fade($tooltip_secondary_shadow, 50%)};
+  --color: #{$grey_3};
+  --bg: #{$white};
+  --shadow: #{0 px-to-rem(8px) px-to-rem(32px) rgba(#b6b9bf, 0.5)};
   --opacity: 1;
   --padding: #{$border-radius 0};
   --max-width: #{px-to-rem(360px)};
+
+  #{$prefix}scrollbar_thumb_bg: #{$ash_500};
 }
 
 .style.style_no_arrow {

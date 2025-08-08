@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     className() {
-      return this.$style.wrapper
+      return [this.$style.wrapper, this.$uiClass(this.variant)]
     },
     attrs() {
       return {
@@ -49,7 +49,6 @@ export default {
     classInput() {
       return [
         this.$style.input,
-        this.$style[this.variant],
         {
           [this.$style.error]: this.invalid,
         },
@@ -68,58 +67,44 @@ export default {
 </script>
 
 <style lang="scss" module>
-@mixin checkbox-variant(
-  $bg,
-  $border,
-  $bg-hover,
-  $border-hover,
-  $color-hover,
-  $bg-checked,
-  $color-checked,
-  $color-label
-) {
-  + .label {
-    color: $color-label;
+.default_light {
+  --bg: #{$white};
+  --border-color: #{$ash_800};
+  --hover-bg: #{$ash_300};
+  --hover-color: #{$ash_500};
+  --checked-bg: #{$grey_2};
+  --checked-color: #{$white};
+  --label-color: #{$grey_1};
+}
 
-    &::before {
-      background-color: $bg;
-      border-color: $border;
-    }
+.default_dark {
+  --bg: #{$white_005};
+  --border-color: #{$white_04};
+  --hover-bg: #585b5f;
+  --hover-color: #{$white_01};
+  --checked-bg: #{$white};
+  --checked-color: #{$grey_9};
+  --label-color: #{$white_04};
+}
 
-    &:hover {
-      &::before {
-        background-color: $bg-hover;
-        border-color: $border-hover;
-      }
+.secondary_light {
+  --bg: #{$white};
+  --border-color: #{$ash_500};
+  --hover-bg: #{$grey_2};
+  --hover-color: #{$grey_1};
+  --checked-bg: #{$white};
+  --checked-color: #6a747e;
+  --label-color: #{$white};
+}
 
-      &::after {
-        border-color: $color-hover;
-      }
-    }
-  }
-
-  &:checked + .label {
-    &::before {
-      background-color: $bg-checked;
-    }
-
-    &::after {
-      border-color: $color-checked;
-    }
-  }
-
-  &[disabled] + .label {
-    cursor: default;
-
-    &::before {
-      background-color: $bg;
-      border-color: $border;
-    }
-
-    &::after {
-      opacity: 0;
-    }
-  }
+.secondary_dark {
+  --bg: #{$white};
+  --border-color: #{$ash_800};
+  --hover-bg: #{$ash_300};
+  --hover-color: #{$ash_500};
+  --checked-bg: #{$grey_2};
+  --checked-color: #{$white};
+  --label-color: #{$grey_2};
 }
 
 .style {
@@ -128,42 +113,64 @@ export default {
 
 .input {
   position: absolute;
-  z-index: 1;
-  width: px-to-rem(20px);
+  width: 1px;
+  height: 1px;
   opacity: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 
   &:checked + .label {
     &::before {
-      border: none;
+      background: var(--checked-bg);
+      border-color: transparent;
     }
 
     &::after {
+      border-color: var(--checked-color);
       opacity: 1;
+      transform: rotate(-45deg) scale(1);
     }
   }
 
   &:focus-visible + .label {
-    background-color: $outline_bg;
+    background: $outline_bg;
     box-shadow:
       0 0 0 px-to-rem(2px) $container_bg,
       0 0 0 px-to-rem(3.5px) $outline_border;
   }
+
+  &[disabled] + .label {
+    cursor: default;
+
+    &::before {
+      background: var(--bg);
+      border-color: var(--border-color);
+    }
+
+    &::after {
+      opacity: 0;
+    }
+  }
 }
 
 .label {
+  color: var(--label-color);
   position: relative;
   display: block;
-  padding: 0 0 0 px-to-rem(30px) + 0;
+  padding: 0 0 0 px-to-rem(30px);
   font-size: px-to-rem(16px);
   line-height: px-to-rem(20px);
   word-wrap: break-word;
   cursor: pointer;
   transition:
     box-shadow ease-in-out 0.15s,
-    background-color ease-in-out 0.15s;
+    background ease-in-out 0.15s;
   border-radius: $border-radius-sm;
 
   &::before {
+    background: var(--bg);
+    border-color: var(--border-color);
     position: absolute;
     top: 0;
     left: 0;
@@ -173,7 +180,9 @@ export default {
     border-style: solid;
     border-width: px-to-rem(1.5px);
     border-radius: $border-radius-sm;
-    transition: background-color ease-in-out 0.15s;
+    transition:
+      background ease-in-out 0.15s,
+      border-color ease-in-out 0.15s;
   }
 
   &::after {
@@ -189,13 +198,22 @@ export default {
     border-top: none;
     border-right: none;
     opacity: 0;
-    transition: opacity ease-in-out 0.15s;
-    transform: rotate(-45deg);
+    transition:
+      opacity 0.15s ease-out,
+      transform 0.2s ease-out;
+    transform: rotate(-45deg) scale(0.6);
+    will-change: opacity, transform;
   }
 
   &:hover {
+    &::before {
+      background: var(--hover-bg);
+    }
+
     &::after {
+      border-color: var(--hover-color);
       opacity: 1;
+      transform: rotate(-45deg) scale(1);
     }
   }
 }
@@ -203,32 +221,6 @@ export default {
 .label_sm {
   font-size: px-to-rem(12px);
   line-height: px-to-rem(22px);
-}
-
-.default {
-  @include checkbox-variant(
-    $input_bg,
-    $checkbox_default_border,
-    $checkbox_default_hover_bg,
-    $checkbox_default_hover_border,
-    $checkbox_default_hover_color,
-    $checkbox_default_checked_bg,
-    $checkbox_default_checked_color,
-    $label_color
-  );
-}
-
-.secondary {
-  @include checkbox-variant(
-    $white,
-    $checkbox_secondary_border,
-    $checkbox_secondary_hover_bg,
-    $checkbox_secondary_hover_border,
-    $checkbox_secondary_hover_color,
-    $checkbox_secondary_checked_bg,
-    $checkbox_secondary_checked_color,
-    $checkbox_secondary_label_color
-  );
 }
 
 .error + .label::before {

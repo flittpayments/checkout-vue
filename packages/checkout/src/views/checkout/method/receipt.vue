@@ -4,12 +4,12 @@
       <div v-if="model">
         <div
           v-if="model.send_data.mfo"
-          :class="$style.title"
+          :class="$uiClass('title')"
           v-text="$t('mfo_title', [model.send_data.receipt_orig])"
         />
         <template v-if="isIbox">
           <div
-            :class="[$style.title, $style.text_left]"
+            :class="[$uiClass('title'), $style.text_left]"
             v-text="$t('ibox_title')"
           />
 
@@ -80,7 +80,7 @@
           </div>
           <template v-if="isDesktop">
             <div class="f-col">
-              <f-button
+              <f-button-default
                 size="lg"
                 block
                 :text="$t('save_qr_code')"
@@ -112,7 +112,7 @@
 
 <script>
 import FButtonSuccess from '@/components/button/button-success'
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import FModalWrapper from '@/components/modal/modal-wrapper'
 import { FLoading } from '@/import'
 import FSvg from '@/components/svg'
@@ -122,7 +122,7 @@ import { errorHandler } from '@/utils/helpers'
 export default {
   components: {
     FButtonSuccess,
-    FButton,
+    FButtonDefault,
     FModalWrapper,
     FLoading,
     FSvg,
@@ -173,11 +173,19 @@ export default {
 }
 
 .title {
+  color: var(--color);
   font-size: px-to-rem(24px);
   font-weight: 600;
   text-align: center;
-  color: $title_color;
   margin: 0 0 px-to-rem(20px);
+}
+
+.title_light {
+  --color: #{$grey};
+}
+
+.title_dark {
+  --color: #{$white};
 }
 
 .text_left {
@@ -185,16 +193,17 @@ export default {
 }
 
 .props {
+  background: var(--bg);
   padding: px-to-rem(16px) px-to-rem(20px);
   margin: 0 px-to-rem(-20px) px-to-rem(12px);
 }
 
 .props_light {
-  background: #f7f8f9;
+  --bg: #f7f8f9;
 }
 
 .props_dark {
-  background: #3b3f43;
+  --bg: #3b3f43;
 }
 
 .props_adaptive {
@@ -233,13 +242,17 @@ export default {
   }
 }
 
+.value {
+  color: var(--color);
+}
+
 .value_light {
-  color: #3d3d3d;
+  --color: #3d3d3d;
   font-weight: 600;
 }
 
 .value_dark {
-  color: #fff;
+  --color: #fff;
 }
 
 .buttons {

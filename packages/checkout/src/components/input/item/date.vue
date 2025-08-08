@@ -106,7 +106,7 @@ export default {
     className() {
       return [
         this.style.input,
-        this.style[this.variant],
+        this.$uiClass(this.variant, {}, 'style'),
         this.style[`size_${this.size}`],
         this.inputClass,
         {
@@ -170,12 +170,22 @@ export default {
 <style lang="scss" module>
 .arrow {
   transform: rotate(0deg);
-  color: $label_color;
+  color: var(--color);
   transition: transform 0.225s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
+.arrow_light {
+  --color: #{$grey_1};
+  --open-color: #{$grey};
+}
+
+.arrow_dark {
+  --color: #{$white_04};
+  --open-color: #{$white};
+}
+
 .arrow_open {
-  color: $input_color;
+  color: var(--open-color);
   transform: rotate(-180deg);
 }
 </style>

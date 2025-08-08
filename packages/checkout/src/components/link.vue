@@ -30,7 +30,7 @@ export default {
   font-weight: 400;
   font-size: px-to-rem(14px);
   line-height: px-to-rem(20px);
-  color: $main;
+  color: var(#{$prefix}main);
   text-decoration: underline;
 
   &:hover {

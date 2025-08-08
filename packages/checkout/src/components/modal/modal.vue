@@ -188,7 +188,7 @@ export default {
 }
 
 .content {
-  #{$prefix}container_bg: $modal_content_bg;
+  #{$prefix}container_bg: $white;
   #{$prefix}outline_border: #9ca7b3;
 
   position: relative;
@@ -198,11 +198,11 @@ export default {
   padding: px-to-rem(20px) 0 0;
   margin-top: px-to-rem(88px);
   font-size: px-to-rem(14px);
-  color: $modal_content_color;
+  color: $grey_3;
 
   // counteract the pointer-events: none; in the .dialog
   pointer-events: auto;
-  background-color: $modal_content_bg;
+  background-color: $white;
   background-clip: padding-box;
   border-radius: $border-radius-lg $border-radius-lg 0 0;
 
@@ -225,7 +225,7 @@ export default {
   z-index: $zindex-modal-backdrop;
   width: 100vw;
   height: 100vh;
-  background-color: $modal_backdrop_bg;
+  background-color: #32353a;
   opacity: $modal-backdrop-opacity;
 
   &:global(.f-fade) {
@@ -264,7 +264,7 @@ export default {
   @include title;
 
   margin-bottom: 0;
-  color: $modal_title_color;
+  color: $grey;
 }
 
 .body {

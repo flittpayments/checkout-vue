@@ -307,12 +307,20 @@ export default {
   background: $container_bg;
 }
 
+.wrapper_light {
+  --shadow-color: #{rgba($ash_600, 0.6)};
+}
+
+.wrapper_dark {
+  --shadow-color: #{rgba(#262a2d, 0.6)};
+}
+
 .wrapper_adaptive {
   @include media-breakpoint-up(xl) {
     max-width: 1140px;
     max-height: 686px;
     border-radius: $border-radius-lg;
-    box-shadow: 0 24px 40px fade($container_box_shadow, 60%);
+    box-shadow: 0 24px 40px var(--shadow-color);
   }
 
   @include media-breakpoint-up(xxl) {
