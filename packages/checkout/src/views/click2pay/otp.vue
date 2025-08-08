@@ -42,7 +42,7 @@
       <div :class="$uiClass('or_hr')" />
       <div :class="$uiClass('or_text')" v-text="$t('or')" />
     </div>
-    <f-button
+    <f-button-default
       :class="$style.mb_32"
       block
       size="lg"
@@ -60,7 +60,7 @@ import FLink from '@/components/link'
 import FOtp from '@/components/otp'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButtonSuccess from '@/components/button/button-success'
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import { timeoutMixin } from '@/mixins/timeout'
 import { getCards, initiateIdentityValidation, complete } from '@/click2pay'
 
@@ -73,7 +73,7 @@ export default {
     FOtp,
     Click2payRememberMe,
     FButtonSuccess,
-    FButton,
+    FButtonDefault,
   },
   mixins: [timeoutMixin],
   data() {

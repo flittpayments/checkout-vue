@@ -6,14 +6,14 @@
 }
 
 .f-datepicker-datepicker-main {
-  background-color: $datepicker_bg;
+  background-color: $white;
 }
 
 .f-datepicker-datepicker-popup {
   position: absolute;
   z-index: $zindex-dropdown;
   border-radius: $border-radius;
-  box-shadow: 0 px-to-rem(8px) px-to-rem(32px) fade($datepicker_shadow, 50%);
+  box-shadow: 0 px-to-rem(8px) px-to-rem(32px) rgba($grey_9, 0.6);
 }
 
 .f-datepicker-datepicker-body {
@@ -79,36 +79,37 @@
     padding: 0;
   }
 
-  .not-current-month {
-    color: $datepicker_cell_not_current_month_color;
-  }
-
-  .today {
-    color: $datepicker_cell_today_color;
-    background-color: $datepicker_cell_today_bg;
-  }
-
   .cell {
+    color: $grey_2;
     height: px-to-rem(40px);
     cursor: pointer;
     border-radius: $border-radius;
     transition: all ease-in-out 0.15s;
 
     &:hover {
-      color: $datepicker_cell_hover_color;
-      background-color: $datepicker_cell_hover_bg;
+      color: $grey_3;
+      background-color: $ash_500;
     }
 
     &:active,
     &.active {
-      color: $datepicker_cell_active_color;
-      background-color: $datepicker_cell_active_bg;
+      color: $white;
+      background-color: $ash_800;
     }
 
     &.disabled {
-      color: $datepicker_cell_disabled_color;
+      color: $ash_400;
       cursor: not-allowed;
     }
+  }
+
+  .not-current-month {
+    color: $ash_500;
+  }
+
+  .today {
+    color: $grey_3;
+    background-color: $ash_300;
   }
 }
 
@@ -116,7 +117,7 @@
   th {
     height: px-to-rem(32px);
     font-size: px-to-rem(10px);
-    color: $datepicker_th_color;
+    color: $ash_700;
     text-transform: uppercase;
   }
 }
@@ -168,7 +169,7 @@
   margin: 0;
   font-size: px-to-rem(18px);
   font-weight: 500;
-  color: $datepicker_btn_text_color;
+  color: $grey;
   text-align: left;
   white-space: nowrap;
   cursor: pointer;

@@ -35,39 +35,46 @@ export default {
 </script>
 
 <style lang="scss" module>
-@mixin alert-variant($background, $color) {
-  color: $color;
-  background-color: $background;
-
-  button {
-    --color: #{$color};
-  }
-}
-
 .style {
+  color: var(--color);
+  background: var(--bg);
   position: relative;
   padding: px-to-rem(24px) px-to-rem(20px);
   margin-bottom: px-to-rem(16px);
   border-radius: $border-radius-lg;
 }
 
-.info {
-  @include alert-variant(fade($alert_info_bg, 90%), $alert_info_color);
-}
-
 .info_light {
-  #{$prefix}container_bg: #{rgba(#5a6470, 0.9)};
-  #{$prefix}outline_bg: #5a6470;
-  #{$prefix}outline_border: #a9b2bd;
+  #{$prefix}container_bg: #{rgba($grey_3, 0.9)};
+  #{$prefix}outline_bg: #{$grey_3};
+  #{$prefix}outline_border: #{$ash_800};
+  --color: #{$white};
+  --bg: #{rgba($grey_3, 0.9)};
+
+  button {
+    --color: #{$white};
+  }
 }
 
 .info_dark {
-  #{$prefix}container_bg: $white;
-  #{$prefix}outline_bg: #eef0f2;
-  #{$prefix}outline_border: #9ca7b3;
+  #{$prefix}container_bg: #{$white};
+  #{$prefix}outline_bg: #{$ash_300};
+  #{$prefix}outline_border: #{$grey_1};
+  --color: #{$grey_2};
+  --bg: #{$white};
+
+  button {
+    --color: #{$grey_2};
+  }
 }
 
-.warning {
-  @include alert-variant($alert_warning_bg, $warning);
+.warning_light {
+  --color: #{$warning};
+  --bg: #{$white};
+}
+
+.warning_dark {
+  --color: #{$warning};
+  --bg: #{$grey_9};
 }
 </style>

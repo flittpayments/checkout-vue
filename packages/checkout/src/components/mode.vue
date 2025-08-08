@@ -30,7 +30,7 @@ export default {
   z-index: 1;
   display: block;
   content: '';
-  border-top: 2px solid $main;
+  border-top: 2px solid var(#{$prefix}main);
 }
 
 .style_adaptive {
@@ -47,7 +47,7 @@ export default {
   font-size: px-to-rem(14px);
   font-weight: 500;
   color: $white;
-  background: $main;
+  background: var(#{$prefix}main);
   border-radius: 0 0 $border-radius-sm $border-radius-sm;
   transform: translateX(-50%);
 }
