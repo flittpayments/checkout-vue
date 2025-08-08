@@ -22,29 +22,47 @@ export default {
         size: 'lg',
         ...this.$attrs,
         class: this.className,
-        variant: 'success',
         block: true,
       }
     },
     className() {
-      if (this.btn_success_gradient_custom)
-        return this.$style['gradient-custom']
-
-      if (this.btn_success_bg_lighten) return this.$style['bg-lighten']
-
-      return ''
+      return this.$uiClass('style', {
+        lighten: this.btn_success_bg_lighten,
+        gradient: this.btn_success_gradient_custom,
+      })
     },
   },
 }
 </script>
 
 <style lang="scss" module>
-.gradient-custom {
-  &::after,
-  &:hover::after,
-  &:focus::after,
-  &:active::after {
-    background: $btn_success_gradient_custom;
+$btn_success_bg: var(#{$prefix}btn_success_bg);
+
+.style.style {
+  --bg: #{$btn_success_bg};
+  --color: #{var(#{$prefix}btn_success_color)};
+  --shadow-color: #{var(#{$prefix}btn_success_shadow)};
+  --hover-bg: #{darken($btn_success_bg, 20%)};
+  --active-bg: #{darken($btn_success_bg, 40%)};
+
+  #{$prefix}outline_border: $btn_success_bg;
+}
+
+.style_dark.style_dark {
+  --shadow-color: #{$black};
+}
+
+.style_lighten.style_lighten {
+  --hover-bg: #{lighten($btn_success_bg, 20%)};
+  --active-bg: #{lighten($btn_success_bg, 40%)};
+}
+
+.style_gradient.style_gradient {
+  --bg: #{var(#{$prefix}btn_success_gradient_custom)};
+  --hover-bg: #{var(#{$prefix}btn_success_gradient_custom)};
+  --active-bg: #{var(#{$prefix}btn_success_gradient_custom)};
+
+  &::after {
     background-repeat: no-repeat;
   }
 
@@ -60,24 +78,5 @@ export default {
       background-position-x: -50px;
     }
   }
-
-  @include disabled;
-}
-
-.bg-lighten {
-  &:hover,
-  &:focus {
-    &::after {
-      background-color: lighten($btn_success_bg, 20%);
-    }
-  }
-
-  &:active {
-    &::after {
-      background-color: lighten($btn_success_bg, 40%);
-    }
-  }
-
-  @include disabled;
 }
 </style>

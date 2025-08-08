@@ -11,7 +11,7 @@
       <label
         v-if="prepend"
         :for="id"
-        :class="$style.prepend"
+        :class="$uiClass('prepend')"
         @click="emitFocus"
       >
         <f-svg :name="prepend" fw />
@@ -70,14 +70,14 @@ export default {
     },
     classLabel() {
       return [
-        this.$style.label,
+        this.$uiClass('label'),
         this.$style[`label_${this.size}`],
         this.labelClass,
         {
           [this.$style.label_active]: this.isActive,
-          [this.$style.label_hover]: this.hover,
-          [this.$style.label_focus]: this.focused,
-          [this.$style.label_disabled]: this.disabled,
+          [this.$uiClass('label_hover')]: this.hover,
+          [this.$uiClass('label_focus')]: this.focused,
+          [this.$uiClass('label_disabled')]: this.disabled,
           [this.$style.label_prepend]: this.prepend,
         },
       ]
@@ -109,7 +109,15 @@ export default {
   left: 0;
   display: flex;
   align-items: center;
-  color: $input_prepend_color;
+  color: var(--color);
+}
+
+.prepend_light {
+  --color: #{$grey};
+}
+
+.prepend_dark {
+  --color: #{$white_04};
 }
 
 .label {
@@ -118,10 +126,18 @@ export default {
   left: px-to-rem(12px);
   font-size: px-to-rem(16px);
   line-height: px-to-rem(24px);
-  color: $label_color;
+  color: var(--color);
   transition: transform ease-in-out 0.15s;
   transform-origin: 0 0;
   @include text-truncate;
+}
+
+.label_light {
+  --color: #{$grey_1};
+}
+
+.label_dark {
+  --color: #{$white_04};
 }
 
 .label_56 {
@@ -136,16 +152,28 @@ export default {
   transform: translateY(-8px) scale(0.75);
 }
 
-.label_hover {
-  color: $label_hover_color;
+.label_hover_light {
+  --color: #{$grey_2};
 }
 
-.label_focus {
-  color: $label_focus_color;
+.label_hover_dark {
+  --color: #b1b2b4;
 }
 
-.label_disabled {
-  color: $label_color;
+.label_focus_light {
+  --color: #{$grey_2};
+}
+
+.label_focus_dark {
+  --color: #{$white_04};
+}
+
+.label_disabled_light {
+  --color: #{$grey_1};
+}
+
+.label_disabled_dark {
+  --color: #{$white_04};
 }
 
 .label_prepend {
