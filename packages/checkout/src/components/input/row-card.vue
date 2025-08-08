@@ -98,6 +98,8 @@ export default {
 </script>
 
 <style lang="scss" module>
+$card_input_color: var(#{$prefix}card_input_color);
+
 .inner {
   position: relative;
 }
@@ -107,7 +109,7 @@ export default {
   margin-bottom: px-to-rem(6px);
   font-size: px-to-rem(10px);
   line-height: px-to-rem(12px);
-  color: $card_label_color;
+  color: var(#{$prefix}card_label_color);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   opacity: 0.7;
@@ -120,12 +122,14 @@ export default {
 }
 
 .input.input {
-  color: #{$card_input_color};
+  --color: #{$card_input_color};
+  --disabled-color: #{fade($card_input_color, 60%)};
+  --placeholder-color: #{fade($card_input_color, 30%)};
 
   padding: 0;
   font-weight: 400;
   text-shadow: px-to-rem(1px) px-to-rem(1px) px-to-rem(2px)
-    fade($card_input_shadow, 15%);
+    fade(var(#{$prefix}card_input_shadow), 15%);
   background-color: rgb(0 0 0 / 0%);
   border: none;
   border-radius: 0;
@@ -159,14 +163,6 @@ export default {
 
   &:focus {
     box-shadow: none;
-  }
-
-  &[disabled] {
-    color: #{fade($card_input_color, 60%)};
-  }
-
-  &::placeholder {
-    color: #{fade($card_input_color, 30%)};
   }
 }
 

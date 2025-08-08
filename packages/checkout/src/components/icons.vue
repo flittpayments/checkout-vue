@@ -16,7 +16,7 @@
       <f-icon
         v-for="({ logo, method }, index) in listLast"
         :key="index"
-        :class="$style.item_tooltip"
+        :class="$uiClass('item_tooltip')"
         size="24"
         :name="logo"
         :type="method"
@@ -110,11 +110,19 @@ export default {
 .item {
   margin-right: px-to-rem(8px);
   border-radius: $border-radius-sm;
-  box-shadow: 0 px-to-rem(1px) px-to-rem(4px) $menu_icons_shadow;
+  box-shadow: 0 px-to-rem(1px) px-to-rem(4px) var(--shadow-color);
 
   &:last-child {
     margin-right: 0;
   }
+}
+
+.item_light {
+  --shadow-color: #cacfd6;
+}
+
+.item_dark {
+  --shadow-color: #{$white_01};
 }
 
 .item_adaptive {
@@ -132,7 +140,15 @@ export default {
   margin-right: px-to-rem(8px);
   border-radius: $border-radius-sm;
   margin: 0 px-to-rem(8px) px-to-rem(8px) 0;
-  box-shadow: 0 px-to-rem(1px) px-to-rem(4px) $tooltip_icons_shadow;
+  box-shadow: 0 px-to-rem(1px) px-to-rem(4px) var(--shadow-color);
+}
+
+.item_tooltip_light {
+  --shadow-color: #{$grey_9};
+}
+
+.item_tooltip_dark {
+  --shadow-color: #cacfd6;
 }
 
 .count {
@@ -141,20 +157,36 @@ export default {
   height: px-to-rem(24px);
   font-size: px-to-rem(10px);
   line-height: px-to-rem(24px);
-  color: $menu_count_color;
+  color: var(--color);
   text-align: center;
-  background: $menu_count_bg;
+  background: var(--bg);
   border-radius: $border-radius-sm;
   transition: all ease-in-out 0.15s;
 
   &:hover {
-    color: darken($menu_count_color, 20%);
+    color: var(--hover-color);
     text-decoration: none;
   }
 }
 
+.count_light {
+  --color: #{$grey_2};
+  --hover-color: #{$grey_3};
+  --active-color: #{$grey_4};
+  --bg: #{$ash_200};
+  --active-bg: #{$white};
+}
+
+.count_dark {
+  --color: #cecfd0;
+  --hover-color: #b4b6b7;
+  --active-color: #d8d8d9;
+  --bg: #{$white_02};
+  --active-bg: #626468;
+}
+
 .count_active {
-  color: $menu_count_active_color;
-  background: $menu_count_active_bg;
+  color: var(--active-color);
+  background: var(--active-bg);
 }
 </style>

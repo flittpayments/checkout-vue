@@ -29,9 +29,8 @@ export default {
 <style lang="scss" module>
 .style {
   --color: #{$error};
-  --bg: #{$tooltip_secondary_bg};
-  --shadow: #{0 px-to-rem(8px) px-to-rem(32px)
-    fade($tooltip_secondary_shadow, 50%)};
+  --bg: #{$white};
+  --shadow: #{0 px-to-rem(8px) px-to-rem(32px) rgba(#b6b9bf, 0.5)};
   --opacity: 1;
   --padding: #{px-to-rem(16px)};
   --max-width: #{px-to-rem(300px)};

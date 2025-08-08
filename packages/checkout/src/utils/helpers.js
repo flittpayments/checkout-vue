@@ -63,12 +63,6 @@ export const includes = list => item => list.includes(item)
 
 export const excludes = list => item => !list.includes(item)
 
-export const createConfig = (names, values) =>
-  values.reduce((result, value, key) => {
-    result[names[key].join('_')] = value
-    return result
-  }, {})
-
 export const windowWidth = () => window.innerWidth
 
 export const windowHeight = () => window.innerHeight

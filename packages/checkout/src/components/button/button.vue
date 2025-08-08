@@ -21,12 +21,6 @@ export default {
     block: makeProp(PROP_TYPE_BOOLEAN, false),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     loading: makeProp(PROP_TYPE_BOOLEAN, false),
-    variant: makeProp(PROP_TYPE_STRING, 'default', value =>
-      arrayIncludes(
-        ['success', 'default', 'secondary', 'outline', 'light', 'dark'],
-        value
-      )
-    ),
     size: makeProp(PROP_TYPE_STRING, undefined, value =>
       arrayIncludes(['lg', 'icon'], value)
     ),
@@ -47,8 +41,7 @@ export default {
     },
     className() {
       return [
-        this.$style.style,
-        this.$uiClass(this.variant),
+        this.$uiClass('style'),
         {
           [this.$style.block]: this.block,
           [this.$style[this.size]]: this.size,
@@ -61,6 +54,28 @@ export default {
 
 <style lang="scss" module>
 .style {
+  --_color: initial;
+  --_shadow-color: initial;
+  --_bg: initial;
+  --_border-color: initial;
+
+  --color: initial;
+  --shadow-color: transparent;
+  --bg: transparent;
+  --border-color: transparent;
+  --border-width: 0;
+
+  --hover-color: initial;
+  --hover-shadow-color: initial;
+  --hover-bg: initial;
+  --hover-border-color: initial;
+
+  --active-color: initial;
+  --active-shadow-color: initial;
+  --active-bg: initial;
+  --active-border-color: initial;
+
+  color: var(--_color, var(--color));
   position: relative;
   display: inline-block;
   min-height: px-to-rem(44px);
@@ -80,18 +95,23 @@ export default {
   }
 
   &::before {
+    box-shadow: 0 px-to-rem(10px) px-to-rem(25px)
+      var(--_shadow-color, var(--shadow-color));
     position: absolute;
     bottom: px-to-rem(2px);
     left: 5%;
     z-index: 0;
     width: 90%;
     height: px-to-rem(32px);
+    opacity: 0.6;
     content: '';
     border-radius: $border-radius-lg;
     transition: all ease-in-out 0.15s;
   }
 
   &::after {
+    background: var(--_bg, var(--bg));
+    border: var(--border-width) solid var(--_border-color, var(--border-color));
     position: absolute;
     top: 0;
     right: 0;
@@ -107,6 +127,11 @@ export default {
 
   &:hover,
   &:focus {
+    --_color: var(--hover-color);
+    --_shadow-color: var(--hover-shadow-color);
+    --_bg: var(--hover-bg);
+    --_border-color: var(--hover-border-color);
+
     text-decoration: none;
     transform: translateY(px-to-rem(-2px));
   }
@@ -119,7 +144,17 @@ export default {
   }
 
   &:active {
+    --_color: var(--active-color, var(--hover-color));
+    --_shadow-color: var(--active-shadow-color, var(--hover-shadow-color));
+    --_bg: var(--active-bg, var(--hover-bg));
+    --_border-color: var(--active-border-color, var(--hover-border-color));
+
     transform: translateY(0);
+  }
+
+  &:disabled {
+    --_shadow-color: transparent;
+    --_border-color: transparent;
   }
 
   &:not(:disabled) {
@@ -127,126 +162,14 @@ export default {
   }
 }
 
-.success {
-  @include button-variant(
-    $btn_success_bg,
-    null,
-    $btn_success_color,
-    $btn_success_shadow,
-    darken($btn_success_bg, 20%),
-    null,
-    $btn_success_color,
-    $btn_success_shadow,
-    darken($btn_success_bg, 40%),
-    null,
-    $btn_success_color,
-    $btn_success_shadow
-  );
-
-  #{$prefix}outline_border: $btn_success_bg;
+.style_light:disabled {
+  --_color: #{$ash_700};
+  --_bg: #{$ash_300};
 }
 
-.success_dark {
-  &::before,
-  &:hover::before,
-  &:focus::before,
-  &:active::before {
-    box-shadow: 0 px-to-rem(10px) px-to-rem(25px) rgb(0 0 0 / 60%);
-  }
-}
-
-.default {
-  font-size: px-to-rem(16px);
-  font-weight: 500;
-
-  @include button-variant(
-    $btn_default_bg,
-    null,
-    $btn_default_color,
-    null,
-    $btn_default_hover_bg,
-    null,
-    $btn_default_hover_color,
-    $btn_default_hover_shadow,
-    $btn_default_active_bg,
-    null,
-    $btn_default_active_color,
-    $btn_default_active_shadow
-  );
-}
-
-.secondary {
-  font-size: px-to-rem(16px);
-  font-weight: 500;
-
-  @include button-variant(
-    $btn_secondary_bg,
-    null,
-    $btn_secondary_color,
-    null,
-    $btn_secondary_hover_bg,
-    null,
-    $btn_secondary_hover_color,
-    $btn_secondary_hover_shadow,
-    $btn_secondary_active_bg,
-    null,
-    $btn_secondary_active_color,
-    $btn_secondary_active_shadow
-  );
-}
-
-.light {
-  @include button-variant(
-    $btn_light_bg,
-    null,
-    $btn_light_color,
-    null,
-    darken($btn_light_bg, 20%),
-    null,
-    null,
-    null,
-    darken($btn_light_bg, 40%),
-    null,
-    null,
-    null
-  );
-}
-
-.dark {
-  @include button-variant(
-    $btn_dark_bg,
-    null,
-    $btn_dark_color,
-    null,
-    lighten($btn_dark_bg, 20%),
-    null,
-    null,
-    null,
-    lighten($btn_dark_bg, 40%),
-    null,
-    null,
-    null
-  );
-}
-
-.outline {
-  font-size: px-to-rem(14px);
-  font-weight: 500;
-
-  @include button-variant(
-    $btn_outline_bg,
-    $btn_outline_border,
-    $btn_outline_color,
-    null,
-    $btn_outline_hover_bg,
-    $btn_outline_hover_border,
-    $btn_outline_hover_color,
-    null,
-    $btn_outline_active_bg,
-    $btn_outline_active_border,
-    $btn_outline_active_color,
-    null
-  );
+.style_dark:disabled {
+  --_color: #{$grey_9};
+  --_bg: #{$white_02};
 }
 
 .block {
