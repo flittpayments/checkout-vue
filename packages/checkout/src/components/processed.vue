@@ -50,6 +50,7 @@ export default {
 }
 
 .hr {
+  background: var(--bg);
   position: absolute;
   height: 1px;
   top: 50%;
@@ -58,24 +59,25 @@ export default {
 }
 
 .hr_light {
-  background: #eeeeee;
+  --bg: #eeeeee;
 }
 
 .hr_dark {
-  background: #45474b;
+  --bg: #45474b;
 }
 
 .text {
+  color: var(--color);
   font-size: px-to-rem(14px);
   line-height: px-to-rem(20px);
 }
 
 .text_light {
-  color: #747578;
+  --color: #747578;
 }
 
 .text_dark {
-  color: #a2a3a5;
+  --color: #a2a3a5;
 }
 
 .text_line {

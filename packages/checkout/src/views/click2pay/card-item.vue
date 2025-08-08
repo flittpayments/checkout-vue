@@ -81,12 +81,16 @@ export default {
   line-height: px-to-rem(20px);
 }
 
+.default {
+  color: var(--color);
+}
+
 .default_light {
-  color: #3d3d3d;
+  --color: #3d3d3d;
 }
 
 .default_dark {
-  color: #fff;
+  --color: #fff;
 }
 
 .secondary {

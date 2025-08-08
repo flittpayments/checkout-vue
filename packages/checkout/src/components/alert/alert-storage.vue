@@ -12,9 +12,8 @@
         >
           {{ $t('not_now') }}
         </f-button-link>
-        <f-button
+        <f-button-secondary
           :class="$uiClass('button')"
-          variant="secondary"
           :text="$t('accept')"
           @click="ok"
         />
@@ -26,7 +25,7 @@
 <script>
 import FAlertBase from '@/components/alert/alert-base'
 import FButtonLink from '@/components/button/button-link'
-import FButton from '@/components/button/button'
+import FButtonSecondary from '@/components/button/button-secondary'
 
 import { localStorage, sessionStorage } from '@/utils/store'
 import { attrsMixin } from '@/mixins/attrs'
@@ -38,7 +37,7 @@ export default {
   components: {
     FAlertBase,
     FButtonLink,
-    FButton,
+    FButtonSecondary,
   },
   mixins: [attrsMixin, listenersMixin],
   props: {
@@ -74,10 +73,6 @@ export default {
 
 <style lang="scss" module>
 .wrapper {
-  #{$prefix}container_bg: fade($alert_info_bg, 90%);
-  #{$prefix}outline_bg: $outline_secondary_bg;
-  #{$prefix}outline_border: $outline_secondary_border;
-
   position: fixed;
   right: 0;
   bottom: 0;

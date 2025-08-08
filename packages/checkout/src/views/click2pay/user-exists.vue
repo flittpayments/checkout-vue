@@ -9,7 +9,7 @@
       <div :class="$uiClass('or_hr')" />
       <div :class="$uiClass('or_text')" v-text="$t('or')" />
     </div>
-    <f-button
+    <f-button-default
       :class="$style.mb_32"
       block
       size="lg"
@@ -21,13 +21,13 @@
 
 <script>
 import Click2payCards from '@/views/click2pay/cards'
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import { getCards, setSrcDigitalCardId } from '@/click2pay'
 
 export default {
   components: {
     Click2payCards,
-    FButton,
+    FButtonDefault,
   },
   data() {
     return {

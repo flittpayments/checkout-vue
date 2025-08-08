@@ -1,15 +1,15 @@
 <template>
-  <f-button :class="classButton" :variant="variant" block @click="click">
+  <f-button-inverted :class="classButton" block @click="click">
     <transition v-if="isGooglePay" name="f-fade">
       <iframe v-show="load" :class="$style.iframe" :src="src" @load="onLoad" />
     </transition>
     <div v-if="isGooglePay" :class="$style.click" />
-  </f-button>
+  </f-button-inverted>
 </template>
 
 <script>
 import Vue from 'vue'
-import FButton from '@/components/button/button'
+import FButtonInverted from '@/components/button/button-inverted'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
 import { makeProp } from '@/utils/props'
@@ -55,7 +55,7 @@ const supportLongSvg = [
 
 export default Vue.extend({
   components: {
-    FButton,
+    FButtonInverted,
   },
   inject: ['validate'],
   props: {
@@ -71,18 +71,10 @@ export default Vue.extend({
     classButton() {
       return [
         this.$style.btn,
-        this.$style[`${this.method}`],
-        this.$style[`${this.method}-${this.variant}`],
-        {
-          [this.$style[`${this.method}-load`]]: this.load,
-        },
+        this.$uiClass(this.method, {
+          load: this.load,
+        }),
       ]
-    },
-    variant() {
-      return {
-        light: 'dark',
-        dark: 'light',
-      }[this.theme.type]
     },
     color() {
       return {
@@ -192,23 +184,23 @@ export default Vue.extend({
   padding: 0;
 }
 
-.google-light::after {
-  background-image: url('https://www.gstatic.com/instantbuy/svg/light_gpay.svg');
-}
-
-.google-dark::after {
+.google_light::after {
   background-image: url('https://www.gstatic.com/instantbuy/svg/dark_gpay.svg');
 }
 
-.google-load::after {
+.google_dark::after {
+  background-image: url('https://www.gstatic.com/instantbuy/svg/light_gpay.svg');
+}
+
+.google_load::after {
   background-image: none;
 }
 
-.apple-light::after {
-  background-image: url('#{$PUBLIC_PATH}img/apple-pay-light.svg');
+.apple_light::after {
+  background-image: url('#{$PUBLIC_PATH}img/apple-pay-dark.svg');
 }
 
-.apple-dark::after {
-  background-image: url('#{$PUBLIC_PATH}img/apple-pay-dark.svg');
+.apple_dark::after {
+  background-image: url('#{$PUBLIC_PATH}img/apple-pay-light.svg');
 }
 </style>

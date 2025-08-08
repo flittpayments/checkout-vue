@@ -18,12 +18,9 @@ export default {
   computed: {
     ...mapState('options', ['loading']),
     className() {
-      return [
-        this.$style.wrapper,
-        {
-          [this.$style.wrapper_backdrop]: this.backdrop,
-        },
-      ]
+      return this.$uiClass('wrapper', {
+        backdrop: this.backdrop,
+      })
     },
     style() {
       return {

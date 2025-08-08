@@ -16,10 +16,10 @@
       @select="select"
     />
     <div v-if="isBreakpointDownLg" :class="$style.btn">
-      <f-button variant="default" block @click="goMenu">
+      <f-button-default block @click="goMenu">
         <span v-text="$t('see_all_other_methods')" />
         <span><f-svg class="f-ml-8" name="arrow-right" size="lg" /></span>
-      </f-button>
+      </f-button-default>
     </div>
   </component>
 </template>
@@ -32,7 +32,7 @@ import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import FBank from '@/views/checkout/method/bank'
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import FSvg from '@/components/svg'
 import { resizeMixin } from '@/mixins/resize'
 
@@ -44,7 +44,7 @@ export default {
     FPrice,
     FButtonWalletEl,
     FBank,
-    FButton,
+    FButtonDefault,
     FSvg,
   },
   mixins: [resizeMixin],
