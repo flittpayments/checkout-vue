@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div :class="$style.style">
+    <div :class="$uiClass('style')">
       <f-icon :name="info.logo" :type="method" :class="$style.icon" size="48" />
       <div :class="$style.mr_12">{{ info.name }}</div>
 
       <div>{{ info.iban }}</div>
       <f-button-close
         v-if="showClose"
-        :class="$style.close"
+        :class="$uiClass('close')"
         @click="goMethod"
       />
     </div>
@@ -62,8 +62,16 @@ export default {
   align-items: center;
   padding: px-to-rem(12px);
   margin-bottom: px-to-rem(12px);
-  background-color: $bank_select_bg;
+  background: var(--bg);
   border-radius: $border-radius;
+}
+
+.style_light {
+  --bg: #{$ash_300};
+}
+
+.style_dark {
+  --bg: #414549;
 }
 
 .icon {
@@ -83,10 +91,20 @@ export default {
   padding: px-to-rem(20px);
   font-size: px-to-rem(28px);
   font-weight: 300;
-  color: $bank_select_close_color;
+  color: var(--color);
 
   &:hover {
-    color: $bank_select_close_hover_color;
+    color: var(--hover-color);
   }
+}
+
+.close_light {
+  --color: #{$grey};
+  --hover-color: #{$grey};
+}
+
+.close_dark {
+  --color: #8d8f92;
+  --hover-color: #{$white};
 }
 </style>

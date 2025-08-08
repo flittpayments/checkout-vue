@@ -9,25 +9,31 @@ export default {
   computed: {
     ...mapState('css_variable', [
       'card_bg_lighten',
-      'card_img',
       'card_gradient_custom',
+      'card_img',
     ]),
     className() {
-      return [
-        this.$style.style,
-        {
-          [this.$style.img]: this.card_img && !this.card_gradient_custom,
-          [this.$style.gradient]: this.card_gradient_custom && !this.card_img,
-          [this.$style.lighten]: this.card_bg_lighten,
-        },
-      ]
+      return this.$uiClass('style', {
+        lighten: this.card_bg_lighten,
+        gradient: this.card_gradient_custom,
+        img: this.card_img,
+      })
     },
   },
 }
 </script>
 
 <style lang="scss" module>
+$card_bg: var(#{$prefix}card_bg);
+
 .style {
+  --bg: #{linear-gradient(
+      180deg,
+      custom($card_bg, +6%, +8%) 0%,
+      $card_bg 35%,
+      custom($card_bg, -0%, -8%) 100%
+    )};
+
   position: absolute;
   top: 0;
   right: 0;
@@ -36,31 +42,26 @@ export default {
   width: 100%;
   height: 100%;
   content: '';
-  background: linear-gradient(
-    180deg,
-    custom($card_bg, +6%, +8%) 0%,
-    $card_bg 35%,
-    custom($card_bg, -0%, -8%) 100%
-  );
+  background: var(--bg);
   background-clip: padding-box;
   border-radius: $border-radius-lg;
-  box-shadow: $card_shadow_custom;
+  box-shadow: var(#{$prefix}card_shadow_custom);
 }
 
-.lighten {
-  background: linear-gradient(
-    180deg,
-    custom($card_bg, +6%, +16%) 0%,
-    custom($card_bg, +0%, +8%) 35%,
-    $card_bg 100%
-  );
+.style_lighten {
+  --bg: #{linear-gradient(
+      180deg,
+      custom($card_bg, +6%, +16%) 0%,
+      custom($card_bg, +0%, +8%) 35%,
+      $card_bg 100%
+    )};
 }
 
-.img {
-  background: $card_img no-repeat 0 0 / 100% 100%;
+.style_gradient {
+  --bg: #{var(#{$prefix}card_gradient_custom)};
 }
 
-.gradient {
-  background: $card_gradient_custom;
+.style_img {
+  --bg: #{var(#{$prefix}card_img)} no-repeat 0 0 / 100% 100%;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" :class="$uiClass('wrapper')">
     <f-mode-wrapper />
-    <div v-if="showLeft" :class="classLogo">
+    <div v-if="showLeft" :class="classLeft">
       <transition name="f-fade-enter">
         <f-button-link
           v-if="showBack"
@@ -15,9 +15,9 @@
         <f-logo v-else-if="showLogo" key="logo" />
       </transition>
     </div>
-    <div v-if="showLang" :class="$uiClass('menu')">
+    <div v-if="showRight" :class="$uiClass('right')">
       <f-select
-        :input-class="$style.lang"
+        :input-class="$uiClass('lang')"
         :value="lang"
         :options="locale"
         dropdown-placement="bottomleft"
@@ -63,7 +63,7 @@ export default {
       'show_lang',
     ]),
     show() {
-      return this.showMode || this.showLeft || this.showLang
+      return this.showMode || this.showLeft || this.showRight
     },
     showMode() {
       return this.disable_request || (this.show_test_mode && this.mode_test)
@@ -71,7 +71,7 @@ export default {
     showLeft() {
       return this.showBack || this.showLogo
     },
-    showLang() {
+    showRight() {
       return this.full_screen && this.show_lang && this.locales.length > 1
     },
     locale() {
@@ -90,13 +90,10 @@ export default {
     showLogo() {
       return this.full_screen
     },
-    classLogo() {
-      return [
-        this.$uiClass('logo'),
-        {
-          [this.$style.logo_without_sidebar]: this.withoutSidebar,
-        },
-      ]
+    classLeft() {
+      return this.$uiClass('left', {
+        without_sidebar: this.withoutSidebar,
+      })
     },
   },
   methods: {
@@ -124,7 +121,7 @@ export default {
   }
 }
 
-.logo {
+.left {
   height: $header-height;
   display: flex;
   flex: 0 0 50%;
@@ -134,7 +131,15 @@ export default {
   padding: px-to-rem(24px) 0 0 px-to-rem(20px);
 }
 
-.logo_adaptive {
+.left_light {
+  --border-color: #{$ash_400};
+}
+
+.left_dark {
+  --border-color: #222528;
+}
+
+.left_adaptive {
   @include media-breakpoint-up(md) {
     padding-left: px-to-rem(40px);
   }
@@ -142,11 +147,7 @@ export default {
   @include media-breakpoint-up(lg) {
     flex: 0 0 410px;
     max-width: 410px;
-    border-right: px-to-rem(2px) solid $sidebar_border;
-  }
-
-  @include media-breakpoint-up(xl) {
-    border-right: px-to-rem(2px) solid $sidebar_border;
+    border-right: px-to-rem(2px) solid var(--border-color);
   }
 
   @include media-breakpoint-up(xxl) {
@@ -156,7 +157,7 @@ export default {
   }
 }
 
-.logo_without_sidebar {
+.left_without_sidebar {
   border-right: none;
 }
 
@@ -169,7 +170,7 @@ export default {
   margin-right: px-to-rem(8px);
 }
 
-.menu {
+.right {
   height: $header-height;
   display: flex;
   flex: 0 0 50%;
@@ -179,7 +180,7 @@ export default {
   padding: px-to-rem(24px) px-to-rem(20px) 0 0;
 }
 
-.menu_adaptive {
+.right_adaptive {
   @include media-breakpoint-up(md) {
     padding: px-to-rem(24px) px-to-rem(24px) 0 0;
   }
@@ -206,11 +207,19 @@ export default {
   width: auto;
   height: px-to-rem(20px);
   line-height: px-to-rem(20px);
-  color: $btn_link_default_color;
+  color: var(--color);
   background: none;
 
   &:hover {
     background: none;
   }
+}
+
+.lang_light.lang_light {
+  --color: #{$grey_2};
+}
+
+.lang_dark.lang_light {
+  --color: #{$white_04};
 }
 </style>

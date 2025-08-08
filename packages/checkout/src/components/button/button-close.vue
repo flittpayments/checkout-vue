@@ -51,7 +51,7 @@ export default {
   font-size: px-to-rem(24px);
   font-weight: 600;
   line-height: 1;
-  color: $close_color;
+  color: $white;
   cursor: pointer;
   background-color: transparent;
   border: 0;

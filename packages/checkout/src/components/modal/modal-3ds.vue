@@ -2,11 +2,7 @@
   <f-modal v-bind="attrs" v-on="$listeners" @shown="onShown" @hide="onHide">
     <span v-text="$t('submit3ds_text')" />
     <template #footer>
-      <f-button
-        variant="secondary"
-        :text="$t('submit3ds_submit')"
-        @click="click"
-      />
+      <f-button-secondary :text="$t('submit3ds_submit')" @click="click" />
       <div v-text="$t('submit3ds_wait', [second])" />
     </template>
   </f-modal>
@@ -14,7 +10,7 @@
 
 <script>
 import FModal from '@/components/modal/modal'
-import FButton from '@/components/button/button'
+import FButtonSecondary from '@/components/button/button-secondary'
 import { timeoutMixin } from '@/mixins/timeout'
 import { PROP_TYPE_NUMBER } from '@/constants/props'
 import { makeProp } from '@/utils/props'
@@ -22,7 +18,7 @@ import { makeProp } from '@/utils/props'
 export default {
   components: {
     FModal,
-    FButton,
+    FButtonSecondary,
   },
   mixins: [timeoutMixin],
   props: {

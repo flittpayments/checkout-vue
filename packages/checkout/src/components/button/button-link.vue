@@ -23,7 +23,7 @@ export default {
     className() {
       return [
         this.$style.style,
-        this.$style[this.variant],
+        this.$uiClass(this.variant),
         this.$style[`s_${this.size}`],
         {
           [this.$style.block]: this.block,
@@ -35,20 +35,8 @@ export default {
 </script>
 
 <style lang="scss" module>
-@mixin button-link-variant($color, $color-hover, $color-active) {
-  color: $color;
-
-  &:hover,
-  &:focus {
-    color: $color-hover;
-  }
-
-  &:active {
-    color: $color-active;
-  }
-}
-
 .style {
+  color: var(--color);
   position: relative;
   display: inline-block;
   height: px-to-rem(44px);
@@ -66,6 +54,7 @@ export default {
 
   &:hover,
   &:focus {
+    color: var(--hover-color);
     text-decoration: none;
     transform: translateY(px-to-rem(-2px));
   }
@@ -76,6 +65,7 @@ export default {
   }
 
   &:active {
+    color: var(--active-color);
     transform: translateY(0);
   }
 
@@ -84,20 +74,28 @@ export default {
   }
 }
 
-.default {
-  @include button-link-variant(
-    $btn_link_default_color,
-    $btn_link_default_hover_color,
-    $btn_link_default_active_color
-  );
+.default_light {
+  --color: #{$grey_2};
+  --hover-color: #{$grey_4};
+  --active-color: #{$ash_600};
 }
 
-.secondary {
-  @include button-link-variant(
-    $btn_link_secondary_color,
-    $btn_link_secondary_hover_color,
-    $btn_link_secondary_active_color
-  );
+.default_dark {
+  --color: #{$white_04};
+  --hover-color: #{$white};
+  --active-color: #{$ash_800};
+}
+
+.secondary_light {
+  --color: #{$ash_500};
+  --hover-color: #{$white};
+  --active-color: #{$ash_800};
+}
+
+.secondary_dark {
+  --color: #{$grey_2};
+  --hover-color: #{$grey_4};
+  --active-color: #{$ash_600};
 }
 
 .s_56 {

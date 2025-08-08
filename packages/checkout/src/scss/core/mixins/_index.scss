@@ -3,7 +3,6 @@
 @import 'grid';
 @import 'grid-framework';
 @import 'text-truncate';
-@import 'button';
 @import 'utilities';
 
 @mixin sticky-top($top: 0, $zindex: $zindex-sticky) {
