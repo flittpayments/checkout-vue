@@ -59,7 +59,15 @@ export default {
   display: flex;
   padding: 0;
   border-radius: 0 0 $border-radius-lg $border-radius-lg;
-  box-shadow: 0 px-to-rem(14px) px-to-rem(25px) fade($container_box_shadow, 40%);
+  box-shadow: 0 px-to-rem(14px) px-to-rem(25px) var(--shadow-color);
+}
+
+.style_light {
+  --shadow-color: #{rgba($ash_600, 0.4)};
+}
+
+.style_dark {
+  --shadow-color: #{rgba(#262a2d, 0.4)};
 }
 
 .style_adaptive {
@@ -93,9 +101,17 @@ export default {
   align-items: center;
   justify-content: center;
   min-width: px-to-rem(52px);
-  color: $alert_warning_bg;
+  color: var(--color);
   background-color: $warning;
   border-radius: 0 0 0 $border-radius-lg;
+}
+
+.icon_light {
+  --color: #{$white};
+}
+
+.icon_dark {
+  --color: #{$grey_9};
 }
 
 .icon_adaptive {

@@ -82,7 +82,7 @@ export default {
     className() {
       return [
         this.style.input,
-        this.style[this.variant],
+        this.$uiClass(this.variant, {}, 'style'),
         this.style[`size_${this.size}`],
         this.inputClass,
         {

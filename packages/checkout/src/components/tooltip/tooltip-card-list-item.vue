@@ -28,8 +28,8 @@ export default {
 
 <style lang="scss" module>
 .style {
-  --color: #{$tooltip_secondary2_color};
-  --bg: #{$tooltip_secondary2_bg};
+  --color: #{$white};
+  --bg: #{$grey_3};
   --shadow: initial;
   --opacity: 0.95;
   --padding: #{px-to-rem(16px)};

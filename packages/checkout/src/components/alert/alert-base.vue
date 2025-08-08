@@ -18,7 +18,7 @@ export default {
         'div',
         {
           key: this._uid,
-          class: [this.$style.style, this.$style[this.variant]],
+          class: [this.$style.style, this.$uiClass(this.variant)],
           attrs: {
             role: 'alert',
             'aria-live': 'polite',
@@ -35,27 +35,42 @@ export default {
 </script>
 
 <style lang="scss" module>
-@mixin alert-variant($background, $color) {
-  color: $color;
-  background-color: $background;
-
-  :global(#f) & a {
-    color: $color;
-  }
-}
-
 .style {
+  color: var(--color);
+  background: var(--bg);
   position: relative;
   padding: px-to-rem(24px) px-to-rem(20px);
   margin-bottom: px-to-rem(16px);
   border-radius: $border-radius-lg;
 }
 
-.info {
-  @include alert-variant(fade($alert_info_bg, 90%), $alert_info_color);
+:global(#f) .style a {
+  color: var(--color);
 }
 
-.warning {
-  @include alert-variant($alert_warning_bg, $warning);
+.info_light {
+  #{$prefix}container_bg: #{rgba($grey_3, 0.9)};
+  #{$prefix}outline_bg: #{$grey_3};
+  #{$prefix}outline_border: #{$ash_800};
+  --color: #{$white};
+  --bg: #{rgba($grey_3, 0.9)};
+}
+
+.info_dark {
+  #{$prefix}container_bg: #{$white};
+  #{$prefix}outline_bg: #{$ash_300};
+  #{$prefix}outline_border: #{$grey_1};
+  --color: #{$grey_2};
+  --bg: #{$white};
+}
+
+.warning_light {
+  --color: #{$warning};
+  --bg: #{$white};
+}
+
+.warning_dark {
+  --color: #{$warning};
+  --bg: #{$grey_9};
 }
 </style>

@@ -1,8 +1,11 @@
 <template>
   <div v-if="verification_type">
-    <div :class="[$style.title, $style.mb_12]" v-text="$t('verification_t')" />
     <div
-      :class="[$style.desc, $style.mb_12]"
+      :class="[$uiClass('title'), $style.mb_12]"
+      v-text="$t('verification_t')"
+    />
+    <div
+      :class="[$uiClass('desc'), $style.mb_12]"
       v-text="$t(`verification_${verification_type}_d`)"
     />
   </div>
@@ -10,12 +13,12 @@
     <div v-if="showTitle || showLink" :class="$style.mb_12">
       <div
         v-if="showTitle"
-        :class="$style.title"
+        :class="$uiClass('title')"
         data-e2e-merchant-name
         v-text="$t(title)"
       />
       <div v-if="showLink" data-e2e-merchant-url>
-        <a :class="$style.a" :href="link" target="_blank">{{ link }}</a>
+        <a :class="$uiClass('a')" :href="link" target="_blank">{{ link }}</a>
       </div>
     </div>
     <f-preloader
@@ -26,13 +29,13 @@
     >
       <div
         ref="desc"
-        :class="[$style.desc, $style.line_clamp_2]"
+        :class="[$uiClass('desc'), $style.line_clamp_2]"
         data-e2e-order-desc
         v-text="$t(order_desc)"
       />
       <f-button-unstyled
         v-if="more"
-        :class="$style.more"
+        :class="$uiClass('more')"
         @click="$refs.modal.show()"
       >
         <span v-text="$t('see_more')" /> <f-svg name="angle-right" />
@@ -107,8 +110,16 @@ export default {
 <style lang="scss" module>
 .title {
   font-weight: 500;
-  color: $merchant_name_color;
+  color: var(--color);
   word-wrap: break-word;
+}
+
+.title_light {
+  --color: #{$ash_700};
+}
+
+.title_dark {
+  --color: #{$white_04};
 }
 
 .mb_12 {
@@ -117,15 +128,33 @@ export default {
 
 :global(#f) .a {
   font-weight: 500;
-  color: $merchant_url_color;
+  color: var(--color);
 
   &:hover {
-    color: darken($merchant_url_color, 20%);
+    color: var(--hover-color);
   }
 }
 
+.a_light {
+  --color: #{$ash_700};
+  --hover-color: #{$grey_1};
+}
+
+.a_dark {
+  --color: #{$white_04};
+  --hover-color: #{$white_03};
+}
+
 .desc {
-  color: $order_desc_color;
+  color: var(--color);
+}
+
+.desc_light {
+  --color: #{$grey_2};
+}
+
+.desc_dark {
+  --color: #{$white};
 }
 
 .line_clamp_2 {
@@ -141,10 +170,20 @@ export default {
 
 .more {
   font-weight: 600;
-  color: $order_desc_more_color;
+  color: var(--color);
 
   &:hover {
-    color: darken($order_desc_more_color, 20%);
+    color: var(--hover-color);
   }
+}
+
+.more_light {
+  --color: #{$grey_3};
+  --hover-color: #{$grey_4};
+}
+
+.more_dark {
+  --color: #cbcccd;
+  --hover-color: #b1b3b4;
 }
 </style>

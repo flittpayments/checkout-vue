@@ -26,13 +26,21 @@ export default {
 </script>
 
 <style lang="scss" module>
+.style_light {
+  --border-color: #{$ash_400};
+}
+
+.style_dark {
+  --border-color: #222528;
+}
+
 .style_adaptive {
   @include media-breakpoint-up(lg) {
     flex: 0 0 410px;
     max-width: 410px;
     height: 100%;
     background-color: $container_bg;
-    border-right: px-to-rem(2px) solid $sidebar_border;
+    border-right: px-to-rem(2px) solid var(--border-color);
   }
 
   @include media-breakpoint-up(xl) {

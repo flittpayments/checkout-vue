@@ -17,8 +17,8 @@
           <f-amount
             :value="total_amount"
             :currency="currency"
-            :amount-class="$style.amount"
-            :currency-class="$style.currency"
+            :amount-class="$uiClass('amount')"
+            :currency-class="$uiClass('currency')"
             sup
           />
         </template>
@@ -30,7 +30,7 @@
               :value="totalAmount"
               :offset="5"
               :name-class="className"
-              :text-class="$style.fee"
+              :text-class="$uiClass('fee')"
             >
               + <f-amount :value="fee_amount" />
             </f-placeholder>
@@ -222,7 +222,7 @@ export default {
   display: inline-block;
   font-size: px-to-rem(28px);
   line-height: 1.2;
-  color: $amount_color;
+  color: var(--color);
 
   @include media-breakpoint-up(ss) {
     font-size: px-to-rem(32px);
@@ -233,15 +233,31 @@ export default {
   }
 }
 
+.amount_light {
+  --color: #{$grey};
+}
+
+.amount_dark {
+  --color: #{$white};
+}
+
 .currency {
   display: inline-block;
   margin-left: px-to-rem(8px);
   font-size: px-to-rem(20px);
-  color: $currency_color;
+  color: var(--color);
 
   @include media-breakpoint-up(ss) {
     font-size: px-to-rem(22px);
   }
+}
+
+.currency_light {
+  --color: #{$grey_1};
+}
+
+.currency_dark {
+  --color: #{$white_04};
 }
 
 .fee {
@@ -249,7 +265,15 @@ export default {
   top: px-to-rem(26px);
   z-index: 1;
   font-weight: 500;
-  color: $fee_color;
+  color: var(--color);
+}
+
+.fee_light {
+  --color: #{$ash_700};
+}
+
+.fee_dark {
+  --color: #{$white_04};
 }
 
 .pr_16 {

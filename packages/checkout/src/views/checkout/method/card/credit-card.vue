@@ -284,7 +284,8 @@ export default {
   height: px-to-rem(32px);
   content: '';
   border-radius: $border-radius-lg;
-  box-shadow: 0 px-to-rem(10px) px-to-rem(25px) fade($card_shadow, 60%);
+  box-shadow: 0 px-to-rem(10px) px-to-rem(25px)
+    fade(var(#{$prefix}card_shadow), 60%);
 }
 
 .shadow_dark {

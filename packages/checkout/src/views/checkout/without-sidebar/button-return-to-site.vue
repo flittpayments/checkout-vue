@@ -1,7 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <f-button
-      variant="default"
+    <f-button-default
       :text="$t('return_to_site')"
       size="lg"
       block
@@ -19,13 +18,13 @@
 
 <script>
 import { mapState } from '@/utils/store'
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import { errorHandler } from '@/utils/helpers'
 import { timeoutMixin } from '@/mixins/timeout'
 
 export default {
   components: {
-    FButton,
+    FButtonDefault,
   },
   mixins: [timeoutMixin],
   data() {

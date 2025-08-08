@@ -71,7 +71,7 @@ ul {
 
 a {
   font-weight: 600;
-  color: $link_color;
+  color: var(#{$prefix}link_color);
   text-decoration: none;
   background-color: transparent; // Remove the gray background on active links in IE 10.
   transition:
