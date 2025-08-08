@@ -108,18 +108,24 @@ export default {
   align-items: center;
   padding: px-to-rem(3px);
   font-size: px-to-rem(12px);
-  color: $security_color;
+  color: var(--color);
   cursor: pointer;
   transition: color ease-in-out 0.15s;
 
   &:hover {
-    color: $security_hover_color;
+    color: var(--hover-color);
     text-decoration: none;
-
-    .svg {
-      color: $security_icon_hover_color;
-    }
   }
+}
+
+.title_light {
+  --color: #{$ash_800};
+  --hover-color: #{$grey_3};
+}
+
+.title_dark {
+  --color: #797c7e;
+  --hover-color: #{$white_08};
 }
 
 .title_adaptive {
@@ -140,10 +146,24 @@ export default {
 }
 
 .svg {
-  color: $security_icon_color;
+  color: var(--color);
   vertical-align: middle;
   transition: color ease-in-out 0.15s;
   margin-right: px-to-rem(10px);
+
+  .title:hover & {
+    color: var(--hover-color);
+  }
+}
+
+.svg_light {
+  --color: #{$ash_700};
+  --hover-color: #{$grey_2};
+}
+
+.svg_dark {
+  --color: #797c7e;
+  --hover-color: #{$white_08};
 }
 
 .svg_adaptive {
@@ -157,12 +177,12 @@ export default {
   display: flex;
   align-items: center;
   margin-bottom: px-to-rem(32px);
-  color: $modal_security_title_color;
+  color: $grey_3;
 }
 
 .modal_svg {
   margin-right: px-to-rem(10px);
-  color: $modal_security_title_svg_color;
+  color: $grey_1;
 }
 
 .modal_content {

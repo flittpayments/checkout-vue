@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-.style {
+.style.style {
   font-weight: 400;
 }
 </style>

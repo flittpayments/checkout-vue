@@ -10,13 +10,6 @@
     </div>
     <div :class="$style.track">
       <div
-        v-if="isMobile"
-        ref="thumb"
-        :class="$style.thumb"
-        :style="styleThumb"
-      />
-      <div
-        v-else
         ref="thumb"
         :class="$style.thumb"
         :style="styleThumb"
@@ -44,7 +37,6 @@ export default {
       scrollbarWidth: 0,
       thumbTop: '',
       thumbHeight: '',
-      isMobile: isMobile,
     }
   },
   computed: {
@@ -84,6 +76,7 @@ export default {
       this.thumbTop = `${(scrollTop * 100) / scrollHeight}%`
     },
     dragstart(evt) {
+      if (isMobile) return
       evt.stopImmediatePropagation()
       this._draggable = true
       const { offsetTop } = this.$refs.thumb
@@ -107,7 +100,7 @@ export default {
       document.removeEventListener('mousemove', this.draging)
     },
     hideAutocomplete() {
-      if (this.isMobile) return
+      if (isMobile) return
 
       let activeElement = document.activeElement
 
@@ -167,7 +160,7 @@ export default {
   height: 0;
   cursor: pointer;
   user-select: none;
-  background-color: fade($scrollbar_thumb_bg, 30%);
+  background: var(#{$prefix}scrollbar_thumb_bg);
   border-radius: inherit;
 }
 </style>

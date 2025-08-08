@@ -1,6 +1,6 @@
 <template>
   <div>
-    <f-button
+    <f-button-default
       v-for="method in methods"
       :key="method.id"
       :class="[$style.btn, $uiClass(method.alias)]"
@@ -11,18 +11,18 @@
       <span v-if="method.alias === 'paybypayme'" :class="$style.span">
         <svg-payme />
       </span>
-    </f-button>
+    </f-button-default>
   </div>
 </template>
 
 <script>
-import FButton from '@/components/button/button'
+import FButtonDefault from '@/components/button/button-default'
 import SvgPayme from '@/svg/payme.svg'
 import { mapState } from '@/utils/store'
 
 export default {
   components: {
-    FButton,
+    FButtonDefault,
     SvgPayme,
   },
   computed: {
@@ -50,10 +50,10 @@ export default {
   }
 }
 
-.paybypayme {
-  #{$prefix}btn_default_bg: #33cbcb;
-  #{$prefix}btn_default_hover_bg: #33cbcb;
-  #{$prefix}btn_default_active_bg: #33cbcb;
+.paybypayme.paybypayme {
+  --bg: #33cbcb;
+  --hover-bg: #33cbcb;
+  --active-bg: #33cbcb;
 }
 
 .span {

@@ -17,7 +17,7 @@ export default {
       return [
         'f-row',
         'f-no-gutters',
-        this.$style.style,
+        this.$uiClass('style'),
         {
           [this.$style.mb_0]: this.noMargin,
         },
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-:global(#f) .style {
+.style {
   margin-bottom: px-to-rem(16px);
 
   > :first-child {
@@ -65,7 +65,6 @@ export default {
       width: px-to-rem(1px);
       height: px-to-rem(40px);
       content: '';
-      background-color: $input_border;
     }
 
     &:last-child {
@@ -86,6 +85,14 @@ export default {
   label {
     z-index: 2;
   }
+}
+
+.style_light > *::after {
+  background: $ash_500;
+}
+
+.style_dark > *::after {
+  background: $white_02;
 }
 
 .mb_0 {

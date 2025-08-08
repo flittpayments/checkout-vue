@@ -101,11 +101,11 @@ export default {
   padding: 0 px-to-rem(15px) 0 px-to-rem(7px);
   margin-bottom: px-to-rem(12px);
   font-weight: 400;
-  color: $menu_item_color;
+  color: var(--color);
   text-align: left;
   cursor: pointer;
   background-color: $container_bg;
-  border: 1px solid $menu_item_border;
+  border: 1px solid var(--border-color);
   border-radius: $border-radius;
   transition:
     background-color ease-in-out 0.15s,
@@ -114,7 +114,7 @@ export default {
 
   &:hover {
     padding: 0 px-to-rem(16px) 0 px-to-rem(8px);
-    background: $menu_item_hover_bg;
+    background: var(--hover-bg);
     border: none;
   }
 
@@ -135,35 +135,65 @@ export default {
   }
 }
 
+.style_light {
+  --color: #{$grey};
+  --lg-color: #{$grey_2};
+  --border-color: #{$ash_400};
+  --hover-bg: #{$ash_100};
+  --active-color: #{$grey};
+  --active-bg: #{$ash_200};
+}
+
+.style_dark {
+  --color: #{$white_06};
+  --lg-color: #{$white_05};
+  --border-color: #{$white_02};
+  --hover-bg: #{$white_005};
+  --active-color: #{$white};
+  --active-bg: #{$white_01};
+}
+
 .style_adaptive {
   @include media-breakpoint-up(lg) {
     height: px-to-rem(60px);
     padding: 0 px-to-rem(16px) 0 px-to-rem(8px);
     margin-bottom: px-to-rem(4px);
-    color: $menu_item_lg_color;
+    color: var(--lg-color);
     border: none;
   }
 }
 
 .style_active {
   font-weight: 500;
-  color: $menu_item_active_color;
-  background: $menu_item_active_bg;
+  color: var(--active-color);
+  background: var(--active-bg);
 }
 
 .icon {
-  color: $menu_icon_color;
+  color: var(--color);
   transition: all ease-in-out 0.15s;
+}
+
+.icon_light {
+  --color: #{$grey_2};
+  --lg-color: #{$ash_500};
+  --active-color: #{$grey};
+}
+
+.icon_dark {
+  --color: #{$white_04};
+  --lg-color: #{$white_03};
+  --active-color: #{$white};
 }
 
 .icon_adaptive {
   @include media-breakpoint-up(lg) {
-    color: $menu_icon_lg_color;
+    color: var(--lg-color);
   }
 }
 
 .icon_active {
-  color: $menu_icon_active_color;
+  color: var(--active-color);
 }
 
 .ml_auto {
