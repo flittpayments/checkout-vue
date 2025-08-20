@@ -1,4 +1,9 @@
-import { deepMerge, findGetParameter, removeWallets } from '@/utils/helpers'
+import {
+  deepMerge,
+  errorHandler,
+  findGetParameter,
+  removeWallets,
+} from '@/utils/helpers'
 import { isPlainObject, isExist, isArray } from '@/utils/inspect'
 import descriptor from '@/schema/descriptor'
 import { sentry } from '@/import'
@@ -211,6 +216,9 @@ class Validate {
     delete this.options.amount_readonly
 
     this.params.token = token
+    sentry()
+      .then(({ setTag }) => setTag('token', token))
+      .catch(errorHandler)
   }
 
   layout() {

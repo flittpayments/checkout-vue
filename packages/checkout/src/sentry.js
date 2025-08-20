@@ -31,3 +31,5 @@ export const captureMessage = (message, level, extra) =>
     level,
     extra,
   })
+
+export { setTag }
