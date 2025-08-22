@@ -26,16 +26,20 @@ export default {
     ),
     boundaryPadding: makeProp(PROP_TYPE_NUMBER_STRING, 5),
     customClass: makeProp(PROP_TYPE_STRING),
+    innerClass: makeProp(PROP_TYPE_STRING),
     delay: makeProp(PROP_TYPE_NUMBER_OBJECT_STRING, 50),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     fallbackPlacement: makeProp(PROP_TYPE_ARRAY_STRING, 'flip'),
     // ID to use for tooltip element
     // If not provided on will automatically be generated
     id: makeProp(PROP_TYPE_STRING),
+    matchTargetWidth: makeProp(PROP_TYPE_BOOLEAN, false),
+    noArrow: makeProp(PROP_TYPE_BOOLEAN, false),
     noFade: makeProp(PROP_TYPE_BOOLEAN, false),
     noninteractive: makeProp(PROP_TYPE_BOOLEAN, false),
     offset: makeProp(PROP_TYPE_NUMBER_STRING, 0),
     placement: makeProp(PROP_TYPE_STRING, 'top'),
+    reference: makeProp(PROP_TYPE_FUNCTION),
     // String ID of element, or element/component reference
     // Or function that returns one of the above
     target: makeProp(
@@ -51,7 +55,6 @@ export default {
     ),
     title: makeProp(PROP_TYPE_STRING),
     triggers: makeProp(PROP_TYPE_ARRAY_STRING, 'hover focus'),
-    variant: makeProp(PROP_TYPE_STRING),
     show: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   data() {
@@ -69,17 +72,20 @@ export default {
         title: this.localTitle,
         content: this.localContent,
         // Pass these props as is
+        reference: this.reference,
         target: this.target,
         triggers: this.triggers,
         placement: this.placement,
         fallbackPlacement: this.fallbackPlacement,
-        variant: this.variant,
         customClass: this.customClass,
+        innerClass: this.innerClass,
         container: this.$root,
         boundary: this.boundary,
         boundaryPadding: this.boundaryPadding,
         delay: this.delay,
         offset: this.offset,
+        matchTargetWidth: this.matchTargetWidth,
+        noArrow: this.noArrow,
         noFade: this.noFade,
         interactive: !this.noninteractive,
         disabled: this.disabled,
