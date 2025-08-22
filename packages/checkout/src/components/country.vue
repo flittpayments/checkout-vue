@@ -8,7 +8,6 @@
     data-e2e-country
     no-label-floating
     search
-    :dropdown-wrapper-class="$style.dropdown"
     v-on="fListeners"
     @search="onSearch"
   >
@@ -59,6 +58,7 @@ export default {
         ...this.fAttrs,
         options: this.options,
         disabled: this.disabled,
+        dropdownSize: 'lg',
         scrollable: this.scrollable,
       }
     },
@@ -122,11 +122,6 @@ export default {
 </script>
 
 <style lang="scss" module>
-.dropdown {
-  padding: 0 px-to-rem(20px);
-  max-height: px-to-rem(400px);
-}
-
 .mr_8 {
   margin-right: px-to-rem(8px);
 }
