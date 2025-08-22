@@ -8,11 +8,12 @@
 import PopperJs from 'popper.js'
 import Vue from 'vue'
 import { Transition } from '@/utils/transition'
-import { getCS, isElement, requestAF, select } from '@/utils/dom'
+import { getCS, requestAF } from '@/utils/dom'
 import { toFloat } from '@/utils/number'
 import { HTMLElement, SVGElement } from '@/utils/safe-types'
 import {
   PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING,
 } from '@/constants/props'
@@ -28,8 +29,8 @@ const AttachmentMap = {
   TOPRIGHT: 'top',
   RIGHTTOP: 'right',
   RIGHTBOTTOM: 'right',
-  BOTTOMLEFT: 'bottom-start',
-  BOTTOMRIGHT: 'bottom-end',
+  BOTTOMLEFT: 'bottom-end',
+  BOTTOMRIGHT: 'bottom-start',
   LEFTTOP: 'left',
   LEFTBOTTOM: 'left',
 }
@@ -65,7 +66,9 @@ export const Popper = Vue.extend({
     offset: makeProp(PROP_TYPE_NUMBER_STRING, 0),
     placement: makeProp(PROP_TYPE_STRING, 'top'),
     // Element that the tooltip/popover is positioned relative to
+    reference: makeProp([HTMLElement, SVGElement]),
     target: makeProp([HTMLElement, SVGElement]),
+    noArrow: makeProp(PROP_TYPE_BOOLEAN),
   },
   data() {
     return {
@@ -77,10 +80,6 @@ export const Popper = Vue.extend({
     }
   },
   computed: {
-    templateType() {
-      // Overridden by template component
-      return 'unknown'
-    },
     popperConfig() {
       const { placement } = this
       return {
@@ -88,9 +87,7 @@ export const Popper = Vue.extend({
         modifiers: {
           offset: { offset: this.getOffset(placement) },
           flip: { behavior: this.fallbackPlacement },
-          // `arrow.element` can also be a reference to an HTML Element
-          // maybe we should make this a `$ref` in the templates?
-          arrow: { element: this.$refs.arrow },
+          arrow: this.noArrow ? {} : { element: this.$refs.arrow },
           preventOverflow: {
             padding: this.boundaryPadding,
             boundariesElement: this.boundary,
@@ -164,7 +161,7 @@ export const Popper = Vue.extend({
     getOffset(placement) {
       if (!this.offset) {
         // Could set a ref for the arrow element
-        const arrow = this.$refs.arrow || select('.arrow', this.$el)
+        const arrow = this.$refs.arrow
         const arrowOffset =
           toFloat(getCS(arrow).width, 0) + toFloat(this.arrowPadding, 0)
         switch (OffsetMap[String(placement).toUpperCase()] || 0) {
@@ -182,10 +179,11 @@ export const Popper = Vue.extend({
       this.destroyPopper()
       // We use `el` rather than `this.$el` just in case the original
       // mountpoint root element type was changed by the template
-      let target = isElement(this.target?.reference)
-        ? this.target.reference
-        : this.target
-      this.$_popper = new PopperJs(target, el, this.popperConfig)
+      this.$_popper = new PopperJs(
+        this.reference || this.target,
+        el,
+        this.popperConfig
+      )
     },
     destroyPopper() {
       this.$_popper && this.$_popper.destroy()
