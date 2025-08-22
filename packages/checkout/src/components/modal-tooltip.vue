@@ -1,78 +1,71 @@
 <template>
-  <keep-alive>
-    <f-button-unstyled v-if="disabled" :disabled="disabled">
-      <slot name="text" />
-    </f-button-unstyled>
-    <f-button-unstyled
-      v-else-if="isPhone"
-      key="modal"
-      @click="$refs.modal.show()"
+  <f-button-unstyled v-if="disabled" :disabled="disabled">
+    <slot name="text" />
+  </f-button-unstyled>
+  <f-button-unstyled v-else-if="enableModal" @click="$refs.modal.show()">
+    <slot name="text" />
+    <f-modal-wrapper
+      ref="modal"
+      no-body-padding
+      :scrollable="scrollable"
+      @show="show"
+      @hide="onHide"
     >
-      <slot name="text" />
-      <f-modal-wrapper
-        ref="modal"
-        no-body-padding
-        :scrollable="scrollable"
-        @shown="shown"
-        @hide="hide"
-      >
-        <component :is="component" v-bind="attrs">
-          <slot />
-        </component>
-      </f-modal-wrapper>
-    </f-button-unstyled>
-    <f-button-unstyled v-else key="tooltip" ref="target">
-      <slot name="text" />
-      <f-tooltip-select
-        :show.sync="tooltip"
-        :target="() => $refs.target?.$el"
-        :custom-class="dropdownClass"
-        :placement="dropdownPlacement"
-        @shown="shown"
-        @hide="hide"
-      >
-        <f-scrollbar-vertical :wrap-class="dropdownWrapperClass">
-          <slot />
-        </f-scrollbar-vertical>
-      </f-tooltip-select>
-    </f-button-unstyled>
-  </keep-alive>
+      <component :is="component" v-bind="attrs">
+        <slot />
+      </component>
+    </f-modal-wrapper>
+  </f-button-unstyled>
+  <f-button-unstyled v-else>
+    <slot name="text" />
+    <f-dropdown
+      ref="dropdown"
+      :reference="dropdownReference"
+      :target="() => $el"
+      :size="dropdownSize"
+      :placement="dropdownPlacement"
+      :arrow="dropdownArrow"
+      @show="show"
+      @hide="onHide"
+    >
+      <slot />
+    </f-dropdown>
+  </f-button-unstyled>
 </template>
 
 <script>
 import FButtonUnstyled from '@/components/button/button-unstyled'
-import FTooltipSelect from '@/components/tooltip/dropdown'
+import FDropdown from '@/components/tooltip/dropdown'
 import FModalWrapper from '@/components/modal/modal-wrapper'
-import { timeoutMixin } from '@/mixins/timeout'
 import { resizeMixin } from '@/mixins/resize'
 import { isPhone } from '@/utils/mobile'
-import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_STRING,
+} from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import FScrollbarVertical from '@/components/scrollbar-vertical'
 
 export default {
   components: {
     FButtonUnstyled,
-    FTooltipSelect,
+    FDropdown,
     FModalWrapper,
     FScrollbarVertical,
   },
-  mixins: [timeoutMixin, resizeMixin],
+  mixins: [resizeMixin],
   props: {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
-    modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-20 f-pl-20'),
-    dropdownClass: makeProp(PROP_TYPE_STRING, 'f-tooltip-select'),
-    dropdownWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-4 f-pl-4'),
-    dropdownPlacement: makeProp(PROP_TYPE_STRING, 'bottomleft'),
-  },
-  data() {
-    return {
-      tooltip: false,
-    }
+    modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-20 f-pl-20 f-pb-20'),
+    dropdownSize: makeProp(PROP_TYPE_STRING),
+    dropdownPlacement: makeProp(PROP_TYPE_STRING, 'bottomright'),
+    dropdownArrow: makeProp(PROP_TYPE_BOOLEAN, false),
+    dropdownReference: makeProp(PROP_TYPE_FUNCTION),
   },
   computed: {
-    isPhone() {
+    enableModal() {
       return isPhone || this.isWidthSm
     },
     component() {
@@ -88,19 +81,19 @@ export default {
           }
     },
   },
-  created() {
-    this.$on('hide', this.onHide)
-  },
   methods: {
-    onHide() {
-      this.$refs.modal?.hide()
-      this.tooltip = false
-    },
-    shown() {
-      this.$emit('shown')
-    },
     hide() {
+      this.$refs.modal?.hide()
+      this.$refs.dropdown?.hide()
+    },
+    show() {
+      this.$emit('show')
+    },
+    onHide() {
       this.$emit('hide')
+    },
+    resize() {
+      this.hide()
     },
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.wrapper">
     <f-button-unstyled
       v-if="showAdd"
       :class="[style.style, $style.add]"
@@ -55,6 +55,10 @@ export default {
 </style>
 
 <style lang="scss" module>
+.wrapper {
+  min-width: px-to-rem(360px);
+}
+
 .add {
   align-items: center;
   font-weight: 500;
