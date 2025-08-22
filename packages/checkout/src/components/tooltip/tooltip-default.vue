@@ -15,12 +15,22 @@ export default {
   computed: {
     attrs() {
       return {
-        triggers: 'hover focus',
-        placement: 'topright',
-        variant: 'default',
         ...this.$attrs,
+        triggers: 'hover focus',
+        customClass: this.$style.style,
       }
     },
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  --color: #{$tooltip_default_color};
+  --bg: #{$tooltip_default_bg};
+  --shadow: initial;
+  --opacity: 1;
+  --padding: #{px-to-rem(16px)};
+  --max-width: #{px-to-rem(300px)};
+}
+</style>

@@ -22,7 +22,7 @@
           :value="lang"
           :options="locale"
           no-label-floating
-          dropdown-placement="bottomright"
+          dropdown-placement="bottomleft"
           data-e2e-lang
           @change="changeLang"
         />

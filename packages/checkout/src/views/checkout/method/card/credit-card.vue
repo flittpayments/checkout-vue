@@ -25,7 +25,7 @@
       autocomplete="cc-number"
       @input="inputCardNumber"
     >
-      <template v-if="disabled" #label="{ label }">
+      <template v-if="disabledCardNumber" #label="{ label }">
         <span :class="$style.label">
           {{ label }} <f-svg :class="$style.ml_4" name="lock-alt" size="lg" />
         </span>
@@ -83,14 +83,10 @@
           <span ref="label_cvv">{{ label }}</span>
         </label>
 
-        <f-tooltip-default
-          placement="top"
-          :target="() => $refs.label_cvv"
-          variant="secondary"
-        >
+        <f-tooltip-cvv2 :target="() => $refs.label_cvv">
           <f-svg name="info-circle" :class="$style.mr_8" size="md" />
           <span v-text="$t('cvv2_help', [digitsCvv])" />
-        </f-tooltip-default>
+        </f-tooltip-cvv2>
       </template>
     </f-form-group>
     <f-loading v-if="loading" backdrop />
@@ -101,7 +97,7 @@
 import FCardBg from '@/components/card-bg'
 import { FIconBin, FCardListWrapper, FLoading } from '@/import'
 import FSvg from '@/components/svg'
-import FTooltipDefault from '@/components/tooltip/tooltip-default'
+import FTooltipCvv2 from '@/components/tooltip/tooltip-cvv2'
 import { errorHandler } from '@/utils/helpers'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { createDate, format } from '@/utils/date'
@@ -114,7 +110,7 @@ export default {
     FIconBin,
     FCardListWrapper,
     FSvg,
-    FTooltipDefault,
+    FTooltipCvv2,
     FLoading,
   },
   props: {

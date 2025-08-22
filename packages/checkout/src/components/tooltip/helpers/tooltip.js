@@ -39,7 +39,6 @@ import { toInteger } from '@/utils/number'
 import { keys } from '@/utils/object'
 import { FEvent } from '@/utils/event.class'
 import TooltipTemplate from '@/components/tooltip/helpers/tooltip-template'
-import { CODE_DOWN, CODE_ENTER, CODE_SPACE } from '@/constants/key-codes'
 
 // Modal container selector for appending tooltip/popover
 const MODAL_SELECTOR = '.f-modal-content'
@@ -60,22 +59,24 @@ const templateData = {
   title: '',
   // Text string or Scoped slot function
   content: '',
-  // String
-  variant: null,
   // String, Array, Object
   customClass: null,
+  innerClass: null,
   // String or array of Strings (overwritten by Popper)
   triggers: '',
   // String (overwritten by Popper)
   placement: 'auto',
   // String or array of strings
   fallbackPlacement: 'flip',
+  reference: null,
   // Element or Component reference (or function that returns element) of
   // the element that will have the trigger events bound, and is also
   // default element for positioning
   target: null,
   // HTML ID, Element or Component reference
   container: null, // 'body'
+  matchTargetWidth: null,
+  noArrow: false,
   // Boolean
   noFade: false,
   // 'scrollParent', 'viewport', 'window', Element, or Component reference
@@ -160,8 +161,8 @@ export const Tooltip = Vue.extend({
       return {
         title: this.title,
         content: this.content,
-        variant: this.variant,
         customClass: this.customClass,
+        innerClass: this.innerClass,
         noFade: this.noFade,
         interactive: this.interactive,
       }
@@ -292,12 +293,15 @@ export const Tooltip = Vue.extend({
           html: this.html,
           placement: this.placement,
           fallbackPlacement: this.fallbackPlacement,
+          reference: this.getReference(),
           target: this.getPlacementTarget(),
           boundary: this.getBoundary(),
           // Ensure the following are integers
           offset: toInteger(this.offset, 0),
           arrowPadding: toInteger(this.arrowPadding, 0),
           boundaryPadding: toInteger(this.boundaryPadding, 0),
+          matchTargetWidth: this.matchTargetWidth,
+          noArrow: this.noArrow,
         },
       }))
       // We set the initial reactive data (values that can be changed while open)
@@ -362,8 +366,8 @@ export const Tooltip = Vue.extend({
         const props = [
           'title',
           'content',
-          'variant',
           'customClass',
+          'innerClass',
           'noFade',
           'interactive',
         ]
@@ -496,6 +500,10 @@ export const Tooltip = Vue.extend({
       this.emitEvent(this.buildEvent('hidden'))
     },
     // --- Utility methods ---
+    getReference() {
+      let { reference } = this
+      return isFunction(reference) ? reference() : null
+    },
     getTarget() {
       let { target } = this
       if (isString(target)) {
@@ -654,8 +662,6 @@ export const Tooltip = Vue.extend({
             this.clickOutHandler,
             EVENT_OPTIONS_NO_CAPTURE
           )
-        } else if (trigger === 'keydown') {
-          eventOn(el, 'keydown', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'focus') {
           eventOn(el, 'focusin', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
           eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
@@ -672,7 +678,6 @@ export const Tooltip = Vue.extend({
       // Remove trigger event handlers
       const events = [
         'click',
-        'keydown',
         'focusin',
         'focusout',
         'mouseenter',
@@ -793,15 +798,11 @@ export const Tooltip = Vue.extend({
         // close until no longer disabled or forcefully closed
         return
       }
-      const { type, keyCode } = evt
+      const { type } = evt
       const triggers = this.computedTriggers
 
       if (type === 'click' && arrayIncludes(triggers, 'click')) {
         this.click(evt)
-      } else if (type === 'keydown' && arrayIncludes(triggers, 'keydown')) {
-        if ([CODE_ENTER, CODE_SPACE, CODE_DOWN].includes(keyCode)) {
-          this.toggle()
-        }
       } else if (type === 'mouseenter' && arrayIncludes(triggers, 'hover')) {
         // `mouseenter` is a non-bubbling event
         this.enter(evt)

@@ -57,7 +57,7 @@ export default {
         search: true,
         filter: this.filter,
         scrollable: true,
-        dropdownWrapperClass: this.$style.dropdown,
+        dropdownSize: 'lg',
       }
     },
     options() {
@@ -120,11 +120,6 @@ export default {
 </script>
 
 <style lang="scss" module>
-.dropdown {
-  padding: 0 px-to-rem(20px);
-  max-height: px-to-rem(400px);
-}
-
 .mr_8 {
   margin-right: px-to-rem(8px);
 }

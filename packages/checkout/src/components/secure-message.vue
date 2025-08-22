@@ -20,7 +20,7 @@
     </template>
     <template v-else>
       <f-button-unstyled
-        ref="security"
+        ref="target"
         :class="$uiClass('title')"
         data-e2e-secure-message
       >
@@ -32,7 +32,12 @@
         />
         <span v-text="$t('security_title')" />
       </f-button-unstyled>
-      <f-tooltip-default :target="() => $refs.security?.$el" @shown="shown">
+      <f-tooltip-default
+        :reference="() => $refs.reference?.$el"
+        :target="() => $refs.target?.$el"
+        placement="topright"
+        @shown="shown"
+      >
         <div>
           <f-secure-message-icons v-if="showTooltip" :class="$style.mb_16" />
           <div :class="$style.tooltip_content" v-html="$t('security_text')" />
@@ -73,22 +78,9 @@ export default {
       return this.isBreakpointDownLg ? 24 : 32
     },
   },
-  watch: {
-    enableModal: 'watchEnableModal',
-  },
-  mounted() {
-    this.watchEnableModal(this.enableModal)
-  },
   methods: {
     shown() {
       this.showTooltip = true
-    },
-    watchEnableModal(value) {
-      if (value) return
-
-      this.$nextTick(() => {
-        this.$refs.security.$el.reference = this.$refs.reference.$el
-      })
     },
   },
 }

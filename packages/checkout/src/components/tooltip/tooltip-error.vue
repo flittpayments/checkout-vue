@@ -15,11 +15,11 @@ export default {
   computed: {
     attrs() {
       return {
+        ...this.$attrs,
         triggers: 'focus',
         placement: 'top',
-        'custom-class': this.$style.style,
-        variant: 'secondary',
-        ...this.$attrs,
+        customClass: this.$style.style,
+        innerClass: this.$style.inner,
       }
     },
   },
@@ -27,10 +27,17 @@ export default {
 </script>
 
 <style lang="scss" module>
-:global(#f) .style {
-  :global(.f-tooltip-inner) {
-    align-items: center;
-    color: $error;
-  }
+.style {
+  --color: #{$error};
+  --bg: #{$tooltip_secondary_bg};
+  --shadow: #{0 px-to-rem(8px) px-to-rem(32px)
+    fade($tooltip_secondary_shadow, 50%)};
+  --opacity: 1;
+  --padding: #{px-to-rem(16px)};
+  --max-width: #{px-to-rem(300px)};
+}
+
+.inner {
+  align-items: center;
 }
 </style>
