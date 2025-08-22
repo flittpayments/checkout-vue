@@ -1,5 +1,5 @@
 <template>
-  <f-modal-tooltip ref="mt" v-bind="attrs" @shown="shown" @hide="hide">
+  <f-modal-tooltip ref="mt" v-bind="attrs" @show="show" @hide="hide">
     <template #text>
       <template v-if="active.value">
         <slot name="text" :item="active">
@@ -139,13 +139,15 @@ export default {
       if (disabled) return
 
       this.$emit('change', value)
-      this.$refs.mt.$emit('hide')
+      this.$refs.mt.hide()
     },
-    shown() {
+    show() {
       this.open = true
       this.autofocus = true
       this.reset()
-      this.scroll()
+      this.$nextTick(() => {
+        this.scroll()
+      })
     },
     hide() {
       this.open = false
