@@ -10,12 +10,10 @@
     />
     <f-tooltip-default
       v-if="showTooltip"
-      :custom-class="$style.tooltip"
       :target="() => $el"
-      placement="topright"
-      boundary-padding="30"
+      :reference="() => $refs.icons.$el"
     >
-      <component :is="tooltipIcon" :class="$style.svg" />
+      <component :is="tooltipIcon" v-if="tooltipIcon" :class="$style.svg" />
       <span v-text="$t(`${method}_tooltip`)" />
     </f-tooltip-default>
   </f-button-unstyled>
@@ -78,16 +76,13 @@ export default {
       )
     },
     tooltipIcon() {
-      return this.method === 'loans' ? 'svg-timer' : 'span'
+      return this.method === 'loans' ? 'svg-timer' : ''
     },
     title() {
       return this.method === 'wallets'
         ? this.$t(`${this.method}_${this.can_make_payment}`)
         : this.$t(this.method)
     },
-  },
-  mounted() {
-    this.$el.reference = this.$refs.icons.$el
   },
   methods: {
     click() {
@@ -173,12 +168,6 @@ export default {
 
 .ml_auto {
   margin-left: auto;
-}
-
-.tooltip {
-  :global(.f-tooltip-inner) {
-    align-items: center;
-  }
 }
 
 .svg {

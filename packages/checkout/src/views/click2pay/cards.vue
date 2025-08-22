@@ -44,8 +44,7 @@ export default {
         component: 'select2',
         noLabelFloating: true,
         modalWrapperClass: '',
-        dropdownClass: 'f-tooltip-select-card',
-        dropdownWrapperClass: this.$style.dropdown,
+        dropdownSize: 'card',
         rules: 'required',
         placeholder: this.$t('select_card'),
       }
@@ -53,9 +52,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" module>
-.dropdown {
-  max-height: px-to-rem(316px);
-}
-</style>

@@ -17,7 +17,9 @@ export default {
       return {
         ...this.$attrs,
         triggers: 'hover focus',
+        placement: 'topleft',
         customClass: this.$style.style,
+        innerClass: this.$style.inner,
       }
     },
   },
@@ -29,8 +31,12 @@ export default {
   --color: #{$tooltip_default_color};
   --bg: #{$tooltip_default_bg};
   --shadow: initial;
-  --opacity: 1;
-  --padding: #{px-to-rem(16px)};
-  --max-width: #{px-to-rem(300px)};
+  --opacity: 0.95;
+  --padding: #{px-to-rem(12px) px-to-rem(4px) px-to-rem(4px) px-to-rem(12px)};
+  --max-width: #{px-to-rem(304px)};
+}
+
+.inner {
+  flex-wrap: wrap;
 }
 </style>

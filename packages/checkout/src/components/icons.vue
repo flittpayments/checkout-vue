@@ -12,11 +12,7 @@
     <f-button-unstyled v-if="showCount" ref="last" :class="classCount">
       +{{ countLast }}
     </f-button-unstyled>
-    <f-tooltip-default
-      :custom-class="$style.tooltip"
-      placement="topleft"
-      :target="() => $refs.last?.$el"
-    >
+    <f-tooltip-icons :target="() => $refs.last?.$el">
       <f-icon
         v-for="({ logo, method }, index) in listLast"
         :key="index"
@@ -25,14 +21,14 @@
         :name="logo"
         :type="method"
       />
-    </f-tooltip-default>
+    </f-tooltip-icons>
   </div>
 </template>
 
 <script>
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FIcon from '@/components/icon'
-import FTooltipDefault from '@/components/tooltip/tooltip-default'
+import FTooltipIcons from '@/components/tooltip/tooltip-icons'
 import { mapState } from '@/utils/store'
 import configMethods from '@/config/methods.json'
 import {
@@ -48,7 +44,7 @@ export default {
   components: {
     FButtonUnstyled,
     FIcon,
-    FTooltipDefault,
+    FTooltipIcons,
   },
   props: {
     title: makeProp(PROP_TYPE_STRING),
@@ -160,13 +156,5 @@ export default {
 .count_active {
   color: $menu_count_active_color;
   background: $menu_count_active_bg;
-}
-
-:global(#f) .tooltip {
-  :global(.f-tooltip-inner) {
-    flex-wrap: wrap;
-    max-width: px-to-rem(304px);
-    padding: px-to-rem(12px) px-to-rem(12px) px-to-rem(4px) px-to-rem(12px);
-  }
 }
 </style>
