@@ -24,22 +24,12 @@
       </f-button-unstyled>
       <f-svg v-if="is3ds" :class="$style.ds3" name="3ds" :size="24" />
       <f-svg v-if="is2ds" :class="$style.ds2" name="2ds" :size="24" />
-      <f-tooltip-default
-        :boundary="$root"
-        variant="secondary2"
-        placement="top"
-        :target="() => $refs.approved?.$el"
-      >
+      <f-tooltip-card-list-item :target="() => $refs.approved?.$el">
         {{ $t('approved') }}
-      </f-tooltip-default>
-      <f-tooltip-default
-        :boundary="$root"
-        variant="secondary2"
-        placement="top"
-        :target="() => $refs.declined?.$el"
-      >
+      </f-tooltip-card-list-item>
+      <f-tooltip-card-list-item :target="() => $refs.declined?.$el">
         {{ $t('declined') }}
-      </f-tooltip-default>
+      </f-tooltip-card-list-item>
     </div>
   </f-button-unstyled>
 </template>
@@ -48,18 +38,18 @@
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
 import FIconBin from '@/components/icon-bin'
+import FTooltipCardListItem from '@/components/tooltip/tooltip-card-list-item'
 import { mapState } from '@/utils/store'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { mask } from '@/utils/mask'
-import FTooltipDefault from '@/components/tooltip/tooltip-default'
 
 export default {
   components: {
     FButtonUnstyled,
     FSvg,
     FIconBin,
-    FTooltipDefault,
+    FTooltipCardListItem,
   },
   props: {
     item: makeProp(PROP_TYPE_OBJECT),

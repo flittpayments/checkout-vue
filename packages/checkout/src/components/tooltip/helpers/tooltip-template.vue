@@ -13,6 +13,7 @@ export default {
     html: makeProp(PROP_TYPE_BOOLEAN, false),
     // Other non-reactive (while open) props are pulled in from BVPopper
     id: makeProp(PROP_TYPE_STRING),
+    matchTargetWidth: makeProp(PROP_TYPE_BOOLEAN),
   },
   data() {
     // We use data, rather than props to ensure reactivity
@@ -20,24 +21,20 @@ export default {
     return {
       title: '',
       content: '',
-      variant: null,
       customClass: null,
+      innerClass: null,
       interactive: true,
     }
   },
   computed: {
-    templateType() {
-      return 'tooltip'
-    },
     templateClasses() {
       return [
+        this.$style.style,
+        this.$style[this.attachment],
         {
           // Disables pointer events to hide the tooltip when the user
           // hovers over its content
-          noninteractive: !this.interactive,
-          [`f-${this.templateType}-${this.variant}`]: this.variant,
-          // `attachment` will come from Toolpop
-          [`f-${this.templateType}-${this.attachment}`]: this.attachment,
+          [this.$style.noninteractive]: !this.interactive,
         },
         this.customClass,
       ]
@@ -89,17 +86,157 @@ export default {
       return h(
         'div',
         {
-          staticClass: 'f-tooltip',
           class: this.templateClasses,
           attrs: this.templateAttributes,
           on: this.templateListeners,
         },
         [
-          h('div', { ref: 'arrow', staticClass: 'f-tooltip-arrow' }),
-          h('div', { staticClass: 'f-tooltip-inner', domProps }, [$title]),
+          !this.noArrow
+            ? h('div', {
+                ref: 'arrow',
+                class: this.$uiClass('arrow', [this.attachment]),
+              })
+            : h(),
+          h(
+            'div',
+            {
+              class: [this.$style.inner, this.innerClass],
+              style: {
+                '--min-width': this.matchTargetWidth
+                  ? this.target.offsetWidth + 'px'
+                  : 0,
+              },
+              domProps,
+            },
+            [$title]
+          ),
         ]
       )
     },
   },
 }
 </script>
+
+<style lang="scss" module>
+$tooltip-arrow-width: px-to-rem(10px);
+$tooltip-arrow-height: px-to-rem(7px);
+
+.style {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  display: block;
+  margin: 0;
+  word-wrap: break-word;
+  outline: 0;
+}
+
+.noninteractive {
+  pointer-events: none;
+}
+
+.top,
+.auto[x-placement^='top'] {
+  padding: $tooltip-arrow-height 0;
+}
+
+.right,
+.auto[x-placement^='right'] {
+  padding: 0 $tooltip-arrow-height;
+}
+
+.bottom,
+.auto[x-placement^='bottom'] {
+  padding: $tooltip-arrow-height 0;
+}
+
+.left,
+.auto[x-placement^='left'] {
+  padding: 0 $tooltip-arrow-height;
+}
+
+.arrow {
+  position: absolute;
+  display: block;
+
+  &::before {
+    position: absolute;
+    content: '';
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+
+.arrow_top,
+.auto[x-placement^='top'] .arrow {
+  bottom: 0;
+  width: $tooltip-arrow-width;
+  height: $tooltip-arrow-height;
+  margin: 0 $border-radius;
+
+  &::before {
+    border-top-color: var(--bg);
+    top: 0;
+    border-width: $tooltip-arrow-height calc($tooltip-arrow-width / 2) 0;
+  }
+}
+
+.arrow_right,
+.auto[x-placement^='right'] .arrow {
+  left: 0;
+  width: $tooltip-arrow-height;
+  height: $tooltip-arrow-width;
+  margin: $border-radius 0;
+
+  &::before {
+    border-right-color: var(--bg);
+    right: 0;
+    border-width: calc($tooltip-arrow-width / 2) $tooltip-arrow-height
+      calc($tooltip-arrow-width / 2) 0;
+  }
+}
+
+.arrow_bottom,
+.auto[x-placement^='bottom'] .arrow {
+  top: 0;
+  width: $tooltip-arrow-width;
+  height: $tooltip-arrow-height;
+  margin: 0 $border-radius;
+
+  &::before {
+    border-bottom-color: var(--bg);
+    bottom: 0;
+    border-width: 0 calc($tooltip-arrow-width / 2) $tooltip-arrow-height;
+  }
+}
+
+.arrow_left,
+.auto[x-placement^='left'] .arrow {
+  right: 0;
+  width: $tooltip-arrow-height;
+  height: $tooltip-arrow-width;
+  margin: $border-radius 0;
+
+  &::before {
+    border-left-color: var(--bg);
+    left: 0;
+    border-width: calc($tooltip-arrow-width / 2) 0
+      calc($tooltip-arrow-width / 2) $tooltip-arrow-height;
+  }
+}
+
+.inner {
+  color: var(--color);
+  background-color: var(--bg);
+  opacity: var(--opacity);
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  padding: var(--padding);
+  font-weight: 500;
+  border-radius: $border-radius;
+  box-shadow: var(--shadow);
+}
+</style>
