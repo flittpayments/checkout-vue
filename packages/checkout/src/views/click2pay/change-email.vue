@@ -20,19 +20,13 @@
       </f-box>
     </template>
     <transition name="f-fade-enter">
-      <f-form-group
-        v-if="showSave"
-        v-model="save"
-        name=""
-        component="checkbox"
-        @input="input"
-      >
+      <f-row-checkbox v-if="showSave" v-model="save" @input="input">
         <div ref="save" :class="$style.save" @click="open">
           <svg-click2pay :class="$uiClass('svg')" />
           <span v-html="$t('c2p_save_card_desc', { click2pay })" />
           <click2pay-modal-about ref="about" />
         </div>
-      </f-form-group>
+      </f-row-checkbox>
     </transition>
     <div v-if="error" :class="$style.error" v-text="$t(error)" />
   </div>
@@ -40,17 +34,19 @@
 
 <script>
 import SvgClick2pay from '@/svg/click2pay.svg'
-import FBox from '@/components/box.vue'
+import FBox from '@/components/box'
+import FSvg from '@/components/svg'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { switchUser } from '@/click2pay'
-import FSvg from '@/components/svg.vue'
 
 export default {
   components: {
-    FSvg,
     SvgClick2pay,
     FBox,
+    FSvg,
+    FRowCheckbox,
     Click2payModalAbout,
   },
   data() {

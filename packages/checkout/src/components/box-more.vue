@@ -55,14 +55,14 @@ export default {
   justify-content: space-between;
 }
 
-:global(#f) .head div {
+.head div {
   font-size: px-to-rem(12px);
   line-height: px-to-rem(20px);
   font-weight: 500;
   margin: 0;
 }
 
-:global(#f) .head_light div {
+.head_light div {
   color: #000;
 }
 

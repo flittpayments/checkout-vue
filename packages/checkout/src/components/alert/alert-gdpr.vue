@@ -9,16 +9,14 @@
     </div>
 
     <f-form-base>
-      <f-form-group
+      <f-row-checkbox
         v-model="save_card"
         :class="$style.mb_0"
-        name="save_card"
-        component="checkbox"
         variant="secondary"
       >
         <span v-text="$t('remember_card_for_quick_re_payment')" />&nbsp;
         <a href="#" @click="$refs.safe.show()" v-text="$t('its_safe')" />
-      </f-form-group>
+      </f-row-checkbox>
     </f-form-base>
 
     <f-modal-wrapper ref="safe" size="lg" :title="$t('gdpr_modal_safe_title')">
@@ -33,6 +31,7 @@
 
 <script>
 import FAlertStorage from '@/components/alert/alert-storage'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import FModalWrapper from '@/components/modal/modal-wrapper'
 import FFormBase from '@/components/form/form/form-base'
 import SvgSafe from '@/svg/safe.svg'
@@ -42,6 +41,7 @@ import { mapStateGetSet, localStorage } from '@/utils/store'
 export default {
   components: {
     FAlertStorage,
+    FRowCheckbox,
     FModalWrapper,
     FFormBase,
     SvgSafe,
