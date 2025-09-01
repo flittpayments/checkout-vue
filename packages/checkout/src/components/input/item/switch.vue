@@ -1,11 +1,65 @@
+<template>
+  <div :class="className">
+    <checkbox v-bind="attrs" v-on="$listeners" />
+    <label :class="$style.label" :for="safeId()">
+      <slot>{{ $t(label) }}</slot>
+    </label>
+  </div>
+</template>
+
+<script>
+import Checkbox from '@/components/input/helpers/checkbox'
+import { idMixin, idProps } from '@/mixins/id'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
+
+export default {
+  components: {
+    Checkbox,
+  },
+  mixins: [idMixin],
+  inheritAttrs: false,
+  props: {
+    ...idProps,
+    // required for ValidationProvider
+    value: makeProp(PROP_TYPE_BOOLEAN, false),
+    label: makeProp(PROP_TYPE_STRING),
+  },
+  computed: {
+    className() {
+      return this.$style.style
+    },
+    attrs() {
+      return {
+        ...this.$attrs,
+        // required for ValidationProvider
+        value: this.value,
+        id: this.safeId(),
+        ref: 'input',
+        class: this.$style.input,
+      }
+    },
+  },
+  methods: {
+    focus() {
+      this.$refs.input.focus()
+    },
+  },
+}
+</script>
+
+<style lang="scss" module>
 $switch-width: px-to-rem(40px);
 $switch-height: px-to-rem(22px);
 $switch-indicator-size: px-to-rem(16px);
-// stylelint-disable-next-line scss/operator-no-newline-after
 $switch-indicator-transform: $switch-width - $switch-indicator-size -
   ($switch-height - $switch-indicator-size);
 
-.f-switch {
+.style {
+  position: relative;
+}
+
+.input {
   position: absolute;
   left: 0;
   z-index: -1; // Put the input behind the label so it doesn't overlay text
@@ -15,7 +69,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   );
   opacity: 0;
 
-  &:checked + .f-switch-label {
+  &:checked + .label {
     &::before {
       background-color: $switch_checked_bg;
     }
@@ -26,7 +80,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
     }
   }
 
-  &:focus + .f-switch-label {
+  &:focus-visible + .label {
     background-color: $outline_bg;
     box-shadow:
       0 0 0 px-to-rem(2px) $container_bg,
@@ -34,7 +88,7 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   }
 }
 
-.f-switch-label {
+.label {
   $padding: px-to-rem(3px);
 
   position: relative;
@@ -43,7 +97,9 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
   min-height: $switch-height + $padding * 2;
   padding: $padding $switch-width + $padding $padding $padding;
   cursor: pointer;
-  transition: box-shadow ease-in-out 0.15s, background-color ease-in-out 0.15s;
+  transition:
+    box-shadow ease-in-out 0.15s,
+    background-color ease-in-out 0.15s;
   border-radius: $border-radius-sm;
 
   &::before {
@@ -63,12 +119,10 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
 
   &::after {
     position: absolute;
-    // stylelint-disable-next-line scss/operator-no-newline-after
     top: calc(
         ($font-size-base * $line-height-base - $switch-indicator-size) / 2
       ) +
       $padding;
-    // stylelint-disable-next-line scss/operator-no-newline-after
     right: $switch-width -
       $switch-indicator-size - calc(
         ($switch-height - $switch-indicator-size) / 2
@@ -95,3 +149,4 @@ $switch-indicator-transform: $switch-width - $switch-indicator-size -
     }
   }
 }
+</style>
