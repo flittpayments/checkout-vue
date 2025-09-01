@@ -1,13 +1,8 @@
 <template>
   <f-box-more>
-    <f-form-group
-      :value="rememberMe"
-      name=""
-      component="checkbox"
-      @input="input"
-    >
+    <f-row-checkbox :value="rememberMe" @input="input">
       <div>{{ $t('skip_verification_next_time') }}</div>
-    </f-form-group>
+    </f-row-checkbox>
     <template #more>
       <!--$t('skip_verification_next_time_desc')-->
       <i18n path="skip_verification_next_time_desc">
@@ -23,12 +18,14 @@
 
 <script>
 import FBoxMore from '@/components/box-more'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import FLink from '@/components/link'
 import { getRememberMe, setRememberMe } from '@/click2pay'
 
 export default {
   components: {
     FBoxMore,
+    FRowCheckbox,
     FLink,
   },
   data() {

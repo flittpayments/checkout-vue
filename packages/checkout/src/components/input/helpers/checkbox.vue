@@ -1,8 +1,6 @@
 <template>
   <input
-    :checked="value"
-    v-bind="$attrs"
-    type="checkbox"
+    v-bind="attrs"
     @change="change"
     @focus="focus"
     @blur="blur"
@@ -17,6 +15,19 @@ import { makeProp } from '@/utils/props'
 export default {
   props: {
     value: makeProp(PROP_TYPE_BOOLEAN, false),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+  },
+  computed: {
+    attrs() {
+      return {
+        ...this.$attrs,
+        type: 'checkbox',
+        checked: this.value,
+        disabled: this.disabled,
+        'aria-checked': this.value ? 'true' : 'false',
+        'aria-disabled': this.disabled ? 'true' : 'false',
+      }
+    },
   },
   methods: {
     change($event) {
