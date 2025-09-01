@@ -1,15 +1,11 @@
 <template>
   <f-box v-if="show" :class="$style.wrapper" data-e2e-subscription>
-    <f-form-group
+    <f-switch
       v-if="show_switch"
       v-model="enabled_switch"
-      name="switch"
       :class="$style.switch"
-      component="checkbox"
-      switch
-    >
-      <span v-text="$t('subscription')" />
-    </f-form-group>
+      label="subscription"
+    />
     <div v-else v-text="$t('subscription')" />
     <transition name="f-collapse">
       <div v-if="enabled_switch" :class="$style.content">
@@ -50,18 +46,15 @@
             inputmode="numeric"
             :disabled="readonly"
           />
-          <f-form-group
+          <f-row-checkbox
             v-if="showUnlimited"
             key="unlimited"
             v-model="unlimited"
-            name="unlimited"
-            component="checkbox"
             class="f-col"
             :disabled="readonly"
             size="sm"
-          >
-            <span v-text="$t('unlimited')" />
-          </f-form-group>
+            label="unlimited"
+          />
         </div>
         <f-input-group no-margin>
           <f-form-group
@@ -125,6 +118,8 @@
 
 <script>
 import FBox from '@/components/box'
+import FSwitch from '@/components/input/item/switch'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import FInputGroup from '@/components/base/input-group'
 import { InputAmount } from '@/import'
 import FError from '@/components/base/error'
@@ -136,6 +131,8 @@ import { formatServer } from '@/config/date'
 export default {
   components: {
     FBox,
+    FSwitch,
+    FRowCheckbox,
     FInputGroup,
     InputAmount,
     FError,
