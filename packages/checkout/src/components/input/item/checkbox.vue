@@ -1,3 +1,73 @@
+<template>
+  <div :class="className">
+    <checkbox v-bind="attrs" v-on="$listeners" />
+    <label :class="classLabel" :for="safeId()">
+      <slot>{{ $t(label) }}</slot>
+    </label>
+  </div>
+</template>
+
+<script>
+import Checkbox from '@/components/input/helpers/checkbox'
+import { idMixin, idProps } from '@/mixins/id'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
+
+export default {
+  components: {
+    Checkbox,
+  },
+  mixins: [idMixin],
+  inheritAttrs: false,
+  props: {
+    ...idProps,
+    // required for ValidationProvider
+    value: makeProp(PROP_TYPE_BOOLEAN, false),
+    invalid: makeProp(PROP_TYPE_BOOLEAN),
+    variant: makeProp(PROP_TYPE_STRING, 'default', value =>
+      ['default', 'secondary'].includes(value)
+    ),
+    size: makeProp(PROP_TYPE_STRING, undefined, value =>
+      ['sm'].includes(value)
+    ),
+    label: makeProp(PROP_TYPE_STRING),
+  },
+  computed: {
+    className() {
+      return this.$style.wrapper
+    },
+    attrs() {
+      return {
+        ...this.$attrs,
+        // required for ValidationProvider
+        value: this.value,
+        id: this.safeId(),
+        ref: 'input',
+        class: this.classInput,
+      }
+    },
+    classInput() {
+      return [
+        this.$style.input,
+        this.$style[this.variant],
+        {
+          [this.$style.error]: this.invalid,
+        },
+      ]
+    },
+    classLabel() {
+      return [this.$style.label, this.$style[`label_${this.size}`]]
+    },
+  },
+  methods: {
+    focus() {
+      this.$refs.input.focus()
+    },
+  },
+}
+</script>
+
+<style lang="scss" module>
 @mixin checkbox-variant(
   $bg,
   $border,
@@ -8,7 +78,7 @@
   $color-checked,
   $color-label
 ) {
-  + .f-checkbox-label {
+  + .label {
     color: $color-label;
 
     &::before {
@@ -28,7 +98,7 @@
     }
   }
 
-  &:checked + .f-checkbox-label {
+  &:checked + .label {
     &::before {
       background-color: $bg-checked;
     }
@@ -38,7 +108,7 @@
     }
   }
 
-  &[disabled] + .f-checkbox-label {
+  &[disabled] + .label {
     cursor: default;
 
     &::before {
@@ -52,17 +122,17 @@
   }
 }
 
-.f-form-item-checkbox {
-  line-height: px-to-rem(20px);
+.style {
+  position: relative;
 }
 
-.f-checkbox {
+.input {
   position: absolute;
   z-index: 1;
   width: px-to-rem(20px);
   opacity: 0;
 
-  &:checked + .f-checkbox-label {
+  &:checked + .label {
     &::before {
       border: none;
     }
@@ -72,7 +142,7 @@
     }
   }
 
-  &:focus + .f-checkbox-label {
+  &:focus-visible + .label {
     background-color: $outline_bg;
     box-shadow:
       0 0 0 px-to-rem(2px) $container_bg,
@@ -80,7 +150,7 @@
   }
 }
 
-.f-checkbox-label {
+.label {
   position: relative;
   display: block;
   padding: 0 0 0 px-to-rem(30px) + 0;
@@ -88,7 +158,9 @@
   line-height: px-to-rem(20px);
   word-wrap: break-word;
   cursor: pointer;
-  transition: box-shadow ease-in-out 0.15s, background-color ease-in-out 0.15s;
+  transition:
+    box-shadow ease-in-out 0.15s,
+    background-color ease-in-out 0.15s;
   border-radius: $border-radius-sm;
 
   &::before {
@@ -128,12 +200,12 @@
   }
 }
 
-.f-form-item-sm > .f-checkbox-label {
+.label_sm {
   font-size: px-to-rem(12px);
   line-height: px-to-rem(22px);
 }
 
-.f-checkbox-default {
+.default {
   @include checkbox-variant(
     $input_bg,
     $checkbox_default_border,
@@ -146,7 +218,7 @@
   );
 }
 
-.f-checkbox-secondary {
+.secondary {
   @include checkbox-variant(
     $white,
     $checkbox_secondary_border,
@@ -159,6 +231,7 @@
   );
 }
 
-.f-checkbox-error + .f-checkbox-label::before {
+.error + .label::before {
   border-color: $error;
 }
+</style>

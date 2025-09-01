@@ -65,7 +65,6 @@ import { isMountedMixin } from '@/mixins/is-mounted'
 import { PROP_TYPE_STRING, PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { timeoutMixin } from '@/mixins/timeout'
-import { arrayIncludes } from '@/utils/array'
 
 export default {
   components: {
@@ -171,7 +170,7 @@ export default {
       return this.dynamicPlaceholder && this.noLabelFloating && this.safeId()
     },
     showLabel() {
-      return !arrayIncludes(['checkbox'], this.$attrs.component) && this.label
+      return this.label
     },
   },
   watch: {
