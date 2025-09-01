@@ -1,13 +1,8 @@
 <template>
   <f-box-more>
-    <f-form-group
-      :value="rememberMe"
-      name=""
-      component="checkbox"
-      @input="input"
-    >
+    <f-row-checkbox :value="rememberMe" @input="input">
       <div v-html="$t('skip_verification_next_time')" />
-    </f-form-group>
+    </f-row-checkbox>
     <template #more>
       <span
         v-html="
@@ -22,11 +17,13 @@
 
 <script>
 import FBoxMore from '@/components/box-more'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import { getRememberMe, setRememberMe } from '@/click2pay'
 
 export default {
   components: {
     FBoxMore,
+    FRowCheckbox,
   },
   data() {
     return {
@@ -35,7 +32,9 @@ export default {
   },
   computed: {
     cookieNotice() {
-      return `<a href="${this.cookieNoticeUrl}" target="_blank">${this.$t('cookie_notice')}</a>`
+      return `<a href="${this.cookieNoticeUrl}" target="_blank">${this.$t(
+        'cookie_notice'
+      )}</a>`
     },
     cookieNoticeUrl() {
       return this.$t('c2p_cookie_notice_url')

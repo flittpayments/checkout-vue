@@ -1,22 +1,24 @@
 <template>
   <div v-if="show" :class="$style.wrapper">
-    <f-form-group
+    <f-row-checkbox
       v-if="merchant.offerta_url_show_checkbox"
       v-model="offer"
-      name="offer"
-      component="checkbox"
       :rules="rules"
     >
       <span v-html="text" />
-    </f-form-group>
+    </f-row-checkbox>
     <div v-else v-html="text" />
   </div>
 </template>
 
 <script>
+import FRowCheckbox from '@/components/input/row-checkbox'
 import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
+  components: {
+    FRowCheckbox,
+  },
   computed: {
     ...mapStateGetSet('params', ['offer', 'lang']),
     ...mapState('options', ['offerta_url']),
