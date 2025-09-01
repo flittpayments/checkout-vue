@@ -19,11 +19,11 @@
 <script>
 import FFormSave from '@/components/form/form/form-save'
 import { InputHidden } from '@/import'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import { mapState } from '@/utils/store'
 
 export default {
   components: {
-    InputHidden,
     FFormSave,
   },
   computed: {
@@ -70,7 +70,7 @@ export default {
         noLabelFloating,
         label,
         placeholder,
-        componentName: this.getComponent(hidden),
+        componentName: this.getComponent(hidden, type),
         component: type,
         custom: true,
         rules: this.parseValidate(required, valid),
@@ -79,8 +79,9 @@ export default {
         disabled: readonly,
       }
     },
-    getComponent(hidden) {
-      if (hidden) return 'input-hidden'
+    getComponent(hidden, type) {
+      if (hidden) return InputHidden
+      if (type === 'checkbox') return FRowCheckbox
 
       return 'f-form-group'
     },

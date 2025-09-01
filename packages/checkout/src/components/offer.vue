@@ -1,10 +1,8 @@
 <template>
   <div v-if="show" :class="$style.wrapper">
-    <f-form-group
+    <f-row-checkbox
       v-if="merchant.offerta_url_show_checkbox"
       v-model="offer"
-      name="offer"
-      component="checkbox"
       :rules="rules"
     >
       <!--$t('offer_t')-->
@@ -15,7 +13,7 @@
           }}</f-link>
         </template>
       </i18n>
-    </f-form-group>
+    </f-row-checkbox>
     <i18n v-else path="offer_t">
       <template #offer_terms>
         <f-link variant="secondary" :href="url" target="_blank">{{
@@ -27,11 +25,13 @@
 </template>
 
 <script>
+import FRowCheckbox from '@/components/input/row-checkbox'
 import FLink from '@/components/link'
 import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
   components: {
+    FRowCheckbox,
     FLink,
   },
   computed: {
