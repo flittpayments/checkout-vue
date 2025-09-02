@@ -1,4 +1,5 @@
 import { loadCheckout } from '@/import'
+import { requestAF } from '@/utils/dom'
 
 export let api
 let cache = {}
@@ -6,6 +7,15 @@ let cache = {}
 export const install = (option, cb) => {
   loadCheckout().then($checkout => {
     api = $checkout('Api', option)
+
+    $checkout.Modal.prototype.submitToIframe = function () {
+      if (this.modal) {
+        this.body.appendChild(this.modal)
+      }
+      requestAF(() => {
+        this.form?.submit()
+      })
+    }
 
     api.on('modal.close', cb)
   })
