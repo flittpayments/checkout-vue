@@ -267,6 +267,12 @@ export default {
 
 :global(#f) .cvv2_input {
   border-radius: 0 0 $border-radius 0;
+
+  font-family: $font-family-cvv;
+
+  &:-webkit-autofill::first-line {
+    font-family: $font-family-cvv;
+  }
 }
 
 :global(#f) .card_number_input,
