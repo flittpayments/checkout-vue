@@ -17,9 +17,9 @@
 </template>
 
 <script>
+import FFormSave from '@/components/form/form/form-save'
 import { InputHidden } from '@/import'
 import { mapState } from '@/utils/store'
-import FFormSave from '@/components/form/form/form-save'
 
 export default {
   components: {
@@ -29,10 +29,10 @@ export default {
   computed: {
     ...mapState(['params', 'fields_custom']),
     show() {
-      return this.fields_custom.length
+      return this.list.length
     },
     list() {
-      return this.fields_custom
+      return this.fields_custom.map(this.parse)
     },
     includes() {
       return this.list.map(({ name }) => name)
@@ -42,6 +42,58 @@ export default {
     this.list.forEach(({ name, value }) => {
       this.$set(this.params.custom, name, value)
     })
+  },
+  methods: {
+    parse({
+      value = '',
+      name,
+      label,
+      placeholder,
+      type = 'input',
+      hidden,
+      required,
+      valid = {},
+      readonly,
+    }) {
+      let noLabelFloating = Boolean(
+        (label && placeholder) || (!label && !placeholder)
+      )
+
+      if (!label && placeholder) {
+        label = placeholder
+        placeholder = ''
+      }
+
+      return {
+        value,
+        name,
+        noLabelFloating,
+        label,
+        placeholder,
+        componentName: this.getComponent(hidden),
+        component: type,
+        custom: true,
+        rules: this.parseValidate(required, valid),
+        autocomplete: 'on',
+        readonly,
+        disabled: readonly,
+      }
+    },
+    getComponent(hidden) {
+      if (hidden) return 'input-hidden'
+
+      return 'f-form-group'
+    },
+    parseValidate(required, { pattern, min_length, max_length }) {
+      let rules = {}
+
+      if (required) rules.required = required
+      if (pattern) rules.regex = pattern
+      if (min_length) rules.min = min_length
+      if (max_length) rules.max = max_length
+
+      return rules
+    },
   },
 }
 </script>
