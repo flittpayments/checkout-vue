@@ -34,7 +34,6 @@ import { loadClick2pay, loadStyleAdaptive } from '@/import'
 import { arrayIncludes } from '@/utils/array'
 import { formatKiev } from '@/utils/date'
 import { testCardNumbers } from '@/config/test-card-numbers'
-import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { select } from '@/utils/dom'
 
 const NON_SUBSCRIPTION_METHODS = ['banks', 'installments']
@@ -297,9 +296,7 @@ class Store extends Model {
     this.state.fields_customer = model.attr('customer_required_data') || []
 
     if (model.attr('order.fields_custom')) {
-      this.state.fields_custom = model
-        .attr('order.fields_custom')
-        .map(parseFieldsCustom)
+      this.state.fields_custom = model.attr('order.fields_custom')
     }
 
     this.state.params.order_desc =

@@ -5,7 +5,6 @@ import descriptor from '@/schema/descriptor'
 import { captureMessage } from '@/sentry/error-buffer'
 import { loadAsyncValidator } from '@/import'
 import { sort } from '@/utils/sort'
-import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { createDate, format } from '@/utils/date'
 import { formatServer } from '@/config/date'
 import configMethods from '@/config/methods.json'
@@ -306,9 +305,7 @@ class Validate {
 
     if (!fields_custom) return
 
-    this.data.fields_custom = Object.values(fields_custom)
-      .sort(sort('p'))
-      .map(parseFieldsCustom)
+    this.data.fields_custom = Object.values(fields_custom).sort(sort('p'))
   }
 
   startTime() {
