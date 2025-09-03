@@ -26,14 +26,14 @@ export default {
   computed: {
     ...mapState(['params']),
     list() {
-      return this.fields.map(this.parseField)
+      return this.fields.map(this.parse)
     },
     includes() {
       return this.list.map(({ name }) => name)
     },
   },
   methods: {
-    parseField({ label, placeholder, name, type, validate }) {
+    parse({ label, placeholder, name, type, validate }) {
       const format = (value = '') => value.toLowerCase().replace(/[. ]/g, '_')
       label = format(label)
       placeholder = format(placeholder)
