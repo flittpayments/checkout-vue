@@ -1,6 +1,7 @@
 <template>
   <f-form-save v-slot="{ input }" name="params.form" :includes="includes">
-    <f-form-group
+    <component
+      :is="field.componentName"
       v-for="field in list"
       :key="field.name"
       v-bind="field"
@@ -12,6 +13,7 @@
 
 <script>
 import FFormSave from '@/components/form/form/form-save'
+import FRow from '@/components/input/row'
 import { mapState } from '@/utils/store'
 import { PROP_TYPE_ARRAY } from '@/constants/props'
 import { makeProp } from '@/utils/props'
@@ -52,11 +54,16 @@ export default {
         noLabelFloating,
         label,
         placeholder,
-        component: type === 'date' ? 'date' : 'input',
+        componentName: this.getComponent(type),
         rules: this.parseValidate(validate),
         autocomplete: 'on',
         type,
       }
+    },
+    getComponent(type) {
+      if (type === 'date') return FRow
+
+      return 'f-form-group'
     },
     parseValidate(validate) {
       if (!validate) return ''
