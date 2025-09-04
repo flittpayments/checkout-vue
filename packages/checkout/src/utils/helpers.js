@@ -89,3 +89,13 @@ export const amountToCoins = value =>
   Math.round(parseFloat(value).toFixed(2) * 100) || 0
 
 export const coinsToAmountString = value => (value / 100).toFixed(2)
+
+export const pick = (data, list) =>
+  Object.fromEntries(
+    Object.entries(data).filter(([name]) => list.indexOf(name) >= 0)
+  )
+
+export const omit = (data, list) =>
+  Object.fromEntries(
+    Object.entries(data).filter(([name]) => list.indexOf(name) < 0)
+  )
