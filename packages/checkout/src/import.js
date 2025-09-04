@@ -157,9 +157,7 @@ export const loadAxios = () =>
   import(/* webpackChunkName: "6" */ 'axios').then(module => module.default)
 
 export const DatePicker = () =>
-  import(
-    /* webpackChunkName: "7" */ '@/components/form/item/helpers/date-picker'
-  )
+  import(/* webpackChunkName: "7" */ '@/components/input/helpers/date-picker')
 
 export const FIconBin = () =>
   import(/* webpackChunkName: "8" */ '@/components/icon-bin')
@@ -358,3 +356,14 @@ export const FCreditCardInline = () =>
   import(
     /* webpackChunkName: "73" */ '@/views/checkout/method/card/credit-card-inline'
   )
+
+export const RowFloating = () =>
+  import(/* webpackChunkName: "69" */ '@/components/input/helpers/row-floating')
+
+export const RowNoFloating = () =>
+  import(
+    /* webpackChunkName: "70" */ '@/components/input/helpers/row-no-floating'
+  )
+
+export const FDate = () =>
+  import(/* webpackChunkName: "71" */ '@/components/input/item/date')
