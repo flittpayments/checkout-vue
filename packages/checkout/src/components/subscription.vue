@@ -83,27 +83,22 @@
         <div :class="$style.mb_16">
           <f-error :show="!!error">{{ error }}</f-error>
         </div>
-        <f-form-group
+        <f-row
           v-if="showStartTime"
           v-model="start_time"
-          component="date"
-          name="subscription_start_time"
-          rules="required"
           type="date"
+          label="subscription_start_time"
+          rules="required"
           :disabled="readonly"
-          :input-class="'f-form-control-start-time'"
           min="now"
         />
-        <f-form-group
+        <f-row
           v-if="showEndTime"
-          key="end_time"
           v-model="end_time"
-          component="date"
-          name="subscription_end_time"
-          rules="required"
           type="date"
+          label="subscription_end_time"
+          rules="required"
           :disabled="readonly"
-          :input-class="'f-form-control-start-time'"
           min="now"
         />
         <div
@@ -123,6 +118,7 @@ import FRowCheckbox from '@/components/input/row-checkbox'
 import FInputGroup from '@/components/base/input-group'
 import { InputAmount } from '@/import'
 import FError from '@/components/base/error'
+import FRow from '@/components/input/row'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { parseSelect } from '@/utils/sort'
 import { createDate, format } from '@/utils/date'
@@ -136,6 +132,7 @@ export default {
     FInputGroup,
     InputAmount,
     FError,
+    FRow,
   },
   data() {
     return {
