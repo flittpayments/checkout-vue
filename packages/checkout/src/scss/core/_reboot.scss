@@ -141,21 +141,12 @@ th {
 // Forms
 //
 
-input,
-select {
+input {
   margin: 0; // Remove the margin in Firefox and Safari
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-}
-
-input {
   overflow: visible; // Show the overflow in Edge
-}
-
-// stylelint-disable-next-line no-duplicate-selectors
-select {
-  text-transform: none; // Remove the inheritance of text transform in Firefox
 }
 
 // Set the cursor for non-`<button>` buttons
@@ -163,14 +154,6 @@ select {
 // Details at https://github.com/twbs/bootstrap/pull/30562
 [role='button'] {
   cursor: pointer;
-}
-
-// Remove the inheritance of word-wrap in Safari.
-//
-// Details at https://github.com/twbs/bootstrap/issues/24990
-// stylelint-disable-next-line no-duplicate-selectors
-select {
-  word-wrap: normal;
 }
 
 // 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`

@@ -2,7 +2,13 @@
   <f-button-unstyled v-if="disabled" :disabled="disabled">
     <slot name="text" />
   </f-button-unstyled>
-  <f-button-unstyled v-else-if="enableModal" @click="$refs.modal.show()">
+  <f-button-unstyled
+    v-else-if="enableModal"
+    :id="id"
+    @click="$refs.modal.show()"
+    @focus="focus"
+    @blur="blur"
+  >
     <slot name="text" />
     <f-modal-wrapper
       ref="modal"
@@ -16,7 +22,7 @@
       </component>
     </f-modal-wrapper>
   </f-button-unstyled>
-  <f-button-unstyled v-else>
+  <f-button-unstyled v-else :id="id" @focus="focus" @blur="blur">
     <slot name="text" />
     <f-dropdown
       ref="dropdown"
@@ -55,7 +61,9 @@ export default {
     FScrollbarVertical,
   },
   mixins: [resizeMixin],
+  inheritAttrs: false,
   props: {
+    id: makeProp(PROP_TYPE_STRING),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
     modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-20 f-pl-20 f-pb-20'),
@@ -91,6 +99,12 @@ export default {
     },
     onHide() {
       this.$emit('hide')
+    },
+    focus() {
+      this.$emit('focus')
+    },
+    blur() {
+      this.$emit('blur')
     },
     resize() {
       this.hide()

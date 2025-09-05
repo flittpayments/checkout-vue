@@ -16,17 +16,14 @@
       </transition>
     </div>
     <div v-if="showLang" :class="$uiClass('menu')">
-      <f-form-base>
-        <f-form-item-select2
-          :input-class="$style.lang"
-          :value="lang"
-          :options="locale"
-          no-label-floating
-          dropdown-placement="bottomleft"
-          data-e2e-lang
-          @change="changeLang"
-        />
-      </f-form-base>
+      <f-select
+        :input-class="$style.lang"
+        :value="lang"
+        :options="locale"
+        dropdown-placement="bottomleft"
+        data-e2e-lang
+        @input="changeLang"
+      />
     </div>
   </div>
 </template>
@@ -35,14 +32,12 @@
 import FModeWrapper from '@/components/mode-wrapper'
 import FButtonLink from '@/components/button/button-link'
 import FSvg from '@/components/svg'
-import { FLogo } from '@/import'
-import FFormBase from '@/components/form/form/form-base'
+import { FLogo, FSelect } from '@/import'
 import { resizeMixin } from '@/mixins/resize'
 import { mapState } from '@/utils/store'
 import { sort, parseSelect } from '@/utils/sort'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
-import FFormItemSelect2 from '@/components/form/item/select2'
 
 export default {
   components: {
@@ -50,8 +45,7 @@ export default {
     FButtonLink,
     FSvg,
     FLogo,
-    FFormBase,
-    FFormItemSelect2,
+    FSelect,
   },
   mixins: [resizeMixin],
   props: {
@@ -201,12 +195,19 @@ export default {
   }
 }
 
-:global(#f) .lang {
+.lang.lang {
+  --border: 0px;
+  --padding-top: 0px;
+  --padding-right: #{px-to-rem(22px)};
+  --padding-bottom: 0px;
+  --padding-left: 0px;
+  --right: 0;
+
+  width: auto;
   height: px-to-rem(20px);
-  padding: 0;
+  line-height: px-to-rem(20px);
   color: $btn_link_default_color;
   background: none;
-  border: none;
 
   &:hover {
     background: none;

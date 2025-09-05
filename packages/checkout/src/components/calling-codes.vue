@@ -1,15 +1,15 @@
 <template>
-  <f-form-group
+  <f-row
     v-bind="attrs"
     data-e2e-calling-codes
     v-on="fListeners"
     @search="onSearch"
-    @change="emitCallingCode"
+    @input="emitCallingCode"
   >
     <template #text="{ item }">
       <template v-if="item.code">
-        <span :class="$style.mr_8">{{ flag(item.cca2) }}</span>
-        +{{ item.code }}
+        <span :class="$style.mr_4">{{ flag(item.cca2) }}</span
+        >+{{ item.code }}
       </template>
     </template>
     <template #item="{ item, isActive }">
@@ -17,10 +17,11 @@
       {{ item.text }} (+{{ item.code }})
       <f-svg v-if="isActive" :class="$style.ml_auto" name="check" size="lg" />
     </template>
-  </f-form-group>
+  </f-row>
 </template>
 
 <script>
+import FRow from '@/components/input/row'
 import { codeToFlag } from '@/utils/helpers'
 import { attrsMixin } from '@/mixins/attrs'
 import { listenersMixin } from '@/mixins/listeners'
@@ -30,6 +31,7 @@ import FSvg from '@/components/svg'
 
 export default {
   components: {
+    FRow,
     FSvg,
   },
   mixins: [attrsMixin, listenersMixin],
@@ -49,14 +51,10 @@ export default {
       return {
         ...this.fAttrs,
         options: this.options,
-        name: 'calling-codes',
-        label: '',
         variantItem: 'secondary',
-        component: 'select2',
-        noLabelFloating: true,
+        type: 'select',
         search: true,
         filter: this.filter,
-        scrollable: true,
         dropdownSize: 'lg',
       }
     },
@@ -120,6 +118,10 @@ export default {
 </script>
 
 <style lang="scss" module>
+.mr_4 {
+  margin-right: px-to-rem(4px);
+}
+
 .mr_8 {
   margin-right: px-to-rem(8px);
 }
