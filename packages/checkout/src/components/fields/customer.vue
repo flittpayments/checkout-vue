@@ -5,7 +5,8 @@
     name="params.customer_data"
     :includes="includes"
   >
-    <f-form-group
+    <component
+      :is="field.componentName"
       v-for="field in list"
       :key="field.name"
       v-bind="field"
@@ -17,12 +18,12 @@
 
 <script>
 import FFormSave from '@/components/form/form/form-save'
+import { FCountry } from '@/import'
 import {
   configCustomer,
   configCustomerRequiredOne,
 } from '@/config/customer-fields'
 import countries from '@/i18n/countries/en.json'
-import { sort, parseSelect } from '@/utils/sort'
 import { mapState } from '@/utils/store'
 
 export default {
@@ -45,21 +46,31 @@ export default {
       return this.fields_customer
         .filter(name => name !== 'email' || !this.show_email)
         .filter(name => this.config[name])
-        .map(name => {
-          let options = this.config[name].dictionary && this.country
-          return {
-            ...this.config[name],
-            name,
-            options,
-            component: options ? 'select' : 'input',
-          }
-        })
+        .map(this.parse)
     },
     includes() {
       return this.list.map(({ name }) => name)
     },
-    country() {
-      return Object.keys(countries).map(parseSelect).sort(sort('text'))
+  },
+  methods: {
+    parse(name) {
+      const componentName = this.getComponent(name)
+      const props = {
+        ...this.config[name],
+        componentName,
+        name,
+      }
+
+      if (componentName === FCountry) {
+        props.list = Object.keys(countries)
+      }
+
+      return props
+    },
+    getComponent(name) {
+      if (name === 'customer_country') return FCountry
+
+      return 'f-form-group'
     },
   },
 }

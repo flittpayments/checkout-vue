@@ -39,11 +39,6 @@
   position: relative;
 }
 
-.f-form-group-inner-select {
-  background-color: $input_bg;
-  border-radius: $border-radius;
-}
-
 .f-form-control {
   --border: #{px-to-rem(1px)};
 

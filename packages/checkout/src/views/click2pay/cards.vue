@@ -1,15 +1,16 @@
 <template>
-  <f-form-group v-bind="attrs" data-e2e-click2pay-cards v-on="fListeners">
+  <f-row v-bind="attrs" data-e2e-click2pay-cards v-on="fListeners">
     <template #text="{ item }">
       <click2pay-card-item :item="item" no-info />
     </template>
     <template #item="{ item }">
       <click2pay-card-item :item="item" variant="secondary" />
     </template>
-  </f-form-group>
+  </f-row>
 </template>
 
 <script>
+import FRow from '@/components/input/row'
 import Click2payCardItem from '@/views/click2pay/card-item'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_ARRAY } from '@/constants/props'
@@ -18,6 +19,7 @@ import { listenersMixin } from '@/mixins/listeners'
 
 export default {
   components: {
+    FRow,
     Click2payCardItem,
   },
   mixins: [attrsMixin, listenersMixin],
@@ -38,11 +40,8 @@ export default {
       return {
         ...this.fAttrs,
         options: this.options,
-        name: 'cards',
-        label: '',
         variantItem: 'card',
-        component: 'select2',
-        noLabelFloating: true,
+        type: 'select',
         modalWrapperClass: '',
         dropdownSize: 'card',
         rules: 'required',

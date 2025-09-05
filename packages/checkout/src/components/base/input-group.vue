@@ -41,8 +41,7 @@ export default {
 
   > :last-child {
     input,
-    button,
-    select {
+    button {
       border-radius: 0 $border-radius $border-radius 0;
       border-left: none;
     }

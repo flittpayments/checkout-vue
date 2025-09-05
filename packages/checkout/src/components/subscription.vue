@@ -68,13 +68,12 @@
             hide-error
             @error="onShowError"
           />
-          <f-form-group
+          <f-row
             v-model="period"
-            component="select"
+            type="select"
             class="f-col"
             :options="list"
-            name="subscription_period"
-            rules="required"
+            label="subscription_period"
             :disabled="readonly"
             hide-error
             @error="onShowError"
