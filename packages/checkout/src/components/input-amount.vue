@@ -8,15 +8,12 @@
     >
       <slot v-bind="scope" />
     </f-form-group>
-    <f-form-group
+    <f-row
       v-model="currency"
-      component="select"
+      type="select"
       :options="list"
-      name="currencies"
-      label=""
       rules="required"
       class="f-col-4 f-col-sm-3"
-      :input-class="$style.pt_8"
       :disabled="disabled"
     />
   </f-input-group>
@@ -28,6 +25,7 @@
 
 <script>
 import FInputGroup from '@/components/base/input-group'
+import FRow from '@/components/input/row'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import {
   PROP_TYPE_STRING,
@@ -36,12 +34,13 @@ import {
 } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { isNumber } from '@/utils/inspect'
-import { parseSelect } from '@/utils/sort'
+import { parseSelect, sort } from '@/utils/sort'
 import { amountToCoins } from '@/utils/helpers'
 
 export default {
   components: {
     FInputGroup,
+    FRow,
   },
   inheritAttrs: false,
   props: {
@@ -79,7 +78,7 @@ export default {
       return this.currencies.length > 1
     },
     list() {
-      return this.currencies.map(parseSelect)
+      return this.currencies.map(parseSelect).sort(sort('text'))
     },
   },
   watch: {
@@ -129,9 +128,5 @@ export default {
   color: $label_color;
   transition: all ease-in-out 0.15s;
   transform-origin: 0 0;
-}
-
-:global(#f) .pt_8 {
-  padding-top: px-to-rem(8px);
 }
 </style>
