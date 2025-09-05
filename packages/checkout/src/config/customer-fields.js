@@ -39,8 +39,7 @@ export const configCustomer = {
   customer_country: {
     label: 'customer_country',
     rules: 'required',
-    dictionary: 'countries',
-    autocomplete: 'shipping country',
+    placeholder: '',
   },
   // $t('customer_state')
   customer_state: {
