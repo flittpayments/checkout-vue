@@ -375,3 +375,6 @@ export const RowNoFloating = () =>
 
 export const FDate = () =>
   import(/* webpackChunkName: "78" */ '@/components/input/item/date')
+
+export const FSelect = () =>
+  import(/* webpackChunkName: "79" */ '@/components/input/item/select')

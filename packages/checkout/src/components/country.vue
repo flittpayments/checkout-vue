@@ -1,18 +1,7 @@
 <template>
-  <f-form-group
-    name=""
-    component="select2"
-    variant-item="secondary"
-    size="sm"
-    v-bind="attrs"
-    data-e2e-country
-    no-label-floating
-    search
-    v-on="fListeners"
-    @search="onSearch"
-  >
+  <f-row v-bind="attrs" data-e2e-country v-on="fListeners" @search="onSearch">
     <template #text="{ item }">
-      <span :class="$style.mr_8">{{ flag(item.value) }}</span>
+      <span :class="$style.mr_4">{{ flag(item.value) }}</span>
       {{ item.text }}
     </template>
     <template #item="{ item, isActive }">
@@ -20,27 +9,35 @@
       {{ item.text }}
       <f-svg v-if="isActive" :class="$style.ml_auto" name="check" size="lg" />
     </template>
-  </f-form-group>
+  </f-row>
 </template>
 
 <script>
+import FRow from '@/components/input/row'
+import FSvg from '@/components/svg'
 import { codeToFlag } from '@/utils/helpers'
 import { attrsMixin } from '@/mixins/attrs'
 import { listenersMixin } from '@/mixins/listeners'
 import { countriesSearch } from '@/import'
 import { sort, parseSelect } from '@/utils/sort'
 import { makeProp } from '@/utils/props'
-import { PROP_TYPE_ARRAY } from '@/constants/props'
-import FSvg from '@/components/svg'
+import {
+  PROP_TYPE_ARRAY,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_STRING,
+} from '@/constants/props'
 
 export default {
   components: {
+    FRow,
     FSvg,
   },
   mixins: [attrsMixin, listenersMixin],
   inheritAttrs: false,
   props: {
+    value: makeProp(PROP_TYPE_STRING),
     list: makeProp(PROP_TYPE_ARRAY, []),
+    setFirst: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   data() {
     return {
@@ -54,12 +51,15 @@ export default {
     },
     attrs() {
       return {
-        filter: this.filter,
         ...this.fAttrs,
+        value: this.value,
         options: this.options,
-        disabled: this.disabled,
+        variantItem: 'secondary',
+        type: 'select',
+        search: true,
+        filter: this.filter,
         dropdownSize: 'lg',
-        scrollable: this.scrollable,
+        disabled: this.disabled,
       }
     },
     options() {
@@ -82,9 +82,6 @@ export default {
     },
     disabled() {
       return this.options.length === 1
-    },
-    scrollable() {
-      return this.options.length > 10
     },
   },
   created() {
@@ -111,10 +108,11 @@ export default {
       this.search = value
     },
     setCountry() {
-      if (this.list.includes(this.fAttrs.value)) return
+      if (!this.setFirst) return
+      if (this.list.includes(this.value)) return
 
       if (this.options.length > 0) {
-        this.fAttrs.value = this.options[0].value
+        this.$emit('input', this.options[0].value)
       }
     },
   },
@@ -122,6 +120,10 @@ export default {
 </script>
 
 <style lang="scss" module>
+.mr_4 {
+  margin-right: px-to-rem(4px);
+}
+
 .mr_8 {
   margin-right: px-to-rem(8px);
 }

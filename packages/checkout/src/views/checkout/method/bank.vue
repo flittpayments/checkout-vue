@@ -8,6 +8,9 @@
             v-model="default_country"
             :list="listCountry"
             :label="label"
+            size="44"
+            no-floating
+            set-first
             @input="clear"
           />
         </div>
