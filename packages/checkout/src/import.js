@@ -113,9 +113,6 @@ export const App = () =>
 
 export const validate = () => import(/* webpackChunkName: "02" */ '@/validate')
 
-export const components = () =>
-  import(/* webpackChunkName: "03" */ '@/components')
-
 export const api = () => import(/* webpackChunkName: "04" */ '@/api')
 
 export const i18n = () => import(/* webpackChunkName: "05" */ '@/i18n')
@@ -378,3 +375,6 @@ export const FDate = () =>
 
 export const FSelect = () =>
   import(/* webpackChunkName: "79" */ '@/components/input/item/select')
+
+export const FInput = () =>
+  import(/* webpackChunkName: "80" */ '@/components/input/item/input')

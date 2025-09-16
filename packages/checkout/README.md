@@ -184,7 +184,7 @@ app.$el.remove()
 
 https://vee-validate.logaretm.com/v3/guide/rules.html#rules
 
-support `after`, `alpha`, `date_format`, `decimal`, `digits`, `email`, `max`, `min`, `numeric`, `required`, `customer_field`, `phone`, `numrange`, `ccard`
+support `after`, `alpha`, `date_format`, `digits`, `email`, `max`, `min`, `numeric`, `required`, `customer_field`, `phone`, `numrange`, `ccard`
 
 ``` html
 <input-text name="email" validate="required|email"></input-text>
