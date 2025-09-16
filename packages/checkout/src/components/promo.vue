@@ -1,15 +1,11 @@
 <template>
   <div>
     <div :class="$style.row">
-      <f-form-group
+      <f-row
         v-model="promocode"
-        class="f-mb-0"
         :class="$style.input"
-        name="promocode"
-        label=""
         :placeholder="$t('enter_promo_code')"
-        no-label-floating
-        size="sm"
+        size="44"
         :disabled="disabledInput"
       />
       <f-button
@@ -25,12 +21,14 @@
 </template>
 
 <script>
+import FRow from '@/components/input/row'
 import FButton from '@/components/button/button'
 import { errorHandler } from '@/utils/helpers'
 import { mapState } from '@/utils/store'
 
 export default {
   components: {
+    FRow,
     FButton,
   },
   data() {
@@ -94,6 +92,7 @@ export default {
 
 .input {
   margin-right: px-to-rem(8px);
+  margin-bottom: 0;
 }
 
 .message {

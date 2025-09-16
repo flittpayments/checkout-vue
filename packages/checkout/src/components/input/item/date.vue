@@ -1,5 +1,5 @@
 <template>
-  <f-form-input v-if="isMobile" v-bind="attrs" v-on="$listeners" />
+  <f-input v-if="isMobile" v-bind="attrs" v-on="$listeners" />
   <date-picker
     v-else
     v-bind="attrsDatepicker"
@@ -14,8 +14,7 @@
 </template>
 
 <script>
-import { DatePicker } from '@/import'
-import { FFormInput } from '@/components/form/item/helpers/form-input'
+import { FInput, DatePicker } from '@/import'
 import FSvg from '@/components/svg'
 import { idMixin, idProps } from '@/mixins/id'
 import { isMobile } from '@/utils/mobile'
@@ -33,7 +32,7 @@ import { arrayIncludes } from '@/utils/array'
 export default {
   components: {
     DatePicker,
-    FFormInput,
+    FInput,
     FSvg,
   },
   mixins: [idMixin],

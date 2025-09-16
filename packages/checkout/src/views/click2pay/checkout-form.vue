@@ -13,28 +13,25 @@
             :disabled="loading"
             @calling-code="onCallingCode"
           />
-          <f-form-group
+          <f-row
             v-model="phoneNumber"
             class="f-col"
-            name="phone_number"
-            :label="$t('phone_number')"
+            label="phone_number"
             rules="required"
             :disabled="loading"
             :mask="maskPhone"
           />
         </f-input-group>
-        <f-form-group
+        <f-row
           v-model="lastName"
-          name="last_name"
-          :label="$t('last_name')"
+          label="last_name"
           rules="required"
           :disabled="loading"
           :mask="maskLatinCyrillicWord"
         />
-        <f-form-group
+        <f-row
           v-model="firstName"
-          name="first_name"
-          :label="$t('first_name')"
+          label="first_name"
           rules="required"
           :disabled="loading"
           :mask="maskLatinCyrillicWord"
@@ -89,6 +86,7 @@ import FBox from '@/components/box'
 import FForm from '@/components/form/form/form'
 import FInputGroup from '@/components/base/input-group'
 import FCallingCodes from '@/components/calling-codes'
+import FRow from '@/components/input/row'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButtonSuccess from '@/components/button/button-success'
 import FLink from '@/components/link'
@@ -104,6 +102,7 @@ export default {
     FForm,
     FInputGroup,
     FCallingCodes,
+    FRow,
     Click2payRememberMe,
     FButtonSuccess,
     FLink,

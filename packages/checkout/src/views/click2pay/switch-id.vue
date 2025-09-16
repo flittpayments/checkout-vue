@@ -13,10 +13,10 @@
         :class="$style.mb_4"
         @submit="onSubmit"
       >
-        <f-form-group
+        <f-row
           v-model="email"
-          name="email"
-          :label="$t('email')"
+          type="email"
+          label="email"
           rules="required|email"
         />
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
@@ -39,6 +39,7 @@ import Click2payHeader from '@/views/click2pay/header'
 import { getCards, switchUser } from '@/click2pay'
 import FBox from '@/components/box'
 import FForm from '@/components/form/form/form'
+import FRow from '@/components/input/row'
 import FButtonSuccess from '@/components/button/button-success'
 import FButtonLink from '@/components/button/button-link'
 
@@ -47,6 +48,7 @@ export default {
     Click2payHeader,
     FBox,
     FForm,
+    FRow,
     FButtonSuccess,
     FButtonLink,
   },

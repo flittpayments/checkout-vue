@@ -6,10 +6,10 @@
     :includes="includes"
   >
     <component
-      :is="field.componentName"
+      :is="field.component"
       v-for="field in list"
       :key="field.name"
-      v-bind="field"
+      v-bind="omit(field, ['component'])"
       v-model="params.customer_data[field.name]"
       @input="input(field.name, $event)"
     />
@@ -19,12 +19,14 @@
 <script>
 import FFormSave from '@/components/form/form/form-save'
 import { FCountry } from '@/import'
+import FRow from '@/components/input/row'
 import {
   configCustomer,
   configCustomerRequiredOne,
 } from '@/config/customer-fields'
 import countries from '@/i18n/countries/en.json'
 import { mapState } from '@/utils/store'
+import { omit } from '@/utils/helpers'
 
 export default {
   components: {
@@ -53,15 +55,16 @@ export default {
     },
   },
   methods: {
+    omit,
     parse(name) {
-      const componentName = this.getComponent(name)
+      const component = this.getComponent(name)
       const props = {
         ...this.config[name],
-        componentName,
+        component,
         name,
       }
 
-      if (componentName === FCountry) {
+      if (component === FCountry) {
         props.list = Object.keys(countries)
       }
 
@@ -70,7 +73,7 @@ export default {
     getComponent(name) {
       if (name === 'customer_country') return FCountry
 
-      return 'f-form-group'
+      return FRow
     },
   },
 }
