@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { RowFloating, RowNoFloating, FDate, FSelect } from '@/import'
+import { RowFloating, RowNoFloating, FDate, FSelect, FInput } from '@/import'
 import { idMixin, idProps } from '@/mixins/id'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
@@ -38,7 +38,7 @@ export default {
   props: {
     ...idProps,
     type: makeProp(PROP_TYPE_STRING, 'text', value =>
-      ['date', 'select'].includes(value)
+      ['text', 'date', 'select', 'tel', 'email', 'number'].includes(value)
     ),
     name: makeProp(PROP_TYPE_STRING),
     label: makeProp(PROP_TYPE_STRING),
@@ -71,6 +71,10 @@ export default {
       return {
         date: FDate,
         select: FSelect,
+        text: FInput,
+        tel: FInput,
+        email: FInput,
+        number: FInput,
       }[this.type]
     },
     attrs() {

@@ -6,10 +6,10 @@
     :includes="includes"
   >
     <component
-      :is="field.componentName"
+      :is="field.component"
       v-for="field in list"
       :key="field.name"
-      v-bind="field"
+      v-bind="omit(field, ['component'])"
       v-model="params.custom[field.name]"
       @input="input(field.name, $event)"
     />
@@ -20,7 +20,9 @@
 import FFormSave from '@/components/form/form/form-save'
 import { InputHidden } from '@/import'
 import FRowCheckbox from '@/components/input/row-checkbox'
+import FRow from '@/components/input/row'
 import { mapState } from '@/utils/store'
+import { omit } from '@/utils/helpers'
 
 export default {
   components: {
@@ -44,18 +46,20 @@ export default {
     })
   },
   methods: {
+    omit,
     parse({
       value = '',
       name,
       label,
       placeholder,
-      type = 'input',
+      type,
       hidden,
       required,
       valid = {},
       readonly,
     }) {
-      let noLabelFloating = Boolean(
+      const component = this.getComponent(hidden, type)
+      const noFloating = Boolean(
         (label && placeholder) || (!label && !placeholder)
       )
 
@@ -64,26 +68,31 @@ export default {
         placeholder = ''
       }
 
-      return {
+      const props = {
         value,
         name,
-        noLabelFloating,
+        noFloating,
         label,
         placeholder,
-        componentName: this.getComponent(hidden, type),
-        component: type,
-        custom: true,
+        component,
+        type,
         rules: this.parseValidate(required, valid),
         autocomplete: 'on',
         readonly,
         disabled: readonly,
       }
+
+      if (component === InputHidden) {
+        props.custom = true
+      }
+
+      return props
     },
     getComponent(hidden, type) {
       if (hidden) return InputHidden
       if (type === 'checkbox') return FRowCheckbox
 
-      return 'f-form-group'
+      return FRow
     },
     parseValidate(required, { pattern, min_length, max_length }) {
       let rules = {}

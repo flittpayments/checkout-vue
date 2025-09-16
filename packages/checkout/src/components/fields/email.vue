@@ -1,11 +1,11 @@
 <template>
   <f-preloader :condition="show_email" class="f-mb-16">
     <f-form-save v-slot="{ input }" name="params" :includes="['email']">
-      <f-form-group
+      <f-row
         v-bind="$attrs"
         v-model.trim="email"
-        input-class="f-checkout-email"
-        name="email"
+        type="email"
+        label="email"
         :rules="rules"
         autocomplete="email"
         @input="input('email', $event)"
@@ -17,6 +17,7 @@
 <script>
 import FPreloader from '@/components/preloader'
 import FFormSave from '@/components/form/form/form-save'
+import FRow from '@/components/input/row'
 import { rulesEmail, rulesEmailRequiredOne } from '@/config/customer-fields'
 import { mapState, mapStateGetSet } from '@/utils/store'
 
@@ -24,6 +25,7 @@ export default {
   components: {
     FPreloader,
     FFormSave,
+    FRow,
   },
   computed: {
     ...mapState(['need_validate_card']),
