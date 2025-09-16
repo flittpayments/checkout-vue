@@ -14,12 +14,13 @@ import {
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_FUNCTION,
 } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { mask } from '@/utils/mask'
 
 // @vue/component
-export const FFormInput = {
+export const FInput = {
   // Mixin order is important!
   mixins: [
     attrsMixin,
@@ -44,6 +45,7 @@ export const FFormInput = {
     noWheel: makeProp(PROP_TYPE_BOOLEAN, false),
     mask: makeProp(PROP_TYPE_STRING),
     masked: makeProp(PROP_TYPE_BOOLEAN, false),
+    formatter: makeProp(PROP_TYPE_FUNCTION, value => value),
   },
   data() {
     return {
@@ -165,10 +167,10 @@ export const FFormInput = {
       }
     },
     formatLocal(value, last = false) {
-      return mask(toString(value), this.mask, true, last)
+      return mask(this.formatter(toString(value)), this.mask, true, last)
     },
     parseModel(value) {
-      return mask(value, this.mask, this.masked)
+      return mask(this.formatter(toString(value)), this.mask, this.masked)
     },
     onInput(evt) {
       // `evt.target.composing` is set by Vue

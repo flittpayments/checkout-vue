@@ -5,81 +5,62 @@
     <transition name="f-fade">
       <f-icon-bin v-if="card_number" :class="$style.brand" :bin="card_number" />
     </transition>
-    <f-form-group
+    <f-row-card
       ref="card_number"
       v-model="card_number"
       :class="[$style.wrapper_input, $style.wrapper_card_number]"
-      :label-class="$style.label"
-      :name-class="[$style.input, $style.placeholder]"
-      name="card_number"
+      label="card_number"
       placeholder="____ ____ ____ ____"
       :rules="validCardNumber"
       mask="XXXX XXXX XXXX XXXX XXX"
       :maxlength="23"
       :disabled="disabledCardNumber"
-      type="tel"
-      inputmode="numeric"
-      tooltip
-      no-label-floating
-      dynamic-placeholder
       autocomplete="cc-number"
       @input="inputCardNumber"
     >
-      <template v-if="disabledCardNumber" #label="{ label }">
-        <span :class="$style.label">
+      <template #label="{ label, className }">
+        <span v-if="disabledCardNumber" :class="className">
           {{ label }} <f-svg :class="$style.ml_4" name="lock-alt" size="lg" />
         </span>
+        <f-card-list-wrapper
+          v-else-if="isCards"
+          :class="className"
+          :label="label"
+          @input="focus"
+        />
       </template>
-      <template v-else-if="isCards" #label="{ label }">
-        <f-card-list-wrapper :class="$style.label" :label="label" />
-      </template>
-    </f-form-group>
-
-    <f-form-group
+    </f-row-card>
+    <f-row-card
       ref="expiry_date"
       v-model="expiry_date"
       :class="$style.wrapper_input"
-      :label-class="$style.label"
       :input-class="$style.expiry_date"
-      :name-class="[$style.input, $style.placeholder]"
-      name="expiry_date"
+      label="expiry_date"
       placeholder="__/__"
       :rules="validExpiryDate"
       mask="##/##"
       masked
       :disabled="disabledExpiryDate"
-      type="tel"
-      inputmode="numeric"
-      tooltip
-      no-label-floating
-      dynamic-placeholder
       autocomplete="cc-exp"
-      :format="format"
+      :formatter="formatter"
       @input="inputExpiryDate"
     />
-    <f-form-group
+    <f-row-card
       v-if="showCvv"
       ref="cvv2"
       v-model="cvv2"
       :class="$style.wrapper_input"
-      :label-class="$style.label"
       :input-class="$style.cvv2"
-      :name-class="[$style.input, $style.placeholder]"
-      name="cvv2"
+      label="cvv2"
       placeholder="___"
       :rules="validCvv"
-      type="tel"
-      inputmode="numeric"
       mask="####"
       :disabled="disabled"
       :maxlength="digitsCvv"
-      tooltip
-      no-label-floating
-      dynamic-placeholder
       autocomplete="cc-csc"
     >
-      <template v-if="!disabled" #label="{ id, label }">
-        <label :class="$style.label" :for="id">
+      <template v-if="!disabled" #label="{ id, label, className }">
+        <label :class="className" :for="id">
           <span ref="label_cvv">{{ label }}</span>
         </label>
 
@@ -88,7 +69,7 @@
           <span v-text="$t('cvv2_help', [digitsCvv])" />
         </f-tooltip-cvv2>
       </template>
-    </f-form-group>
+    </f-row-card>
     <f-loading v-if="loading" backdrop />
   </div>
 </template>
@@ -96,6 +77,7 @@
 <script>
 import FCardBg from '@/components/card-bg'
 import { FIconBin, FCardListWrapper, FLoading } from '@/import'
+import FRowCard from '@/components/input/row-card'
 import FSvg from '@/components/svg'
 import FTooltipCvv2 from '@/components/tooltip/tooltip-cvv2'
 import { errorHandler } from '@/utils/helpers'
@@ -108,6 +90,7 @@ export default {
   components: {
     FCardBg,
     FIconBin,
+    FRowCard,
     FCardListWrapper,
     FSvg,
     FTooltipCvv2,
@@ -220,7 +203,6 @@ export default {
 
       this.readonlyExpiryDate = true
     },
-    ready: 'watchReady',
   },
   mounted() {
     this.focus()
@@ -240,17 +222,17 @@ export default {
       fields
         .reduce((accum, name) => {
           return accum
-            .then(() => this.$refs[name]?.validation.validate())
+            .then(() => this.$refs[name]?.validate())
             .then(response => {
               if (response?.valid) return
 
-              this.$refs[name]?.focused()
+              this.$refs[name]?.focus()
               return Promise.reject()
             })
         }, Promise.resolve())
         .catch(errorHandler)
     },
-    format(value) {
+    formatter(value) {
       value = value.replace(/[^\d]/, '/')
       let [month, year] = value.split('/')
 
@@ -267,10 +249,6 @@ export default {
         count => value.slice(0, count).length === count
       )
       return value.slice(0, count)
-    },
-    watchReady() {
-      if (this.isCards) return // TODO remove after new input
-      this.focus()
     },
     focus() {
       if (!this.ready) return
@@ -321,7 +299,6 @@ export default {
 }
 
 .wrapper_input {
-  position: relative;
   margin: 0 px-to-rem(20px) 0 0;
 
   // WAL-436
@@ -336,89 +313,16 @@ export default {
   margin: 0 0 px-to-rem(15px);
 }
 
-.input,
-:global(#f) .wrapper_input :global(.f-form-control) {
-  color: #{$card_input_color};
-
-  padding: 0;
-  font-weight: 400;
-  text-shadow: px-to-rem(1px) px-to-rem(1px) px-to-rem(2px)
-    fade($card_input_shadow, 15%);
-  background-color: rgb(0 0 0 / 0%);
-  border: none;
-  border-radius: 0;
-
-  &,
-  &:-webkit-autofill::first-line,
-  &::placeholder {
-    font-family: $font-family-card-number;
-    height: px-to-rem(18px);
-    font-size: px-to-rem(15px);
-    line-height: px-to-rem(18px);
-
-    @include media-breakpoint-up(ss) {
-      height: px-to-rem(25px);
-      font-size: px-to-rem(20px);
-      line-height: px-to-rem(25px);
-    }
-  }
-
-  &:-webkit-autofill {
-    -webkit-text-fill-color: $card_input_color;
-
-    &::first-line {
-      color: $card_input_color;
-    }
-  }
-
-  &:hover {
-    background-color: inherit;
-  }
-
-  &:focus {
-    box-shadow: none;
-  }
-
-  &[disabled] {
-    color: #{fade($card_input_color, 60%)};
-  }
-
-  &::placeholder {
-    color: #{fade($card_input_color, 30%)};
-  }
-}
-
-.placeholder {
-  color: fade($card_input_color, 30%);
-}
-
-:global(#f) .expiry_date.expiry_date {
+.expiry_date.expiry_date {
   width: px-to-rem(80px);
 }
 
-:global(#f) .cvv2.cvv2 {
+.cvv2.cvv2 {
   width: px-to-rem(75px);
   font-family: $font-family-cvv;
 
   &:-webkit-autofill::first-line {
     font-family: $font-family-cvv;
-  }
-}
-
-:global(#f) .label.label {
-  display: flex;
-  margin-bottom: px-to-rem(6px);
-  font-size: px-to-rem(10px);
-  line-height: px-to-rem(12px);
-  color: $card_label_color;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  opacity: 0.7;
-
-  @include media-breakpoint-up(ss) {
-    margin-bottom: px-to-rem(3px);
-    font-size: px-to-rem(11px);
-    line-height: px-to-rem(18px);
   }
 }
 

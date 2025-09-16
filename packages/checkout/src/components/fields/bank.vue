@@ -1,10 +1,10 @@
 <template>
   <f-form-save v-slot="{ input }" name="params.form" :includes="includes">
     <component
-      :is="field.componentName"
+      :is="field.component"
       v-for="field in list"
       :key="field.name"
-      v-bind="field"
+      v-bind="omit(field, ['component'])"
       v-model="params.form[field.name]"
       @input="input(field.name, $event)"
     />
@@ -17,6 +17,7 @@ import FRow from '@/components/input/row'
 import { mapState } from '@/utils/store'
 import { PROP_TYPE_ARRAY } from '@/constants/props'
 import { makeProp } from '@/utils/props'
+import { omit } from '@/utils/helpers'
 
 export default {
   components: {
@@ -35,12 +36,13 @@ export default {
     },
   },
   methods: {
+    omit,
     parse({ label, placeholder, name, type, validate }) {
       const format = (value = '') => value.toLowerCase().replace(/[. ]/g, '_')
       label = format(label)
       placeholder = format(placeholder)
 
-      let noLabelFloating = Boolean(
+      let noFloating = Boolean(
         (label && placeholder) || (!label && !placeholder)
       )
 
@@ -51,19 +53,17 @@ export default {
 
       return {
         name,
-        noLabelFloating,
+        noFloating,
         label,
         placeholder,
-        componentName: this.getComponent(type),
+        component: this.getComponent(),
         rules: this.parseValidate(validate),
         autocomplete: 'on',
         type,
       }
     },
-    getComponent(type) {
-      if (type === 'date') return FRow
-
-      return 'f-form-group'
+    getComponent() {
+      return FRow
     },
     parseValidate(validate) {
       if (!validate) return ''
