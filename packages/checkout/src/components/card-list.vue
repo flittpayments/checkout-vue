@@ -43,7 +43,6 @@ export default {
   methods: {
     setCardNumber(card) {
       this.store.setCardNumber(card)
-
       this.$emit('input')
     },
   },

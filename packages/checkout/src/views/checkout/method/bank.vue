@@ -16,10 +16,10 @@
         </div>
         <div v-if="showSearch" :class="[$style.col_12, $style.search]">
           <f-form-base>
-            <f-form-group
+            <f-row
               v-model="search"
-              name="system_search"
-              size="sm"
+              label="system_search"
+              size="44"
               prepend="search"
             />
           </f-form-base>
@@ -70,6 +70,7 @@
 
 <script>
 import FFormBase from '@/components/form/form/form-base'
+import FRow from '@/components/input/row'
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
 import FIcon from '@/components/icon'
@@ -102,6 +103,7 @@ const SUPPORTED_SYSTEM_ROUTE = [
 export default {
   components: {
     FFormBase,
+    FRow,
     FButtonUnstyled,
     FSvg,
     FIcon,

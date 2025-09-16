@@ -17,12 +17,12 @@
     </template>
     <template #default>
       <f-form-base v-if="showSearch" :class="$style.search">
-        <f-form-group
+        <f-row
           ref="search"
           :value="text"
           :class="$style.mb_0"
-          name="default_country"
-          size="sm"
+          label="default_country"
+          size="44"
           prepend="search"
           :autofocus="autofocus"
           autocomplete="off"
@@ -53,6 +53,7 @@
 <script>
 import FModalTooltip from '@/components/modal-tooltip'
 import FFormBase from '@/components/form/form/form-base'
+import FRow from '@/components/input/row'
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
 import { makeProp } from '@/utils/props'
@@ -72,6 +73,7 @@ export default {
   components: {
     FModalTooltip,
     FFormBase,
+    FRow,
     FButtonUnstyled,
     FSvg,
   },
