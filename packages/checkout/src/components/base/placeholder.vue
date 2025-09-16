@@ -87,7 +87,7 @@ export default {
   user-select: none;
 }
 
-:global(#f) .hidden {
+.hidden {
   position: absolute;
   top: 0;
   z-index: -1;

@@ -1,13 +1,17 @@
 <template>
-  <f-form-group v-model="form[name]" v-bind="attrs" />
+  <f-row v-model="form[name]" v-bind="attrs" />
 </template>
 
 <script>
+import FRow from '@/components/input/row'
 import { mapState } from '@/utils/store'
 import { PROP_TYPE_STRING, PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
 export default {
+  components: {
+    FRow,
+  },
   inheritAttrs: false,
   props: {
     name: makeProp(PROP_TYPE_STRING, undefined, true),

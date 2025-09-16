@@ -1,11 +1,12 @@
 <template>
   <div :class="$style.wrapper">
     <f-input-group>
-      <f-form-group
+      <f-row
         ref="card_number"
         v-model="card_number"
         class="f-col"
-        name="card_number"
+        :label-class="$style.label"
+        label="card_number"
         :rules="cardNumberValid"
         :mask="cardConfig.cardNumberMask"
         :maxlength="cardConfig.cardNumberMaxLength"
@@ -17,11 +18,12 @@
         @input="cardNumberInput"
         @error="onError"
       />
-      <f-form-group
+      <f-row
         ref="expiry_date"
         v-model="expiry_date"
         class="f-col-3"
-        name="expiry_date"
+        :label-class="$style.label"
+        label="expiry_date"
         :rules="expiryDateValid"
         mask="##/##"
         masked
@@ -29,18 +31,18 @@
         type="tel"
         inputmode="numeric"
         autocomplete="cc-exp"
-        :format="format"
+        :formatter="formatter"
         hide-error
         @input="expiryDateInput"
         @error="onError"
       />
-      <f-form-group
+      <f-row
         v-if="showCvv"
         ref="cvv2"
         v-model="cvv2"
         :class="cvvClass"
+        :label-class="$style.label"
         :input-class="$style.cvv2_input"
-        name="cvv2"
         label="CVV"
         :rules="cvvValid"
         type="tel"
@@ -60,6 +62,7 @@
 
 <script>
 import FInputGroup from '@/components/base/input-group'
+import FRow from '@/components/input/row'
 import FError from '@/components/base/error'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { createDate, format } from '@/utils/date'
@@ -72,6 +75,7 @@ import { getCardConfig } from '@/utils/get-bin-name'
 export default {
   components: {
     FInputGroup,
+    FRow,
     FError,
     FLoading,
   },
@@ -194,17 +198,17 @@ export default {
       fields
         .reduce((accum, name) => {
           return accum
-            .then(() => this.$refs[name]?.validation.validate())
+            .then(() => this.$refs[name]?.validate())
             .then(response => {
               if (response?.valid) return
 
-              this.$refs[name]?.focused()
+              this.$refs[name]?.focus()
               return Promise.reject()
             })
         }, Promise.resolve())
         .catch(errorHandler)
     },
-    format(value) {
+    formatter(value) {
       value = value.replace(/[^\d]/, '/')
       let [month, year] = value.split('/')
 
@@ -237,11 +241,11 @@ export default {
   margin-bottom: px-to-rem(16px);
 }
 
-:global(#f) .wrapper :global(.f-control-label-floating) {
+.label.label {
   right: 0;
 }
 
-:global(#f) .cvv2_input {
+.cvv2_input.cvv2_input {
   font-family: $font-family-cvv;
 
   &:-webkit-autofill::first-line {

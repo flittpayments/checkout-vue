@@ -1,13 +1,14 @@
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.group">
-      <f-form-group
+      <f-row
         ref="card_number"
         v-model="card_number"
         :class="$style.card_number"
         :input-class="$style.card_number_input"
+        :input-error-class="$style.error"
         :label-class="$style.card_number_label"
-        name="card_number"
+        label="card_number"
         :rules="cardNumberValid"
         :mask="cardConfig.cardNumberMask"
         :maxlength="cardConfig.cardNumberMaxLength"
@@ -19,13 +20,14 @@
         @input="cardNumberInput"
         @error="onError"
       />
-      <f-form-group
+      <f-row
         ref="expiry_date"
         v-model="expiry_date"
         :class="classExpiryDateWrapper"
         :input-class="classExpiryDateInput"
+        :input-error-class="$style.error"
         :label-class="$style.expiry_date_label"
-        name="expiry_date"
+        label="expiry_date"
         :rules="expiryDateValid"
         mask="##/##"
         masked
@@ -33,19 +35,20 @@
         type="tel"
         inputmode="numeric"
         autocomplete="cc-exp"
-        :format="format"
+        :formatter="formatter"
         hide-error
         @input="expiryDateInput"
         @error="onError"
       />
-      <f-form-group
+      <f-row
         v-if="showCvv"
         ref="cvv2"
         v-model="cvv2"
         :class="$style.cvv2"
         :input-class="$style.cvv2_input"
+        :input-error-class="$style.error"
         :label-class="$style.cvv2_label"
-        name="cvv2"
+        label="cvv2"
         :rules="cvvValid"
         type="tel"
         inputmode="numeric"
@@ -63,6 +66,7 @@
 </template>
 
 <script>
+import FRow from '@/components/input/row'
 import FError from '@/components/base/error'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { createDate, format } from '@/utils/date'
@@ -74,6 +78,7 @@ import { getCardConfig } from '@/utils/get-bin-name'
 
 export default {
   components: {
+    FRow,
     FError,
     FLoading,
   },
@@ -203,17 +208,17 @@ export default {
       fields
         .reduce((accum, name) => {
           return accum
-            .then(() => this.$refs[name]?.validation.validate())
+            .then(() => this.$refs[name]?.validate())
             .then(response => {
               if (response?.valid) return
 
-              this.$refs[name]?.focused()
+              this.$refs[name]?.focus()
               return Promise.reject()
             })
         }, Promise.resolve())
         .catch(errorHandler)
     },
-    format(value) {
+    formatter(value) {
       value = value.replace(/[^\d]/, '/')
       let [month, year] = value.split('/')
 
@@ -258,7 +263,7 @@ export default {
   margin-bottom: px-to-rem(-2px);
 }
 
-:global(#f) .card_number_input {
+.card_number_input.card_number_input {
   border-radius: $border-radius $border-radius 0 0;
 }
 
@@ -275,11 +280,11 @@ export default {
   max-width: 100%;
 }
 
-:global(#f) .expiry_date_input {
+.expiry_date_input.expiry_date_input {
   border-radius: 0 0 0 $border-radius;
 }
 
-:global(#f) .expiry_date_input_full {
+.expiry_date_input_full.expiry_date_input_full {
   border-radius: 0 0 $border-radius $border-radius;
 }
 
@@ -290,7 +295,7 @@ export default {
   margin-bottom: 0;
 }
 
-:global(#f) .cvv2_input {
+.cvv2_input.cvv2_input {
   border-radius: 0 0 $border-radius;
   font-family: $font-family-cvv;
 
@@ -299,14 +304,14 @@ export default {
   }
 }
 
-:global(#f) .card_number_input,
-:global(#f) .expiry_date_input,
-:global(#f) .cvv2_input {
-  position: relative;
+.error {
+  z-index: 1;
+}
 
-  &:global(.f-control-error) {
-    z-index: 1;
-  }
+.card_number_input.card_number_input,
+.expiry_date_input.expiry_date_input,
+.cvv2_input.cvv2_input {
+  position: relative;
 
   &:focus {
     z-index: 2;
