@@ -23,13 +23,13 @@
           />
         </template>
         <template v-else>
-          <input-amount v-slot="{ id }" name="amount" label="amount">
+          <input-amount v-slot="{ id, className }" label="amount">
             <f-placeholder
               v-if="showFeeAmount"
               :id="id"
               :value="totalAmount"
               :offset="5"
-              :name-class="['f-form-control']"
+              :name-class="className"
               :text-class="$style.fee"
             >
               + <f-amount :value="fee_amount" />

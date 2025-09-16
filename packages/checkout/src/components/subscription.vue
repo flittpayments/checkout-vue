@@ -10,16 +10,15 @@
     <transition name="f-collapse">
       <div v-if="enabled_switch" :class="$style.content">
         <input-amount
-          name="amount"
           :label="$t('subscription_amount')"
           subscription
           :disabled="readonly"
         />
-        <f-form-group
+        <f-row
           v-if="showTrial"
           key="trial"
           :value="trial"
-          name="trial_period"
+          label="trial_period"
           disabled
         />
         <div
@@ -27,20 +26,20 @@
           class="f-row"
           :class="$style.align_items_center"
         >
-          <f-form-group
+          <f-row
             v-if="unlimited"
             key="checked_unlimited"
             value="∞"
             class="f-col-12 f-col-ss-7"
-            name="number_of_payments"
+            label="number_of_payments"
             disabled
           />
-          <f-form-group
+          <f-row
             v-else
             key="quantity"
             v-model.number="quantity"
             class="f-col-12 f-col-ss-7"
-            name="number_of_payments"
+            label="number_of_payments"
             rules="required|numeric|one"
             type="tel"
             inputmode="numeric"
@@ -57,10 +56,10 @@
           />
         </div>
         <f-input-group no-margin>
-          <f-form-group
+          <f-row
             v-model.number="every"
             class="f-col-4"
-            name="subscription_every"
+            label="subscription_every"
             rules="required|numeric|one"
             type="tel"
             inputmode="numeric"

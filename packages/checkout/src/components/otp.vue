@@ -18,12 +18,11 @@
       @focusin="onFocusIn"
       @focusout="onFocusOut"
     >
-      <f-form-item-input
+      <f-input
         v-for="(_, index) in list"
         :key="index"
         ref="inputs"
         v-model="list[index]"
-        :name="index === 0 ? safeId() : ''"
         :maxlength="1"
         type="tel"
         inputmode="numeric"
@@ -31,10 +30,9 @@
         class="f-col"
         :input-class="$style.item"
         size="48"
-        no-label-floating
         :disabled="disabled"
         pattern="\d*"
-        :format="format"
+        :formatter="formatter"
         @input="onInput(index)"
         @keydown="onKeydown($event, index)"
         @paste="onPaste"
@@ -50,7 +48,7 @@
 
 <script>
 import { ValidationProvider } from 'vee-validate'
-import FFormItemInput from '@/components/form/item/input'
+import FInput from '@/components/input/item/input'
 import FError from '@/components/base/error'
 import { makeProp } from '@/utils/props'
 import {
@@ -66,7 +64,7 @@ import { contains, getActiveElement } from '@/utils/dom'
 export default {
   components: {
     ValidationProvider,
-    FFormItemInput,
+    FInput,
     FError,
   },
   mixins: [timeoutMixin, idMixin],
@@ -189,10 +187,10 @@ export default {
         const input = this.$refs.inputs && this.$refs.inputs[this.i]
         if (!input) return
 
-        input.focused()
+        input.focus()
       })
     },
-    format(value) {
+    formatter(value) {
       return mask(value, '#')
     },
   },

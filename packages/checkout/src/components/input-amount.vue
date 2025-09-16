@@ -1,13 +1,8 @@
 <template>
   <f-input-group v-if="showCurrencies">
-    <f-form-group
-      v-slot="scope"
-      v-model="form[name]"
-      v-bind="attrs"
-      class="f-col"
-    >
+    <f-row v-slot="scope" v-bind="attrs" v-model="value" class="f-col">
       <slot v-bind="scope" />
-    </f-form-group>
+    </f-row>
     <f-row
       v-model="currency"
       type="select"
@@ -17,25 +12,21 @@
       :disabled="disabled"
     />
   </f-input-group>
-  <f-form-group v-else v-slot="scope" v-model="form[name]" v-bind="attrs">
+  <f-row v-else v-slot="scope" v-bind="attrs" v-model="value">
     <slot v-bind="scope" />
     <span :class="$style.currency" v-text="$t(currency)" />
-  </f-form-group>
+  </f-row>
 </template>
 
 <script>
 import FInputGroup from '@/components/base/input-group'
 import FRow from '@/components/input/row'
 import { mapState, mapStateGetSet } from '@/utils/store'
-import {
-  PROP_TYPE_STRING,
-  PROP_TYPE_BOOLEAN,
-  PROP_TYPE_NUMBER,
-} from '@/constants/props'
+import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
-import { isNumber } from '@/utils/inspect'
 import { parseSelect, sort } from '@/utils/sort'
 import { amountToCoins } from '@/utils/helpers'
+import { formatterAmount } from '@/utils/formatter'
 
 export default {
   components: {
@@ -44,31 +35,39 @@ export default {
   },
   inheritAttrs: false,
   props: {
-    name: makeProp(PROP_TYPE_STRING, undefined, true),
-    value: makeProp(PROP_TYPE_NUMBER, 0),
     subscription: makeProp(PROP_TYPE_BOOLEAN, false),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+  },
+  data() {
+    return {
+      name: 'amount',
+    }
   },
   computed: {
     ...mapState(['params', 'currencies']),
     ...mapState('params', ['verification_type', 'recurring']),
     ...mapStateGetSet('params', ['currency']),
+    value: {
+      get() {
+        return this.form[this.name] / 100
+      },
+      set(val) {
+        this.form[this.name] = amountToCoins(val)
+      },
+    },
     attrs() {
       return {
         ...this.$attrs,
         name: this.name,
-        value: this.value,
         rules: {
           required: true,
-          decimal: 2,
           no_zero: !(this.verification_type || this.recurring === 'y'),
         },
         type: 'number',
         autocomplete: 'off',
-        format: this.format,
-        parse: this.parse,
         disabled: this.disabled,
         inputClass: this.$style.input,
+        formatter: formatterAmount,
       }
     },
     form() {
@@ -84,22 +83,7 @@ export default {
   watch: {
     currency: 'feeCalc',
   },
-  created() {
-    this.form[this.name] = this.form[this.name] || this.value
-  },
   methods: {
-    format(value) {
-      if (/^(0|\d*\.0?)$/.test(this.last)) return this.last
-
-      value = parseInt(value, 10)
-
-      return isNumber(value) ? String(value / 100) : ''
-    },
-    parse(value) {
-      this.last = value
-
-      return amountToCoins(value)
-    },
     feeCalc() {
       this.store.feeCalc()
     },

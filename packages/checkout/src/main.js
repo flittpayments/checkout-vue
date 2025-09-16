@@ -3,7 +3,6 @@ import {
   App,
   validate,
   sentry,
-  components,
   plugins,
   api,
   store,
@@ -25,7 +24,6 @@ const load = Promise.all([
   App(),
   validate(),
   sentry(),
-  components(),
   plugins(),
   api(),
   store(),
@@ -111,7 +109,6 @@ export const checkout = (window.checkout = function (el, optionsUser) {
         App,
         { install: installValidate },
         { install: installSentry },
-        { install: installComponents },
         { install: installPlugins },
         { install: installApi },
         { createStore },
@@ -157,7 +154,6 @@ export const checkout = (window.checkout = function (el, optionsUser) {
 
         Vue.use(installValidate)
         Vue.use(installSentry(optionsUser, router))
-        Vue.use(installComponents)
         Vue.use(installPlugins)
 
         let origin =

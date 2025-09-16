@@ -4,20 +4,19 @@
     <f-credit-card-inline v-else-if="isLayoutInline" disabled />
     <f-credit-card v-else disabled />
     <f-field-email />
-    <f-form-group
+    <f-row
       v-if="isCode"
       v-model="code"
-      name="verification_code"
+      label="verification_code"
       :rules="validCode"
       type="tel"
       :maxlength="4"
     />
-    <f-form-group
+    <f-row
       v-if="isAmount"
       v-model="code"
-      name="verification_amount"
+      label="verification_amount"
       :rules="validAmount"
-      type="text"
     />
     <f-subscription-wrapper />
     <f-offer />
@@ -30,6 +29,7 @@
 import { FCreditCardPlain, FCreditCardInline } from '@/import'
 import FCreditCard from '@/views/checkout/method/card/credit-card'
 import FFieldEmail from '@/components/fields/email'
+import FRow from '@/components/input/row'
 import FSubscriptionWrapper from '@/components/subscription-wrapper'
 import FOffer from '@/components/offer'
 import FButtonPay from '@/components/button/button-pay'
@@ -42,6 +42,7 @@ export default {
     FCreditCardInline,
     FCreditCard,
     FFieldEmail,
+    FRow,
     FSubscriptionWrapper,
     FOffer,
     FButtonPay,
@@ -49,13 +50,8 @@ export default {
   },
   computed: {
     ...mapState(['order']),
-    ...mapStateGetSet('params', [
-      'card_number',
-      'expiry_date',
-      'cvv2',
-      'code',
-      'verification_type',
-    ]),
+    ...mapStateGetSet('params', ['card_number', 'expiry_date', 'cvv2', 'code']),
+    ...mapState('params', ['verification_type']),
     ...mapState('options', ['theme']),
     isLayoutPlain() {
       return this.theme.layout === 'plain'
