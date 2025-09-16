@@ -5,7 +5,7 @@
       <f-svg ref="arrow" :class="$style.arrow" name="angle-down" size="lg" />
     </template>
     <template #default>
-      <f-card-list :list="list" @input="hide" />
+      <f-card-list :list="list" @input="input" />
     </template>
   </f-modal-tooltip>
 </template>
@@ -51,10 +51,12 @@ export default {
   },
   created() {
     this.store.setCardNumber(this.list[0])
+    this.$emit('input')
   },
   methods: {
-    hide() {
+    input() {
       this.$refs.mt.hide()
+      this.$emit('input')
     },
   },
 }
