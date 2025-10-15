@@ -7,6 +7,8 @@ const increaseSpecificity = require('./build/postcss-increase-specificity')
 const autoprefixer = require('autoprefixer')
 const argv = require('minimist')(process.argv.slice(2))
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity')
+const { WebpackAssetsManifest } = require("webpack-assets-manifest")
 
 const PUBLIC_PATH = argv['public-path'] || '/'
 const COMMITHASH = gitRevisionPlugin.commithash()
@@ -93,6 +95,7 @@ module.exports = defineConfig({
       .when(isProduction, config => {
         config
           .optimization
+            .set('realContentHash', true)
             .splitChunks({
               cacheGroups: {
                 defaultVendors: {
@@ -105,14 +108,20 @@ module.exports = defineConfig({
               },
             })
             .end()
-          .output.filename('[name].js')
+          .output
+            .filename('[name].js')
+            .crossOriginLoading('anonymous')
             .end()
           .plugin('extract-css')
             .tap(([options]) => {
               return [{
                 ...options,
                 ignoreOrder: true,
-                filename: '[name].css'
+                filename: '[name].css',
+                insert: function(linkTag) {
+                  linkTag.removeAttribute && linkTag.removeAttribute('crossorigin')
+                  document.head.appendChild(linkTag)
+                },
               }]
             })
             .end()
@@ -128,6 +137,18 @@ module.exports = defineConfig({
               ].join(' '),
               entryOnly: true,
               exclude: /css$/
+            }])
+            .end()
+          .plugin('sri')
+            .use(SubresourceIntegrityPlugin, [{
+              hashLoading: 'lazy',
+            }])
+            .end()
+          .plugin('assets-manifest')
+            .use(WebpackAssetsManifest, [{
+              publicPath: true,
+              integrity: true,
+              integrityHashes: ['sha384'],
             }])
             .end()
       })
