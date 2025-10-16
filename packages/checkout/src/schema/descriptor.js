@@ -31,7 +31,6 @@ const config = [
   'options',
   'params',
   'messages',
-  'validate',
   'css_variable',
   'button',
   'fields_custom',
@@ -210,12 +209,6 @@ locales.forEach(function (locale) {
   }
 })
 
-let validate = enumObject(locales)
-
-locales.forEach(function (locale) {
-  validate.fields[locale] = typeObject
-})
-
 const cssVariableKeys = Object.keys(
   cssVariable({
     type: 'light',
@@ -354,7 +347,6 @@ export default {
         },
       },
       messages,
-      validate,
       css_variable,
       button: {
         ...typeObject,

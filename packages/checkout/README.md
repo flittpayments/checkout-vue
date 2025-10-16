@@ -11,7 +11,6 @@
   button: {}, // button config
   fields_custom: [],
   messages: {},
-  validate: {},
   css_variable: {},
 }
 ```
@@ -141,20 +140,6 @@
 ```js
 {
   messages: {
-    {en}: {
-      {id}: {value},
-      ...
-    },
-    ...
-  },
-}
-```
-
-### validate
-
-```js
-{
-  validate: {
     {en}: {
       {id}: {value},
       ...
