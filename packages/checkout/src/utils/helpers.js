@@ -57,13 +57,6 @@ export const clearEmptyValue = object => {
   )
 }
 
-export const generateValidateMessage = translation =>
-  Object.fromEntries(
-    Object.entries(translation)
-      .filter(([k, v]) => /^rule_/.test(k) && v)
-      .map(([k, v]) => [k.replace('rule_', ''), v])
-  )
-
 export const removeDuplicate = (item, key, self) => self.indexOf(item) === key
 
 export const includes = list => item => list.includes(item)

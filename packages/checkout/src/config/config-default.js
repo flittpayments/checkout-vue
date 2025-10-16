@@ -107,7 +107,6 @@ export const configDefault = {
   },
   button: {},
   messages: {},
-  validate: {},
   css_variable: {},
 
   // not config
@@ -159,5 +158,4 @@ export const configDefault = {
 
 locales.forEach(function (locale) {
   configDefault.messages[locale] = {}
-  configDefault.validate[locale] = {}
 })

@@ -326,7 +326,6 @@ class Store extends Model {
     Object.assign(this.state.button, this.user.button)
     Object.assign(this.state.fields_custom, this.user.fields_custom)
     Object.assign(this.state.messages, this.user.messages)
-    Object.assign(this.state.validate, userConfig.validate) // userConfig because functions are removed in this.user
     Object.assign(
       this.state.css_variable,
       cssVariable(this.state.options.theme),

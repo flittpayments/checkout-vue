@@ -95,6 +95,7 @@ class Validate {
     this.supportOldOptionsArray('methods_disabled', 'banks', 'banklinks_eu')
     this.deprecatedOptions('fields')
     this.deprecatedOptions('hide_button_title')
+    this.deprecated('validate')
   }
 
   supportOldOptions(newName, oldName) {
@@ -150,6 +151,14 @@ class Validate {
     delete this.options[name]
   }
 
+  deprecated(name) {
+    if (!isExist(this.data[name])) return
+
+    this.log(`config.${name} is deprecated and needs to be removed`)
+
+    delete this.data[name]
+  }
+
   log(message) {
     if (DOMAIN === location.hostname) {
       captureMessage(message, 'warning')
@@ -164,7 +173,7 @@ class Validate {
     if (!isPlainObject(options)) return
 
     for (let prop in options) {
-      if (['messages', 'validate'].includes(prop)) continue
+      if (['messages'].includes(prop)) continue
       if (!Object.prototype.hasOwnProperty.call(options, prop)) continue
 
       let modified = prop.replace(regex, function (match) {

@@ -2,7 +2,7 @@ import translation from '@/i18n/po/it/messages.json'
 import countries from '@/i18n/countries/it.json'
 import formatLocale from 'date-format-parse/lib/locale/it'
 import locales from '@/config/locales.json'
-import { clearEmptyValue, generateValidateMessage } from '@/utils/helpers'
+import { clearEmptyValue } from '@/utils/helpers'
 
 export const messages = Object.assign(
   {},
@@ -18,5 +18,3 @@ export const messages = Object.assign(
     },
   }
 )
-
-export const validate = generateValidateMessage(translation)
