@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import { messages as messagesEn, validate as validateEn } from '@/i18n/lang/en'
+import { messages as messagesEn } from '@/i18n/lang/en'
 import { localize } from 'vee-validate'
 import configLocales from '@/config/locales.json'
 import { loadLang } from '@/import'
@@ -16,7 +16,7 @@ export const i18n = new VueI18n({
 })
 
 export const loadLanguageAsync = (lang, store) =>
-  loadLang(lang).then(({ messages, validate }) => {
+  loadLang(lang).then(({ messages }) => {
     const translation = {
       ...messagesEn,
       ...store.state.messages['en'],
@@ -24,19 +24,20 @@ export const loadLanguageAsync = (lang, store) =>
       ...store.state.messages[lang],
     }
 
-    localize(lang, {
-      messages: Object.assign(
-        {},
-        validateEn,
-        validate,
-        store.state.validate[lang]
-      ),
-    })
+    localize(lang, { messages: generateValidateMessage(translation) })
 
     i18n.setLocaleMessage(lang, translation)
 
     return setI18nLanguage(lang)
   })
+
+function generateValidateMessage(translation) {
+  return Object.fromEntries(
+    Object.entries(translation)
+      .filter(([k, v]) => /^rule_/.test(k) && v)
+      .map(([k, v]) => [k.replace('rule_', ''), v])
+  )
+}
 
 function setI18nLanguage(lang) {
   i18n.locale = lang
