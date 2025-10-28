@@ -1,3 +1,9 @@
+@use 'sass:math';
+@use '@/scss/core/constants';
+@use '@/scss/core/colors';
+@use '@/scss/core/variables';
+@use '@/scss/core/functions/px-to-rem' as *;
+
 // stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
 // Reboot
@@ -45,7 +51,7 @@ h4,
 h5,
 h6 {
   margin-top: 0;
-  margin-bottom: $headings-margin-bottom;
+  margin-bottom: math.div(variables.$spacer, 2);
 }
 
 // Reset margins on paragraphs
