@@ -1,3 +1,8 @@
+@use '@/scss/core/constants' as *;
+@use '@/scss/core/colors' as *;
+@use '@/scss/core/variables' as *;
+@use '@/scss/core/functions/px-to-rem' as *;
+
 .default_light {
   --color: #{$grey};
   --bg: #{$white};

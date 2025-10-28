@@ -1,0 +1,12 @@
+@use '@/scss/core/functions/functions';
+@use 'sass:meta';
+
+@function px-to-rem($px, $font-size-base: 16px) {
+  @if meta.type-of($px) == 'number' {
+    @return functions.single-unit-rem($px, $font-size-base);
+  } @else if meta.type-of($px) == 'list' {
+    @return functions.multiple-units-rem($px, $font-size-base);
+  } @else {
+    @return $px;
+  }
+}

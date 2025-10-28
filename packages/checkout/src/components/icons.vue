@@ -126,7 +126,7 @@ export default {
 }
 
 .item_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     opacity: 0.3;
     transition: all ease-in-out 0.15s;
   }

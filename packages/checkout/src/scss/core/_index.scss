@@ -1,7 +1,4 @@
-@import 'functions';
-@import 'colors';
-@import 'variables';
-@import 'mixins/index';
-@import 'reboot';
-@import 'transition';
-@import 'grid';
+@use 'reboot';
+@use 'transition';
+@use 'grid';
+@use 'utilities';

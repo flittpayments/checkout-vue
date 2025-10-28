@@ -50,6 +50,8 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use 'sass:map';
+
 .style {
   position: fixed;
   top: 0;
@@ -71,7 +73,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     position: absolute;
     top: px-to-rem(8px);
     right: px-to-rem(16px);
@@ -79,7 +81,7 @@ export default {
     border-radius: $border-radius-lg;
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     top: px-to-rem(8px);
     left: 50%;
     width: 100%;
@@ -87,11 +89,11 @@ export default {
     transform: translateX(-50%);
   }
 
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     transform: translate(-50%, -50%);
   }
 
-  @media (min-width: map-get($grid-breakpoints, xl)) and (height <= 750px) {
+  @media (min-width: map.get($grid-breakpoints, xl)) and (height <= 750px) {
     transform: translate(-50%, 0);
   }
 }
@@ -115,7 +117,7 @@ export default {
 }
 
 .icon_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     border-radius: $border-radius-lg 0 0 $border-radius-lg;
   }
 }

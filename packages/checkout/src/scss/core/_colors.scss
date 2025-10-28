@@ -1,3 +1,5 @@
+@use '@/scss/core/constants';
+
 $ash_100: #f7f8f9; // 212 14 97
 $ash_200: #f2f3f5; // 212 13 95
 $ash_300: #eef0f2; // 212 13 94
@@ -23,12 +25,11 @@ $white_06: #adaeb0;
 $white_08: #d6d7d7;
 $black: #000;
 $grey: #3d3d3d;
-$white: #fff;
 $error: #de4761;
 $warning: #f5970a;
-$white: var(#{$prefix}white);
+$white: var(#{constants.$prefix}white);
 
 // theme
-$container_bg: var(#{$prefix}container_bg);
-$outline_border: var(#{$prefix}outline_border);
-$outline_bg: var(#{$prefix}outline_bg);
+$container_bg: var(#{constants.$prefix}container_bg);
+$outline_border: var(#{constants.$prefix}outline_border);
+$outline_bg: var(#{constants.$prefix}outline_bg);

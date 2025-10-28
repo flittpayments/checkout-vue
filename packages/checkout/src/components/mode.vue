@@ -34,7 +34,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     height: $border-radius-lg;
     border-radius: $border-radius-lg $border-radius-lg 0 0;
   }

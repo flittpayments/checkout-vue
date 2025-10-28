@@ -103,6 +103,8 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use '@/scss/core/mixins/text';
+
 .inner {
   position: relative;
 }
@@ -134,7 +136,7 @@ export default {
   color: var(--color);
   transition: transform ease-in-out 0.15s;
   transform-origin: 0 0;
-  @include text-truncate;
+  @include text.truncate;
 }
 
 .label_light {

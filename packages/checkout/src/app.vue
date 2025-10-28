@@ -117,7 +117,7 @@ export default {
 <style lang="scss" module>
 .style {
   background: var(--bg);
-  font-family: $font-family-inter;
+  font-family: inter, sans-serif;
   font-size: $font-size-base;
   line-height: $line-height-base;
   color: var(#{$prefix}main_color);
@@ -132,7 +132,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     display: flex;
     align-items: center;
     justify-content: center;
