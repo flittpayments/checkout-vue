@@ -54,7 +54,7 @@ export default {
   bottom: 0;
   left: 0;
   background-color: $container_bg;
-  opacity: $modal-backdrop-opacity;
+  opacity: 0.7;
 }
 
 .custom {

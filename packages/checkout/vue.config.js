@@ -71,13 +71,11 @@ module.exports = defineConfig({
     loaderOptions: {
       scss: {
         additionalData: [
-          `$PUBLIC_PATH: '${PUBLIC_PATH}';`,
-          `$cdn: '${SAAS_CDN_URL}';`,
-          `$prefix: --${SAAS_TEMPLATE_NAME}-;`,
-          '@import \'~@/scss/core/functions\';',
-          '@import \'~@/scss/core/colors\';',
-          '@import \'~@/scss/core/variables\';',
-          '@import \'~@/scss/core/mixins/index\';',
+          '@use "@/scss/core/constants" as *;',
+          '@use "@/scss/core/colors" as *;',
+          '@use "@/scss/core/variables" as *;',
+          '@use "@/scss/core/mixins/breakpoints";',
+          '@use "@/scss/core/functions/px-to-rem" as *;',
         ].join('')
       },
       // postcss: {

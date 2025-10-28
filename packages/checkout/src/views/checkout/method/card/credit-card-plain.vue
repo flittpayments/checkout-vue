@@ -258,6 +258,8 @@ export default {
 </script>
 
 <style lang="scss" module>
+$font-family-cvv: 'Cvv', sans-serif;
+
 .wrapper {
   position: relative;
   margin-bottom: px-to-rem(16px);

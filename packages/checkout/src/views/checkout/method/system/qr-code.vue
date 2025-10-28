@@ -190,7 +190,9 @@ export default {
       )
     },
     terms() {
-      return `<a href="${this.termsUrl}" target="_blank">${this.$t('terms')}</a>`
+      return `<a href="${this.termsUrl}" target="_blank">${this.$t(
+        'terms'
+      )}</a>`
     },
     termsUrl() {
       // $t('https://accounts.libertybank.ge/files/UA-en.pdf')
@@ -378,7 +380,7 @@ export default {
 }
 
 .apps_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: px-to-rem(12px) px-to-rem(12px) px-to-rem(12px) px-to-rem(16px);
   }
 }
@@ -388,7 +390,7 @@ export default {
 }
 
 .apps_col_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     width: 50%;
   }
 }
@@ -423,7 +425,7 @@ export default {
 }
 
 .apps_desc_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     margin-bottom: 0;
   }
 }
@@ -446,7 +448,7 @@ export default {
 }
 
 .app_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: px-to-rem(8px);
     gap: px-to-rem(12px);
   }
