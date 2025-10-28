@@ -5,13 +5,16 @@
 </template>
 
 <style lang="scss" module>
+@use '@/scss/core/functions/functions';
+@use '@/scss/core/mixins/sticky';
+
 .style {
   background-image: linear-gradient(
     to bottom,
     $container_bg,
-    fade($container_bg, 0)
+    functions.fade($container_bg, 0)
   );
-  @include sticky-top;
+  @include sticky.top;
 }
 
 .inner {

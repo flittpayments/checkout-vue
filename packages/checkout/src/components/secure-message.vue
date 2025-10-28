@@ -93,7 +93,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     position: absolute;
     bottom: px-to-rem(32px);
     right: px-to-rem(32px);
@@ -129,7 +129,7 @@ export default {
 }
 
 .title_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     display: flex;
     width: 90px;
     padding: 0;
@@ -167,7 +167,7 @@ export default {
 }
 
 .svg_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     min-width: px-to-rem(32px);
     margin-right: px-to-rem(2px);
   }

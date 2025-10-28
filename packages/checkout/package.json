@@ -8,15 +8,14 @@
   },
   "author": "Mykhailo Holubovskyi <lamerumiata@gmail.com>",
   "scripts": {
-    "dev": "vue-cli-service serve --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
+    "dev": "./scripts/dev.sh --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
     "serve": "serve -s dist --cors",
-    "build": "npm run gulp && vue-cli-service build --no-module",
-    "build:localhost": "npm run gulp && vue-cli-service build --no-module --public-path=http://localhost:3000/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
+    "build": "./scripts/build.sh",
+    "build:localhost": "./scripts/build.sh --public-path=http://localhost:3000/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
     "lint": "vue-cli-service lint",
     "stylelint:fix": "stylelint src/{**/,**/**/}*.scss --custom-syntax postcss-scss --color --formatter verbose --fix",
     "eslint:fix": "eslint src/**/*.{js,vue} --fix",
-    "prettier:fix": "prettier src/**/*.{js,vue,scss} --write",
-    "gulp": "gulp"
+    "prettier:fix": "prettier src/**/*.{js,vue,scss} --write"
   },
   "files": [
     "dist"

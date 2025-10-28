@@ -116,7 +116,7 @@ export default {
 }
 
 .wrapper_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     border-radius: $border-radius-lg $border-radius-lg 0 0;
   }
 }
@@ -140,17 +140,17 @@ export default {
 }
 
 .left_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding-left: px-to-rem(40px);
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     flex: 0 0 410px;
     max-width: 410px;
     border-right: px-to-rem(2px) solid var(--border-color);
   }
 
-  @include media-breakpoint-up(xxl) {
+  @include breakpoints.up(xxl) {
     flex: 0 0 450px;
     max-width: 450px;
     padding-left: px-to-rem(60px);
@@ -181,17 +181,17 @@ export default {
 }
 
 .right_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: px-to-rem(24px) px-to-rem(24px) 0 0;
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     flex: 1;
     max-width: inherit;
     padding: px-to-rem(24px) px-to-rem(24px) 0 0;
   }
 
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     padding: px-to-rem(24px) px-to-rem(24px) 0 0;
   }
 }

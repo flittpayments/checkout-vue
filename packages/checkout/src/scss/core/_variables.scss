@@ -1,4 +1,6 @@
-$enable-important-utilities: false;
+@use '@/scss/core/constants';
+@use '@/scss/core/functions/px-to-rem' as *;
+
 $grid-breakpoints-mobile: (
   xs: 0,
   ss: 375px,
@@ -14,8 +16,6 @@ $grid-breakpoints: map-merge(
   $grid-breakpoints-mobile,
   $grid-breakpoints-adaptive
 );
-
-// Spacing
 $spacer: 1rem;
 $spacers: (
   0: 0,
@@ -27,25 +27,8 @@ $spacers: (
   24: px-to-rem(24px),
   32: px-to-rem(32px),
 );
-
-// Characters which are escaped by the escape-svg function
-$escaped-characters: (
-  ('<', '%3c'),
-  ('>', '%3e'),
-  ('#', '%23'),
-  ('(', '%28'),
-  (')', '%29')
-);
-
-// Typography
-$font-family-inter: inter, sans-serif;
-$font-family-card-number: 'Card Number', sans-serif;
-$font-family-cvv: 'Cvv', sans-serif;
 $font-size-base: 1rem;
 $line-height-base: 1.4;
-$headings-margin-bottom: calc($spacer / 2);
-
-//== Z-index master list
 $zindex-sidebar: 990;
 $zindex-dropdown: 1000;
 $zindex-sticky: 1020;
@@ -58,17 +41,10 @@ $zindex-tooltip: 1070;
 $zindex-loading: 1080;
 $grid-columns: 12;
 $grid-gutter-width: px-to-rem(16px);
-$grid-row-columns: 6;
-$modal-dialog-margin: 2rem;
-$modal-backdrop-opacity: 0.7;
-$modal-sm: 300px;
-$modal-md: 427px;
-$modal-lg: 620px;
-$modal-xl: 800px;
 $header-height: px-to-rem(74px);
-$border-radius-sm: var(#{$prefix}border_radius_sm);
-$border-radius: var(#{$prefix}border_radius);
-$border-radius-lg: var(#{$prefix}border_radius_lg);
+$border-radius-sm: var(#{constants.$prefix}border_radius_sm);
+$border-radius: var(#{constants.$prefix}border_radius);
+$border-radius-lg: var(#{constants.$prefix}border_radius_lg);
 $utilities: (
   'margin': (
     responsive: true,

@@ -24,14 +24,15 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use '@/scss/core/functions/functions';
 $card_bg: var(#{$prefix}card_bg);
 
 .style {
   --bg: #{linear-gradient(
       180deg,
-      custom($card_bg, +6%, +8%) 0%,
+      functions.custom($card_bg, +6%, +8%) 0%,
       $card_bg 35%,
-      custom($card_bg, -0%, -8%) 100%
+      functions.custom($card_bg, -0%, -8%) 100%
     )};
 
   position: absolute;
@@ -51,8 +52,8 @@ $card_bg: var(#{$prefix}card_bg);
 .style_lighten {
   --bg: #{linear-gradient(
       180deg,
-      custom($card_bg, +6%, +16%) 0%,
-      custom($card_bg, +0%, +8%) 35%,
+      functions.custom($card_bg, +6%, +16%) 0%,
+      functions.custom($card_bg, +0%, +8%) 35%,
       $card_bg 100%
     )};
 }

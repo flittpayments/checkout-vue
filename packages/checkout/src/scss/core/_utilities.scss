@@ -1,1 +1,7 @@
-@include api-utility($grid-breakpoints-mobile);
+@use '@/scss/core/variables';
+@use '@/scss/core/mixins/utilities';
+
+@include utilities.api-utility(
+  variables.$utilities,
+  variables.$grid-breakpoints-mobile
+);
