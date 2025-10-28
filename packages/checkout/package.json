@@ -107,7 +107,6 @@
     ],
     "rules": {
       "scss/no-global-function-names": null,
-      "scss/at-mixin-pattern": null,
       "scss/dollar-variable-pattern": "^[a-z][a-z0-9_-]*$",
       "selector-class-pattern": "^[a-z][a-z0-9_-]*$",
       "custom-property-pattern": "^_?[a-z][a-z0-9-]*$",

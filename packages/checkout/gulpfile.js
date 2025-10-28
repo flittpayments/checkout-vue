@@ -5,6 +5,7 @@ const configLocale = require('./src/config/locales.json')
 const uk = require('./src/i18n/countries/uk.json')
 const bins = require('./src/config/bins.json')
 
+const { PUBLIC_PATH, SAAS_CDN_URL, SAAS_TEMPLATE_NAME } = process.env
 const excludes = list => item => !list.includes(item)
 const locales = Object.keys(configLocale)
 
@@ -292,6 +293,16 @@ task('check-bin-conflicts', async () => {
   }
 })
 
+task('scss-constants', () => {
+  const content = `
+$public-path: '${PUBLIC_PATH}';
+$cdn: '${SAAS_CDN_URL}';
+$prefix: --${SAAS_TEMPLATE_NAME}-;
+`
+
+  return fsp.writeFile('./src/scss/core/_constants.scss', content.trim())
+})
+
 const commonTasks = [
   'countries-search',
   'countries-calling-codes',
@@ -300,6 +311,7 @@ const commonTasks = [
   'presets-with-gradient',
   'card-brands',
   'check-bin-conflicts',
+  'scss-constants',
 ]
 
 task('default', parallel(['i18n', ...commonTasks]))

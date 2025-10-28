@@ -1,4 +1,7 @@
 // stylelint-disable selector-pseudo-class-no-unknown
+@use '@/scss/core/colors' as *;
+@use '@/scss/core/variables' as *;
+@use '@/scss/core/functions/px-to-rem' as *;
 
 :global {
   .f-datepicker-icon-calendar {

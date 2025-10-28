@@ -58,7 +58,7 @@ export default {
 
 <style lang="scss" module>
 .center_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     flex: 1;
   }
 }
@@ -70,15 +70,15 @@ export default {
 }
 
 .wrap_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: 0 px-to-rem(40px) px-to-rem(32px);
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     min-height: auto;
   }
 
-  @include media-breakpoint-up(xxl) {
+  @include breakpoints.up(xxl) {
     padding: 0 px-to-rem(60px) px-to-rem(32px);
   }
 }

@@ -225,7 +225,7 @@ export default {
   line-height: 1.2;
   color: var(--color);
 
-  @include media-breakpoint-up(ss) {
+  @include breakpoints.up(ss) {
     font-size: px-to-rem(32px);
   }
 
@@ -248,7 +248,7 @@ export default {
   font-size: px-to-rem(20px);
   color: var(--color);
 
-  @include media-breakpoint-up(ss) {
+  @include breakpoints.up(ss) {
     font-size: px-to-rem(22px);
   }
 }
