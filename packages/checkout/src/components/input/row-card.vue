@@ -98,7 +98,9 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use '@/scss/core/functions/functions';
 $card_input_color: var(#{$prefix}card_input_color);
+$font-family-card-number: 'Card Number', sans-serif;
 
 .inner {
   position: relative;
@@ -114,7 +116,7 @@ $card_input_color: var(#{$prefix}card_input_color);
   letter-spacing: 0.03em;
   opacity: 0.7;
 
-  @include media-breakpoint-up(ss) {
+  @include breakpoints.up(ss) {
     margin-bottom: px-to-rem(3px);
     font-size: px-to-rem(11px);
     line-height: px-to-rem(18px);
@@ -123,13 +125,13 @@ $card_input_color: var(#{$prefix}card_input_color);
 
 .input.input {
   --color: #{$card_input_color};
-  --disabled-color: #{fade($card_input_color, 60%)};
-  --placeholder-color: #{fade($card_input_color, 30%)};
+  --disabled-color: #{functions.fade($card_input_color, 60%)};
+  --placeholder-color: #{functions.fade($card_input_color, 30%)};
 
   padding: 0;
   font-weight: 400;
   text-shadow: px-to-rem(1px) px-to-rem(1px) px-to-rem(2px)
-    fade(var(#{$prefix}card_input_shadow), 15%);
+    functions.fade(var(#{$prefix}card_input_shadow), 15%);
   background-color: rgb(0 0 0 / 0%);
   border: none;
   border-radius: 0;
@@ -142,7 +144,7 @@ $card_input_color: var(#{$prefix}card_input_color);
     font-size: px-to-rem(15px);
     line-height: px-to-rem(18px);
 
-    @include media-breakpoint-up(ss) {
+    @include breakpoints.up(ss) {
       height: px-to-rem(25px);
       font-size: px-to-rem(20px);
       line-height: px-to-rem(25px);
@@ -167,6 +169,6 @@ $card_input_color: var(#{$prefix}card_input_color);
 }
 
 .placeholder.placeholder {
-  color: fade($card_input_color, 30%);
+  color: functions.fade($card_input_color, 30%);
 }
 </style>

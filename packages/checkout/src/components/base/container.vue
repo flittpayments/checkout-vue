@@ -10,12 +10,12 @@
   max-width: 280px;
   margin: 0 auto;
 
-  @include media-breakpoint-up(ss) {
+  @include breakpoints.up(ss) {
     width: 100%;
     max-width: 335px;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     max-width: 360px;
   }
 }
