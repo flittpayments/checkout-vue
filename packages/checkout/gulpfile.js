@@ -4,6 +4,7 @@ const xgettext = require('xgettext-utils')
 const configLocale = require('./src/config/locales.json')
 const uk = require('./src/i18n/countries/uk.json')
 const bins = require('./src/config/bins.json')
+const argv = require('minimist')(process.argv.slice(2))
 
 const excludes = list => item => !list.includes(item)
 const locales = Object.keys(configLocale)
@@ -292,6 +293,16 @@ task('check-bin-conflicts', async () => {
   }
 })
 
+task('scss-constants', () => {
+  const content = `
+$public-path: '${argv['public-path']}';
+$cdn: '${argv['saas_cdn_url']}';
+$prefix: --${argv['saas_template_name']}-;
+`
+
+  return fsp.writeFile('./src/scss/core/_constants.scss', content.trim())
+})
+
 task(
   'default',
   parallel([
@@ -303,5 +314,20 @@ task(
     'presets-with-gradient',
     'card-brands',
     'check-bin-conflicts',
+    'scss-constants',
+  ])
+)
+
+task(
+  'dev',
+  parallel([
+    'countries-search',
+    'countries-calling-codes',
+    'exclude-message',
+    'svg',
+    'presets-with-gradient',
+    'card-brands',
+    'check-bin-conflicts',
+    'scss-constants',
   ])
 )

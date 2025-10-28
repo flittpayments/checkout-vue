@@ -1,3 +1,7 @@
+@use '@/scss/core/colors' as *;
+@use '@/scss/core/variables' as *;
+@use '@/scss/core/functions/px-to-rem' as *;
+
 .style {
   display: flex;
   width: 100%;

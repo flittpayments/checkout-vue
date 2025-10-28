@@ -420,7 +420,7 @@ export default {
   flex: 0 0 100%;
   max-width: 100%;
 
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     &:not(:last-child) {
       margin-right: px-to-rem(16px);
     }
@@ -428,14 +428,14 @@ export default {
 }
 
 .country {
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     flex: 0 0 px-to-rem(220px);
     max-width: px-to-rem(220px);
   }
 }
 
 .search {
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     flex: 1;
   }
 }
@@ -447,7 +447,7 @@ export default {
   border-radius: $border-radius;
   margin-bottom: px-to-rem(16px);
 
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     flex: 0 0 px-to-rem(100px);
     max-width: px-to-rem(100px);
   }

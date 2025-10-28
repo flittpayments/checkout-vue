@@ -1,0 +1,17 @@
+@use '@/scss/core/variables';
+
+@mixin top($top: 0, $zindex: variables.$zindex-sticky) {
+  @supports (position: sticky) {
+    position: sticky;
+    top: $top;
+    z-index: $zindex;
+  }
+}
+
+@mixin bottom($bottom: 0, $zindex: variables.$zindex-sticky) {
+  @supports (position: sticky) {
+    position: sticky;
+    bottom: $bottom;
+    z-index: $zindex;
+  }
+}

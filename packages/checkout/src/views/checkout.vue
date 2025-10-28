@@ -316,20 +316,20 @@ export default {
 }
 
 .wrapper_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     max-width: 1140px;
     max-height: 686px;
     border-radius: $border-radius-lg;
     box-shadow: 0 24px 40px var(--shadow-color);
   }
 
-  @include media-breakpoint-up(xxl) {
+  @include breakpoints.up(xxl) {
     max-width: 1280px;
   }
 }
 
 .backdrop_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     border-radius: $border-radius-lg;
   }
 }

@@ -36,14 +36,16 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use '@/scss/core/functions/functions';
+
 $btn_success_bg: var(#{$prefix}btn_success_bg);
 
 .style.style {
   --bg: #{$btn_success_bg};
   --color: #{var(#{$prefix}btn_success_color)};
   --shadow-color: #{var(#{$prefix}btn_success_shadow)};
-  --hover-bg: #{darken($btn_success_bg, 20%)};
-  --active-bg: #{darken($btn_success_bg, 40%)};
+  --hover-bg: #{functions.darken($btn_success_bg, 20%)};
+  --active-bg: #{functions.darken($btn_success_bg, 40%)};
 
   #{$prefix}outline_border: $btn_success_bg;
 }
@@ -53,8 +55,8 @@ $btn_success_bg: var(#{$prefix}btn_success_bg);
 }
 
 .style_lighten.style_lighten {
-  --hover-bg: #{lighten($btn_success_bg, 20%)};
-  --active-bg: #{lighten($btn_success_bg, 40%)};
+  --hover-bg: #{functions.lighten($btn_success_bg, 20%)};
+  --active-bg: #{functions.lighten($btn_success_bg, 40%)};
 }
 
 .style_gradient.style_gradient {

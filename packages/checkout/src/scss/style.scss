@@ -1,5 +1,4 @@
-@import 'core/index';
-@import 'core/utilities';
+@use 'core/index';
 
 html {
   .flitt-modal {
@@ -11,7 +10,7 @@ html {
     border-radius: 0;
     box-shadow: none;
 
-    @include media-breakpoint-up(md) {
+    @include breakpoints.up(md) {
       margin: px-to-rem(100px) auto;
       height: auto;
       max-width: px-to-rem(590px);

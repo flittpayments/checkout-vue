@@ -179,7 +179,7 @@ export default {
 </script>
 
 <style lang="scss" module="style">
-@import '@/scss/core/input.module';
+@use '@/scss/module/input.module';
 </style>
 
 <style lang="scss" module>

@@ -263,6 +263,9 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use '@/scss/core/functions/functions';
+$font-family-cvv: 'Cvv', sans-serif;
+
 .wrapper {
   position: relative;
   display: flex;
@@ -271,7 +274,7 @@ export default {
   padding: px-to-rem(63px) 0 px-to-rem(16px) px-to-rem(16px);
   margin-bottom: px-to-rem(32px);
 
-  @include media-breakpoint-up(ss) {
+  @include breakpoints.up(ss) {
     padding: px-to-rem(94px) 0 px-to-rem(19px) px-to-rem(16px);
   }
 }
@@ -285,7 +288,7 @@ export default {
   content: '';
   border-radius: $border-radius-lg;
   box-shadow: 0 px-to-rem(10px) px-to-rem(25px)
-    fade(var(#{$prefix}card_shadow), 60%);
+    functions.fade(var(#{$prefix}card_shadow), 60%);
 }
 
 .shadow_dark {

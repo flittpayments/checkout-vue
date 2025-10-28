@@ -154,7 +154,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     height: px-to-rem(60px);
     padding: 0 px-to-rem(16px) 0 px-to-rem(8px);
     margin-bottom: px-to-rem(4px);
@@ -187,7 +187,7 @@ export default {
 }
 
 .icon_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     color: var(--lg-color);
   }
 }

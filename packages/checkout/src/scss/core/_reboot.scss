@@ -1,3 +1,9 @@
+@use 'sass:math';
+@use '@/scss/core/constants';
+@use '@/scss/core/colors';
+@use '@/scss/core/variables';
+@use '@/scss/core/functions/px-to-rem' as *;
+
 // stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
 // Reboot
@@ -45,7 +51,7 @@ h4,
 h5,
 h6 {
   margin-top: 0;
-  margin-bottom: $headings-margin-bottom;
+  margin-bottom: math.div(variables.$spacer, 2);
 }
 
 // Reset margins on paragraphs
@@ -71,13 +77,13 @@ ul {
 
 a {
   font-weight: 600;
-  color: var(#{$prefix}link_color);
+  color: var(#{constants.$prefix}link_color);
   text-decoration: none;
   background-color: transparent; // Remove the gray background on active links in IE 10.
   transition:
     box-shadow ease-in-out 0.15s,
     background-color ease-in-out 0.15s;
-  border-radius: $border-radius-sm;
+  border-radius: variables.$border-radius-sm;
 
   &:hover {
     text-decoration: underline;
@@ -85,10 +91,10 @@ a {
 
   &:focus-visible {
     outline: 0;
-    background-color: $outline_bg;
+    background-color: colors.$outline_bg;
     box-shadow:
-      0 0 0 px-to-rem(2px) $container_bg,
-      0 0 0 px-to-rem(3.5px) $outline_border;
+      0 0 0 px-to-rem(2px) colors.$container_bg,
+      0 0 0 px-to-rem(3.5px) colors.$outline_border;
   }
 }
 

@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" module="style">
-@import '@/scss/template/card-list-item.module';
+@use '@/scss/module/card-list-item.module';
 </style>
 
 <style lang="scss" module>

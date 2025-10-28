@@ -1,62 +1,165 @@
 @use 'sass:math';
+@use 'sass:meta';
+@use '@/scss/core/constants';
+@use '@/scss/core/variables';
+@use '@/scss/core/mixins/breakpoints';
+@use '@/scss/core/vendor/rfs';
+@use '@/scss/core/functions/px-to-rem' as *;
 
-/// Grid system
+$gutters: variables.$spacers;
+$include-column-box-sizing: false;
+
+//$grid-row-columns: 6;
+
+// Grid system
+
 // Generate semantic grid columns with these mixins.
 
-@mixin make-container($gutter: $grid-gutter-width) {
-  width: 100%;
-  padding-right: math.div($gutter, 2);
-  padding-left: math.div($gutter, 2);
-  margin-right: auto;
-  margin-left: auto;
-}
+@mixin make-row($gutter: variables.$grid-gutter-width) {
+  #{constants.$prefix}gutter-x: #{$gutter};
+  #{constants.$prefix}gutter-y: 0;
 
-@mixin make-row($gutter: $grid-gutter-width) {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -(math.div($gutter, 2));
-  margin-left: -(math.div($gutter, 2));
+  margin-top: calc(
+    var(#{constants.$prefix}gutter-y) * -1
+  ); // stylelint-disable-line function-disallowed-list
+
+  margin-right: calc(
+    var(#{constants.$prefix}gutter-x) * -0.5
+  ); // stylelint-disable-line function-disallowed-list
+
+  margin-left: calc(
+    var(#{constants.$prefix}gutter-x) * -0.5
+  ); // stylelint-disable-line function-disallowed-list
 }
 
-@mixin make-col-ready($gutter: $grid-gutter-width) {
-  position: relative;
+@mixin make-col-ready($gutter: variables.$grid-gutter-width) {
+  // Add box sizing if only the grid is loaded
+  box-sizing: if(
+    meta.variable-exists(include-column-box-sizing) and
+      $include-column-box-sizing,
+    border-box,
+    null
+  );
 
   // Prevent columns from becoming too narrow when at smaller grid tiers by
-  // always setting `width: 100%;`. This works because we use `flex` values
+  // always setting `width: 100%;`. This works because we set the width
   // later on to override this initial width.
+  flex-shrink: 0;
   width: 100%;
-  padding-right: math.div($gutter, 2);
-  padding-left: math.div($gutter, 2);
+  max-width: 100%; // Prevent `.f-col-auto`, `.f-col` (& responsive variants) from breaking out the grid
+  padding-right: calc(
+    var(#{constants.$prefix}gutter-x) * 0.5
+  ); // stylelint-disable-line function-disallowed-list
+
+  padding-left: calc(
+    var(#{constants.$prefix}gutter-x) * 0.5
+  ); // stylelint-disable-line function-disallowed-list
+
+  margin-top: var(#{constants.$prefix}gutter-y);
 }
 
-@mixin make-col($size, $columns: $grid-columns) {
-  flex: 0 0 percentage(math.div($size, $columns));
-
-  // Add a `max-width` to ensure content within each column does not blow out
-  // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
-  // do not appear to require this.
-  max-width: percentage(math.div($size, $columns));
+@mixin make-col($size: false, $columns: variables.$grid-columns) {
+  @if $size {
+    flex: 0 0 auto;
+    width: math.percentage(rfs.divide($size, $columns));
+  } @else {
+    flex: 1 1 0;
+    max-width: 100%;
+  }
 }
 
 @mixin make-col-auto() {
   flex: 0 0 auto;
   width: auto;
-  max-width: 100%; // Reset earlier grid tiers
 }
 
-@mixin make-col-offset($size, $columns: $grid-columns) {
-  $num: $size / $columns;
-
-  margin-left: if($num == 0, 0, percentage($num));
-}
+//@mixin make-col-offset($size, $columns: variables.$grid-columns) {
+//  $num: rfs.divide($size, $columns);
+//
+//  margin-left: if($num == 0, 0, math.percentage($num));
+//}
 
 // Row columns
-// Specify on a parent element(e.g., .row) to force immediate children into NN
+
+// Specify on a parent element(e.g., .f-row) to force immediate children into NN
 // numberof columns. Supports wrapping to new lines, but does not do a Masonry
 // style grid.
-@mixin row-cols($count) {
-  > * {
-    flex: 0 0 100% / $count;
-    max-width: 100% / $count;
+//@mixin row-cols($count) {
+//  > * {
+//    flex: 0 0 auto;
+//    width: rfs.divide(100%, $count);
+//  }
+//}
+
+// Framework grid generation
+
+// Used only by Bootstrap to generate the correct number of grid classes given
+// any value of `$grid-columns`.
+
+@mixin make-grid-columns(
+  $columns: variables.$grid-columns,
+  $gutter: variables.$grid-gutter-width,
+  $breakpoints: variables.$grid-breakpoints
+) {
+  @each $breakpoint in map-keys($breakpoints) {
+    // .f-row-cols defaults must all appear before .col overrides so they can be overridden.
+    $infix: breakpoints.infix($breakpoint, $breakpoints);
+    @include breakpoints.up($breakpoint, $breakpoints) {
+      // Provide basic `.f-col-{bp}` classes for equal-width flexbox columns
+      .f-col#{$infix} {
+        flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+      }
+
+      //.f-row-cols#{$infix}-auto > * {
+      //  @include make-col-auto;
+      //}
+      //
+      //@if $grid-row-columns > 0 {
+      //  @for $i from 1 through $grid-row-columns {
+      //    .f-row-cols#{$infix}-#{$i} {
+      //      @include row-cols($i);
+      //    }
+      //  }
+      //}
+
+      .f-col#{$infix}-auto {
+        @include make-col-auto;
+      }
+
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          .f-col#{$infix}-#{$i} {
+            @include make-col($i, $columns);
+          }
+        }
+
+        // `$columns - 1` because offsetting by the width of an entire row isn't possible
+        //@for $i from 0 through ($columns - 1) {
+        //  @if not($infix == '' and $i == 0) {
+        //    // Avoid emitting useless .f-offset-0
+        //    .f-offset#{$infix}-#{$i} {
+        //      @include make-col-offset($i, $columns);
+        //    }
+        //  }
+        //}
+      }
+
+      // Gutters
+
+      // Make use of `.f-g-*`, `.f-gx-*` or `.f-gy-*` utilities to change spacing between the columns.
+      //@each $key, $value in $gutters {
+      //  .f-g#{$infix}-#{$key},
+      //  .f-gx#{$infix}-#{$key} {
+      //    #{constants.$prefix}gutter-x: #{$value};
+      //  }
+      //
+      //  .f-g#{$infix}-#{$key},
+      //  .f-gy#{$infix}-#{$key} {
+      //    #{constants.$prefix}gutter-y: #{$value};
+      //  }
+      //}
+    }
   }
 }

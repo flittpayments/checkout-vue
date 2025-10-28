@@ -91,7 +91,7 @@ export default {
 }
 
 .wrapper_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     padding: 0 px-to-rem(80px);
   }
 }
@@ -101,7 +101,7 @@ export default {
 }
 
 .col_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     width: 50%;
   }
 }
@@ -114,7 +114,7 @@ export default {
 }
 
 .title_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     margin-bottom: px-to-rem(16px);
   }
 }
@@ -146,7 +146,7 @@ export default {
 }
 
 .loading_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     margin-bottom: 0;
   }
 }

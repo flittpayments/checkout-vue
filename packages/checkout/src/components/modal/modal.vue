@@ -82,6 +82,12 @@ export default {
 </script>
 
 <style lang="scss" module>
+$backdrop-opacity: 0.7;
+$sm: 300px;
+$md: 427px;
+$lg: 620px;
+$xl: 800px;
+
 :global(.f-modal-open) {
   overflow: hidden;
 }
@@ -120,7 +126,7 @@ export default {
     transition: transform 0.3s ease-out;
     transform: translate3d(0, 25%, 0);
 
-    @include media-breakpoint-up(md) {
+    @include breakpoints.up(md) {
       transform: translate(0, -50px);
     }
   }
@@ -155,30 +161,30 @@ export default {
   // allow clicks to pass through for custom click handling to close modal
   pointer-events: none;
 
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     align-items: center;
-    max-width: $modal-md;
+    max-width: $md;
     min-height: 100%;
     margin: 0 auto;
   }
 }
 
 .sm {
-  @include media-breakpoint-up(md) {
-    max-width: $modal-sm;
+  @include breakpoints.up(md) {
+    max-width: $sm;
   }
 }
 
 .lg,
 .xl {
-  @include media-breakpoint-up(lg) {
-    max-width: $modal-lg;
+  @include breakpoints.up(lg) {
+    max-width: $lg;
   }
 }
 
 .xl {
-  @include media-breakpoint-up(xl) {
-    max-width: $modal-xl;
+  @include breakpoints.up(xl) {
+    max-width: $xl;
   }
 }
 
@@ -210,7 +216,7 @@ export default {
   outline: 0;
   box-shadow: 0 20px 30px rgb(57 64 75 / 30%);
 
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: px-to-rem(40px) 0 0;
     margin-top: 0;
     font-size: px-to-rem(16px);
@@ -226,14 +232,14 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: #32353a;
-  opacity: $modal-backdrop-opacity;
+  opacity: $backdrop-opacity;
 
   &:global(.f-fade) {
     opacity: 0;
   }
 
   &:global(.f-show) {
-    opacity: $modal-backdrop-opacity;
+    opacity: $backdrop-opacity;
   }
 }
 
@@ -250,7 +256,7 @@ export default {
     font-size: px-to-rem(32px);
   }
 
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: 0 px-to-rem(50px) px-to-rem(16px);
 
     :global(.f-close) {
@@ -261,9 +267,10 @@ export default {
 }
 
 .title {
-  @include title;
-
-  margin-bottom: 0;
+  margin: 0;
+  font-size: px-to-rem(20px);
+  font-weight: 500;
+  text-align: center;
   color: $grey;
 }
 
@@ -278,7 +285,7 @@ export default {
   line-height: 1.5;
   word-wrap: break-word;
 
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: 0 px-to-rem(50px) px-to-rem(40px);
   }
 }
@@ -291,7 +298,7 @@ export default {
   justify-content: center;
   padding: 0 px-to-rem(20px) px-to-rem(20px);
 
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding: 0 px-to-rem(50px) px-to-rem(40px);
   }
 }

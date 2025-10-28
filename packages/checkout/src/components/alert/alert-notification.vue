@@ -71,7 +71,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     position: absolute;
     top: px-to-rem(8px);
     right: px-to-rem(16px);
@@ -79,7 +79,7 @@ export default {
     border-radius: $border-radius-lg;
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     top: px-to-rem(8px);
     left: 50%;
     width: 100%;
@@ -87,7 +87,7 @@ export default {
     transform: translateX(-50%);
   }
 
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     transform: translate(-50%, -50%);
   }
 
@@ -115,7 +115,7 @@ export default {
 }
 
 .icon_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     border-radius: $border-radius-lg 0 0 $border-radius-lg;
   }
 }
