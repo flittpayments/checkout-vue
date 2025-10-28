@@ -1,31 +1,16 @@
+@use '@/scss/core/mixins/grid';
+@use '@/scss/core/variables';
+
 .f-row {
-  @include make-row;
-}
+  @include grid.make-row;
 
-.f-no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-
-  > .f-col,
-  > [class*='f-col-'] {
-    padding-right: 0;
-    padding-left: 0;
+  > * {
+    @include grid.make-col-ready;
   }
 }
 
-.f-col {
-  position: relative;
-  flex-basis: 0;
-  flex-grow: 1;
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-  padding-right: calc($grid-gutter-width / 2);
-  padding-left: calc($grid-gutter-width / 2);
-}
-
-@include make-grid-columns(
-  $grid-columns,
-  $grid-gutter-width,
-  $grid-breakpoints-mobile
+@include grid.make-grid-columns(
+  variables.$grid-columns,
+  variables.$grid-gutter-width,
+  variables.$grid-breakpoints-mobile
 );

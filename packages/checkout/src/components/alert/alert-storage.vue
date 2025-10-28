@@ -84,7 +84,7 @@ export default {
 }
 
 .wrapper_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     right: px-to-rem(32px);
     bottom: px-to-rem(32px);
     left: px-to-rem(32px);
@@ -92,19 +92,19 @@ export default {
     border-radius: $border-radius-lg;
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     width: 100%;
     max-width: 940px;
     margin: 0 auto;
   }
 
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     align-items: center;
   }
 }
 
 .row_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     display: flex;
     align-items: center;
   }
@@ -116,7 +116,7 @@ export default {
 }
 
 .content_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     flex-grow: 1;
     margin-bottom: 0;
   }
@@ -127,14 +127,14 @@ export default {
 }
 
 .buttons_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     display: flex;
     flex-direction: column;
   }
 }
 
 .button_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     display: block;
     width: 100%;
 
