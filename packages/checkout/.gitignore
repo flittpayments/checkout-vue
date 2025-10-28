@@ -14,3 +14,4 @@
 /src/config/presets-with-gradient.js
 /src/config/card-brands.js
 /src/i18n/need-translation/*
+/src/scss/core/_constants.scss

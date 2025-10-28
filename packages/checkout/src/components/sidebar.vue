@@ -35,7 +35,7 @@ export default {
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     flex: 0 0 410px;
     max-width: 410px;
     height: 100%;
@@ -43,24 +43,24 @@ export default {
     border-right: px-to-rem(2px) solid var(--border-color);
   }
 
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     border-radius: 0 0 0 $border-radius-lg;
   }
 
-  @include media-breakpoint-up(xxl) {
+  @include breakpoints.up(xxl) {
     flex: 0 0 450px;
     max-width: 450px;
   }
 }
 
 .wrap_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     display: flex;
     flex-direction: column;
     padding: 0 px-to-rem(40px);
   }
 
-  @include media-breakpoint-up(xxl) {
+  @include breakpoints.up(xxl) {
     padding: 0 px-to-rem(60px);
   }
 }

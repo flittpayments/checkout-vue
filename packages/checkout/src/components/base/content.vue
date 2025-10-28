@@ -15,7 +15,7 @@ export default {}
 }
 
 .style_adaptive {
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     display: flex;
     flex-wrap: wrap;
   }

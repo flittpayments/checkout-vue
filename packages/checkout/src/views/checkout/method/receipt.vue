@@ -166,7 +166,7 @@ export default {
 
 <style lang="scss" module>
 .wrapper_adaptive {
-  @include media-breakpoint-up(xl) {
+  @include breakpoints.up(xl) {
     max-width: 600px;
     margin: 0 auto;
   }
@@ -207,14 +207,14 @@ export default {
 }
 
 .props_adaptive {
-  @include media-breakpoint-up(md) {
+  @include breakpoints.up(md) {
     padding-right: px-to-rem(40px);
     padding-left: px-to-rem(40px);
     margin-right: px-to-rem(-40px);
     margin-left: px-to-rem(-40px);
   }
 
-  @include media-breakpoint-up(lg) {
+  @include breakpoints.up(lg) {
     padding: px-to-rem(20px);
     margin-right: 0;
     margin-left: 0;
@@ -229,7 +229,7 @@ export default {
     margin-bottom: 0;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     display: flex;
   }
 }
@@ -237,7 +237,7 @@ export default {
 .key {
   font-size: px-to-rem(14px);
 
-  @include media-breakpoint-up(sm) {
+  @include breakpoints.up(sm) {
     flex: 0 0 160px;
   }
 }

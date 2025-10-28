@@ -15,11 +15,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run gulp && vue-cli-service build --no-module",
-    "build:localhost": "npm run gulp && vue-cli-service build --no-module --public-path=http://localhost:3000/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
-    "dev": "vue-cli-service serve --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
+    "build": "./scripts/build.sh",
+    "build:localhost": "./scripts/build.sh --public-path=http://localhost:3000/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
+    "dev": "./scripts/dev.sh --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
     "eslint:fix": "eslint src/**/*.{js,vue} --fix",
-    "gulp": "gulp",
     "lint": "vue-cli-service lint",
     "pre-commit": "lint-staged",
     "prettier:fix": "prettier src/**/*.{js,vue,scss} --write",

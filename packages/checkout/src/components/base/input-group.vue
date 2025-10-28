@@ -16,7 +16,6 @@ export default {
     className() {
       return [
         'f-row',
-        'f-no-gutters',
         this.$uiClass('style'),
         {
           [this.$style.mb_0]: this.noMargin,
@@ -28,6 +27,9 @@ export default {
 </script>
 
 <style lang="scss" module>
+:global(#f) .style {
+  #{$prefix}gutter-x: 0;
+}
 .style {
   margin-bottom: px-to-rem(16px);
 
@@ -56,6 +58,7 @@ export default {
   }
 
   > * {
+    position: relative;
     margin: 0;
 
     &::after {

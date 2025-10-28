@@ -197,10 +197,10 @@ export default Vue.extend({
 }
 
 .apple_light::after {
-  background-image: url('#{$PUBLIC_PATH}img/apple-pay-dark.svg');
+  background-image: url('#{$public-path}img/apple-pay-dark.svg');
 }
 
 .apple_dark::after {
-  background-image: url('#{$PUBLIC_PATH}img/apple-pay-light.svg');
+  background-image: url('#{$public-path}img/apple-pay-light.svg');
 }
 </style>

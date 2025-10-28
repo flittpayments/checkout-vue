@@ -3,6 +3,14 @@
 @use 'sass:string';
 @use 'sass:meta';
 
+$escaped-characters: (
+  ('<', '%3c'),
+  ('>', '%3e'),
+  ('#', '%23'),
+  ('(', '%28'),
+  (')', '%29')
+);
+
 /*
 * SASS preserves units in arithmetic operations. For example:
 * 12em * 0 = 0em. This function return the unit of a numeric value.
@@ -44,16 +52,6 @@
   @return $rem-values;
 }
 
-@function px-to-rem($px, $font-size-base: 16px) {
-  @if type-of($px) == 'number' {
-    @return single-unit-rem($px, $font-size-base);
-  } @else if type-of($px) == 'list' {
-    @return multiple-units-rem($px, $font-size-base);
-  } @else {
-    @return $px;
-  }
-}
-
 @function unit($number) {
   @return math.div($number, $number * 0 + 1);
 }
@@ -91,47 +89,55 @@
 
 @function fade($name, $amount) {
   $coefficient: math.div(unit($amount), 100);
-  $name1: str-replace($name, 'var\(', '');
-  $name2: str-replace($name1, '\)', '');
-  $h: var(#{$name2}-h);
-  $s: var(#{$name2}-s);
-  $l: var(#{$name2}-l);
+  $name: strip-var($name);
+  $h: var(#{$name}-h);
+  $s: var(#{$name}-s);
+  $l: var(#{$name}-l);
 
   @return hsla($h, $s, $l, $coefficient);
 }
 
 @function lighten($name, $amount) {
   $coefficient: math.div($amount, 2);
-  $name1: str-replace($name, 'var\(', '');
-  $name2: str-replace($name1, '\)', '');
-  $h: var(#{$name2}-h);
-  $s: var(#{$name2}-s);
-  $l: var(#{$name2}-l);
+  $name: strip-var($name);
+  $h: var(#{$name}-h);
+  $s: var(#{$name}-s);
+  $l: var(#{$name}-l);
 
-  @return hsl($h, $s, calc(#{$l} + #{$coefficient}));
+  @return hsl($h, $s, calc-add($l, $coefficient));
 }
 
 @function darken($name, $amount) {
   $coefficient: math.div($amount, 2);
-  $name1: str-replace($name, 'var\(', '');
-  $name2: str-replace($name1, '\)', '');
-  $h: var(#{$name2}-h);
-  $s: var(#{$name2}-s);
-  $l: var(#{$name2}-l);
+  $name: strip-var($name);
+  $h: var(#{$name}-h);
+  $s: var(#{$name}-s);
+  $l: var(#{$name}-l);
 
-  @return hsl($h, $s, calc(#{$l} - #{$coefficient}));
+  @return hsl($h, $s, calc-sub($l, $coefficient));
 }
 
 @function custom($name, $ss, $ll) {
   $sss: math.div($ss, 2);
   $lll: math.div($ll, 2);
-  $name1: str-replace($name, 'var\(', '');
-  $name2: str-replace($name1, '\)', '');
-  $h: var(#{$name2}-h);
-  $s: var(#{$name2}-s);
-  $l: var(#{$name2}-l);
+  $name: strip-var($name);
+  $h: var(#{$name}-h);
+  $s: var(#{$name}-s);
+  $l: var(#{$name}-l);
 
-  @return hsl($h, calc(#{$s} + #{$sss}), calc(#{$l} + #{$lll}));
+  @return hsl($h, calc-add($s, $sss), calc-add($l, $lll));
+}
+
+@function strip-var($name) {
+  @return str-replace(str-replace($name, 'var(', ''), ')', '');
+}
+
+@function calc-add($a, $b) {
+  @return calc(#{$a} + #{$b});
+}
+
+@function calc-sub($a, $b) {
+  @return calc(#{$a} - #{$b});
 }
 
 @function subtract($value1, $value2, $return-calc: true) {
@@ -147,9 +153,10 @@
     @return $value1;
   }
 
-  /* prettier-ignore */
-  @if type-of($value1) == number and
-    type-of($value2) == number and
+  @if meta.type-of($value1) ==
+    number and
+    meta.type-of($value2) ==
+    number and
     comparable($value1, $value2)
   {
     @return $value1 - $value2;
@@ -158,6 +165,6 @@
   @return if(
     $return-calc == true,
     calc(#{$value1} - #{$value2}),
-    $value1 + unquote(' - ') + $value2
+    $value1 + string.unquote(' - ') + $value2
   );
 }

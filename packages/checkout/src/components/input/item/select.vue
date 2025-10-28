@@ -241,19 +241,21 @@ export default {
 </script>
 
 <style lang="scss" module="style">
-@import '@/scss/core/input.module';
+@use '@/scss/module/input.module';
 </style>
 
 <style lang="scss" module>
+@use '@/scss/core/functions/functions';
+@use '@/scss/core/mixins/text';
+@use '@/scss/core/mixins/sticky';
+
 .select {
   --padding-right: #{px-to-rem(24px)};
   --right: #{px-to-rem(8px)};
 
   position: relative;
 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include text.truncate;
 }
 
 .item_default {
@@ -378,9 +380,9 @@ export default {
     to bottom,
     $white,
     $white calc(100% - #{px-to-rem(20px)}),
-    fade($white, 0)
+    functions.fade($white, 0)
   );
-  @include sticky-top;
+  @include sticky.top;
 }
 
 .active {
