@@ -7,6 +7,7 @@ import {
 import { isPlainObject, isExist, isArray } from '@/utils/inspect'
 import descriptor from '@/schema/descriptor'
 import { sentry } from '@/import'
+import { captureMessage } from '@/sentry/error-buffer'
 import { loadAsyncValidator } from '@/import'
 import { sort } from '@/utils/sort'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
@@ -108,7 +109,7 @@ class Validate {
   }
 
   log(message) {
-    sentry().then(({ captureMessage }) => captureMessage(message, 'warning'))
+    captureMessage(message, 'warning')
     console.warn(message)
   }
 
@@ -140,9 +141,10 @@ class Validate {
       .then(Schema => new Schema(descriptor).validate({ config: this.data }))
       .catch(({ errors }) => {
         errors = errors.map(({ message }) => message)
-        sentry().then(({ captureMessage }) =>
-          captureMessage('config', 'info', errors)
-        )
+        captureMessage('config', {
+          level: 'info',
+          extra: errors,
+        })
 
         return Promise.reject(errors)
       })

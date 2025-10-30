@@ -1,6 +1,6 @@
 import { isError, isPlainObject } from '@/utils/inspect'
 import { arrayIncludes } from '@/utils/array'
-import { sentry } from '@/import'
+import { captureMessage } from '@/sentry/error-buffer'
 import { memoize } from '@/utils/memoize'
 
 export const getCookie = name => {
@@ -55,9 +55,10 @@ export const findGetParameter = parameterName => {
 export const errorHandler = error => {
   if (isError(error)) {
     console.log(error)
-    sentry().then(({ captureMessage }) =>
-      captureMessage('error', 'error', error)
-    )
+    captureMessage('error', {
+      level: 'error',
+      extra: error,
+    })
   }
 }
 

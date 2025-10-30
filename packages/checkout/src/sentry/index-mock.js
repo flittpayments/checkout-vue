@@ -1,5 +1,5 @@
 export const install = () => () => {}
 
-export const captureMessage = () => {}
+export const installMin = () => () => {}
 
 export const setTag = () => {}

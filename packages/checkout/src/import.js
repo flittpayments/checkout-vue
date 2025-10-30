@@ -136,7 +136,7 @@ export const sentry = () =>
   Promise.resolve().then(() =>
     SENTRY_DSN && DOMAIN === location.hostname && LIBRARY_TYPE !== 'module'
       ? import(/* webpackChunkName: "3" */ '@/sentry')
-      : import(/* webpackChunkName: "4" */ '@/sentry-mock')
+      : import(/* webpackChunkName: "4" */ '@/sentry/index-mock')
   )
 
 export const loadAsyncValidator = () =>

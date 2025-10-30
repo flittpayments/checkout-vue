@@ -1,9 +1,10 @@
-import { loadUuid, sentry } from '@/import'
+import { loadUuid } from '@/import'
 import { loadScript } from '@/utils/load-script'
 import { memoizePromise } from '@/utils/memoize-promise'
 import { i18n } from '@/i18n/index'
 import { sessionStorage } from '@/utils/store'
 import { validate } from 'vee-validate'
+import { captureMessage } from '@/sentry/error-buffer'
 
 const delay = memoizePromise(
   time => new Promise(resolve => setTimeout(resolve, time))
@@ -57,9 +58,10 @@ const onError = name => response => {
   const message = `${clickToPay} ${name} ${reason}`
 
   console.warn(message, JSON.stringify(response, null, 2))
-  sentry().then(({ captureMessage }) =>
-    captureMessage(message, 'warning', response)
-  )
+  captureMessage(message, {
+    level: 'warning',
+    extra: response,
+  })
   return Promise.reject(`c2p_${reason.replace(/ /g, '_').toLowerCase()}`)
 }
 

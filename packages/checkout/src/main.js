@@ -12,7 +12,9 @@ import {
   loadCheckout,
   loadAsyncValidator,
 } from '@/import'
+import { initError, stopErrorChunk } from '@/sentry/error-capture'
 
+initError()
 loadCheckout()
 loadAsyncValidator()
 
@@ -98,114 +100,119 @@ console.log('commithash', COMMITHASH)
 export const checkout = (window.checkout = function (el, optionsUser) {
   let app = new F()
 
-  load.then(
-    ([
-      Vue,
-      App,
-      { install: installValidate },
-      { install: installSentry },
-      { install: installComponents },
-      { install: installApi },
-      { createStore },
-      { createRouter },
-      { i18n },
-      { configDefault },
-    ]) => {
-      let id
-      let node
-      const isString = typeof el === 'string'
-      const isElement = el && el.nodeType === Node.ELEMENT_NODE
-      const makeID = () => {
-        const chars =
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-        const getRandomChar = () =>
-          chars[Math.floor(Math.random() * chars.length)]
-        return 'id-' + Array.from({ length: 12 }, getRandomChar).join('')
-      }
-
-      if (isString || isElement) {
-        if (isString) {
-          id = el
-          node = document.querySelector(el)
-
-          if (!node)
-            return console.error(['Selector', el, 'not found'].join(' '))
-
-          if (instance[id]) instance[id].$destroy()
+  load
+    .then(
+      ([
+        Vue,
+        App,
+        { install: installValidate },
+        { install: installSentry },
+        { install: installComponents },
+        { install: installApi },
+        { createStore },
+        { createRouter },
+        { i18n },
+        { configDefault },
+      ]) => {
+        let id
+        let node
+        const isString = typeof el === 'string'
+        const isElement = el && el.nodeType === Node.ELEMENT_NODE
+        const makeID = () => {
+          const chars =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+          const getRandomChar = () =>
+            chars[Math.floor(Math.random() * chars.length)]
+          return 'id-' + Array.from({ length: 12 }, getRandomChar).join('')
         }
-        if (isElement) {
-          id = makeID()
-          node = el
+
+        if (isString || isElement) {
+          if (isString) {
+            id = el
+            node = document.querySelector(el)
+
+            if (!node)
+              return console.error(['Selector', el, 'not found'].join(' '))
+
+            if (instance[id]) instance[id].$destroy()
+          }
+          if (isElement) {
+            id = makeID()
+            node = el
+          }
+        } else {
+          return console.error('Selector not a string or element')
         }
-      } else {
-        return console.error('Selector not a string or element')
-      }
 
-      if (Object.prototype.toString.call(optionsUser) !== '[object Object]')
-        return console.error('Options not an object')
+        if (Object.prototype.toString.call(optionsUser) !== '[object Object]')
+          return console.error('Options not an object')
 
-      let store = createStore(id)
-      let router = createRouter(id)
+        let store = createStore(id)
+        let router = createRouter(id)
 
-      Vue.use(installValidate)
-      Vue.use(installSentry(router))
-      Vue.use(installComponents)
+        Vue.use(installValidate)
+        Vue.use(installSentry(router))
+        Vue.use(installComponents)
 
-      let origin =
-        'https://' +
-        (optionsUser.options?.api_domain ||
-          optionsUser.options?.apiDomain ||
-          optionsUser.button?.host ||
-          configDefault.options.api_domain)
-      let endpoint =
-        optionsUser.options?.endpoint || configDefault.options.endpoint
-      installApi(
-        {
-          origin,
-          endpoint,
-        },
-        () => {
-          store.formLoading(false)
-        }
-      )
-
-      instance[id] = new Vue({
-        store,
-        router,
-        i18n,
-        data: {
-          optionsUser,
-        },
-        methods: {
-          submit() {
-            this.$emit('submit')
+        let origin =
+          'https://' +
+          (optionsUser.options?.api_domain ||
+            optionsUser.options?.apiDomain ||
+            optionsUser.button?.host ||
+            configDefault.options.api_domain)
+        let endpoint =
+          optionsUser.options?.endpoint || configDefault.options.endpoint
+        installApi(
+          {
+            origin,
+            endpoint,
           },
-          location(args) {
-            this.$emit('location', ...args)
+          () => {
+            store.formLoading(false)
+          }
+        )
+
+        instance[id] = new Vue({
+          store,
+          router,
+          i18n,
+          data: {
+            optionsUser,
           },
-          setParams(args) {
-            this.$emit('setParams', ...args)
+          destroyed() {
+            stopErrorChunk()
           },
-        },
-        render(h) {
-          return h(App, {
-            props: {
-              optionsUser,
+          methods: {
+            submit() {
+              this.$emit('submit')
             },
-          })
-        },
-      }).$mount()
+            location(args) {
+              this.$emit('location', ...args)
+            },
+            setParams(args) {
+              this.$emit('setParams', ...args)
+            },
+          },
+          render(h) {
+            return h(App, {
+              props: {
+                optionsUser,
+              },
+            })
+          },
+        }).$mount()
 
-      while (node.firstChild) {
-        node.removeChild(node.firstChild)
+        while (node.firstChild) {
+          node.removeChild(node.firstChild)
+        }
+        node.appendChild(instance[id].$el)
+
+        app.run(instance[id])
+
+        return instance[id]
       }
-      node.appendChild(instance[id].$el)
-
-      app.run(instance[id])
-
-      return instance[id]
-    }
-  )
+    )
+    .catch(() => sentry().then(({ installMin }) => installMin()))
 
   return app
 })

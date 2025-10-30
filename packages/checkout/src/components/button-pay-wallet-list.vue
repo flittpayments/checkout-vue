@@ -19,9 +19,10 @@ import FButtonPayWalletInner from '@/components/button-pay-wallet-inner'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { api } from '@/api'
 import { listenOnRootMixin } from '@/mixins/listen-on-root'
-import { loadCheckout, sentry } from '@/import'
+import { loadCheckout } from '@/import'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
+import { captureMessage } from '@/sentry/error-buffer'
 
 export default Vue.extend({
   components: {
@@ -130,9 +131,10 @@ export default Vue.extend({
         name.push(error.message)
       }
 
-      sentry().then(({ captureMessage }) =>
-        captureMessage(name.join(' '), 'error', error)
-      )
+      captureMessage(name.join(' '), {
+        level: 'error',
+        extra: error,
+      })
     },
     click(method = this.list[0]) {
       this.paymentRequest.pay(method)
