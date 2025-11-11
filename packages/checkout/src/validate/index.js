@@ -14,15 +14,15 @@ import * as customRules from '@/validate/rules'
 export const install = () => {
   let rules = Object.assign(
     {
-      required,
-      email,
-      numeric,
-      alpha,
-      min,
-      max,
-      digits,
-      regex,
-      phone: digits,
+      required, // $t('rule_required')
+      email, // $t('rule_email')
+      numeric, // $t('rule_numeric')
+      alpha, // $t('rule_alpha')
+      min, // $t('rule_min')
+      max, // $t('rule_max')
+      digits, // $t('rule_digits')
+      regex, // $t('rule_regex')
+      phone: digits, // $t('rule_phone')
     },
     customRules
   )
