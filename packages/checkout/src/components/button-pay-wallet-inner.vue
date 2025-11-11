@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import FButtonInverted from '@/components/button/button-inverted'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
@@ -53,7 +52,7 @@ const supportLongSvg = [
   'uk',
 ]
 
-export default Vue.extend({
+export default {
   components: {
     FButtonInverted,
   },
@@ -135,7 +134,7 @@ export default Vue.extend({
       })
     },
   },
-})
+}
 </script>
 
 <style lang="scss" module>
