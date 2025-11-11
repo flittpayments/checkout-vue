@@ -1,8 +1,7 @@
-import Vue from 'vue'
 import DatePicker from 'vue2-datepicker'
 import { mask } from '@/utils/mask'
 
-export default Vue.extend({
+export default {
   extends: DatePicker,
   inheritAttrs: false,
   watch: {
@@ -12,10 +11,5 @@ export default Vue.extend({
         this.userInput = value || null
       }
     },
-    // currentValue(newValue) {
-    //   if (this.disabledDate(newValue)) {
-    //     this.$emit('input', '')
-    //   }
-    // },
   },
-})
+}
