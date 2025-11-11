@@ -1,6 +1,7 @@
 import { parse, isAfter, isEqual, isValid } from '@/utils/date'
 import { amountToCoins } from '@/utils/helpers'
 
+// $t('rule_date_format')
 export const date_format = {
   validate: (value, { format }) => {
     return isValid(parse(value, format))
@@ -8,6 +9,7 @@ export const date_format = {
   params: ['format'],
 }
 
+// $t('rule_after')
 export const after = {
   validate(value, { target, inclusion = false, format }) {
     value = parse(value, format)
@@ -22,23 +24,28 @@ export const after = {
   params: ['target', 'inclusion', 'format'],
 }
 
+// $t('rule_customer_field')
 export const customer_field = {
   validate: value => /^(?!\s)[0-9A-Za-z-\/.,\s]+$/.test(value),
 }
 
+// $t('rule_customer_name')
 export const customer_name = {
   validate: value => /^([a-zA-Z]+(\s|$)){2,}$/.test(value),
 }
 
+// $t('rule_customer_field_utf8')
 export const customer_field_utf8 = {
   validate: value =>
     /^(?!\s+)[\u00BF-\u1FFF\u2C00-\uD7FF\w`\-\/.,\s]+$/.test(value),
 }
 
+// $t('rule_phonemobile')
 export const phonemobile = {
   validate: value => /^\+?\d{7,14}$/.test(value),
 }
 
+// $t('rule_numrange')
 export const numrange = {
   validate: (value, range) => {
     value = parseInt(value, 10)
@@ -49,6 +56,7 @@ export const numrange = {
   },
 }
 
+// $t('rule_ccard')
 export const ccard = {
   validate: value => {
     let REGEXP_LUHN_DASHED = /^[\d\-\s]+$/
@@ -70,18 +78,21 @@ export const ccard = {
   },
 }
 
+// $t('rule_one')
 export const one = {
   validate: value => {
     return parseInt(value, 10) > 0
   },
 }
 
+// $t('rule_no_zero')
 export const no_zero = {
   validate: value => {
     return amountToCoins(value) > 0
   },
 }
 
+// $t('rule_required_one')
 export const required_one = {
   validate: (value, params) => {
     const required = !params.some(item => item)
