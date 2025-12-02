@@ -76,7 +76,7 @@ export default {
     },
     attrsPlaceholder() {
       return {
-        ...pick(this.attrs, ['id', 'value', 'placeholder', 'mask']),
+        ...pick(this.attrs, ['id', 'value', 'placeholder']),
         nameClass: [this.$style.input, this.$style.placeholder],
       }
     },
