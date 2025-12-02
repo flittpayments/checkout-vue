@@ -1,27 +1,32 @@
 <template>
   <div>
-    <f-input v-bind="attrs" v-on="$listeners" />
+    <input v-bind="attrs" v-on="listeners" />
     <slot :id="safeId()" :class-name="className" />
   </div>
 </template>
 
 <script>
-import { FInput } from '@/components/input/helpers/input'
 import { makeProp } from '@/utils/props'
 import {
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_STRING,
   PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_FUNCTION,
 } from '@/constants/props'
 import { idMixin, idProps } from '@/mixins/id'
+import { toString } from '@/utils/string'
+import { isFunction } from '@/utils/inspect'
+import { stopEvent } from '@/utils/events'
+import { attemptFocus } from '@/utils/dom'
 
 export default {
-  components: {
-    FInput,
-  },
   mixins: [idMixin],
   inheritAttrs: false,
+  model: {
+    prop: 'value',
+    event: 'update',
+  },
   props: {
     ...idProps,
     // required for ValidationProvider
@@ -38,17 +43,40 @@ export default {
     floating: makeProp(PROP_TYPE_BOOLEAN, false),
     prepend: makeProp(PROP_TYPE_STRING),
     prependText: makeProp(PROP_TYPE_STRING),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    required: makeProp(PROP_TYPE_BOOLEAN, false),
+    formatter: makeProp(PROP_TYPE_FUNCTION),
+    type: makeProp(PROP_TYPE_STRING, 'text'),
+  },
+  data() {
+    return {
+      localValue: toString(this.value),
+      vModelValue: this.modifyValue(this.value),
+    }
   },
   computed: {
     attrs() {
+      const { disabled, required, invalid, type } = this
+
       return {
         ...this.$attrs,
         id: this.safeId(),
-        // required for ValidationProvider
-        value: this.value,
         ref: 'input',
+        value: this.localValue,
         class: this.className,
-        state: this.state,
+        disabled,
+        required,
+        type,
+        'aria-required': required ? 'true' : null,
+        'aria-invalid': invalid ? 'true' : null,
+      }
+    },
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: this.onInput,
+        change: this.onChange,
+        blur: this.onBlur,
       }
     },
     className() {
@@ -66,13 +94,85 @@ export default {
         },
       ]
     },
-    state() {
-      return this.invalid ? false : null
+    hasFormatter() {
+      return isFunction(this.formatter)
+    },
+  },
+  watch: {
+    value(newValue) {
+      const stringifyValue = toString(newValue)
+      const modifiedValue = this.modifyValue(newValue)
+      if (
+        stringifyValue !== this.localValue ||
+        modifiedValue !== this.vModelValue
+      ) {
+        this.localValue = stringifyValue
+        this.vModelValue = modifiedValue
+      }
     },
   },
   methods: {
+    formatValue(value, event) {
+      value = toString(value)
+      if (this.hasFormatter) {
+        value = this.formatter(value, event)
+      }
+      return value
+    },
+    modifyValue(value) {
+      value = toString(value)
+      return value
+    },
+    updateValue(value) {
+      value = this.modifyValue(value)
+      if (value !== this.vModelValue) {
+        this.vModelValue = value
+        this.$emit('update', value)
+      } else if (this.hasFormatter) {
+        const $input = this.$refs.input
+        if ($input && value !== $input.value) {
+          $input.value = value
+        }
+      }
+    },
+    onInput(event) {
+      if (event.target.composing) {
+        return
+      }
+      const { value } = event.target
+      const formattedValue = this.formatValue(value, event)
+      if (formattedValue === false || event.defaultPrevented) {
+        stopEvent(event, { propagation: false })
+        return
+      }
+      this.localValue = formattedValue
+      this.updateValue(formattedValue)
+      this.$emit('input', formattedValue)
+    },
+    onChange(event) {
+      const { value } = event.target
+      const formattedValue = this.formatValue(value, event)
+      if (formattedValue === false || event.defaultPrevented) {
+        stopEvent(event, { propagation: false })
+        return
+      }
+      this.localValue = formattedValue
+      this.updateValue(formattedValue)
+      this.$emit('change', formattedValue)
+    },
+    onBlur(event) {
+      const { value } = event.target
+      const formattedValue = this.formatValue(value, event)
+      if (formattedValue !== false) {
+        this.localValue = this.modifyValue(formattedValue)
+        this.updateValue(formattedValue)
+      }
+      this.$emit('blur', event)
+    },
     focus() {
-      this.$refs.input.focus()
+      if (!this.disabled) {
+        attemptFocus(this.$refs.input)
+      }
     },
   },
 }
