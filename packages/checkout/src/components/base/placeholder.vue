@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { mask } from '@/utils/mask'
 import {
   PROP_TYPE_ARRAY,
   PROP_TYPE_NUMBER,
@@ -33,7 +32,6 @@ export default {
     id: makeProp(PROP_TYPE_STRING),
     value: makeProp(PROP_TYPE_NUMBER_STRING),
     placeholder: makeProp(PROP_TYPE_STRING),
-    mask: makeProp(PROP_TYPE_STRING),
     offset: makeProp(PROP_TYPE_NUMBER, 0),
     nameClass: makeProp(PROP_TYPE_ARRAY),
     textClass: makeProp(PROP_TYPE_STRING),
@@ -45,7 +43,7 @@ export default {
   },
   computed: {
     maskedValue() {
-      return mask(this.value, this.mask, true)
+      return String(this.value).replace(/ /g, '\xa0')
     },
     placeholderText() {
       return this.placeholder
