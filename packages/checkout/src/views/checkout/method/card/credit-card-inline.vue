@@ -3,18 +3,18 @@
     <f-input-group>
       <f-row
         ref="card_number"
-        v-model="card_number"
+        v-model="innerCardNumber"
         class="f-col"
         :label-class="$style.label"
         label="card_number"
         :rules="validCardNumber"
-        mask="XXXX XXXX XXXX XXXX XXX"
         :maxlength="23"
         :disabled="disabledCardNumber"
         type="tel"
         inputmode="numeric"
         autocomplete="cc-number"
         hide-error
+        :formatter="formatterCardNumber"
         @input="inputCardNumber"
         @error="onError"
       />
@@ -25,13 +25,11 @@
         :label-class="$style.label"
         label="expiry_date"
         :rules="validExpiryDate"
-        mask="##/##"
-        masked
         :disabled="disabledExpiryDate"
         type="tel"
         inputmode="numeric"
         autocomplete="cc-exp"
-        :formatter="formatter"
+        :formatter="formatterExpiryDate"
         hide-error
         @input="inputExpiryDate"
         @error="onError"
@@ -47,11 +45,11 @@
         :rules="validCvv"
         type="tel"
         inputmode="numeric"
-        mask="####"
         :disabled="disabled"
         :maxlength="digitsCvv"
         autocomplete="cc-csc"
         hide-error
+        :formatter="formatterCvv"
         @error="onError"
       />
     </f-input-group>
@@ -70,6 +68,11 @@ import { errorHandler } from '@/utils/helpers'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { FLoading } from '@/import'
+import {
+  formattersCardNumber,
+  formatterExpiryDate,
+  formatterCvv,
+} from '@/utils/formatter'
 
 export default {
   components: {
@@ -107,6 +110,14 @@ export default {
       'code',
       'hash',
     ]),
+    innerCardNumber: {
+      get() {
+        return formattersCardNumber.format(this.card_number)
+      },
+      set(value) {
+        this.card_number = formattersCardNumber.parse(value)
+      },
+    },
     disabledCardNumber() {
       return this.disabled || this.read_only
     },
@@ -115,7 +126,7 @@ export default {
     },
     validExpiryDate() {
       if (this.disabledExpiryDate) return
-      if (!this.need_validate_card) return {}
+      if (!this.need_validate_card) return
 
       let minDate = this.store.state.validate_expdate
         ? format(createDate(), 'MM/YY')
@@ -125,19 +136,17 @@ export default {
     },
     validCardNumber() {
       if (this.disabledCardNumber) return
-      if (!this.need_validate_card) return {}
+      if (!this.need_validate_card) return
 
       let needValidCard =
         !this.hash &&
-        (this.card_number.length === 16 ||
-          this.card_number.length === 19 ||
-          this.submited)
+        ([16, 19].includes(this.card_number.length) || this.submited)
 
       return needValidCard ? 'required|ccard' : 'required'
     },
     validCvv() {
       if (this.disabled) return
-      if (!this.need_validate_card) return {}
+      if (!this.need_validate_card) return
 
       return {
         required: this.isCvvMandatory,
@@ -167,14 +176,17 @@ export default {
     },
   },
   watch: {
-    card_number(value) {
-      if (!this.ready) return
+    card_number: {
+      handler(value) {
+        if (!this.ready) return
 
-      this.store
-        .feeCalc({
-          card_bin: this.getCardBin(value),
-        })
-        .catch(errorHandler)
+        this.store
+          .feeCalc({
+            card_bin: this.getCardBin(value),
+          })
+          .catch(errorHandler)
+      },
+      immediate: true,
     },
     read_only(value) {
       if (!value) return
@@ -187,8 +199,11 @@ export default {
     this.focus()
   },
   methods: {
-    inputCardNumber(value) {
-      if (value.length === 16 || value.length === 19) {
+    formatterCardNumber: formattersCardNumber.input,
+    formatterExpiryDate,
+    formatterCvv,
+    inputCardNumber() {
+      if ([16, 19].includes(this.card_number.length)) {
         this.focus()
       } else {
         this.hash = ''
@@ -210,18 +225,6 @@ export default {
             })
         }, Promise.resolve())
         .catch(errorHandler)
-    },
-    formatter(value) {
-      value = value.replace(/[^\d]/, '/')
-      let [month, year] = value.split('/')
-
-      if (year && year.length === 4) {
-        month = `0${month}`.slice(-2)
-        year = year.slice(-2)
-        value = `${month}/${year}`
-      }
-
-      return value
     },
     getCardBin(value) {
       let count = this.config.find(

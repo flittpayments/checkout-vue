@@ -43,6 +43,7 @@ import { mapState } from '@/utils/store'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { mask } from '@/utils/mask'
+import { maskCardNumber } from '@/config/mask'
 
 export default {
   components: {
@@ -64,7 +65,7 @@ export default {
       return this.item.card_number === this.card_number
     },
     cardNumber() {
-      return mask(this.item.card_number, 'XXXX XXXX XXXX XXXX XXX')
+      return mask(this.item.card_number, maskCardNumber)
     },
     approved() {
       return this.item.type === 'approved'

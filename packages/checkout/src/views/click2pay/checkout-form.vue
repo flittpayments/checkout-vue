@@ -19,7 +19,7 @@
             label="phone_number"
             rules="required"
             :disabled="loading"
-            :mask="maskPhone"
+            :formatter="formatterPhone"
           />
         </f-input-group>
         <f-row
@@ -27,14 +27,14 @@
           label="last_name"
           rules="required"
           :disabled="loading"
-          :mask="maskLatinCyrillicWord"
+          :formatter="formatterLatinCyrillicWord"
         />
         <f-row
           v-model="firstName"
           label="first_name"
           rules="required"
           :disabled="loading"
-          :mask="maskLatinCyrillicWord"
+          :formatter="formatterLatinCyrillicWord"
         />
         <click2pay-remember-me :class="$style.mb_16" />
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
@@ -81,8 +81,8 @@ import FButtonSuccess from '@/components/button/button-success'
 import Click2payLoader from '@/views/click2pay/loader'
 import { checkout } from '@/click2pay'
 import { mapState } from '@/utils/store'
-import { maskLatinCyrillicWord, maskPhone } from '@/config/mask'
 import { coinsToAmountString } from '@/utils/helpers'
+import { formatterPhone, formatterLatinCyrillicWord } from '@/utils/formatter'
 
 export default {
   components: {
@@ -105,8 +105,6 @@ export default {
       lastName: '',
       firstName: '',
       error: '',
-      maskLatinCyrillicWord: maskLatinCyrillicWord,
-      maskPhone: maskPhone,
     }
   },
   computed: {
@@ -143,6 +141,8 @@ export default {
     this.countryCode = this.country_user_by_ip
   },
   methods: {
+    formatterPhone,
+    formatterLatinCyrillicWord,
     onSubmit() {
       if (this.loading) return
       this.loading = true
