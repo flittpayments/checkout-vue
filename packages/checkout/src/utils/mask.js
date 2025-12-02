@@ -16,14 +16,14 @@ const tokens = {
   '!': { escape: true },
 }
 
-export const mask = (value = '', mask, masked = true, last) => {
+export const mask = (value = '', mask, masked = true, checkNextSymbol) => {
   if (!mask) return value
 
   value = String(value)
   let iMask = 0
   let iValue = 0
   let output = ''
-  let valueLength = value.length + (last ? 1 : 0)
+  let valueLength = value.length + (checkNextSymbol ? 1 : 0)
   while (iMask < mask.length && iValue < valueLength) {
     let cMask = mask[iMask]
     let masker = tokens[cMask]
