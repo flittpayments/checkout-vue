@@ -3,18 +3,18 @@
     <f-input-group>
       <f-row
         ref="card_number"
-        v-model="card_number"
+        v-model="cardNumberInner"
         class="f-col"
         :label-class="$style.label"
         label="card_number"
         :rules="cardNumberValid"
-        :mask="cardConfig.cardNumberMask"
         :maxlength="cardConfig.cardNumberMaxLength"
         :disabled="cardNumberDisabled"
         type="tel"
         inputmode="numeric"
         autocomplete="cc-number"
         hide-error
+        :formatter="cardNumberFormatter"
         @input="cardNumberInput"
         @error="onError"
       />
@@ -25,13 +25,11 @@
         :label-class="$style.label"
         label="expiry_date"
         :rules="expiryDateValid"
-        mask="##/##"
-        masked
         :disabled="expiryDateDisabled"
         type="tel"
         inputmode="numeric"
         autocomplete="cc-exp"
-        :formatter="formatter"
+        :formatter="expiryDateFormatter"
         hide-error
         @input="expiryDateInput"
         @error="onError"
@@ -47,11 +45,11 @@
         :rules="cvvValid"
         type="tel"
         inputmode="numeric"
-        :mask="cardConfig.cvvMask"
         :disabled="disabled"
         :maxlength="cvvLength"
         autocomplete="cc-csc"
         hide-error
+        :formatter="cvvFormatter"
         @error="onError"
       />
     </f-input-group>
@@ -71,6 +69,12 @@ import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { FLoading } from '@/import'
 import { getCardConfig } from '@/utils/get-bin-name'
+import {
+  formatter,
+  normalizeAutofillExpiryDate,
+  simpleFormatter,
+} from '@/utils/formatter'
+import { mask } from '@/utils/mask'
 
 export default {
   components: {
@@ -85,7 +89,7 @@ export default {
   },
   data() {
     return {
-      readonlyExpiryDate: false,
+      expiryDateReadonly: false,
       error: '',
     }
   },
@@ -110,11 +114,36 @@ export default {
     cardConfig() {
       return getCardConfig(this.card_number)
     },
+    cardNumberFormatter() {
+      return formatter(this.cardConfig.cardNumberMask)
+    },
+    expiryDateFormatter() {
+      return formatter(
+        this.cardConfig.expiryDateMask,
+        normalizeAutofillExpiryDate
+      )
+    },
+    cvvFormatter() {
+      return simpleFormatter(this.cardConfig.cvvMask)
+    },
+    cardNumberInner: {
+      get() {
+        return mask(
+          this.card_number,
+          this.cardConfig.cardNumberMask,
+          true,
+          true
+        )
+      },
+      set(value) {
+        this.card_number = mask(value, this.cardConfig.cardNumberMask, false)
+      },
+    },
     cardNumberDisabled() {
       return this.disabled || this.read_only
     },
     expiryDateDisabled() {
-      return this.disabled || this.readonlyExpiryDate
+      return this.disabled || this.expiryDateReadonly
     },
     expiryDateValid() {
       if (this.expiryDateDisabled) return
@@ -176,7 +205,7 @@ export default {
       if (!value) return
       if (!this.expiry_date) return
 
-      this.readonlyExpiryDate = true
+      this.expiryDateReadonly = true
     },
     ready: 'watchReady',
   },
@@ -207,18 +236,6 @@ export default {
             })
         }, Promise.resolve())
         .catch(errorHandler)
-    },
-    formatter(value) {
-      value = value.replace(/[^\d]/, '/')
-      let [month, year] = value.split('/')
-
-      if (year && year.length === 4) {
-        month = `0${month}`.slice(-2)
-        year = year.slice(-2)
-        value = `${month}/${year}`
-      }
-
-      return value
     },
     watchReady() {
       this.focus()
