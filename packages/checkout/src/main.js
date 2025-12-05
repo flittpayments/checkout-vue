@@ -151,7 +151,7 @@ export const checkout = (window.checkout = function (el, optionsUser) {
         let router = createRouter(id)
 
         Vue.use(installValidate)
-        Vue.use(installSentry(router))
+        Vue.use(installSentry(optionsUser, router))
         Vue.use(installComponents)
 
         let origin =
@@ -212,7 +212,7 @@ export const checkout = (window.checkout = function (el, optionsUser) {
         return instance[id]
       }
     )
-    .catch(() => sentry().then(({ installMin }) => installMin()))
+    .catch(() => sentry().then(({ installMin }) => installMin(optionsUser)))
 
   return app
 })

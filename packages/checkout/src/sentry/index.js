@@ -2,17 +2,19 @@ import {
   init,
   browserTracingIntegration,
   replayIntegration,
-  setTag,
   captureMessage,
 } from '@sentry/vue'
 import { sendBufferedErrors } from '@/sentry/error-buffer'
 import { stopError, initErrorChunk } from '@/sentry/error-capture'
+import { findGetParameter } from '@/utils/helpers'
 
 let isInit
 
-function initSentry(Vue = null, router = null) {
+function initSentry(optionsUser, router, Vue) {
   if (isInit) return
   isInit = true
+
+  const token = findGetParameter('token') || optionsUser.params?.token
 
   init({
     ...(Vue && { Vue }),
@@ -26,21 +28,23 @@ function initSentry(Vue = null, router = null) {
     replaysOnErrorSampleRate: 1.0,
     release: VERSION,
     environment: ENVIRONMENT,
+    initialScope: scope => {
+      scope.setTag('commithash', COMMITHASH)
+      if (token) {
+        scope.setTag('token', token)
+      }
+    },
   })
-
-  setTag('commithash', COMMITHASH)
 
   sendBufferedErrors(args => captureMessage(...args))
   stopError()
   initErrorChunk()
 }
 
-export const install = router => Vue => {
-  initSentry(Vue, router)
+export const install = (optionsUser, router) => Vue => {
+  initSentry(optionsUser, router, Vue)
 }
 
-export const installMin = () => {
-  initSentry()
+export const installMin = optionsUser => {
+  initSentry(optionsUser)
 }
-
-export { setTag }
