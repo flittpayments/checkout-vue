@@ -22,8 +22,29 @@ class Validate {
 
   init() {
     this.format(this.data)
+    this.monitoring()
     this.compatibility()
     return this.validate().then(this.afterValidate.bind(this))
+  }
+
+  monitoring() {
+    const hasMethodDisabledCard =
+      this.options.methods_disabled?.includes('card')
+    const isLayoutWalletsOnly = this.options.theme.layout === 'wallets_only'
+    const sanitize = data =>
+      Object.fromEntries(
+        Object.entries(data).filter(([key]) => key !== '__ob__')
+      )
+
+    if (hasMethodDisabledCard && !isLayoutWalletsOnly) {
+      captureMessage(
+        'method_disabled contains cards when the layout is not wallets_only',
+        {
+          level: 'info',
+          extra: sanitize(this.data),
+        }
+      )
+    }
   }
 
   compatibility() {
