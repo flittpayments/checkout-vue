@@ -30,6 +30,7 @@ function initSentry(optionsUser, router, Vue) {
     environment: ENVIRONMENT,
     initialScope: scope => {
       scope.setTag('commithash', COMMITHASH)
+      scope.setTag('library_type', LIBRARY_TYPE)
       if (token) {
         scope.setTag('token', token)
       }
