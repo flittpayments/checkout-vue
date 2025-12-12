@@ -517,16 +517,18 @@ class Store extends Model {
       delete params.custom
     }
 
-    params.recurring_data = Object.fromEntries(
-      Object.entries(params.recurring_data)
-        .filter(([, value]) => value !== 0 && value !== '')
-        .map(([name, value]) => [
-          name,
-          arrayIncludes(['start_time', 'end_time'], name)
-            ? formatKiev(value)
-            : value,
-        ])
-    )
+    if (this.state.subscription.show) {
+      params.recurring_data = Object.fromEntries(
+        Object.entries(params.recurring_data)
+          .filter(([, value]) => value !== 0 && value !== '')
+          .map(([name, value]) => [
+            name,
+            arrayIncludes(['start_time', 'end_time'], name)
+              ? formatKiev(value)
+              : value,
+          ])
+      )
+    }
 
     if (params.recurring === 'n') {
       delete params.recurring_data
