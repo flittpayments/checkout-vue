@@ -11,8 +11,10 @@
         :count="5"
       />
     </template>
-    <router-view />
-    <click2pay-otp-wrapper />
+    <transition name="f-fade-enter">
+      <router-view />
+    </transition>
+    <click2pay-redirect-wrapper />
   </div>
 </template>
 
@@ -23,7 +25,7 @@ import FPrice from '@/components/price'
 import FIcons from '@/components/icons'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import { resizeMixin } from '@/mixins/resize'
-import Click2payOtpWrapper from '@/views/click2pay/otp-wrapper'
+import Click2payRedirectWrapper from '@/views/click2pay/redirect-wrapper'
 
 export default {
   components: {
@@ -31,7 +33,7 @@ export default {
     FPrice,
     FIcons,
     FButtonWalletEl,
-    Click2payOtpWrapper,
+    Click2payRedirectWrapper,
   },
   mixins: [resizeMixin],
   computed: {

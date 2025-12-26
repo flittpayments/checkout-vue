@@ -215,7 +215,7 @@ task('exclude-message', () => {
       paths.map(path =>
         fsp
           .readFile(path, 'utf-8')
-          .then(content => [...content.matchAll(/v-html="\$t\('(\w+?)'/g)])
+          .then(content => [...content.matchAll(/v-html="\s*\$t\('(\w+?)'/g)])
           .then(content => content.map(([, item]) => item))
       )
     )

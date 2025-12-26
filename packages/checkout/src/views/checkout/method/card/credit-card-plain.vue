@@ -189,11 +189,11 @@ export default {
       fields
         .reduce((accum, name) => {
           return accum
-            .then(() => this.$refs[name].validation.validate())
-            .then(({ valid }) => {
-              if (valid) return
+            .then(() => this.$refs[name]?.validation.validate())
+            .then(response => {
+              if (response?.valid) return
 
-              this.$refs[name].focused()
+              this.$refs[name]?.focused()
               return Promise.reject()
             })
         }, Promise.resolve())
