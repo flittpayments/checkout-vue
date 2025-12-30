@@ -35,6 +35,7 @@ import locales from '@/config/locales.json'
 import { keys } from '@/utils/object'
 import { testCardNumbers } from '@/config/test-card-numbers'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
+import { select } from '@/utils/dom'
 
 Vue.use(store)
 
@@ -340,7 +341,7 @@ class Store extends Model {
       !this.state.options.amount_readonly ||
       this.state.fields_customer.length ||
       this.state.fields_custom.length ||
-      this.state.options.fields ||
+      select('#f-fields') ||
       this.state.options.offerta_url
   }
   initIsOnlyCard() {
