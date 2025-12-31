@@ -40,12 +40,14 @@ export default Vue.extend({
       supported: [],
       allowed: [],
       load: false,
+      pending: false,
     }
   },
   computed: {
     ...mapStateGetSet(['can_make_payment']),
     ...mapState(['pay', 'ready']),
     ...mapState('options', ['wallet_methods_enabled']),
+    ...mapState('hooks', ['before_wallets_pay']),
     ...mapState('params', [
       'amount',
       'currency',
@@ -92,6 +94,7 @@ export default Vue.extend({
       this.paymentRequest[type]('details', this.onDetails)
       this.paymentRequest[type]('supported', this.onSupported)
       this.paymentRequest[type]('payload', this.onPayload)
+      this.paymentRequest[type]('pending', this.onPending)
       this.paymentRequest[type]('error', this.onError)
     },
     watchReady() {
@@ -116,7 +119,15 @@ export default Vue.extend({
       this.can_make_payment = this.list.join('_')
     },
     onDetails(data) {
-      this.formRequest(data)
+      this.before_wallets_pay(this.store.formParams()).then(extendParams =>
+        this.formRequest({
+          ...extendParams,
+          ...data,
+        })
+      )
+    },
+    onPending(state) {
+      this.pending = state
     },
     onError(error) {
       let name = ['Payment Button']
@@ -137,6 +148,8 @@ export default Vue.extend({
       })
     },
     click(method = this.list[0]) {
+      if (this.pending) return
+
       this.paymentRequest.pay(method)
     },
     update() {

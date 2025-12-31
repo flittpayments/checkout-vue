@@ -31,6 +31,7 @@ import initFavicon from '@/store/favicon'
 import { loadClick2pay, loadStyleAdaptive } from '@/import'
 import { arrayIncludes } from '@/utils/array'
 import { formatKiev } from '@/utils/date'
+import { cloneDeep } from '@/utils/clone-deep'
 import locales from '@/config/locales.json'
 import { keys } from '@/utils/object'
 import { testCardNumbers } from '@/config/test-card-numbers'
@@ -269,7 +270,7 @@ class Store extends Model {
     this.state.promo = model.attr('merchant.promo')
   }
   setStateDefault() {
-    this.state = JSON.parse(JSON.stringify(configDefault))
+    this.state = cloneDeep(configDefault)
   }
   setOptions(userConfig) {
     return validate(userConfig)
@@ -279,11 +280,11 @@ class Store extends Model {
       })
   }
   init(userConfig) {
-    // delete undefined property
-    this.user = JSON.parse(JSON.stringify(userConfig))
+    this.user = cloneDeep(userConfig)
 
     deepMerge(this.state.params, this.user.params, notSet.params)
     deepMerge(this.state.options, this.user.options, notSet.options)
+    Object.assign(this.state.hooks, this.user.hooks)
     Object.assign(this.state.button, this.user.button)
     Object.assign(this.state.fields_custom, this.user.fields_custom)
     Object.assign(this.state.messages, this.user.messages)
@@ -413,7 +414,7 @@ class Store extends Model {
     })
   }
   setState(state) {
-    deepMerge(this.state, JSON.parse(JSON.stringify(state)))
+    deepMerge(this.state, cloneDeep(state))
   }
   changeLang(lang) {
     if (this.state.options.full_screen) {
@@ -491,7 +492,7 @@ class Store extends Model {
   }
   formParams(data) {
     // copy params
-    let params = JSON.parse(JSON.stringify(this.state.params))
+    let params = cloneDeep(this.state.params)
 
     params.save_card = Boolean(localStorage.get('save_card'))
 

@@ -41,6 +41,7 @@ const subscriptionType = Object.keys(configSubscription)
 const config = [
   'options',
   'params',
+  'hooks',
   'messages',
   'validate',
   'css_variable',
@@ -59,6 +60,7 @@ const typeDate = { ...typeString, pattern: /^\d{4}-\d{2}-\d{2}$/ }
 const typeIntegerMax = max => ({ ...typeInteger, max })
 const typeObject = { type: 'object' }
 const typeArray = { type: 'array' }
+const typeFunction = { type: 'method' }
 const digits12 = 999999999999
 
 function error(array, includes, rule, value, callback, message) {
@@ -360,6 +362,12 @@ export default {
           },
           custom: typeObject,
           customer_data: typeObject,
+        },
+      },
+      hooks: {
+        ...typeObject,
+        fields: {
+          before_wallets_pay: typeFunction,
         },
       },
       messages,

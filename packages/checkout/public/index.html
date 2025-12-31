@@ -699,11 +699,30 @@
             amount: 100,
           },
         },
+        before_wallets_pay: {
+          options: {
+            // api_domain,
+          },
+          params: {
+            amount: 100,
+            currency: 'GEL',
+            merchant_id: 1549901,
+          },
+          hooks: {
+            before_wallets_pay: (params) => {
+              console.log('the start of the request to the merchant backend', params)
+              return (new Promise(resolve => setTimeout(resolve, 3000))).then(() => {
+                console.log('the end of the request to the merchant backend')
+                return {new_key: 'new_value'}
+              })
+            },
+          }
+        },
       }
 
       setConfigsOption()
 
-      window.app = render('#app', 'max')
+      window.app = render('#app', 'before_wallets_pay')
       // render('#app2', 'min')
       // render('#app3', 'max2')
 

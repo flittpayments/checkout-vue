@@ -6,6 +6,7 @@
 {
   options: {},
   params: {},
+  hooks: {},
   button: {}, // button config 
   fields_custom: [],
   messages: {},
@@ -124,6 +125,11 @@ Name                  | Type        | Default                 | Description
 `customer_state`      | String      |                         |
 `phonemobile`         | String      |                         | format phone
 `email`               | String      |                         | format email
+
+### hooks
+| Name                 | Type        | Default                 | Description             | 
+|----------------------| ---         | ---                     |-------------------------|
+| `before_wallets_pay` | Function    |                         | must return a `Promise`.|
 
 ### messages
 ``` js

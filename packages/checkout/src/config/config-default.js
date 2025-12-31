@@ -100,6 +100,11 @@ export const configDefault = {
     token: '',
     promocode: '',
   },
+  hooks: {
+    before_wallets_pay() {
+      return Promise.resolve()
+    },
+  },
   button: {},
   messages: {},
   validate: {},

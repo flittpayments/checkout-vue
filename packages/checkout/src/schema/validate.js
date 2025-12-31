@@ -9,6 +9,7 @@ import { createDate, format } from '@/utils/date'
 import { formatServer } from '@/config/date'
 import configMethods from '@/config/methods.json'
 import { mappingMethod } from '@/config/mapping-method'
+import { cloneDeep } from '@/utils/clone-deep'
 
 class Validate {
   constructor(data) {
@@ -273,7 +274,7 @@ class Validate {
   }
 
   setDefaultData(data) {
-    deepMerge(this.data, data, JSON.parse(JSON.stringify(this.data)))
+    deepMerge(this.data, data, cloneDeep(this.data))
   }
 
   fieldsCustom() {
