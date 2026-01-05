@@ -1,6 +1,6 @@
 {
   "name": "@flittpayments/checkout-react",
-  "version": "1.10.4",
+  "version": "1.11.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/flittpayments/checkout-vue.git",
