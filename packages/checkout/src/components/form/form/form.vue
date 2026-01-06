@@ -17,6 +17,7 @@ export default {
   provide() {
     return {
       submit: this.submit,
+      isSubmit: () => this.isSubmit,
     }
   },
   data() {

@@ -8,6 +8,7 @@
       @focus="$emit('focus')"
       @blur="$emit('blur')"
       @keydown="$emit('keydown', $event)"
+      @paste="$emit('paste', $event)"
       @keyup.enter="onEnter"
     />
     <slot :id="id" />

@@ -12,19 +12,11 @@
       <f-link @click="click">{{ $t('send_again') }}</f-link>
     </div>
     <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
-      <div :class="$style.mb_20">
-        <f-form-group
-          v-model="validationData"
-          name="otp"
-          label=""
-          :placeholder="$t('enter_code')"
-          size="48"
-          rules="required|digits:6"
-          no-label-floating
-          :format="format"
-          :disabled="loading"
-        />
-      </div>
+      <f-otp
+        v-model="validationData"
+        :disabled="loading"
+        :class="$style.mb_20"
+      />
       <div :class="$style.mb_32">
         <f-form-group v-model="rememberMe" name="" component="checkbox">
           <div v-html="$t('skip_verification_next_time')" />
@@ -65,6 +57,7 @@
 import Click2payHeader from '@/views/click2pay/header'
 import FForm from '@/components/form/form/form'
 import FLink from '@/components/link'
+import FOtp from '@/components/otp'
 import FButton from '@/components/button/button'
 import FSvg from '@/components/svg'
 import { timeoutMixin } from '@/mixins/timeout'
@@ -81,6 +74,7 @@ export default {
     Click2payHeader,
     FForm,
     FLink,
+    FOtp,
     FButton,
     FSvg,
   },
