@@ -15,6 +15,10 @@ function initSentry(optionsUser, router, Vue) {
   isInit = true
 
   const token = findGetParameter('token') || optionsUser.params?.token
+  const button =
+    findGetParameter('button') ||
+    optionsUser.params?.button ||
+    optionsUser.button?.token
 
   init({
     ...(Vue && { Vue }),
@@ -31,8 +35,13 @@ function initSentry(optionsUser, router, Vue) {
     initialScope: scope => {
       scope.setTag('commithash', COMMITHASH)
       scope.setTag('library_type', LIBRARY_TYPE)
+      scope.setTag('url', window.location.href)
+      scope.setTag('domain', window.location.hostname)
       if (token) {
         scope.setTag('token', token)
+      }
+      if (button) {
+        scope.setTag('button', button)
       }
     },
   })

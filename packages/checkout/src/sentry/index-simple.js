@@ -11,6 +11,10 @@ function initSentry(optionsUser) {
   isInit = true
 
   const token = findGetParameter('token') || optionsUser.params?.token
+  const button =
+    findGetParameter('button') ||
+    optionsUser.params?.button ||
+    optionsUser.button?.token
   const client = new BrowserClient({
     dsn: SENTRY_DSN,
     transport: makeFetchTransport,
@@ -20,6 +24,26 @@ function initSentry(optionsUser) {
     release: VERSION,
     environment: ENVIRONMENT,
     stackParser: () => [],
+    beforeSend(event) {
+      return {
+        ...event,
+        request: {
+          ...(event.request || {}),
+          url: window.location.href,
+          headers: {
+            ...(document.referrer ? { Referer: document.referrer } : {}),
+            ...(navigator?.userAgent
+              ? { 'User-Agent': navigator.userAgent }
+              : {}),
+          },
+        },
+        tags: {
+          ...(event.tags || {}),
+          url: window.location.href,
+          domain: window.location.hostname,
+        },
+      }
+    },
   })
   const scope = new Scope()
 
@@ -27,6 +51,9 @@ function initSentry(optionsUser) {
   scope.setTag('library_type', LIBRARY_TYPE)
   if (token) {
     scope.setTag('token', token)
+  }
+  if (button) {
+    scope.setTag('button', button)
   }
 
   function captureMessage(message, options) {
