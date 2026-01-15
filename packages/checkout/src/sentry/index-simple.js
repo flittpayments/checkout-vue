@@ -19,6 +19,7 @@ function initSentry(optionsUser) {
     tracesSampleRate: 0,
     release: VERSION,
     environment: ENVIRONMENT,
+    stackParser: () => [],
   })
   const scope = new Scope()
 
