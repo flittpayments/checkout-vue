@@ -1,5 +1,5 @@
 <template>
-  <f-row v-bind="attrs" data-e2e-click2pay-cards v-on="fListeners">
+  <f-row v-bind="attrs" data-e2e-click2pay-cards>
     <template #text="{ item }">
       <click2pay-card-item :item="item" no-info />
     </template>
@@ -14,15 +14,12 @@ import FRow from '@/components/input/row'
 import Click2payCardItem from '@/views/click2pay/card-item'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_ARRAY } from '@/constants/props'
-import { attrsMixin } from '@/mixins/attrs'
-import { listenersMixin } from '@/mixins/listeners'
 
 export default {
   components: {
     FRow,
     Click2payCardItem,
   },
-  mixins: [attrsMixin, listenersMixin],
   inheritAttrs: false,
   props: {
     list: makeProp(PROP_TYPE_ARRAY),
@@ -38,7 +35,7 @@ export default {
     },
     attrs() {
       return {
-        ...this.fAttrs,
+        ...this.$attrs,
         options: this.options,
         variantItem: 'card',
         type: 'select',

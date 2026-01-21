@@ -1,5 +1,5 @@
 <template>
-  <f-row v-model="form[name]" v-bind="attrs" />
+  <f-row v-bind="attrs" v-model="form[name]" />
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
   inheritAttrs: false,
   props: {
     name: makeProp(PROP_TYPE_STRING, undefined, true),
-    value: makeProp(PROP_TYPE_STRING),
+    value: makeProp(PROP_TYPE_STRING, ''),
     validate: makeProp(PROP_TYPE_STRING),
     custom: makeProp(PROP_TYPE_BOOLEAN, false),
   },
@@ -33,9 +33,10 @@ export default {
     },
   },
   created() {
-    let value = this.form[this.name]
-    delete this.form[this.name] // if the field value was set via config, remove it to make it reactive
-    this.$set(this.form, this.name, value || this.value)
+    // let value = this.form[this.name]
+    // // TODO
+    // delete this.form[this.name] // if the field value was set via config, remove it to make it reactive
+    this.form[this.name] = this.form[this.name] || this.value
   },
 }
 </script>

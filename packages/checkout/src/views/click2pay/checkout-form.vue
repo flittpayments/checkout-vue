@@ -47,9 +47,9 @@
         />
       </f-form>
       <!--$t('c2p_agreement_with_processing_of_data')-->
-      <i18n
+      <i18n-t
         :class="$uiClass('agreement')"
-        path="c2p_agreement_with_processing_of_data"
+        keypath="c2p_agreement_with_processing_of_data"
         tag="div"
       >
         <template #terms>
@@ -65,7 +65,7 @@
             >{{ $t('privacy_notice') }}</f-link
           >
         </template>
-      </i18n>
+      </i18n-t>
     </f-box>
     <click2pay-loader v-else-if="isLoading" />
     <div
@@ -89,6 +89,7 @@ import FCallingCodes from '@/components/calling-codes'
 import FRow from '@/components/input/row'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButtonSuccess from '@/components/button/button-success'
+import I18nT from '@/components/base/i18n-t'
 import FLink from '@/components/link'
 import Click2payLoader from '@/views/click2pay/loader'
 import { checkout } from '@/click2pay'
@@ -105,6 +106,7 @@ export default {
     FRow,
     Click2payRememberMe,
     FButtonSuccess,
+    I18nT,
     FLink,
     Click2payLoader,
   },

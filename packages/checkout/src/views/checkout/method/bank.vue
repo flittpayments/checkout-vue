@@ -121,6 +121,7 @@ export default {
     noSearch: makeProp(PROP_TYPE_BOOLEAN, false),
     label: makeProp(PROP_TYPE_STRING, ''),
   },
+  emits: ['select'],
   data() {
     return {
       search: '',

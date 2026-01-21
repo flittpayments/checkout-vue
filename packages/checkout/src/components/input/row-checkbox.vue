@@ -1,11 +1,10 @@
 <template>
-  <f-row-error v-slot="{ invalid }" v-bind="attrsRow">
+  <f-row-error v-slot="{ invalid, handleBlur }" v-bind="attrsRow">
     <f-checkbox
       v-bind="attrs"
       :invalid="invalid"
-      v-on="$listeners"
       @focus="focus"
-      @blur="blur"
+      @blur="blur(handleBlur)"
       @keyup.enter="onEnter"
     >
       <slot />
@@ -59,7 +58,7 @@ export default {
     parseRules() {
       const rules = { ...this.rules }
       if (rules.required) {
-        rules.required = { allowFalse: false }
+        rules.required = { allowFalsy: false }
       }
       return rules
     },
@@ -68,7 +67,8 @@ export default {
     focus() {
       this.focused = true
     },
-    blur() {
+    blur(handleBlur) {
+      handleBlur()
       this.focused = false
     },
     onEnter() {

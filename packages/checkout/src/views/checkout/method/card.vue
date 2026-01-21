@@ -12,9 +12,11 @@
         :count="5"
       />
     </template>
-    <transition name="f-fade-enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="f-fade-enter">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <click2pay-redirect-wrapper />
   </f-container>
 </template>

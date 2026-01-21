@@ -1,11 +1,5 @@
 <template>
-  <f-modal-tooltip
-    ref="mt"
-    v-bind="attrs"
-    v-on="$listeners"
-    @show="show"
-    @hide="hide"
-  >
+  <f-modal-tooltip v-bind="attrs" ref="mt" @show="show" @hide="hide">
     <template #text>
       <template v-if="active.value">
         <slot name="text" :item="active">
@@ -34,7 +28,7 @@
       <f-button-unstyled
         v-for="(item, key) in list"
         :key="key"
-        ref="items"
+        :ref="el => setItemRef(el, key)"
         :class="classItem(item, key)"
         :data-e2e-select-item="item.value"
         @click="click(item)"
@@ -79,8 +73,7 @@ export default {
   },
   inheritAttrs: false,
   props: {
-    // required for ValidationProvider
-    value: makeProp(PROP_TYPE_NUMBER_STRING),
+    modelValue: makeProp(PROP_TYPE_NUMBER_STRING),
     invalid: makeProp(PROP_TYPE_BOOLEAN),
     inputClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     size: makeProp(PROP_TYPE_STRING, '56', value =>
@@ -105,8 +98,10 @@ export default {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     placeholder: makeProp(PROP_TYPE_STRING, 'select'),
   },
+  emits: ['update:modelValue', 'input', 'search'],
   data() {
     return {
+      items: [],
       open: false,
       text: '',
       autofocus: false,
@@ -143,7 +138,7 @@ export default {
       return this.options.filter(this.filter(this.text.toLowerCase()))
     },
     active() {
-      return this.options.filter(({ value }) => value === this.value)[0] || {}
+      return this.options.find(({ value }) => value === this.modelValue) || {}
     },
     classItem() {
       return (item, index) =>
@@ -156,10 +151,19 @@ export default {
       return this.$uiClass('arrow', { open: this.open })
     },
   },
+  beforeUpdate() {
+    this.items = []
+  },
   methods: {
+    setItemRef(el, index) {
+      if (el) {
+        this.items[index] = el
+      }
+    },
     click({ value, disabled }) {
       if (disabled) return
 
+      this.$emit('update:modelValue', value)
       this.$emit('input', value)
       this.$refs.mt.hide()
     },
@@ -176,7 +180,7 @@ export default {
       this.text = ''
     },
     isActive(item) {
-      return item.value === this.value
+      return item.value === this.modelValue
     },
     navigate(ev) {
       const { keyCode } = ev
@@ -207,7 +211,7 @@ export default {
     scroll() {
       if (!this.list.length) return
 
-      const el = this.$refs.items[this.index].$el
+      const el = this.items[this.index]?.$el
       if (!el) return
       el.scrollIntoView({
         block: 'center',

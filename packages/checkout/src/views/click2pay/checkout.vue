@@ -9,7 +9,11 @@
       <click2pay-checkout-form v-if="showRegistration" :class="$style.mb_36" />
       <div v-else :class="$style.mb_44">
         <!--$t('c2p_save_card_desc')-->
-        <i18n path="c2p_save_card_desc" tag="div" :class="$uiClass('desc')">
+        <i18n-t
+          keypath="c2p_save_card_desc"
+          tag="div"
+          :class="$uiClass('desc')"
+        >
           <template #click2pay>
             <f-link :class="$style.click2pay" @click="open">{{
               $t('click2pay')
@@ -18,7 +22,7 @@
           <template #masked_card>
             <span :class="$uiClass('bold')">{{ masked_card }}</span>
           </template>
-        </i18n>
+        </i18n-t>
         <f-button-success
           class="f-mb-24"
           :text="$t('save_card')"
@@ -33,6 +37,7 @@
 <script>
 import Click2payHeader from '@/views/click2pay/header'
 import Click2payCheckoutForm from '@/views/click2pay/checkout-form'
+import I18nT from '@/components/base/i18n-t'
 import FLink from '@/components/link'
 import FButtonSuccess from '@/components/button/button-success'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
@@ -44,6 +49,7 @@ export default {
   components: {
     Click2payHeader,
     Click2payCheckoutForm,
+    I18nT,
     FLink,
     FButtonSuccess,
     Click2payModalAbout,

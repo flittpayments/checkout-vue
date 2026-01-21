@@ -2,7 +2,6 @@
   <f-row
     v-bind="attrs"
     data-e2e-calling-codes
-    v-on="fListeners"
     @search="onSearch"
     @input="emitCallingCode"
   >
@@ -23,8 +22,6 @@
 <script>
 import FRow from '@/components/input/row'
 import { codeToFlag } from '@/utils/helpers'
-import { attrsMixin } from '@/mixins/attrs'
-import { listenersMixin } from '@/mixins/listeners'
 import { countriesCallingCodes, countriesSearch } from '@/import'
 import { sort } from '@/utils/sort'
 import FSvg from '@/components/svg'
@@ -34,8 +31,8 @@ export default {
     FRow,
     FSvg,
   },
-  mixins: [attrsMixin, listenersMixin],
   inheritAttrs: false,
+  emits: ['calling-code'],
   data() {
     return {
       countriesCallingCodes: {},
@@ -49,7 +46,7 @@ export default {
     },
     attrs() {
       return {
-        ...this.fAttrs,
+        ...this.$attrs,
         options: this.options,
         variantItem: 'secondary',
         type: 'select',

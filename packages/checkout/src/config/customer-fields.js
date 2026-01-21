@@ -2,6 +2,8 @@ import { deepMerge } from '@/utils/helpers'
 
 export const rulesEmail = 'required|email'
 
+//const { values } = useForm()
+//TODO :rules="{ required_one: [values.phonemobile], email: true }"
 export const rulesEmailRequiredOne = 'required_one:@f-phonemobile|email'
 
 export const configCustomer = {
@@ -63,6 +65,8 @@ export const configCustomer = {
 
 export const configCustomerRequiredOne = deepMerge({}, configCustomer, {
   phonemobile: {
+    //const { values } = useForm()
+    //TODO :rules="{ required_one: [values.email], phonemobile: true }"
     rules: 'required_one:@f-email|phonemobile',
   },
   email: {

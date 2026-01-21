@@ -7,14 +7,14 @@
     <f-container>
       <f-button-success
         v-if="target === '_blank'"
-        :href="link"
+        :href="deeplink"
         target="_blank"
         :text="$t('open_mobile_app', { name: info.name })"
         @click="clickNonBlocking"
       />
       <f-button-success
         v-else
-        :href="link"
+        :href="deeplink"
         :text="$t('open_mobile_app', { name: info.name })"
         @click="click"
       />
@@ -39,8 +39,8 @@ export default {
   props: {
     method: makeProp(PROP_TYPE_STRING),
     system: makeProp(PROP_TYPE_STRING),
-    link: makeProp(PROP_TYPE_STRING),
-    callback: makeProp(PROP_TYPE_STRING),
+    deeplink: makeProp(PROP_TYPE_STRING),
+    deepcallback: makeProp(PROP_TYPE_STRING),
   },
   computed: {
     ...mapState(['tabs']),
@@ -67,7 +67,7 @@ export default {
     },
     sendCallback() {
       return this.store.sendRequestBase('api.checkout.deepcallback', 'get', {
-        url: this.callback,
+        url: this.deepcallback,
       })
     },
     goLoading() {

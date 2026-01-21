@@ -1,15 +1,15 @@
 <template>
-  <ValidationObserver ref="observer" tag="div">
+  <f-form as="div">
     <slot />
-  </ValidationObserver>
+  </f-form>
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate'
+import { Form as FForm } from 'vee-validate'
 
 export default {
   components: {
-    ValidationObserver,
+    FForm,
   },
   provide() {
     return {

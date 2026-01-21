@@ -11,9 +11,9 @@
     <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
       <f-row-checkbox v-model="accepted" :rules="rules">
         <!--$t('accept_fees')-->
-        <i18n path="accept_fees">
+        <i18n-t keypath="accept_fees">
           <template #fees><b v-text="$t('fees')" /></template>
-        </i18n>
+        </i18n-t>
       </f-row-checkbox>
       <f-button
         class="f-button-pay"
@@ -35,6 +35,7 @@ import FContainer from '@/components/base/container'
 import { FFee } from '@/import'
 import FForm from '@/components/form/form/form.vue'
 import FRowCheckbox from '@/components/input/row-checkbox'
+import I18nT from '@/components/base/i18n-t'
 import FButton from '@/components/button/button'
 import FAmount from '@/components/base/amount.vue'
 import { makeProp } from '@/utils/props'
@@ -48,6 +49,7 @@ export default {
     FFee,
     FForm,
     FRowCheckbox,
+    I18nT,
     FButton,
     FAmount,
   },

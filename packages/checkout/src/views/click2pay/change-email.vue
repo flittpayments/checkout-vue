@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.wrapper">
     <template v-if="showCheck">
-      <f-box :class="$style.box" @click.native="click">
+      <f-box :class="$style.box" @click="click">
         <div :class="$style.box_title">
           <svg-click2pay :class="$uiClass('svg')" />
           <span
@@ -24,13 +24,13 @@
         <div :class="$style.save">
           <svg-click2pay :class="$uiClass('svg')" />
           <!--$t('c2p_save_card_desc')-->
-          <i18n path="c2p_save_card_desc">
+          <i18n-t keypath="c2p_save_card_desc">
             <template #click2pay>
               <f-link :class="$style.click2pay" @click="open">{{
                 $t('click2pay')
               }}</f-link>
             </template>
-          </i18n>
+          </i18n-t>
           <click2pay-modal-about ref="about" />
         </div>
       </f-row-checkbox>
@@ -44,6 +44,7 @@ import SvgClick2pay from '@/svg/click2pay.svg'
 import FBox from '@/components/box'
 import FSvg from '@/components/svg'
 import FRowCheckbox from '@/components/input/row-checkbox'
+import I18nT from '@/components/base/i18n-t'
 import FLink from '@/components/link'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
 import { mapState, mapStateGetSet } from '@/utils/store'
@@ -55,6 +56,7 @@ export default {
     FBox,
     FSvg,
     FRowCheckbox,
+    I18nT,
     FLink,
     Click2payModalAbout,
   },
@@ -79,7 +81,7 @@ export default {
       return ['SUCCESS', 'ADD_CARD'].includes(this.actionCode)
     },
   },
-  destroyed() {
+  unmounted() {
     this.deleteParam()
   },
   methods: {

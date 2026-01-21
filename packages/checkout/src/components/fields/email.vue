@@ -3,12 +3,12 @@
     <f-form-save v-slot="{ input }" name="params" :includes="['email']">
       <f-row
         v-bind="$attrs"
-        v-model.trim="email"
+        v-model="email"
         type="email"
         label="email"
         :rules="rules"
         autocomplete="email"
-        @input="input('email', $event)"
+        @update:model-value="input('email', $event)"
       />
     </f-form-save>
   </f-preloader>

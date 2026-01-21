@@ -13,6 +13,7 @@
 <script>
 import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'
+import { listenMixin } from '@/mixins/listen-on-root'
 import { errorHandler, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
@@ -21,7 +22,7 @@ import '@/scss/fonts.scss'
 import '@/scss/style.scss'
 
 export default {
-  mixins: [resizeMixin],
+  mixins: [resizeMixin, listenMixin],
   props: {
     optionsUser: makeProp(PROP_TYPE_OBJECT),
   },
@@ -90,7 +91,7 @@ export default {
       this.setParams()
     },
     location() {
-      this.$root.$on('location', (method, system) => {
+      this.listen('location', (method, system) => {
         if (system) {
           this.$router
             .push({ name: 'system', params: { method, system } })
@@ -101,7 +102,7 @@ export default {
       })
     },
     setParams() {
-      this.$root.$on('setParams', params => {
+      this.listen('setParams', params => {
         this.store.setParams(params)
       })
     },

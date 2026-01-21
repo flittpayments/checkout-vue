@@ -18,7 +18,6 @@ function resize() {
   }
 }
 
-// @vue/component
 export const resizeMixin = {
   mixins: [listenOnWindowMixin],
   data() {

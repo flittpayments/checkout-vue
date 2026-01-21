@@ -7,7 +7,7 @@
       }}</f-link>
       <f-modal-wrapper ref="text">
         <!--$t('gdpr_modal_text')-->
-        <i18n path="gdpr_modal_text">
+        <i18n-t keypath="gdpr_modal_text">
           <template #privacy_policy>
             <f-link
               variant="secondary"
@@ -16,7 +16,7 @@
               >{{ $t('privacy_policy') }}</f-link
             >
           </template>
-        </i18n>
+        </i18n-t>
       </f-modal-wrapper>
     </div>
 
@@ -48,6 +48,7 @@ import FAlertStorage from '@/components/alert/alert-storage'
 import FRowCheckbox from '@/components/input/row-checkbox'
 import FLink from '@/components/link'
 import FModalWrapper from '@/components/modal/modal-wrapper'
+import I18nT from '@/components/base/i18n-t'
 import FFormBase from '@/components/form/form/form-base'
 import SvgSafe from '@/svg/safe.svg'
 
@@ -59,6 +60,7 @@ export default {
     FRowCheckbox,
     FLink,
     FModalWrapper,
+    I18nT,
     FFormBase,
     SvgSafe,
   },

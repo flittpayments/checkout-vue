@@ -8,9 +8,11 @@
     >
       {{ info.iban }}
     </f-title-system>
-    <transition name="f-fade-enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="f-fade-enter">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 

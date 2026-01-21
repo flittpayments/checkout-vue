@@ -1,5 +1,5 @@
 <template>
-  <f-row-error v-slot="scope" v-bind="$attrs" v-on="$listeners">
+  <f-row-error v-slot="scope" v-bind="$attrs">
     <label
       v-if="label"
       :class="[$style.label, labelClass]"
@@ -49,6 +49,7 @@ export default {
     prependText: makeProp(PROP_TYPE_STRING),
     labelClass: makeProp(PROP_TYPE_STRING),
   },
+  emits: ['focus'],
   methods: {
     emitFocus() {
       this.$emit('focus')

@@ -9,28 +9,30 @@
       @click="click"
     />
     <!--$t('will_be_redirected_to_merchant_site')-->
-    <i18n
+    <i18n-t
       v-if="seconds"
-      path="will_be_redirected_to_merchant_site"
+      keypath="will_be_redirected_to_merchant_site"
       tag="div"
       :class="$style.message"
     >
       <template #seconds>
         <b>{{ seconds }}</b>
       </template>
-    </i18n>
+    </i18n-t>
   </div>
 </template>
 
 <script>
 import { mapState } from '@/utils/store'
 import FButtonDefault from '@/components/button/button-default'
+import I18nT from '@/components/base/i18n-t'
 import { errorHandler } from '@/utils/helpers'
 import { timeoutMixin } from '@/mixins/timeout'
 
 export default {
   components: {
     FButtonDefault,
+    I18nT,
   },
   mixins: [timeoutMixin],
   data() {

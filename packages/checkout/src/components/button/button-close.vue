@@ -1,9 +1,9 @@
 <script>
 import { stopEvent } from '@/utils/events'
 import { isEvent } from '@/utils/inspect'
-import { normalizeSlot } from '@/utils/normalize-slot'
 import { PROP_TYPE_STRING, PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
+import { h } from 'vue'
 
 export default {
   inheritAttrs: false,
@@ -12,9 +12,9 @@ export default {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     ariaLabel: makeProp(PROP_TYPE_STRING, 'Close'),
   },
+  emits: ['click'],
   methods: {
     onClick(evt) {
-      // Ensure click on button HTML content is also disabled
       if (this.disabled && isEvent(evt)) {
         stopEvent(evt)
         return
@@ -22,24 +22,18 @@ export default {
       this.$emit('click', evt)
     },
   },
-  render(h) {
+  render() {
     return h(
       'button',
       {
-        staticClass: 'f-close',
-        class: this.$style.style,
-        domProps: {
-          innerHTML: this.$scopedSlots.default ? undefined : this.content,
-        },
-        attrs: {
-          type: 'button',
-          'aria-label': this.ariaLabel ? String(this.ariaLabel) : null,
-        },
-        on: {
-          click: this.onClick,
-        },
+        class: ['f-close', this.$style.style],
+        type: 'button',
+        disabled: this.disabled,
+        innerHTML: this.$slots.default ? undefined : this.content,
+        'aria-label': this.ariaLabel ? String(this.ariaLabel) : undefined,
+        onClick: this.onClick,
       },
-      normalizeSlot('default', {}, this.$scopedSlots)
+      this.$slots.default?.()
     )
   },
 }
@@ -58,7 +52,6 @@ export default {
   border-radius: $border-radius;
   opacity: 1;
 
-  // Override <a>'s hover style
   &:hover {
     text-decoration: none;
   }
