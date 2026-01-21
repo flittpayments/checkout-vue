@@ -145,7 +145,11 @@ export default {
         ? format(createDate(), 'MM/YY')
         : '01/19'
 
-      return `required|date_format:MM/yy|after:${minDate},true,MM/yy`
+      return {
+        required: true,
+        date_format: 'MM/yy',
+        after: [minDate, true, 'MM/yy'],
+      }
     },
     validCardNumber() {
       if (this.disabledCardNumber) return

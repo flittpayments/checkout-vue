@@ -1,22 +1,20 @@
 <template>
   <component
     :is="componentRow"
-    v-slot="{ invalid, validate: _validate }"
     v-bind="attrsRow"
-    v-on="listenersRow"
+    v-slot="{ invalid, validate: slotValidate, handleBlur }"
     @focus="focus"
   >
-    <template v-if="updateState(_validate)">
+    <template v-if="updateState(slotValidate)">
       <component
         :is="component"
         v-bind="attrs"
         :invalid="invalid"
-        v-on="listeners"
         @focus="onFocus"
-        @blur="blur"
+        @blur="blur(handleBlur)"
         @keyup.enter="onEnter"
       >
-        <template v-for="slot in Object.keys($scopedSlots)" #[slot]="scope">
+        <template v-for="slot in Object.keys($slots)" #[slot]="scope">
           <slot :name="slot" v-bind="scope" />
         </template>
       </component>
@@ -29,9 +27,11 @@ import { RowFloating, RowNoFloating, FDate, FSelect, FInput } from '@/import'
 import { idMixin, idProps } from '@/mixins/id'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
-import { errorHandler, pick, omit } from '@/utils/helpers'
+import { errorHandler, omit } from '@/utils/helpers'
+import FCheckbox from '@/components/input/item/checkbox.vue'
 
 export default {
+  components: { FCheckbox },
   mixins: [idMixin],
   inject: ['submit'],
   inheritAttrs: false,
@@ -46,8 +46,14 @@ export default {
     noFloating: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   data() {
+    let resolveValidateReady
+    const validateReadyPromise = new Promise(resolve => {
+      resolveValidateReady = resolve
+    })
     return {
-      validate: null,
+      validateFn: null,
+      validateReadyPromise,
+      resolveValidateReady,
       focused: false,
     }
   },
@@ -63,9 +69,6 @@ export default {
         label: this.label,
         focused: this.focused,
       }
-    },
-    listenersRow() {
-      return pick(this.$listeners, ['error'])
     },
     component() {
       return {
@@ -88,22 +91,27 @@ export default {
         floating: !this.isNoFloating,
       }
     },
-    listeners() {
-      return omit(this.$listeners, ['error'])
-    },
     isNoFloating() {
       return this.noFloating || !this.label
     },
   },
   methods: {
-    updateState(validate) {
-      this.validate = validate
+    validate() {
+      return this.validateReadyPromise.then(() => this.validateFn())
+    },
+    updateState(validateFn) {
+      this.validateFn = validateFn
+      if (this.resolveValidateReady) {
+        this.resolveValidateReady()
+        this.resolveValidateReady = null
+      }
       return true
     },
     onFocus() {
       this.focused = true
     },
-    blur() {
+    blur(handleBlur) {
+      handleBlur()
       this.focused = false
     },
     onEnter() {

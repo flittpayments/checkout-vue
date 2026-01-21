@@ -25,7 +25,7 @@
         data-e2e-secure-message
       >
         <f-svg
-          ref="reference"
+          ref="placementTarget"
           :class="$uiClass('svg')"
           name="security"
           :size="svgSize"
@@ -33,7 +33,7 @@
         <span v-text="$t('security_title')" />
       </f-button-unstyled>
       <f-tooltip-default
-        :reference="() => $refs.reference?.$el"
+        :placement-target="() => $refs.placementTarget?.$el"
         :target="() => $refs.target?.$el"
         @shown="shown"
       >

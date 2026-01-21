@@ -1,5 +1,5 @@
 <template>
-  <f-button-unstyled :class="className" v-on="$listeners">
+  <f-button-unstyled :class="className" v-on="$attrs">
     <f-icon-bin :class="style.icon" :bin="item.card_number" />
     <div>
       <div :class="$style.number">{{ cardNumber }}</div>

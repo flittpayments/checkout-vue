@@ -1,21 +1,21 @@
 <template>
-  <ValidationObserver ref="observer" tag="div">
+  <f-form v-bind="$attrs" ref="form" as="div" :class="[$attrs.class]">
     <slot />
-  </ValidationObserver>
+  </f-form>
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate'
+import { Form as FForm } from 'vee-validate'
 import { mapStateGetSet } from '@/utils/store'
-import { isMountedMixin } from '@/mixins/is-mounted'
+import { listenMixin } from '@/mixins/listen-on-root'
 import { errorHandler } from '@/utils/helpers'
-import { attemptFocus } from '@/utils/dom'
+import { attemptFocus, select } from '@/utils/dom'
 
 export default {
   components: {
-    ValidationObserver,
+    FForm,
   },
-  mixins: [isMountedMixin],
+  mixins: [listenMixin],
   inject: ['formRequest'],
   provide() {
     return {
@@ -25,28 +25,18 @@ export default {
   },
   computed: {
     ...mapStateGetSet(['submited', 'isSubmit']),
-    observer() {
-      if (!this.isMounted) return
-      return this.$refs.observer
-    },
-    errors() {
-      if (!this.isMounted) return
-      return Object.entries(this.observer.errors).filter(
-        ([, value]) => value.length
-      )
-    },
   },
   watch: {
     $route: 'watchRoute',
   },
   created() {
-    this.$root.$on('submit', () => {
+    this.listen('submit', () => {
       this.submit().catch(errorHandler)
     })
   },
   methods: {
     watchRoute() {
-      this.observer.reset()
+      this.$refs.form.resetForm()
       this.isSubmit = false
     },
     submit(data) {
@@ -61,25 +51,34 @@ export default {
         })
     },
     validate() {
-      return this.observer.validate().then(isValid => {
+      if (!this.$refs.form) return Promise.reject()
+
+      return this.$refs.form.validate().then(({ valid, errors }) => {
         this.isSubmit = true
 
-        if (!isValid) return this.autoFocus(this.errors[0][0])
+        if (!valid) return this.autoFocus(errors)
       })
     },
-    autoFocus(id) {
-      // mask point
-      id = id.replace(/\./g, '\\.')
-      let $firstErrorField = this.$el.querySelector(`[name=${id}]`)
+    autoFocus(errors) {
+      if (!errors) return Promise.reject()
 
-      if (!$firstErrorField) return Promise.reject()
+      const errorsArray = Object.keys(errors)
 
-      $firstErrorField.scrollIntoView({
+      if (!errorsArray.length) return Promise.reject()
+
+      const el = select(
+        `[name="${errorsArray[0].replace(/\./g, '\\.')}"]`,
+        this.$el
+      )
+
+      if (!el) return Promise.reject()
+
+      el.scrollIntoView({
         block: 'center',
         behavior: 'smooth',
       })
 
-      attemptFocus($firstErrorField)
+      attemptFocus(el)
 
       return Promise.reject()
     },

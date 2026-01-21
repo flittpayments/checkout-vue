@@ -1,12 +1,6 @@
 <template>
-  <f-input v-if="isMobile" v-bind="attrs" v-on="$listeners" />
-  <date-picker
-    v-else
-    v-bind="attrsDatepicker"
-    v-on="$listeners"
-    @open="onOpen"
-    @close="close"
-  >
+  <f-input v-if="isMobile" v-bind="attrs" />
+  <date-picker v-else v-bind="attrsDatepicker" @open="onOpen" @close="close">
     <template #icon-calendar>
       <f-svg :class="classArrow" size="16" name="angle-down" />
     </template>
@@ -39,8 +33,6 @@ export default {
   inheritAttrs: false,
   props: {
     ...idProps,
-    // required for ValidationProvider
-    value: makeProp(PROP_TYPE_STRING),
     invalid: makeProp(PROP_TYPE_BOOLEAN),
     inputClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     size: makeProp(PROP_TYPE_STRING, '56', value =>
@@ -66,13 +58,10 @@ export default {
   computed: {
     ...mapState(['region']),
     attrs() {
-      const { value, invalid, inputClass, size, variant, floating, disabled } =
-        this
+      const { invalid, inputClass, size, variant, floating, disabled } = this
       return {
         ...this.$attrs,
         ref: 'input',
-        // required for ValidationProvider
-        value,
         id: this.safeId(),
         invalid,
         inputClass,
@@ -87,8 +76,6 @@ export default {
       return {
         ...this.$attrs,
         ref: 'input',
-        // required for ValidationProvider
-        value: this.value,
         lang: this.$t('datepicker'),
         clearable: false,
         format: this.format,

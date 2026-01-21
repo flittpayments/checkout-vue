@@ -3,7 +3,7 @@
     <div :class="$style.header">
       <svg-click2pay-visa-mastercard
         :class="$uiClass('icon')"
-        @click.native="goClick2pay"
+        @click="goClick2pay"
       />
       <div :class="$style.right">
         <div :class="$uiClass('email')">{{ email }}</div>

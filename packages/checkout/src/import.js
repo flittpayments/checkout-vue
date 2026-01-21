@@ -1,3 +1,5 @@
+import { defineAsyncComponent } from 'vue'
+
 export const loadLang = chunk => {
   switch (chunk) {
     case 'az':
@@ -105,8 +107,10 @@ export const loadLang = chunk => {
   }
 }
 
-export const Vue = () =>
-  import(/* webpackChunkName: "00" */ 'vue').then(module => module.default)
+export const Vue = () => import(/* webpackChunkName: "00" */ 'vue')
+
+export const mitt = () =>
+  import(/* webpackChunkName: "000" */ 'mitt').then(module => module.default)
 
 export const App = () =>
   import(/* webpackChunkName: "01" */ '@/app').then(module => module.default)
@@ -153,19 +157,25 @@ export const loadAsyncValidator = () =>
 export const loadAxios = () =>
   import(/* webpackChunkName: "6" */ 'axios').then(module => module.default)
 
-export const DatePicker = () =>
-  import(/* webpackChunkName: "7" */ '@/components/input/helpers/date-picker')
+export const DatePicker = defineAsyncComponent(
+  () =>
+    import(/* webpackChunkName: "7" */ '@/components/input/helpers/date-picker')
+)
 
-export const FIconBin = () =>
-  import(/* webpackChunkName: "8" */ '@/components/icon-bin')
+export const FIconBin = defineAsyncComponent(
+  () => import(/* webpackChunkName: "8" */ '@/components/icon-bin')
+)
 
-export const FAlertGdpr = () =>
-  import(/* webpackChunkName: "9" */ '@/components/alert/alert-gdpr')
+export const FAlertGdpr = defineAsyncComponent(
+  () => import(/* webpackChunkName: "9" */ '@/components/alert/alert-gdpr')
+)
 
-export const FCreditCardPlain = () =>
-  import(
-    /* webpackChunkName: "10" */ '@/views/checkout/method/card/credit-card-plain'
-  )
+export const FCreditCardPlain = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "10" */ '@/views/checkout/method/card/credit-card-plain'
+    )
+)
 
 export const Card = () =>
   import(/* webpackChunkName: "11" */ '@/views/checkout/method/card')
@@ -205,8 +215,9 @@ export const Success = () =>
     /* webpackChunkName: "19" */ '@/views/checkout/without-sidebar/success'
   )
 
-export const FSecureMessageIcons = () =>
-  import(/* webpackChunkName: "20" */ '@/components/secure-message-icons')
+export const FSecureMessageIcons = defineAsyncComponent(
+  () => import(/* webpackChunkName: "20" */ '@/components/secure-message-icons')
+)
 
 export const Error = () => import(/* webpackChunkName: "21" */ '@/views/error')
 
@@ -216,20 +227,24 @@ export const ErrorModal = () =>
 export const System = () =>
   import(/* webpackChunkName: "23" */ '@/views/checkout/method/system')
 
-export const FSubscription = () =>
-  import(/* webpackChunkName: "24" */ '@/components/subscription')
+export const FSubscription = defineAsyncComponent(
+  () => import(/* webpackChunkName: "24" */ '@/components/subscription')
+)
 
 export const CardVerify = () =>
   import(/* webpackChunkName: "25" */ '@/views/checkout/method/card/verify')
 
-export const InputText = () =>
-  import(/* webpackChunkName: "26" */ '@/components/input-text')
+export const InputText = defineAsyncComponent(
+  () => import(/* webpackChunkName: "26" */ '@/components/input-text')
+)
 
-export const InputHidden = () =>
-  import(/* webpackChunkName: "26" */ '@/components/input-hidden')
+export const InputHidden = defineAsyncComponent(
+  () => import(/* webpackChunkName: "26" */ '@/components/input-hidden')
+)
 
-export const InputAmount = () =>
-  import(/* webpackChunkName: "26" */ '@/components/input-amount')
+export const InputAmount = defineAsyncComponent(
+  () => import(/* webpackChunkName: "26" */ '@/components/input-amount')
+)
 
 export const WithoutSidebar = () =>
   import(/* webpackChunkName: "27" */ '@/views/checkout/without-sidebar')
@@ -237,25 +252,32 @@ export const WithoutSidebar = () =>
 export const Menu = () =>
   import(/* webpackChunkName: "28" */ '@/views/checkout/without-sidebar/menu')
 
-export const FModalError = () =>
-  import(/* webpackChunkName: "29" */ '@/components/modal/modal-error')
+export const FModalError = defineAsyncComponent(
+  () => import(/* webpackChunkName: "29" */ '@/components/modal/modal-error')
+)
 
-export const FLogo = () => import(/* webpackChunkName: "30" */ '@/views/logo')
+export const FLogo = defineAsyncComponent(
+  () => import(/* webpackChunkName: "30" */ '@/views/logo')
+)
 
 export const BlankWallets = () =>
   import(/* webpackChunkName: "31" */ '@/views/checkout/blank/wallets')
 
-export const FCardListWrapper = () =>
-  import(/* webpackChunkName: "32" */ '@/components/card-list-wrapper')
+export const FCardListWrapper = defineAsyncComponent(
+  () => import(/* webpackChunkName: "32" */ '@/components/card-list-wrapper')
+)
 
 export const Emoney = () =>
   import(/* webpackChunkName: "34" */ '@/views/checkout/method/emoney')
 
-export const FAlertNotification = () =>
-  import(/* webpackChunkName: "35" */ '@/components/alert/alert-notification')
+export const FAlertNotification = defineAsyncComponent(
+  () =>
+    import(/* webpackChunkName: "35" */ '@/components/alert/alert-notification')
+)
 
-export const FSidebarInner = () =>
-  import(/* webpackChunkName: "36" */ '@/components/sidebar-inner')
+export const FSidebarInner = defineAsyncComponent(
+  () => import(/* webpackChunkName: "36" */ '@/components/sidebar-inner')
+)
 
 export const Crypto = () =>
   import(/* webpackChunkName: "37" */ '@/views/checkout/method/crypto')
@@ -263,51 +285,64 @@ export const Crypto = () =>
 export const MostPopular = () =>
   import(/* webpackChunkName: "38" */ '@/views/checkout/method/most_popular')
 
-export const FCountry = () =>
-  import(/* webpackChunkName: "39" */ '@/components/country')
+export const FCountry = defineAsyncComponent(
+  () => import(/* webpackChunkName: "39" */ '@/components/country')
+)
 
 export const countriesSearch = () =>
   import(/* webpackChunkName: "40" */ '@/config/countries-search')
 
-export const FLoading = () =>
-  import(/* webpackChunkName: "42" */ '@/components/loading')
+export const FLoading = defineAsyncComponent(
+  () => import(/* webpackChunkName: "42" */ '@/components/loading')
+)
 
-export const FModal = () =>
-  import(/* webpackChunkName: "43" */ '@/components/modal/modal')
+export const FModal = defineAsyncComponent(
+  () => import(/* webpackChunkName: "43" */ '@/components/modal/modal')
+)
 
-export const FModal3ds = () =>
-  import(/* webpackChunkName: "44" */ '@/components/modal/modal-3ds')
+export const FModal3ds = defineAsyncComponent(
+  () => import(/* webpackChunkName: "44" */ '@/components/modal/modal-3ds')
+)
 
 export const Installments = () =>
   import(/* webpackChunkName: "46" */ '@/views/checkout/method/installments')
 
-export const FMode = () =>
-  import(/* webpackChunkName: "48" */ '@/components/mode')
+export const FMode = defineAsyncComponent(
+  () => import(/* webpackChunkName: "48" */ '@/components/mode')
+)
 
-export const FButtonCancel = () =>
-  import(/* webpackChunkName: "49" */ '@/components/button/button-cancel')
+export const FButtonCancel = defineAsyncComponent(
+  () => import(/* webpackChunkName: "49" */ '@/components/button/button-cancel')
+)
 
-export const FPromo = () =>
-  import(/* webpackChunkName: "50" */ '@/components/promo')
+export const FPromo = defineAsyncComponent(
+  () => import(/* webpackChunkName: "50" */ '@/components/promo')
+)
 
-export const countriesCallingCodes = () =>
-  import(/* webpackChunkName: "51" */ '@/config/countries-calling-codes')
+export const countriesCallingCodes = defineAsyncComponent(
+  () => import(/* webpackChunkName: "51" */ '@/config/countries-calling-codes')
+)
 
-export const FButtonReturnToSite = () =>
-  import(
-    /* webpackChunkName: "52" */ '@/views/checkout/without-sidebar/button-return-to-site'
-  )
+export const FButtonReturnToSite = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "52" */ '@/views/checkout/without-sidebar/button-return-to-site'
+    )
+)
 
-export const FLinkDownloadReceipt = () =>
-  import(
-    /* webpackChunkName: "52_" */ '@/views/checkout/without-sidebar/link-download-receipt'
-  )
+export const FLinkDownloadReceipt = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "52_" */ '@/views/checkout/without-sidebar/link-download-receipt'
+    )
+)
 
 export const loadClick2pay = () =>
   import(/* webpackChunkName: "54" */ '@/click2pay')
 
-export const Click2payCheckout = () =>
-  import(/* webpackChunkName: "55" */ '@/views/click2pay/checkout')
+export const Click2payCheckout = defineAsyncComponent(
+  () => import(/* webpackChunkName: "55" */ '@/views/click2pay/checkout')
+)
 
 export const Click2payOtp = () =>
   import(/* webpackChunkName: "57" */ '@/views/click2pay/otp')
@@ -315,20 +350,25 @@ export const Click2payOtp = () =>
 export const Click2payUserExists = () =>
   import(/* webpackChunkName: "58" */ '@/views/click2pay/user-exists')
 
-export const Click2payUserExistsHeader = () =>
-  import(/* webpackChunkName: "59" */ '@/views/click2pay/user-exists-header')
+export const Click2payUserExistsHeader = defineAsyncComponent(
+  () =>
+    import(/* webpackChunkName: "59" */ '@/views/click2pay/user-exists-header')
+)
 
 export const Click2paySwitchId = () =>
   import(/* webpackChunkName: "62" */ '@/views/click2pay/switch-id')
 
-export const Click2payChangeEmail = () =>
-  import(/* webpackChunkName: "63" */ '@/views/click2pay/change-email')
+export const Click2payChangeEmail = defineAsyncComponent(
+  () => import(/* webpackChunkName: "63" */ '@/views/click2pay/change-email')
+)
 
-export const FSecureMessage = () =>
-  import(/* webpackChunkName: "65" */ '@/components/secure-message')
+export const FSecureMessage = defineAsyncComponent(
+  () => import(/* webpackChunkName: "65" */ '@/components/secure-message')
+)
 
-export const FProcessed = () =>
-  import(/* webpackChunkName: "66" */ '@/components/processed')
+export const FProcessed = defineAsyncComponent(
+  () => import(/* webpackChunkName: "66" */ '@/components/processed')
+)
 
 export const MethodInfo = () =>
   import(/* webpackChunkName: "68" */ '@/views/checkout/method/system/info')
@@ -346,27 +386,39 @@ export const Loading = () =>
     /* webpackChunkName: "71" */ '@/views/checkout/without-sidebar/loading'
   )
 
-export const FQuickAccess = () =>
-  import(/* webpackChunkName: "72" */ '@/components/quick-access')
+export const FQuickAccess = defineAsyncComponent(
+  () => import(/* webpackChunkName: "72" */ '@/components/quick-access')
+)
 
-export const FCreditCardInline = () =>
-  import(
-    /* webpackChunkName: "73" */ '@/views/checkout/method/card/credit-card-inline'
-  )
+export const FCreditCardInline = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "73" */ '@/views/checkout/method/card/credit-card-inline'
+    )
+)
 
-export const RowFloating = () =>
-  import(/* webpackChunkName: "69" */ '@/components/input/helpers/row-floating')
+export const RowFloating = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "69" */ '@/components/input/helpers/row-floating'
+    )
+)
 
-export const RowNoFloating = () =>
-  import(
-    /* webpackChunkName: "70" */ '@/components/input/helpers/row-no-floating'
-  )
+export const RowNoFloating = defineAsyncComponent(
+  () =>
+    import(
+      /* webpackChunkName: "70" */ '@/components/input/helpers/row-no-floating'
+    )
+)
 
-export const FDate = () =>
-  import(/* webpackChunkName: "71" */ '@/components/input/item/date')
+export const FDate = defineAsyncComponent(
+  () => import(/* webpackChunkName: "71" */ '@/components/input/item/date')
+)
 
-export const FSelect = () =>
-  import(/* webpackChunkName: "72" */ '@/components/input/item/select')
+export const FSelect = defineAsyncComponent(
+  () => import(/* webpackChunkName: "72" */ '@/components/input/item/select')
+)
 
-export const FInput = () =>
-  import(/* webpackChunkName: "72" */ '@/components/input/item/input')
+export const FInput = defineAsyncComponent(
+  () => import(/* webpackChunkName: "72" */ '@/components/input/item/input')
+)

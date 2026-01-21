@@ -29,7 +29,7 @@ export default {
   inheritAttrs: false,
   props: {
     id: makeProp(PROP_TYPE_STRING),
-    value: makeProp(PROP_TYPE_NUMBER_STRING),
+    modelValue: makeProp(PROP_TYPE_NUMBER_STRING, ''),
     placeholder: makeProp(PROP_TYPE_STRING),
     offset: makeProp(PROP_TYPE_NUMBER, 0),
     nameClass: makeProp(PROP_TYPE_ARRAY),
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     maskedValue() {
-      return this.value.replace(/ /g, '\xa0')
+      return this.modelValue.replace(/ /g, '\xa0')
     },
     placeholderText() {
       return this.placeholder

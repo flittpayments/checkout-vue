@@ -24,6 +24,7 @@ export default {
     method: makeProp(PROP_TYPE_STRING),
     name: makeProp(PROP_TYPE_STRING),
   },
+  emits: ['click'],
   methods: {
     click() {
       this.$emit('click')

@@ -3,22 +3,17 @@
     <f-mode-wrapper />
     <div v-if="showLeft" :class="classLeft">
       <transition name="f-fade-enter">
-        <f-button-link
-          v-if="showBack"
-          key="back"
-          :class="$style.back"
-          @click="goMenu"
-        >
+        <f-button-link v-if="showBack" :class="$style.back" @click="goMenu">
           <f-svg :class="$style.mr_8" name="bars" size="lg" />
           <span v-text="$t('all_methods')" />
         </f-button-link>
-        <f-logo v-else-if="showLogo" key="logo" />
+        <f-logo v-else-if="showLogo" />
       </transition>
     </div>
     <div v-if="showRight" :class="$uiClass('right')">
       <f-select
         :input-class="$uiClass('lang')"
-        :value="lang"
+        :model-value="lang"
         :options="locale"
         dropdown-placement="bottom-end"
         data-e2e-lang

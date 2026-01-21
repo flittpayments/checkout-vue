@@ -19,35 +19,31 @@
       @focusout="onFocusOut"
     >
       <f-input
-        v-for="(_, index) in list"
+        v-for="index in count"
         :key="index"
-        ref="inputs"
-        v-model="list[index]"
+        :ref="el => setItemRef(el, index - 1)"
+        v-model="list[index - 1]"
         :maxlength="1"
         type="tel"
         inputmode="numeric"
-        :aria-label="`Digit ${index + 1} of ${count}`"
+        :aria-label="`Digit ${index} of ${count}`"
         class="f-col"
         :input-class="$style.item"
         size="48"
         :disabled="disabled"
         pattern="\d*"
         :formatter="formatter"
-        @input="onInput(index)"
-        @keydown="onKeydown($event, index)"
+        @input="onInput(index - 1)"
+        @keydown="onKeydown($event, index - 1)"
         @paste="onPaste"
       />
     </div>
     <f-error :id="safeId('error')" :show="showError">{{ errors[0] }}</f-error>
-    <ValidationProvider v-slot="scope" v-bind="attrsValidation">
-      <input :value="innerValue" type="hidden" />
-      <template v-if="updateState(scope)" />
-    </ValidationProvider>
   </div>
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate'
+import { useField } from 'vee-validate'
 import FInput from '@/components/input/item/input'
 import FError from '@/components/base/error'
 import { makeProp } from '@/utils/props'
@@ -60,10 +56,10 @@ import { mask } from '@/utils/mask'
 import { timeoutMixin } from '@/mixins/timeout'
 import { idMixin } from '@/mixins/id'
 import { contains, getActiveElement } from '@/utils/dom'
+import { watch } from 'vue'
 
 export default {
   components: {
-    ValidationProvider,
     FInput,
     FError,
   },
@@ -71,13 +67,38 @@ export default {
   inject: ['isSubmit'],
   inheritAttrs: false,
   props: {
-    value: makeProp(PROP_TYPE_STRING, ''),
+    modelValue: makeProp(PROP_TYPE_STRING, ''),
     count: makeProp(PROP_TYPE_NUMBER, 6),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
   },
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const {
+      value: fieldValue,
+      meta,
+      errors,
+      handleBlur,
+      setValue,
+    } = useField('otp', `required|digits:${props.count}`, {
+      initialValue: props.modelValue,
+    })
+
+    watch(
+      () => props.modelValue,
+      val => {
+        if (val !== fieldValue.value) setValue(val)
+      }
+    )
+
+    watch(fieldValue, val => {
+      if (val !== props.modelValue) emit('update:modelValue', val)
+    })
+
+    return { meta, errors, handleBlur }
+  },
   data() {
     return {
-      errors: [],
+      inputs: [],
       list: Array.from({ length: this.count }, () => ''),
       i: 0,
       focused: false,
@@ -87,34 +108,34 @@ export default {
     innerValue() {
       return this.list.join('')
     },
-    attrsValidation() {
-      return {
-        vid: this.safeId(),
-        rules: `required|digits:${this.count}`,
-        immediate: true,
-      }
-    },
     showError() {
       return Boolean(this.errors.length && this.isSubmit() && this.focused)
     },
   },
   watch: {
-    value(newVal) {
-      if (newVal) return
+    modelValue(newVal) {
+      if (newVal) {
+        if (newVal !== this.innerValue) {
+          this.list = Array.from(
+            { length: this.count },
+            (_, i) => newVal[i] || ''
+          )
+        }
+        return
+      }
 
       this.list = Array.from({ length: this.count }, () => '')
       this.i = 0
       this.focus()
     },
   },
+  beforeUpdate() {
+    this.inputs = []
+  },
   mounted() {
     this.focus()
   },
   methods: {
-    updateState({ errors }) {
-      this.errors = errors
-      return true
-    },
     onInput(index) {
       const char = this.list[index]
       if (char && index < this.count - 1) {
@@ -126,7 +147,7 @@ export default {
     onKeydown({ key }, index) {
       if (key === 'Backspace' && !this.list[index] && index > 0) {
         this.i = index - 1
-        this.$set(this.list, this.i, '')
+        this.list[this.i] = ''
         this.focus()
         this.emit()
       }
@@ -161,12 +182,17 @@ export default {
 
       this.timeout('blur', 50)
     },
+    setItemRef(el, index) {
+      if (el) {
+        this.inputs[index] = el
+      }
+    },
     paste(raw) {
       const chars = mask(raw, '#'.repeat(this.count)).slice(0, this.count)
       if (!chars) return
 
       Array.from({ length: this.count }).forEach((_, index) => {
-        this.$set(this.list, index, chars[index] || '')
+        this.list[index] = chars[index] || ''
       })
 
       const firstEmpty = this.list.findIndex(c => !c)
@@ -177,14 +203,17 @@ export default {
     },
     blur() {
       this.focused = contains(this.$refs.group, getActiveElement())
+      if (!this.focused) {
+        this.handleBlur()
+      }
     },
     emit() {
-      this.$emit('input', this.innerValue)
+      this.$emit('update:modelValue', this.innerValue)
     },
     focus() {
       if (this.disabled) return
       this.$nextTick(() => {
-        const input = this.$refs.inputs && this.$refs.inputs[this.i]
+        const input = this.inputs && this.inputs[this.i]
         if (!input) return
 
         input.focus()

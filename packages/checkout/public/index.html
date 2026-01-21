@@ -28,7 +28,7 @@
         z-index: 1021;
         left: 0;
         bottom: 0;
-        display: none;
+        //display: none;
       }
     </style>
   </head>
@@ -51,8 +51,7 @@
 
     <script type="text/x-vue-template" id="f-fields2">
       <div>
-        <input-text name="email" validate="required|email"></input-text>
-        <input-text name="my_email" validate="required|email" custom></input-text>
+        <input-text name="my_email" label="my_email" validate="required|email" custom></input-text>
         <input-text name="field_11" value="field_11_html_value" validate="required" custom></input-text>
         <input-text name="field_5" validate="required" custom></input-text>
         <input-text name="phone" label="Телефон" validate="required|numeric"></input-text>
@@ -669,18 +668,43 @@
 
           },
         },
+        vue3: {
+          options: {
+            api_domain,
+            show_email: true,
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+            subscription: {
+              type: 'shown_edit_on',
+            },
+            theme: {
+              type: 'dark',
+              preset: 'black_and_white',
+            },
+
+          },
+          params: {
+            amount: 100,
+            currency: 'GEL',
+            merchant_id: 1549901,
+            order_desc: 'order_desc order_desc order_desc order_desc order_descorder_descorder_desc order_desc order_desc ',
+          }
+        }
       }
 
       setConfigsOption()
 
-      window.app = render('#app', 'hide_3ds_close')
+      window.app = render('#app', 'vue3')
       // render('#app2', 'min')
       // render('#app3', 'max2')
 
       document
         .querySelector('.submit')
         .addEventListener('click', function () {
-          app.submit()
+          console.log(app)
+          // app.submit()
+          app.$destroy()
+          // app.$el.remove()
         })
       document
         .querySelector('.wallet')

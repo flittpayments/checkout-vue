@@ -1,8 +1,8 @@
-import DatePicker from 'vue2-datepicker'
+// import DatePicker from 'vue2-datepicker'
 import { mask } from '@/utils/mask'
 
 export default {
-  extends: DatePicker,
+  // extends: DatePicker,
   inheritAttrs: false,
   watch: {
     userInput(newValue) {
@@ -11,5 +11,8 @@ export default {
         this.userInput = value || null
       }
     },
+  },
+  render() {
+    return null
   },
 }

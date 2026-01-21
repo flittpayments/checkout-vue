@@ -4,9 +4,9 @@
       <f-button-pay-wallet-inner
         v-for="(item, index) in list"
         :key="item"
+        v-model:load="load"
         :method="item"
         :index="index"
-        :load.sync="load"
         @click="click"
       />
     </div>
@@ -14,22 +14,23 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import FButtonPayWalletInner from '@/components/button-pay-wallet-inner'
 import { mapState, mapStateGetSet } from '@/utils/store'
+import { listenMixin } from '@/mixins/listen-on-root'
 import { api } from '@/api'
-import { listenOnRootMixin } from '@/mixins/listen-on-root'
 import { loadCheckout } from '@/import'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 import { captureMessage } from '@/sentry/error-buffer'
 
-export default Vue.extend({
+export default {
+  name: 'ButtonPayWalletList',
   components: {
     FButtonPayWalletInner,
   },
-  mixins: [listenOnRootMixin],
-  inject: ['formRequest'],
+  mixins: [listenMixin],
+  // TODO
+  // inject: ['formRequest'],
   props: {
     classname: makeProp(PROP_TYPE_STRING),
   },
@@ -73,7 +74,7 @@ export default Vue.extend({
   },
   created() {
     loadCheckout().then($checkout => {
-      this.listenOnRoot('click-wallet', this.click)
+      this.listen('click-wallet', this.click)
       this.paymentRequest = $checkout.get('PaymentRequestApi')
       this.events('on')
       this.paymentRequest.setApi(api)
@@ -84,7 +85,7 @@ export default Vue.extend({
       }
     })
   },
-  destroyed() {
+  unmounted() {
     this.events('off')
   },
   methods: {
@@ -112,11 +113,11 @@ export default Vue.extend({
     setCanMakePayment() {
       if (!this.list.length) return
 
-      this.$root.$emit('show-pay')
+      this.$emitter.emit('show-pay')
       this.can_make_payment = this.list.join('_')
     },
-    onDetails(data) {
-      this.formRequest(this.store.formParams(data))
+    onDetails(/*data*/) {
+      // this.formRequest(this.store.formParams(data))
     },
     onError(error) {
       let name = ['Payment Button']
@@ -148,5 +149,5 @@ export default Vue.extend({
       this.update()
     },
   },
-})
+}
 </script>

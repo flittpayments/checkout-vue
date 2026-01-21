@@ -18,20 +18,19 @@ export const listenOnDocumentMixin = {
     // where value is an array of handlers
     // Prop will be defined on client only
     this[PROP] = {}
-    // Set up our beforeDestroy handler (client only)
-    this.$once('hook:beforeDestroy', () => {
-      const items = this[PROP] || {}
-      // Immediately delete this[PROP] to prevent the
-      // listenOn/Off methods from running (which may occur
-      // due to requestAnimationFrame/transition delays)
-      delete this[PROP]
-      // Remove all registered event handlers
-      keys(items).forEach(evtName => {
-        const handlers = items[evtName] || []
-        handlers.forEach(handler =>
-          eventOff(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
-        )
-      })
+  },
+  beforeUnmount() {
+    const items = this[PROP] || {}
+    // Immediately delete this[PROP] to prevent the
+    // listenOn/Off methods from running (which may occur
+    // due to requestAnimationFrame/transition delays)
+    delete this[PROP]
+    // Remove all registered event handlers
+    keys(items).forEach(evtName => {
+      const handlers = items[evtName] || []
+      handlers.forEach(handler =>
+        eventOff(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
+      )
     })
   },
   methods: {

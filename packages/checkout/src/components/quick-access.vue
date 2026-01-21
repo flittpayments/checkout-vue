@@ -51,9 +51,9 @@ export default {
 }
 
 .paybypayme {
-  #{$prefix}btn_default_bg: #33cbcb;
-  #{$prefix}btn_default_hover_bg: #33cbcb;
-  #{$prefix}btn_default_active_bg: #33cbcb;
+  --bg: #33cbcb;
+  --hover_bg: #33cbcb;
+  --active_bg: #33cbcb;
 }
 
 .span {

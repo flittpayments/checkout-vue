@@ -15,7 +15,7 @@ export default {
     let form = this.custom ? this.params.custom : this.params
     form[this.name] = form[this.name] || this.value
   },
-  render(h) {
-    return h()
+  render() {
+    return null
   },
 }

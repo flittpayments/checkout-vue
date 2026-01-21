@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { reactive } from 'vue'
 import { configDefault } from '@/config/config-default'
 import notSet from '@/config/not-set'
 import cssVariable from '@/config/css-variable'
@@ -17,7 +17,6 @@ import {
   getBrowserLanguage,
   isSupportLang,
 } from '@/i18n'
-import store from '@/store/setup'
 import { loadButton } from '@/store/button'
 import { initCssVariable, setCssVariables } from '@/store/css-variable'
 import loadCardImg from '@/store/card-img'
@@ -37,10 +36,6 @@ import { testCardNumbers } from '@/config/test-card-numbers'
 import { select } from '@/utils/dom'
 
 const NON_SUBSCRIPTION_METHODS = ['banks', 'installments']
-
-Vue.use(store)
-
-let instance = {}
 
 class Store extends Model {
   constructor() {
@@ -564,7 +559,7 @@ class Store extends Model {
           name,
           {
             value,
-            label: fields[name] || i18n.t(name),
+            label: fields[name] || i18n.global.t(name),
           },
         ]
       })
@@ -659,12 +654,12 @@ class Store extends Model {
   }
 }
 
-export const createStore = name => {
-  return (instance[name] = new Store())
+export const createStore = () => {
+  return reactive(new Store())
 }
 
-export const getStore = name => {
-  if (instance[name]) return instance[name]
+export const install = (app, store) => {
+  app.provide('store', store)
 
-  return createStore(name)
+  app.config.globalProperties.store = store
 }

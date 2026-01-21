@@ -7,11 +7,11 @@
   >
     <component
       :is="field.component"
+      v-bind="omit(field, ['component'])"
       v-for="field in list"
       :key="field.name"
-      v-bind="omit(field, ['component'])"
       v-model="params.customer_data[field.name]"
-      @input="input(field.name, $event)"
+      @update:model-value="input(field.name, $event)"
     />
   </f-form-save>
 </template>

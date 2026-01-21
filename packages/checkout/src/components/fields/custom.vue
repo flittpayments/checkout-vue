@@ -7,11 +7,11 @@
   >
     <component
       :is="field.component"
+      v-bind="omit(field, ['component'])"
       v-for="field in list"
       :key="field.name"
-      v-bind="omit(field, ['component'])"
       v-model="params.custom[field.name]"
-      @input="input(field.name, $event)"
+      @update:model-value="input(field.name, $event)"
     />
   </f-form-save>
 </template>
@@ -42,7 +42,7 @@ export default {
   },
   created() {
     this.list.forEach(({ name, value }) => {
-      this.$set(this.params.custom, name, value)
+      this.params.custom[name] = value
     })
   },
   methods: {

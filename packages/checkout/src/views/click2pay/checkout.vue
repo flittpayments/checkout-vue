@@ -9,14 +9,18 @@
       <click2pay-checkout-form v-if="showRegistration" :class="$style.mb_36" />
       <div v-else :class="$style.mb_44">
         <!--$t('c2p_save_card_desc')-->
-        <i18n path="c2p_save_card_desc" tag="div" :class="$uiClass('desc')">
+        <i18n-t
+          keypath="c2p_save_card_desc"
+          tag="div"
+          :class="$uiClass('desc')"
+        >
           <template #click2pay>
             <a href="" @click.prevent="open">{{ $t('click2pay') }}</a>
           </template>
           <template #masked_card>
             <span :class="$uiClass('bold')">{{ masked_card }}</span>
           </template>
-        </i18n>
+        </i18n-t>
         <f-button-success
           class="f-mb-24"
           :text="$t('save_card')"

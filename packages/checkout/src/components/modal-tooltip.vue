@@ -1,9 +1,10 @@
 <template>
-  <f-button-unstyled v-if="disabled" :disabled="disabled">
+  <f-button-unstyled v-if="disabled" v-bind="$attrs" :disabled="disabled">
     <slot name="text" />
   </f-button-unstyled>
   <f-button-unstyled
     v-else-if="enableModal"
+    v-bind="$attrs"
     :id="id"
     @click="$refs.modal.show()"
     @focus="focus"
@@ -22,11 +23,17 @@
       </component>
     </f-modal-wrapper>
   </f-button-unstyled>
-  <f-button-unstyled v-else :id="id" @focus="focus" @blur="blur">
+  <f-button-unstyled
+    v-else
+    v-bind="$attrs"
+    :id="id"
+    @focus="focus"
+    @blur="blur"
+  >
     <slot name="text" />
     <f-dropdown
       ref="dropdown"
-      :reference="dropdownReference"
+      :placement-target="dropdownPlacementTarget"
       :target="() => $el"
       :size="dropdownSize"
       :placement="dropdownPlacement"
@@ -70,8 +77,9 @@ export default {
     dropdownSize: makeProp(PROP_TYPE_STRING),
     dropdownPlacement: makeProp(PROP_TYPE_STRING, 'bottom-start'),
     dropdownArrow: makeProp(PROP_TYPE_BOOLEAN, false),
-    dropdownReference: makeProp(PROP_TYPE_FUNCTION),
+    dropdownPlacementTarget: makeProp(PROP_TYPE_FUNCTION),
   },
+  emits: ['show', 'hide', 'focus', 'blur'],
   computed: {
     enableModal() {
       return isPhone || this.isWidthSm

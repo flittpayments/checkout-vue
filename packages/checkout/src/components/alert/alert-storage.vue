@@ -1,5 +1,5 @@
 <template>
-  <f-alert-base v-bind="attrs" v-on="fListeners">
+  <f-alert-base v-bind="attrs">
     <div :class="$uiClass('row')">
       <div :class="$uiClass('content')">
         <slot />
@@ -28,8 +28,6 @@ import FButtonLink from '@/components/button/button-link'
 import FButtonSecondary from '@/components/button/button-secondary'
 
 import { localStorage, sessionStorage } from '@/utils/store'
-import { attrsMixin } from '@/mixins/attrs'
-import { listenersMixin } from '@/mixins/listeners'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 
@@ -39,10 +37,10 @@ export default {
     FButtonLink,
     FButtonSecondary,
   },
-  mixins: [attrsMixin, listenersMixin],
   props: {
     name: makeProp(PROP_TYPE_STRING),
   },
+  emits: ['ok'],
   data() {
     return {
       show: true,
@@ -51,7 +49,7 @@ export default {
   computed: {
     attrs() {
       return {
-        ...this.fAttrs,
+        ...this.$attrs,
         show: this.show,
         class: this.$uiClass('wrapper'),
       }

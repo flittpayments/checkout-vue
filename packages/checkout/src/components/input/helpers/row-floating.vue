@@ -2,9 +2,8 @@
   <f-row-error
     v-slot="scope"
     v-bind="attrs"
-    v-on="$listeners"
-    @mouseenter.native="mouseenter"
-    @mouseleave.native="mouseleave"
+    @mouseenter="mouseenter"
+    @mouseleave="mouseleave"
   >
     <div :class="$style.inner">
       <slot v-bind="scope" />
@@ -48,10 +47,11 @@ export default {
     ),
     prepend: makeProp(PROP_TYPE_STRING),
     disabled: makeProp(PROP_TYPE_BOOLEAN),
-    value: makeProp(PROP_TYPE_ANY),
+    modelValue: makeProp(PROP_TYPE_ANY),
     focused: makeProp(PROP_TYPE_BOOLEAN),
     labelClass: makeProp(PROP_TYPE_STRING),
   },
+  emits: ['focus'],
   data() {
     return {
       hover: false,
@@ -61,12 +61,13 @@ export default {
     attrs() {
       return {
         ...this.$attrs,
+        modelValue: this.modelValue,
         disabled: this.disabled,
         focused: this.focused,
       }
     },
     isActive() {
-      return !isUndefinedOrNullOrEmpty(this.value) || this.focused
+      return !isUndefinedOrNullOrEmpty(this.modelValue) || this.focused
     },
     classLabel() {
       return [

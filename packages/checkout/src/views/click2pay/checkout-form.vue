@@ -47,9 +47,9 @@
         />
       </f-form>
       <!--$t('c2p_agreement_with_processing_of_data')-->
-      <i18n
+      <i18n-t
         :class="$uiClass('agreement')"
-        path="c2p_agreement_with_processing_of_data"
+        keypath="c2p_agreement_with_processing_of_data"
         tag="div"
       >
         <template #terms>
@@ -65,7 +65,7 @@
             >{{ $t('privacy_notice') }}</a
           >
         </template>
-      </i18n>
+      </i18n-t>
     </f-box>
     <click2pay-loader v-else-if="isLoading" />
     <div

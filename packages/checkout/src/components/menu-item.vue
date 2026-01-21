@@ -11,7 +11,7 @@
     <f-tooltip-default
       v-if="showTooltip"
       :target="() => $el"
-      :reference="() => $refs.icons.$el"
+      :placement-target="() => $refs.icons.$el"
     >
       <component :is="tooltipIcon" v-if="tooltipIcon" :class="$style.svg" />
       <span v-text="$t(`${method}_tooltip`)" />

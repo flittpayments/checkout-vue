@@ -1,65 +1,57 @@
 <template>
-  <ValidationObserver ref="form" tag="div">
-    <slot :submit="submit" :disabled="disabled" />
-  </ValidationObserver>
+  <f-form v-slot="{ errors, validate }" as="div">
+    <slot :submit="submit(validate, errors)" :disabled="disabled(errors)" />
+  </f-form>
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate'
-import { isMountedMixin } from '@/mixins/is-mounted'
+import { Form as FForm } from 'vee-validate'
 import { select, attemptFocus } from '@/utils/dom'
 
 export default {
   components: {
-    ValidationObserver,
+    FForm,
   },
-  mixins: [isMountedMixin],
   provide() {
     return {
       submit: this.submit,
       isSubmit: () => this.isSubmit,
     }
   },
+  emits: ['submit'],
   data() {
     return {
       isSubmit: false,
     }
   },
   computed: {
-    form() {
-      if (!this.isMounted) return
-      return this.$refs.form
-    },
-    errors() {
-      if (!this.isMounted) return
-
-      return Object.entries(this.form.errors).filter(
-        ([, value]) => value.length
-      )
-    },
-    isError() {
-      if (!this.isMounted) return false
-      return !!this.errors.length
-    },
     disabled() {
-      return this.isError && this.isSubmit
+      return errors => this.isSubmit && Object.keys(errors).length > 0
     },
   },
   methods: {
-    submit() {
-      this.isSubmit = true
-
-      return this.form.validate().then(isValid => {
-        if (isValid) {
-          this.$emit('submit')
-        } else {
-          this.autoFocus()
-        }
-      })
+    submit(validate, errors) {
+      return () => {
+        this.isSubmit = true
+        return validate().then(isValid => {
+          if (isValid) {
+            this.$emit('submit')
+          } else {
+            this.autoFocus(errors)
+          }
+        })
+      }
     },
-    autoFocus() {
-      const name = this.errors[0][0]
-      const el = select(`[name=${name}]`, this.$el)
+    autoFocus(errors) {
+      if (!errors) return Promise.reject()
+
+      const errorsArray = Object.keys(errors)
+
+      if (!errorsArray.length) return Promise.reject()
+
+      const el = select(`[name="${errorsArray[0]}"]`, this.$el)
+
+      if (!el) return Promise.reject()
 
       attemptFocus(el)
     },

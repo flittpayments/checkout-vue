@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createMemoryHistory } from 'vue-router'
 
 import Method from '@/views/checkout/method'
 import Checkout from '@/views/checkout'
 import Blank from '@/views/checkout/blank'
 import ButtonPay from '@/components/button/button-pay'
-import { getStore } from '@/store'
 import Click2payButtonPay from '@/views/click2pay/button-pay'
 import {
   Card,
@@ -59,15 +57,14 @@ const error_modal = 'error_modal'
 const checkout = 'checkout'
 const menu = 'menu'
 
-Vue.use(Router)
-
-let instance = {}
-
-export const createRouter = name => {
-  let instanceStore = getStore(name)
-  instance[name] = new Router({
-    mode: 'abstract',
+export const create = store => {
+  const router = createRouter({
+    history: createMemoryHistory(),
     routes: [
+      {
+        path: '/',
+        redirect: { name: checkout },
+      },
       {
         path: `/${checkout}`,
         name: checkout,
@@ -92,12 +89,10 @@ export const createRouter = name => {
                           default: CardWrapper,
                           'button-pay': ButtonPay,
                         },
-                        beforeEnter: (to, from, next) => {
-                          if (instanceStore.state.order.need_verify_code)
-                            next({
-                              name: verify,
-                            })
-                          else next()
+                        beforeEnter: () => {
+                          if (store.state.order.need_verify_code) {
+                            return { name: verify }
+                          }
                         },
                         meta: {
                           method: card,
@@ -244,7 +239,7 @@ export const createRouter = name => {
                       method: route.params.method,
                       noFeeCalc: true,
                     }),
-                    props: true,
+                    props: ({ params, query }) => ({ ...params, ...query }),
                   },
                   {
                     path: 'deep-link',
@@ -254,7 +249,7 @@ export const createRouter = name => {
                       method: route.params.method,
                       noFeeCalc: true,
                     }),
-                    props: true,
+                    props: ({ params, query }) => ({ ...params, ...query }),
                   },
                 ],
               },
@@ -314,9 +309,9 @@ export const createRouter = name => {
     ],
   })
 
-  instance[name].afterEach(({ name, params }) => {
-    instanceStore.state.params.payment_system = params.system || name
+  router.afterEach(({ name, params }) => {
+    store.state.params.payment_system = params.system || name
   })
 
-  return instance[name]
+  return router
 }

@@ -1,10 +1,5 @@
 <template>
-  <f-row
-    v-slot="scope"
-    :class="$style.wrapper"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <f-row v-slot="scope" v-bind="$attrs" :class="$style.wrapper">
     <template v-if="updateState(scope)">
       <slot v-bind="scope" />
       <f-error :show="showError">{{ errors[0] }}</f-error>
@@ -28,6 +23,7 @@ export default {
     focused: makeProp(PROP_TYPE_BOOLEAN, false),
     hideError: makeProp(PROP_TYPE_BOOLEAN, false),
   },
+  emits: ['error'],
   data() {
     return {
       errors: [],
