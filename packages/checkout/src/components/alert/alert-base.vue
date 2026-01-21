@@ -2,34 +2,39 @@
 import { Transition } from '@/utils/transition'
 import { PROP_TYPE_STRING, PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
+import { h } from 'vue'
 
 export default {
-  inheritAttrs: false,
   props: {
     variant: makeProp(PROP_TYPE_STRING, 'info', value =>
       ['info', 'warning'].includes(value)
     ),
     show: makeProp(PROP_TYPE_BOOLEAN, false),
   },
-  render(h) {
-    let $alert // undefined
-    if (this.show) {
-      $alert = h(
-        'div',
-        {
-          key: this._uid,
-          class: [this.$style.style, this.$uiClass(this.variant)],
-          attrs: {
-            role: 'alert',
-            'aria-live': 'polite',
-            'aria-atomic': true,
-          },
-        },
-        this.$scopedSlots.default()
-      )
-      $alert = [$alert]
-    }
-    return h(Transition, {}, $alert)
+  mounted() {
+    console.log('mounted', this.show)
+  },
+  render() {
+    return h(
+      Transition,
+      { appear: true },
+      {
+        default: () =>
+          this.show
+            ? h(
+                'div',
+                {
+                  key: this._.uid,
+                  class: [this.$style.style, this.$uiClass(this.variant)],
+                  role: 'alert',
+                  'aria-live': 'polite',
+                  'aria-atomic': true,
+                },
+                this.$slots.default?.()
+              )
+            : null,
+      }
+    )
   },
 }
 </script>

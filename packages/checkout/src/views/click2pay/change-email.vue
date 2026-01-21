@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.wrapper">
     <template v-if="showCheck">
-      <f-box :class="$style.box" @click.native="click">
+      <f-box :class="$style.box" @click="click">
         <div :class="$style.box_title">
           <svg-click2pay :class="$uiClass('svg')" />
           <span
@@ -24,11 +24,11 @@
         <div :class="$style.save">
           <svg-click2pay :class="$uiClass('svg')" />
           <!--$t('c2p_save_card_desc')-->
-          <i18n path="c2p_save_card_desc" tag="span">
+          <i18n-t keypath="c2p_save_card_desc" tag="span">
             <template #click2pay>
               <a href="" @click.prevent="open">{{ $t('click2pay') }}</a>
             </template>
-          </i18n>
+          </i18n-t>
           <click2pay-modal-about ref="about" />
         </div>
       </f-row-checkbox>
@@ -75,7 +75,7 @@ export default {
       return ['SUCCESS', 'ADD_CARD'].includes(this.actionCode)
     },
   },
-  destroyed() {
+  unmounted() {
     this.deleteParam()
   },
   methods: {

@@ -1,18 +1,20 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 import { messages as messagesEn } from '@/i18n/lang/en'
-import { localize } from 'vee-validate'
+import { configure } from 'vee-validate'
 import configLocales from '@/config/locales.json'
 import { loadLang } from '@/import'
 import { api } from '@/api'
 import { getCookie } from '@/utils/helpers'
+import { localize } from '@vee-validate/i18n'
 
-Vue.use(VueI18n)
-
-export const i18n = new VueI18n({
+export const i18n = createI18n({
+  legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
-  silentTranslationWarn: true,
+  globalInjection: true,
+  missingWarn: false,
+  warnHtmlMessage: false,
+  fallbackWarn: false,
 })
 
 export const loadLanguageAsync = (lang, store) =>
@@ -24,28 +26,30 @@ export const loadLanguageAsync = (lang, store) =>
       ...store.state.messages[lang],
     }
 
-    localize(lang, { messages: generateValidateMessage(translation) })
+    const veeMessages = Object.fromEntries(
+      Object.entries(translation)
+        .filter(([key]) => key.startsWith('rule_'))
+        .map(([key, value]) => [key.slice(5), value])
+    )
 
-    i18n.setLocaleMessage(lang, translation)
+    configure({
+      generateMessage: localize(lang, {
+        messages: veeMessages,
+      }),
+    })
+
+    i18n.global.setLocaleMessage(lang, translation)
 
     return setI18nLanguage(lang)
   })
 
-function generateValidateMessage(translation) {
-  return Object.fromEntries(
-    Object.entries(translation)
-      .filter(([k, v]) => /^rule_/.test(k) && v)
-      .map(([k, v]) => [k.replace('rule_', ''), v])
-  )
-}
-
 function setI18nLanguage(lang) {
-  i18n.locale = lang
+  i18n.global.locale.value = lang
 
   if (api?.extendParams) {
     api.extendParams({
       messages: {
-        modalHeader: i18n.t('3ds_title'),
+        modalHeader: i18n.global.t('3ds_title'),
         modalLinkLabel: '',
       },
     })
@@ -60,7 +64,7 @@ export const getCookieLanguage = () => {
 }
 
 export const getBrowserLanguage = () => {
-  let n = window.navigator
+  const n = window.navigator
   const value = (n.language || n.browserLanguage || '')
     .toLowerCase()
     .split('-')[0]

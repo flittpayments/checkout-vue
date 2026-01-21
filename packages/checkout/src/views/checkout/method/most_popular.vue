@@ -61,7 +61,7 @@ export default {
   methods: {
     select({ method, id }) {
       if (method === 'wallets' && !this.has_fields) {
-        this.$root.$emit('click-wallet', id)
+        this.$emitter.emit('click-wallet', id)
       } else {
         this.$router.push({ name: method }).catch(() => {})
       }

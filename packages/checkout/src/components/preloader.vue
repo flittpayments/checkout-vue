@@ -1,7 +1,7 @@
 <template>
   <transition name="f-fade-enter">
-    <f-progress v-if="showProgress" key="1" v-bind="$attrs" />
-    <div v-if="showContent" key="2"><slot /></div>
+    <div v-if="showContent"><slot /></div>
+    <f-progress v-else-if="showProgress" v-bind="$attrs" />
   </transition>
 </template>
 
@@ -22,7 +22,7 @@ export default {
   computed: {
     ...mapState(['ready']),
     showProgress() {
-      return !this.condition && !this.ready
+      return !this.ready
     },
     showContent() {
       return this.condition

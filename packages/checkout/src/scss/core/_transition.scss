@@ -14,7 +14,7 @@
   transition: max-height 0.3s ease-in-out;
 }
 
-.f-collapse-enter,
+.f-collapse-enter-from,
 .f-collapse-leave-to {
   max-height: 0;
   overflow: hidden;
@@ -25,7 +25,7 @@
   transition: opacity ease-in-out 0.3s;
 }
 
-.f-fade-enter-enter {
+.f-fade-enter-enter-from {
   opacity: 0;
 }
 
@@ -39,11 +39,15 @@
   transition: opacity ease-in-out 0.3s;
 }
 
-.f-fade-enter,
+.f-fade-enter-from,
 .f-fade-leave-to {
   opacity: 0;
 }
 
+.f-fade-enter-to,
+.f-fade-leave-from {
+  opacity: 1;
+}
 
 // datepicker-zoom-in-down
 .f-datepicker-zoom-in-down-enter-active,
@@ -56,7 +60,7 @@
   transform-origin: center top;
 }
 
-.f-datepicker-zoom-in-down-enter,
+.f-datepicker-zoom-in-down-enter-from,
 .f-datepicker-zoom-in-down-leave-to {
   opacity: 0;
   transform: scaleY(0);

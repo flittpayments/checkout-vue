@@ -37,30 +37,32 @@
           </input-amount>
         </template>
         <table v-if="showFee">
-          <tr>
-            <td :class="$style.pr_16" v-text="$t('amount')" />
-            <td><f-amount :value="actualAmount" no-bold /></td>
-          </tr>
-          <tr v-if="showDiscount">
-            <td :class="$style.pr_16" v-text="$t('discount')" />
-            <td>
-              <f-percent v-if="discount_percent" :value="discount_percent" />
-              <span v-if="discount_percent && discount_amount"> + </span>
-              <f-amount
-                v-if="discount_amount"
-                :value="discount_amount"
-                no-bold
-              />
-            </td>
-          </tr>
-          <tr v-if="fee_amount">
-            <td :class="$style.pr_16" v-text="$t('fee')" />
-            <td><f-amount :value="fee_amount" no-bold /></td>
-          </tr>
-          <tr>
-            <td :class="$style.pr_16" v-text="$t('total_amount')" />
-            <td><f-amount :value="total_amount" no-bold /></td>
-          </tr>
+          <tbody>
+            <tr>
+              <td :class="$style.pr_16" v-text="$t('amount')" />
+              <td><f-amount :value="actualAmount" no-bold /></td>
+            </tr>
+            <tr v-if="showDiscount">
+              <td :class="$style.pr_16" v-text="$t('discount')" />
+              <td>
+                <f-percent v-if="discount_percent" :value="discount_percent" />
+                <span v-if="discount_percent && discount_amount"> + </span>
+                <f-amount
+                  v-if="discount_amount"
+                  :value="discount_amount"
+                  no-bold
+                />
+              </td>
+            </tr>
+            <tr v-if="fee_amount">
+              <td :class="$style.pr_16" v-text="$t('fee')" />
+              <td><f-amount :value="fee_amount" no-bold /></td>
+            </tr>
+            <tr>
+              <td :class="$style.pr_16" v-text="$t('total_amount')" />
+              <td><f-amount :value="total_amount" no-bold /></td>
+            </tr>
+          </tbody>
         </table>
         <f-promo v-if="showPromoBottom" :class="$style.mt_20" />
       </template>

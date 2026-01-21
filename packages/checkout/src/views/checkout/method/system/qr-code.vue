@@ -4,11 +4,11 @@
     <f-qr-code :class="$uiClass('qr')" :url="url" :query-params="queryParams" />
     <div v-if="params.web_banking_enabled" :class="$style.link">
       <!--$t('follow_link_to_complete_payment_in_web_banking')-->
-      <i18n path="follow_link_to_complete_payment_in_web_banking">
+      <i18n-t keypath="follow_link_to_complete_payment_in_web_banking">
         <template #link>
           <a
             v-if="target === '_blank'"
-            :href="data.deeplink"
+            :href="deeplink"
             target="_blank"
             rel="noopener noreferrer"
             @click="clickNonBlocking"
@@ -16,7 +16,7 @@
           >
           <a v-else href="#" @click.prevent="click">{{ $t('link') }}</a>
         </template>
-      </i18n>
+      </i18n-t>
     </div>
     <div v-if="showDesc" :class="$style.desc">
       <div v-if="showLimit" :class="$style.item">
@@ -54,9 +54,9 @@
       </div>
     </div>
     <!--$t('agree_to_terms')-->
-    <i18n
+    <i18n-t
       v-if="params.terms_url"
-      path="agree_to_terms"
+      keypath="agree_to_terms"
       tag="div"
       :class="$uiClass('terms')"
     >
@@ -66,7 +66,7 @@
         }}</a>
       </template>
       <template #name>{{ info.name }}</template>
-    </i18n>
+    </i18n-t>
     <div v-if="showApps" :class="$uiClass('apps')">
       <div :class="$uiClass('apps_col')">
         <div
@@ -111,7 +111,7 @@ import FPercent from '@/components/base/percent'
 import SvgAppStore from '@/svg/app-store.svg'
 import SvgGooglePlay from '@/svg/google-play.svg'
 import { makeProp } from '@/utils/props'
-import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
+import { PROP_TYPE_STRING } from '@/constants/props'
 import { timeoutMixin } from '@/mixins/timeout'
 import { mapState } from '@/utils/store'
 import { errorHandler, fib } from '@/utils/helpers'
@@ -130,7 +130,9 @@ export default {
   props: {
     method: makeProp(PROP_TYPE_STRING),
     system: makeProp(PROP_TYPE_STRING),
-    data: makeProp(PROP_TYPE_OBJECT), // deeplink deepcallback checkout_url
+    deeplink: makeProp(PROP_TYPE_STRING),
+    deepcallback: makeProp(PROP_TYPE_STRING),
+    checkout_url: makeProp(PROP_TYPE_STRING),
   },
   data() {
     return {
@@ -170,18 +172,18 @@ export default {
       return this.$t(this.params.app_name)
     },
     url() {
-      return appendQueryParams(this.data.checkout_url, {
+      return appendQueryParams(this.checkout_url, {
         autosubmit: true,
         action: 'deep_link',
         method: this.method,
         system: this.system,
-        link: this.data.deeplink,
-        callback: this.data.deepcallback,
+        link: this.deeplink,
+        callback: this.deepcallback,
       })
     },
     queryParams() {
       return this.params.shortener_with_deeplink_in_get
-        ? { link: this.data.deeplink }
+        ? { link: this.deeplink }
         : {}
     },
     showDesc() {
@@ -254,7 +256,7 @@ export default {
 
       this.sendCallback()
         .then(() => {
-          location.assign(this.data.deeplink)
+          location.assign(this.deeplink)
         })
         .catch(errorHandler)
         .finally(() => {
@@ -263,7 +265,7 @@ export default {
     },
     sendCallback() {
       return this.store.sendRequestBase('api.checkout.deepcallback', 'get', {
-        url: this.data.deepcallback,
+        url: this.deepcallback,
       })
     },
     goLoading() {

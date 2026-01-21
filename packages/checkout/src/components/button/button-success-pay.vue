@@ -1,5 +1,5 @@
 <template>
-  <f-button-success v-bind="attrs" v-on="$listeners">
+  <f-button-success v-bind="attrs">
     <span v-text="$t('pay')" />&nbsp;
     <f-amount v-if="showAmount" :value="total_amount" :currency="currency" />
   </f-button-success>

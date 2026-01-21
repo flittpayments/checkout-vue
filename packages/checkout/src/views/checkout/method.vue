@@ -8,18 +8,22 @@
         :wrap-class="$uiClass('wrap')"
       >
         <f-shadow />
-        <transition name="f-fade-enter">
-          <router-view />
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition name="f-fade-enter">
+            <component :is="Component" />
+          </transition>
+        </router-view>
         <div :class="$style.flex_grow_1" />
         <f-processed-wrapper v-if="isBreakpointDownLg" />
         <f-secure-message-wrapper />
       </f-scrollbar-vertical>
     </f-content>
     <div v-else :class="$style.wrap">
-      <transition name="f-fade-enter">
-        <router-view />
-      </transition>
+      <router-view v-slot="{ Component }">
+        <transition name="f-fade-enter">
+          <component :is="Component" />
+        </transition>
+      </router-view>
       <f-processed-wrapper v-if="isBreakpointDownLg" />
       <f-secure-message-wrapper />
     </div>

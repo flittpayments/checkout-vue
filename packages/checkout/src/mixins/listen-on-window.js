@@ -15,7 +15,7 @@ export const listenOnWindowMixin = {
     // where value is an array of handlers
     this[PROP] = {}
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (isBrowser) {
       const items = this[PROP]
       // Immediately delete this[PROP] to prevent the

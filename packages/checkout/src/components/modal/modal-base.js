@@ -2,10 +2,16 @@ import FButtonClose from '@/components/button/button-close'
 import FButton from '@/components/button/button'
 import { htmlOrText } from '@/utils/html'
 import { Transition } from '@/utils/transition'
-import { FTransporterSingle } from '@/utils/transporter'
+import {
+  Teleport,
+  withDirectives,
+  vShow,
+  h,
+  Transition as VueTransition,
+} from 'vue'
 
 import { EVENT_OPTIONS_NO_CAPTURE } from '@/constants/events'
-import { CODE_ESC } from '@/constants/key-codes'
+import { KEY_ESCAPE } from '@/constants/key-codes'
 import { identity } from '@/utils/identity'
 import { observeDom } from '@/utils/observe-dom'
 import { arrayIncludes, concat } from '@/utils/array'
@@ -22,13 +28,10 @@ import { isBrowser } from '@/utils/env'
 import { eventOn, eventOff } from '@/utils/events'
 import { isString, isUndefinedOrNull } from '@/utils/inspect'
 import { HTMLElement } from '@/utils/safe-types'
-import { attrsMixin } from '@/mixins/attrs'
 import { idMixin } from '@/mixins/id'
 import { listenOnDocumentMixin } from '@/mixins/listen-on-document'
-import { listenOnRootMixin } from '@/mixins/listen-on-root'
+import { listenMixin } from '@/mixins/listen-on-root'
 import { listenOnWindowMixin } from '@/mixins/listen-on-window'
-import { normalizeSlotMixin } from '@/mixins/normalize-slot'
-import { scopedStyleAttrsMixin } from '@/mixins/scoped-style-attrs'
 import { resizeMixin } from '@/mixins/resize'
 import { modalManager } from '@/components/modal/helpers/modal-manager'
 import { FModalEvent } from '@/components/modal/helpers/modal-event.class'
@@ -53,20 +56,13 @@ const OBSERVER_CONFIG = {
 
 export default {
   mixins: [
-    attrsMixin,
     idMixin,
     listenOnDocumentMixin,
-    listenOnRootMixin,
+    listenMixin,
     listenOnWindowMixin,
-    normalizeSlotMixin,
-    scopedStyleAttrsMixin,
     resizeMixin,
   ],
   inheritAttrs: false,
-  model: {
-    prop: 'visible',
-    event: 'change',
-  },
   props: {
     ariaLabel: makeProp(PROP_TYPE_STRING),
     autoFocusButton: makeProp(PROP_TYPE_STRING, null, value => {
@@ -112,6 +108,16 @@ export default {
     titleTag: makeProp(PROP_TYPE_STRING, 'h5'),
     visible: makeProp(PROP_TYPE_BOOLEAN, false),
   },
+  emits: [
+    'update:visible',
+    'ok',
+    'cancel',
+    'close',
+    'show',
+    'shown',
+    'hide',
+    'hidden',
+  ],
   data() {
     return {
       isHidden: true, // If modal should not be in document
@@ -129,6 +135,7 @@ export default {
       zIndex: modalManager.getBaseZIndex(),
       isTop: true,
       isBodyOverflowing: false,
+      reopenAfterHide: false,
     }
   },
   computed: {
@@ -202,13 +209,8 @@ export default {
         .trim()
     },
     computedAttrs() {
-      // If the parent has a scoped style attribute, and the modal
-      // is portalled, add the scoped attribute to the modal wrapper
-      const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
-
       return {
-        ...scopedStyleAttrs,
-        ...this.fAttrs,
+        ...this.$attrs,
         id: this.modalOuterId,
       }
     },
@@ -218,13 +220,12 @@ export default {
       return {
         id: this.modalId,
         role: 'dialog',
-        'aria-hidden': isVisible ? null : 'true',
         'aria-modal': isVisible ? 'true' : null,
         'aria-label': ariaLabel,
         'aria-labelledby':
           this.noHeader ||
           ariaLabel ||
-          !(this.hasNormalizedSlot('title') || this.titleHtml || this.title)
+          !(this.$slots.title?.() || this.titleHtml || this.title)
             ? null
             : this.modalTitleId,
         'aria-describedby': this.modalBodyId,
@@ -245,15 +246,15 @@ export default {
   mounted() {
     // Set initial z-index as queried from the DOM
     this.zIndex = modalManager.getBaseZIndex()
-    // Listen for `bv:modal::show events`, and close ourselves if the
+    // Listen for `modal::show events`, and close ourselves if the
     // opening modal not us
-    this.listenOnRoot('bv::modal::show', this.modalListener)
+    this.listen('modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
       this.$nextTick(this.show)
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // Ensure everything is back to normal
     this.setObserver(false)
     if (this.isVisible) {
@@ -261,6 +262,7 @@ export default {
       this.isShow = false
       this.isTransitioning = false
     }
+    modalManager.unregisterModal(this)
   },
   methods: {
     setObserver(on = false) {
@@ -277,7 +279,7 @@ export default {
     // Private method to update the v-model
     updateModel(val) {
       if (val !== this.visible) {
-        this.$emit('change', val)
+        this.$emit('update:visible', val)
       }
     },
     // Private method to create a FModalEvent object
@@ -302,8 +304,7 @@ export default {
         return
       }
       if (this.isClosing) {
-        // If we are in the process of closing, wait until hidden before re-opening
-        this.$once('hidden', this.show)
+        this.reopenAfterHide = true
         return
       }
       this.isOpening = true
@@ -385,7 +386,7 @@ export default {
     doShow() {
       if (modalManager.modalsAreOpen && this.noStacking) {
         // If another modal(s) is already open, wait for it(them) to close
-        this.listenOnRootOnce('bv::modal::hidden', this.doShow)
+        this.listenOnce('modal::hidden', this.doShow)
         return
       }
       modalManager.registerModal(this)
@@ -444,7 +445,6 @@ export default {
       this.setEnforceFocus(false)
     },
     onLeave() {
-      // Remove the 'show' class
       this.isShow = false
     },
     onAfterLeave() {
@@ -456,9 +456,13 @@ export default {
         this.isClosing = false
         modalManager.unregisterModal(this)
         this.returnFocusTo()
-        // TODO: Need to find a way to pass the `trigger` property
-        //       to the `hidden` event, not just only the `hide` event
+
         this.emitEvent(this.buildEvent('hidden'))
+
+        if (this.reopenAfterHide) {
+          this.reopenAfterHide = false
+          this.show()
+        }
       })
     },
     // Event emitter
@@ -466,7 +470,7 @@ export default {
       const type = fModalEvt.type
       // We emit on root first incase a global listener wants to cancel
       // the event first before the instance emits its event
-      this.emitOnRoot(`bv::modal::${type}`, fModalEvt, fModalEvt.componentId)
+      this.$emitter.emit(`modal::${type}`, fModalEvt, fModalEvt.componentId)
       this.$emit(type, fModalEvt)
     },
     // UI event handlers
@@ -514,7 +518,7 @@ export default {
     },
     onEsc(evt) {
       // If ESC pressed, hide modal
-      if (evt.keyCode === CODE_ESC && this.isVisible && !this.noCloseOnEsc) {
+      if (evt.key === KEY_ESCAPE && this.isVisible && !this.noCloseOnEsc) {
         this.hide('esc')
       }
     },
@@ -644,31 +648,33 @@ export default {
     checkModalOverflow() {
       if (this.isVisible && !this.isWidthSm) {
         const modal = this.$refs.modal
+        if (!modal) return
+
         this.isModalOverflowing =
           modal.scrollHeight > document.documentElement.clientHeight
       }
     },
-    makeModal(h) {
+    makeModal() {
       // Modal header
-      let $header = h()
+      let $header = null
       if (!this.noHeader) {
-        let $modalHeader = this.normalizeSlot('header', this.slotScope)
+        let $modalHeader = this.$slots.header
         if (!$modalHeader) {
-          let $closeButton = h()
+          let $closeButton = null
           if (!this.noHeaderClose) {
             $closeButton = h(
               FButtonClose,
               {
-                props: {
-                  content: this.headerCloseContent,
-                  disabled: this.isTransitioning,
-                  ariaLabel: this.headerCloseLabel,
-                  textVariant: this.headerCloseVariant,
-                },
-                on: { click: this.onClose },
+                content: this.headerCloseContent,
+                disabled: this.isTransitioning,
+                ariaLabel: this.headerCloseLabel,
+                textVariant: this.headerCloseVariant,
+                onClick: this.onClose,
                 ref: 'close-button',
               },
-              [this.normalizeSlot('header-close')]
+              {
+                default: this.$slots['header-close'],
+              }
             )
           }
 
@@ -677,12 +683,12 @@ export default {
               this.titleTag,
               {
                 class: this.titleClass,
-                attrs: { id: this.modalTitleId },
-                domProps: this.hasNormalizedSlot('title')
+                id: this.modalTitleId,
+                ...(this.$slots.title
                   ? {}
-                  : htmlOrText(this.titleHtml, this.title),
+                  : htmlOrText(this.titleHtml, this.title)),
               },
-              [this.normalizeSlot('title', this.slotScope)]
+              this.$slots.title?.(this.slotScope)
             ),
             $closeButton,
           ]
@@ -692,10 +698,10 @@ export default {
           'header',
           {
             class: this.headerClass,
-            attrs: { id: this.modalHeaderId },
+            id: this.modalHeaderId,
             ref: 'header',
           },
-          [$modalHeader]
+          this.$slots.header ? this.$slots.header(this.slotScope) : $modalHeader
         )
       }
 
@@ -704,51 +710,50 @@ export default {
         'div',
         {
           class: this.bodyClass,
-          attrs: { id: this.modalBodyId },
+          id: this.modalBodyId,
           ref: 'body',
         },
-        this.normalizeSlot('default', this.slotScope)
+        this.$slots.default?.(this.slotScope)
       )
 
       // Modal footer
-      let $footer = h()
+      let $footer = null
       if (this.footer) {
-        let $modalFooter = this.normalizeSlot('footer', this.slotScope)
+        let $modalFooter = this.$slots.footer
         if (!$modalFooter) {
-          let $cancelButton = h()
+          let $cancelButton = null
           if (!this.okOnly) {
             $cancelButton = h(
               FButton,
               {
-                props: {
-                  variant: this.cancelVariant,
-                  size: this.buttonSize,
-                  disabled:
-                    this.cancelDisabled || this.busy || this.isTransitioning,
-                  text: this.hasNormalizedSlot('cancel-button')
-                    ? ''
-                    : this.cancelTitle,
-                },
-                on: { click: this.onCancel },
+                variant: this.cancelVariant,
+                size: this.buttonSize,
+                disabled:
+                  this.cancelDisabled || this.busy || this.isTransitioning,
+                text: this.$slots['cancel-button'] ? '' : this.cancelTitle,
+                onClick: this.onCancel,
                 ref: 'cancel-button',
               },
-              this.normalizeSlot('cancel-button')
+              {
+                default: this.$slots['cancel-button'],
+              }
             )
           }
 
           const $okButton = h(
             FButton,
             {
-              props: {
-                variant: this.okVariant,
-                size: this.buttonSize,
-                disabled: this.okDisabled || this.busy || this.isTransitioning,
-                text: this.hasNormalizedSlot('ok-button') ? '' : this.okTitle,
-              },
-              on: { click: this.onOk },
+              variant: this.okVariant,
+              size: this.buttonSize,
+              disabled: this.okDisabled || this.busy || this.isTransitioning,
+              text: this.$slots['ok-button'] ? '' : this.okTitle,
+              onClick: this.onOk,
+
               ref: 'ok-button',
             },
-            this.normalizeSlot('ok-button')
+            {
+              default: this.$slots['ok-button'],
+            }
           )
 
           $modalFooter = [$cancelButton, $okButton]
@@ -758,10 +763,10 @@ export default {
           'footer',
           {
             class: this.footerClass,
-            attrs: { id: this.modalFooterId },
+            id: this.modalFooterId,
             ref: 'footer',
           },
-          [$modalFooter]
+          this.$slots.footer ? this.$slots.footer(this.slotScope) : $modalFooter
         )
       }
 
@@ -769,13 +774,10 @@ export default {
       const $modalContent = h(
         'div',
         {
-          staticClass: 'f-modal-content',
-          class: this.contentClass,
-          attrs: {
-            id: this.modalContentId,
-            tabindex: '-1',
-            'data-e2e-modal-content': '',
-          },
+          class: ['f-modal-content', this.contentClass],
+          id: this.modalContentId,
+          tabindex: '-1',
+          'data-e2e-modal-content': '',
           ref: 'content',
         },
         [$header, $body, $footer]
@@ -783,14 +785,11 @@ export default {
 
       // Tab traps to prevent page from scrolling to next element in
       // tab index during enforce-focus tab cycle
-      let $tabTrapTop = h()
-      let $tabTrapBottom = h()
+      const children = [$modalContent]
+
       if (this.isVisible && !this.noEnforceFocus) {
-        $tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
-        $tabTrapBottom = h('span', {
-          ref: 'bottomTrap',
-          attrs: { tabindex: '0' },
-        })
+        children.unshift(h('span', { ref: 'topTrap', tabindex: '0' }))
+        children.push(h('span', { ref: 'bottomTrap', tabindex: '0' }))
       }
 
       // Modal dialog wrapper
@@ -798,94 +797,94 @@ export default {
         'div',
         {
           class: this.dialogClass,
-          on: { mousedown: this.onDialogMousedown },
+          onMousedown: this.onDialogMousedown,
           ref: 'dialog',
         },
-        [$tabTrapTop, $modalContent, $tabTrapBottom]
+        children
       )
 
       // Modal
-      let $modal = h(
-        'div',
-        {
-          staticClass: 'f-modal',
-          class: this.modalClasses,
-          style: this.modalStyles,
-          attrs: this.computedModalAttrs,
-          on: { keydown: this.onEsc, click: this.onClickOut },
-          directives: [{ name: 'show', value: this.isVisible }],
-          ref: 'modal',
-        },
-        [$modalDialog]
+
+      let modal = withDirectives(
+        h(
+          'div',
+          {
+            class: ['f-modal', this.modalClasses],
+            style: this.modalStyles,
+            ...(this.computedModalAttrs || {}),
+            onKeydown: this.onEsc,
+            onClick: this.onClickOut,
+            ref: 'modal',
+          },
+          [$modalDialog]
+        ),
+        [[vShow, this.isVisible]]
       )
 
       // Wrap modal in transition
       // Sadly, we can't use `Transition` here due to the differences in
       // transition durations for `.modal` and `.modal-dialog`
       // At least until https://github.com/vuejs/vue/issues/9986 is resolved
-      $modal = h(
-        'transition',
+      let $modal = h(
+        VueTransition,
         {
-          props: {
-            enterClass: '',
-            enterToClass: '',
-            enterActiveClass: '',
-            leaveClass: '',
-            leaveActiveClass: '',
-            leaveToClass: '',
-          },
-          on: {
-            beforeEnter: this.onBeforeEnter,
-            enter: this.onEnter,
-            afterEnter: this.onAfterEnter,
-            beforeLeave: this.onBeforeLeave,
-            leave: this.onLeave,
-            afterLeave: this.onAfterLeave,
-          },
+          onBeforeEnter: this.onBeforeEnter,
+          onEnter: this.onEnter,
+          onAfterEnter: this.onAfterEnter,
+          onBeforeLeave: this.onBeforeLeave,
+          onLeave: this.onLeave,
+          onAfterLeave: this.onAfterLeave,
         },
-        [$modal]
+        {
+          default: () => modal,
+        }
       )
 
       // Modal backdrop
-      let $backdrop = h()
-      if (this.isVisible) {
-        $backdrop = h(
-          'div',
-          {
-            staticClass: 'f-modal-backdrop',
-            attrs: { id: this.modalBackdropId },
-          },
-          this.normalizeSlot('backdrop')
-        )
-      }
-      $backdrop = h(Transition, { props: { noFade: this.noFade } }, [$backdrop])
+      let $backdrop = h(
+        Transition,
+        { noFade: this.noFade },
+        {
+          default: () =>
+            this.isVisible
+              ? h(
+                  'div',
+                  {
+                    class: 'f-modal-backdrop',
+                    id: this.modalBackdropId,
+                  },
+                  this.$slots.backdrop?.()
+                )
+              : null,
+        }
+      )
 
       // Assemble modal and backdrop in an outer <div>
       return h(
         'div',
         {
           style: this.modalOuterStyle,
-          attrs: this.computedAttrs,
-          key: `modal-outer-${this._uid}`,
+          ...(this.computedAttrs || {}),
+          key: `modal-outer-${this.modalOuterId}`,
         },
         [$modal, $backdrop]
       )
     },
   },
-  render(h) {
+  render() {
     if (this.static) {
-      return this.lazy && this.isHidden ? h() : this.makeModal(h)
+      return this.lazy && this.isHidden ? null : this.makeModal()
     } else {
       return this.isHidden
-        ? h()
+        ? null
         : h(
-            FTransporterSingle,
+            Teleport,
             {
-              props: {
-                container: this.$root.$el,
-              },
+              to: '#f',
             },
-            [this.makeModal(h)]
+            {
+              default: () => [this.makeModal()],
+            }
           )
     }
   },

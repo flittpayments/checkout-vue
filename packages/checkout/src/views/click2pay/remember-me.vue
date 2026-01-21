@@ -5,13 +5,13 @@
     </f-row-checkbox>
     <template #more>
       <!--$t('skip_verification_next_time_desc')-->
-      <i18n path="skip_verification_next_time_desc" tag="span">
+      <i18n-t keypath="skip_verification_next_time_desc" tag="span">
         <template #cookie_notice>
           <a :href="cookieNoticeUrl" target="_blank" rel="noopener noreferrer">
             {{ $t('cookie_notice') }}
           </a>
         </template>
-      </i18n>
+      </i18n-t>
     </template>
   </f-box-more>
 </template>

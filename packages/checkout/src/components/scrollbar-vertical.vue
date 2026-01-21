@@ -51,7 +51,7 @@ export default {
     this.scrollbarWidth = getScrollbarWidth()
     document.addEventListener('mouseup', this.dragend)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.addEventListener('mouseup', this.dragend)
   },
   mounted() {

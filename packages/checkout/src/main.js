@@ -1,5 +1,6 @@
 import {
   Vue,
+  mitt,
   App,
   validate,
   sentry,
@@ -21,6 +22,7 @@ loadAsyncValidator()
 
 const load = Promise.all([
   Vue(),
+  mitt(),
   App(),
   validate(),
   sentry(),
@@ -32,7 +34,7 @@ const load = Promise.all([
   configDefault(),
 ])
 
-let instance = {}
+let instances = {}
 
 class F {
   constructor() {
@@ -40,16 +42,16 @@ class F {
     this._emit = []
   }
   $on(...args) {
-    if (this.app) {
-      this.app.$on.apply(this.app, args)
+    if (this.emitter) {
+      this.emitter.on(...args)
     } else {
       this._on.push(args)
     }
     return this
   }
   $emit(...args) {
-    if (this.app) {
-      this.app.$emit.apply(this.app, args)
+    if (this.emitter) {
+      this.emitter.emit(...args)
     } else {
       this._emit.push(args)
     }
@@ -69,29 +71,32 @@ class F {
   }
   $destroy() {
     if (this.app) {
-      this.app.$destroy()
+      this.app.unmount()
     }
     return this
   }
   $nextTick(...args) {
     if (this.app) {
-      this.app.$nextTick.apply(this.app, args)
+      this.nextTick(...args)
     }
     return this
   }
   get $el() {
-    return this.app?.$el
+    return this.node
   }
   get store() {
     return this.app?.store
   }
-  run(app) {
+  run(app, emitter, nextTick, node) {
     this.app = app
+    this.emitter = emitter
+    this.nextTick = nextTick
+    this.node = node
     this._on.forEach(args => {
-      this.app.$on.apply(this.app, args)
+      this.emitter.on(...args)
     })
     this._emit.forEach(args => {
-      this.app.$emit.apply(this.app, args)
+      this.emitter.emit(...args)
     })
   }
 }
@@ -100,22 +105,27 @@ consoleInfo('commithash', COMMITHASH)
 consoleInfo('initiator', INITIATOR)
 
 export const checkout = (window.checkout = function (el, optionsUser) {
-  let app = new F()
+  let appWrapper = new F()
 
   load
     .then(
       ([
-        Vue,
+        { createApp, h, nextTick, configureCompat },
+        mitt,
         App,
         { install: installValidate },
         { install: installSentry },
         { install: installPlugins },
         { install: installApi },
-        { createStore },
-        { createRouter },
+        { install: installStore, createStore },
+        { create: createRouter },
         { i18n },
         { configDefault },
       ]) => {
+        configureCompat({
+          MODE: 3,
+        })
+
         let id
         let node
         const isString = typeof el === 'string'
@@ -127,6 +137,7 @@ export const checkout = (window.checkout = function (el, optionsUser) {
             chars[Math.floor(Math.random() * chars.length)]
           return 'id-' + Array.from({ length: 12 }, getRandomChar).join('')
         }
+        const emitter = mitt()
 
         if (isString || isElement) {
           if (isString) {
@@ -136,7 +147,7 @@ export const checkout = (window.checkout = function (el, optionsUser) {
             if (!node)
               return console.error(['Selector', el, 'not found'].join(' '))
 
-            if (instance[id]) instance[id].$destroy()
+            if (instances[id]) instances[id].unmount()
           }
           if (isElement) {
             id = makeID()
@@ -149,12 +160,8 @@ export const checkout = (window.checkout = function (el, optionsUser) {
         if (Object.prototype.toString.call(optionsUser) !== '[object Object]')
           return console.error('Options not an object')
 
-        let store = createStore(id)
-        let router = createRouter(id)
-
-        Vue.use(installValidate)
-        Vue.use(installSentry(optionsUser, router))
-        Vue.use(installPlugins)
+        let store = createStore()
+        let router = createRouter(store)
 
         let origin =
           'https://' +
@@ -175,14 +182,9 @@ export const checkout = (window.checkout = function (el, optionsUser) {
           }
         )
 
-        instance[id] = new Vue({
-          store,
-          router,
-          i18n,
-          data: {
-            optionsUser,
-          },
-          destroyed() {
+        const app = (instances[id] = createApp({
+          emits: ['submit', 'location', 'setParams'],
+          unmounted() {
             stopErrorChunk()
           },
           methods: {
@@ -196,26 +198,26 @@ export const checkout = (window.checkout = function (el, optionsUser) {
               this.$emit('setParams', ...args)
             },
           },
-          render(h) {
+          render() {
             return h(App, {
-              props: {
-                optionsUser,
-              },
+              optionsUser,
             })
           },
-        }).$mount()
+        }))
 
-        while (node.firstChild) {
-          node.removeChild(node.firstChild)
-        }
-        node.appendChild(instance[id].$el)
+        app.use(router)
+        app.use(i18n)
+        app.use(installValidate)
+        app.use(installSentry(optionsUser, router))
+        app.use(installPlugins(emitter))
+        app.use(installStore, store)
 
-        app.run(instance[id])
+        app.mount(node)
 
-        return instance[id]
+        appWrapper.run(app, emitter, nextTick, node)
       }
     )
     .catch(() => sentry().then(({ installMin }) => installMin(optionsUser)))
 
-  return app
+  return appWrapper
 })

@@ -1,94 +1,47 @@
 <script>
-import { scopedStyleAttrsMixin } from '@/mixins/scoped-style-attrs'
-import { isFunction, isUndefinedOrNull } from '@/utils/inspect'
+import { h } from 'vue'
 import { Popper } from '@/components/tooltip/helpers/popper'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
 export default {
+  name: 'TooltipTemplate',
   extends: Popper,
-  mixins: [scopedStyleAttrsMixin],
   props: {
-    // Used only by the directive versions
-    html: makeProp(PROP_TYPE_BOOLEAN, false),
-    // Other non-reactive (while open) props are pulled in from BVPopper
     id: makeProp(PROP_TYPE_STRING),
     matchTargetWidth: makeProp(PROP_TYPE_BOOLEAN),
   },
+  emits: ['mouseenter', 'mouseleave', 'focusin', 'focusout'],
   data() {
-    // We use data, rather than props to ensure reactivity
-    // Parent component will directly set this data
     return {
-      title: '',
-      content: '',
+      content: () => null,
       customClass: null,
       innerClass: null,
-      interactive: true,
     }
   },
   computed: {
     templateClasses() {
-      return [
-        this.$style.style,
-        this.$style[this.attachment],
-        {
-          // Disables pointer events to hide the tooltip when the user
-          // hovers over its content
-          [this.$style.noninteractive]: !this.interactive,
-        },
-        this.customClass,
-      ]
+      return [this.$style.style, this.$style[this.attachment], this.customClass]
     },
     templateAttributes() {
       return {
-        // Apply attributes from root tooltip component
-        ...this.$parent.$parent.$attrs,
-
         id: this.id,
         role: 'tooltip',
         tabindex: '-1',
-
-        // Add the scoped style data attribute to the template root element
-        ...this.scopedStyleAttrs,
-      }
-    },
-    templateListeners() {
-      // Used for hover/focus trigger listeners
-      return {
-        mouseenter: evt => {
-          this.$emit('mouseenter', evt)
-        },
-        mouseleave: evt => {
-          this.$emit('mouseleave', evt)
-        },
-        focusin: evt => {
-          this.$emit('focusin', evt)
-        },
-        focusout: evt => {
-          this.$emit('focusout', evt)
-        },
       }
     },
   },
   methods: {
-    renderTemplate(h) {
-      // Title can be a scoped slot function
-      const $title = isFunction(this.title)
-        ? this.title({})
-        : isUndefinedOrNull(this.title)
-          ? h()
-          : this.title
-
-      // Directive versions only
-      const domProps =
-        this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
-
+    renderTemplate() {
       return h(
         'div',
         {
+          ...this.templateAttributes,
           class: this.templateClasses,
-          attrs: this.templateAttributes,
-          on: this.templateListeners,
+          onMouseenter: evt => this.$emit('mouseenter', evt),
+          onMouseleave: evt => this.$emit('mouseleave', evt),
+          onFocusin: evt => this.$emit('focusin', evt),
+          onFocusout: evt => this.$emit('focusout', evt),
         },
         [
           !this.noArrow
@@ -96,19 +49,19 @@ export default {
                 ref: 'arrow',
                 class: this.$uiClass('arrow', [this.attachment]),
               })
-            : h(),
+            : null,
           h(
             'div',
             {
               class: [this.$style.inner, this.innerClass],
+
               style: {
                 '--min-width': this.matchTargetWidth
-                  ? this.target.offsetWidth + 'px'
+                  ? `${this.target.offsetWidth}px`
                   : 0,
               },
-              domProps,
             },
-            [$title]
+            this.content()
           ),
         ]
       )
@@ -128,10 +81,6 @@ $tooltip-arrow-height: px-to-rem(7px);
   margin: 0;
   word-wrap: break-word;
   outline: 0;
-}
-
-.noninteractive {
-  pointer-events: none;
 }
 
 .top,

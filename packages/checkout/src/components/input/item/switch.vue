@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <checkbox v-bind="attrs" v-on="$listeners" />
+    <checkbox v-bind="attrs" />
     <label :class="$style.label" :for="safeId()">
       <slot>{{ $t(label) }}</slot>
     </label>
@@ -11,7 +11,7 @@
 import Checkbox from '@/components/input/helpers/checkbox'
 import { idMixin, idProps } from '@/mixins/id'
 import { makeProp } from '@/utils/props'
-import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '@/constants/props'
+import { PROP_TYPE_STRING } from '@/constants/props'
 
 export default {
   components: {
@@ -21,8 +21,6 @@ export default {
   inheritAttrs: false,
   props: {
     ...idProps,
-    // required for ValidationProvider
-    value: makeProp(PROP_TYPE_BOOLEAN, false),
     label: makeProp(PROP_TYPE_STRING),
   },
   computed: {
@@ -32,8 +30,6 @@ export default {
     attrs() {
       return {
         ...this.$attrs,
-        // required for ValidationProvider
-        value: this.value,
         id: this.safeId(),
         ref: 'input',
         class: this.$style.input,

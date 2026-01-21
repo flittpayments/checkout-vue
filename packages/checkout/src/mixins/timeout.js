@@ -3,7 +3,7 @@ import { proxyMixin } from '@/mixins/proxy'
 // @vue/component
 export const timeoutMixin = {
   mixins: [proxyMixin],
-  beforeDestroy() {
+  beforeUnmount() {
     if (!this.timeout.data) return
     Object.keys(this.timeout.data).forEach(id => {
       clearTimeout(this.timeout.data[id])

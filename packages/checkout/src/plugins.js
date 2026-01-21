@@ -1,7 +1,11 @@
 import { isFunction } from '@/utils/inspect'
 
-export const install = Vue => {
-  Vue.prototype.$uiClass = function (name, options = {}, style = '$style') {
+export const install = emitter => app => {
+  app.config.globalProperties.$uiClass = function (
+    name,
+    options = {},
+    style = '$style'
+  ) {
     const theme = this.store.state.options.theme.type
 
     if (Array.isArray(options)) {
@@ -24,7 +28,17 @@ export const install = Vue => {
       .join(' ')
   }
 
-  Object.defineProperty(Vue.prototype, '$meta', {
+  app.config.globalProperties.$emitter = emitter
+
+  app.config.warnHandler = (msg, vm, trace) => {
+    if (msg.includes('INSTANCE_ATTRS_CLASS_STYLE')) return
+
+    console.warn('---', msg, '---', vm?.$options?.name, vm?.$attrs, trace)
+  }
+
+  app.config.compilerOptions.whitespace = 'condense'
+
+  Object.defineProperty(app.config.globalProperties, '$meta', {
     get() {
       const route = this.$route
       if (!route) return {}

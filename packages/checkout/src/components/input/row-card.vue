@@ -1,6 +1,9 @@
 <template>
-  <f-row v-slot="{ errors, invalid, validate: _validate }" v-bind="attrsRow">
-    <template v-if="updateState(_validate)">
+  <f-row
+    v-slot="{ errors, invalid, validate: slotValidate, handleBlur }"
+    v-bind="attrsRow"
+  >
+    <template v-if="updateState(slotValidate)">
       <slot
         :id="safeId()"
         name="label"
@@ -12,7 +15,7 @@
         </label>
       </slot>
       <div :class="$style.inner">
-        <f-input v-bind="attrs" v-on="$listeners" @keyup.enter="onEnter" />
+        <f-input v-bind="attrs" @keyup.enter="onEnter" @blur="handleBlur" />
         <f-placeholder v-bind="attrsPlaceholder" />
       </div>
       <f-tooltip-error v-if="invalid" :target="() => $refs.input?.$el">
@@ -52,14 +55,21 @@ export default {
     inputClass: makeProp(PROP_TYPE_STRING),
   },
   data() {
+    let resolveValidateReady
+    const validateReadyPromise = new Promise(resolve => {
+      resolveValidateReady = resolve
+    })
     return {
-      validate: null,
+      validateFn: null,
+      validateReadyPromise,
+      resolveValidateReady,
+      focused: false,
     }
   },
   computed: {
     attrsRow() {
       return {
-        ...pick(this.$attrs, ['rules', 'disabled']),
+        ...pick(this.$attrs, ['modelValue', 'rules', 'disabled']),
         name: this.name || this.safeId(),
       }
     },
@@ -76,14 +86,21 @@ export default {
     },
     attrsPlaceholder() {
       return {
-        ...pick(this.attrs, ['id', 'value', 'placeholder']),
+        ...pick(this.attrs, ['id', 'modelValue', 'placeholder']),
         nameClass: [this.$style.input, this.$style.placeholder],
       }
     },
   },
   methods: {
-    updateState(validate) {
-      this.validate = validate
+    validate() {
+      return this.validateReadyPromise.then(() => this.validateFn())
+    },
+    updateState(validateFn) {
+      this.validateFn = validateFn
+      if (this.resolveValidateReady) {
+        this.resolveValidateReady()
+        this.resolveValidateReady = null
+      }
       return true
     },
     onEnter() {

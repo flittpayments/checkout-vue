@@ -2,9 +2,11 @@
   <f-loading v-if="showFirstLoading" backdrop />
   <f-form v-else :class="$uiClass('wrapper')" :data-e2e-ready="ready">
     <f-alert-notification-wrapper />
-    <transition name="f-fade-enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="f-fade-enter">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <f-loading
       v-if="showLoading"
       backdrop
@@ -119,20 +121,20 @@ export default {
       return model
     },
     submitSuccess(model) {
-      this.$root.$emit('success', model)
+      this.$emitter.emit('success', model)
       this.store.setToken(model.attr('token'))
       this.submitProgress(model)
 
       return model
     },
     submitError(model) {
-      this.$root.$emit('error', model)
+      this.$emitter.emit('error', model)
       this.store.setToken(model.attr('token'))
       this.location(model.instance(model.attr('order')))
       return Promise.reject(model)
     },
     appSuccess(model) {
-      this.$root.$emit('ready', model)
+      this.$emitter.emit('ready', model)
       this.appFinally(model)
 
       if (this.fee) {
@@ -140,7 +142,7 @@ export default {
       }
     },
     appError(model) {
-      this.$root.$emit('error', model)
+      this.$emitter.emit('error', model)
       if (!isError(model)) {
         this.appFinally(model)
       }
@@ -183,15 +185,15 @@ export default {
 
       if (model.sendResponse()) return
 
-      if (
-        this.$root._events.callback?.length &&
-        model.attr('ready_to_submit')
-      ) {
-        this.store.formLoading(false)
-        this.$root.$emit('callback', model)
-
-        return
-      }
+      // if (
+      //   this.$root._events.callback?.length &&
+      //   model.attr('ready_to_submit')
+      // ) {
+      //   this.store.formLoading(false)
+      //   this.$emitter.emit('callback', model)
+      //
+      //   return
+      // }
 
       if (this.store.readyToSubmit() && model.submitToMerchant()) return
 
@@ -229,8 +231,8 @@ export default {
             params: {
               method: tab,
               system: this.payment_system,
-              data: model.attr('send_data'),
             },
+            query: model.attr('send_data'),
           })
           .catch(() => {})
       } else if (model.attr('action') === 'deep_link') {
@@ -240,9 +242,8 @@ export default {
             params: {
               method: tab,
               system: this.payment_system,
-              link: model.attr('send_data.deeplink'),
-              callback: model.attr('send_data.deepcallback'),
             },
+            query: model.attr('send_data'),
           })
           .catch(() => {})
       } else if (model.needVerifyCode()) {
