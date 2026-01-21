@@ -70,6 +70,13 @@ module.exports = defineConfig({
   publicPath: PUBLIC_PATH,
   css: {
     loaderOptions: {
+      // css: {
+      //   requireModuleExtension: true,
+      //   modules: {
+      //     auto: () => true, // автоматично для <style module>
+      //     localIdentName: '[hash:base64:6]'
+      //   }
+      // },
       scss: {
         additionalData: [
           '@use "@/scss/core/constants" as *;',

@@ -30,7 +30,7 @@ export default {
         if (!this.includes.includes(name)) return
         if (this.attr(`${this.name}.${name}`)) return
 
-        this.$set(this.attr(this.name), name, value)
+        this.attr(this.name)[name] = value
       })
     },
     input(name, value) {

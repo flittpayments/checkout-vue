@@ -1,7 +1,6 @@
 import { listenOnWindowMixin } from '@/mixins/listen-on-window'
 import { isFunction } from '@/utils/inspect'
 
-// @vue/component
 export const resizeMixin = {
   mixins: [listenOnWindowMixin],
   mounted() {

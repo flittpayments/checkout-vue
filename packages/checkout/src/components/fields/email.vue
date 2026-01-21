@@ -3,12 +3,13 @@
     <f-form-save v-slot="{ input }" name="params" :includes="['email']">
       <f-row
         v-bind="$attrs"
-        v-model.trim="email"
+        v-model="email"
+        name="email"
         type="email"
         label="email"
         :rules="rules"
         autocomplete="email"
-        @input="input('email', $event)"
+        @update:model-value="input('email', $event)"
       />
     </f-form-save>
   </f-preloader>
@@ -16,9 +17,9 @@
 
 <script>
 import FPreloader from '@/components/preloader'
-import FFormSave from '@/components/form/form/form-save'
+import FFormSave from '@/components/form/form-save'
 import FRow from '@/components/input/row'
-import { rulesEmail, rulesEmailRequiredOne } from '@/config/customer-fields'
+import { rulesEmail } from '@/config/customer-fields'
 import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
@@ -27,6 +28,7 @@ export default {
     FFormSave,
     FRow,
   },
+  inject: ['form'],
   computed: {
     ...mapState(['need_validate_card']),
     ...mapState('options', ['show_email']),
@@ -35,7 +37,7 @@ export default {
     rules() {
       return this.need_validate_card
         ? this.required_one_of_checkout_customer_fields
-          ? rulesEmailRequiredOne
+          ? { required_one: [this.form.values.phonemobile], email: true }
           : rulesEmail
         : ''
     },

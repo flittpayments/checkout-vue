@@ -1,5 +1,5 @@
 <template>
-  <f-alert-base v-bind="attrs" v-on="fListeners">
+  <f-alert-base v-bind="attrs">
     <div :class="$uiClass('icon')">
       <f-svg name="warning" size="lg" />
     </div>
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { attrsMixin } from '@/mixins/attrs'
-import { listenersMixin } from '@/mixins/listeners'
 import { mapState } from '@/utils/store'
 import FAlertBase from '@/components/alert/alert-base'
 import FButtonLink from '@/components/button/button-link'
@@ -26,16 +24,16 @@ export default {
     FButtonLink,
     FSvg,
   },
-  mixins: [attrsMixin, listenersMixin],
   model: {
     prop: 'show',
     event: 'input',
   },
+  emits: ['input'],
   computed: {
     ...mapState(['notification']),
     attrs() {
       return {
-        ...this.fAttrs,
+        ...this.$attrs,
         class: this.$uiClass('style'),
         variant: 'warning',
       }

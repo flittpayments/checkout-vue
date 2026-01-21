@@ -1,5 +1,5 @@
 <template>
-  <f-row v-bind="attrs" data-e2e-country v-on="fListeners" @search="onSearch">
+  <f-row v-bind="attrs" data-e2e-country @search="onSearch">
     <template #text="{ item }">
       <span :class="$style.mr_4">{{ flag(item.value) }}</span>
       {{ item.text }}
@@ -16,8 +16,6 @@
 import FRow from '@/components/input/row'
 import FSvg from '@/components/svg'
 import { codeToFlag } from '@/utils/helpers'
-import { attrsMixin } from '@/mixins/attrs'
-import { listenersMixin } from '@/mixins/listeners'
 import { countriesSearch } from '@/import'
 import { sort, parseSelect } from '@/utils/sort'
 import { makeProp } from '@/utils/props'
@@ -32,13 +30,13 @@ export default {
     FRow,
     FSvg,
   },
-  mixins: [attrsMixin, listenersMixin],
   inheritAttrs: false,
   props: {
     value: makeProp(PROP_TYPE_STRING),
     list: makeProp(PROP_TYPE_ARRAY, []),
     setFirst: makeProp(PROP_TYPE_BOOLEAN, false),
   },
+  emits: ['input'],
   data() {
     return {
       search: '',
@@ -51,7 +49,7 @@ export default {
     },
     attrs() {
       return {
-        ...this.fAttrs,
+        ...this.$attrs,
         value: this.value,
         options: this.options,
         variantItem: 'secondary',

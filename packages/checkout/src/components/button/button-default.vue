@@ -1,5 +1,5 @@
 <template>
-  <f-button :class="$uiClass('style')" v-bind="$attrs" v-on="$listeners">
+  <f-button v-bind="$attrs" :class="$uiClass('style')">
     <slot />
   </f-button>
 </template>

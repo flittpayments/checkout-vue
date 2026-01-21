@@ -1,10 +1,18 @@
 <template>
   <f-loading v-if="showFirstLoading" backdrop />
-  <f-form v-else :class="$uiClass('wrapper')" :data-e2e-ready="ready">
+  <f-form
+    v-else
+    ref="form"
+    :class="$uiClass('wrapper')"
+    :data-e2e-ready="ready"
+    @submit="onSubmit"
+  >
     <f-alert-notification-wrapper />
-    <transition name="f-fade-enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="f-fade-enter">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <f-loading
       v-if="showLoading"
       backdrop
@@ -30,6 +38,7 @@ import { errorHandler, findGetParameter } from '@/utils/helpers'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { timeoutMixin } from '@/mixins/timeout'
 import { breakpointMixin } from '@/mixins/breakpoint'
+import { listenMixin } from '@/mixins/listen-on-root'
 import { isError } from '@/utils/inspect'
 import { fib } from '@/utils/helpers'
 import { FLoading } from '@/import'
@@ -48,7 +57,7 @@ export default {
     FAlertGdprWrapper,
     FAlertNotificationWrapper,
   },
-  mixins: [timeoutMixin, breakpointMixin],
+  mixins: [timeoutMixin, breakpointMixin, listenMixin],
   provide() {
     return {
       formRequest: this.formRequest,
@@ -67,7 +76,7 @@ export default {
     ...mapState(['loading', 'info']),
     ...mapState('options', ['autosubmit']),
     ...mapState('params', ['token', 'payment_system']),
-    ...mapStateGetSet(['ready', 'order']),
+    ...mapStateGetSet(['ready', 'order', 'model']),
     showFirstLoading() {
       return this.autosubmit && !this.ready
     },
@@ -76,6 +85,10 @@ export default {
     },
   },
   created() {
+    this.listen('submit', () => {
+      this.$refs.form.submit().catch(errorHandler)
+    })
+
     this.store.formLoading(true)
 
     this.store
@@ -88,9 +101,14 @@ export default {
       })
   },
   methods: {
+    onSubmit() {
+      this.formRequest(this.store.formParams())
+    },
     formRequest(data) {
       if (this.loading) return Promise.reject()
       this.store.formLoading(true)
+      this.model = {}
+      this.order = {}
 
       return this.store
         .sendRequest(
@@ -117,14 +135,14 @@ export default {
       return model
     },
     submitSuccess(model) {
-      this.$root.$emit('success', model)
+      this.$emitter.emit('success', model)
       this.store.setToken(model.attr('token'))
       this.submitProgress(model)
 
       return model
     },
     submitError(model) {
-      this.$root.$emit('error', model)
+      this.$emitter.emit('error', model)
       this.store.setToken(model.attr('token'))
       if (!this.locationOrder(model.instance(model.attr('order')))) {
         this.store.formLoading(false)
@@ -132,7 +150,7 @@ export default {
       return Promise.reject(model)
     },
     appSuccess(model) {
-      this.$root.$emit('ready', model)
+      this.$emitter.emit('ready', model)
       this.appFinally(model)
 
       if (model.attr('info.client_fee')) {
@@ -140,7 +158,7 @@ export default {
       }
     },
     appError(model) {
-      this.$root.$emit('error', model)
+      this.$emitter.emit('error', model)
       if (!isError(model)) {
         this.appFinally(model)
       }
@@ -172,11 +190,11 @@ export default {
       this.order = model.serialize()
 
       if (
-        this.$root._events.callback?.length &&
+        this.$emitter.all.get('callback')?.length &&
         model.attr('ready_to_submit')
       ) {
         this.store.formLoading(false)
-        this.$root.$emit('callback', model)
+        this.$emitter.emit('callback', model)
 
         return true
       }
@@ -189,29 +207,27 @@ export default {
           model.attr('active_method')
         )
         if (method) {
-          this.$router
-            .push({
-              name: 'system',
-              params: { method: method.tab, system: method.id },
-            })
-            .catch(() => {})
+          this.$router.push({
+            name: 'system',
+            params: { method: method.tab, system: method.id },
+          })
         } else if (
           arrayIncludes(configMethods, tab) &&
           this.$meta.method !== tab
         ) {
-          this.$router.push({ name: tab }).catch(() => {})
+          this.$router.push({ name: tab })
         }
         this.waitForFinalOrderStatus()
         return true
       }
 
       if (model.needVerifyCode()) {
-        this.$router.push({ name: 'verify' }).catch(() => {})
+        this.$router.push({ name: 'verify' })
         this.store.formLoading(false)
         return true
       }
       if (model.inProgress()) {
-        this.$router.push({ name: 'success' }).catch(() => {})
+        this.$router.push({ name: 'success' })
         this.store.formLoading(false)
         return true
       }
@@ -219,6 +235,7 @@ export default {
       return false
     },
     locationModel(model) {
+      this.model = model.serialize()
       const tab = this.store.getTabByMethodId(this.payment_system)
 
       if (model.sendResponse()) return true
@@ -226,42 +243,33 @@ export default {
       this.store.formLoading(false)
 
       if (model.attr('action') === 'qr_code') {
-        this.$router
-          .push({
-            name: 'qr-code',
-            params: {
-              method: tab,
-              system: this.payment_system,
-              data: model.attr('send_data'),
-            },
-          })
-          .catch(() => {})
+        this.$router.push({
+          name: 'qr-code',
+          params: {
+            method: tab,
+            system: this.payment_system,
+          },
+        })
         return true
       }
       if (model.attr('action') === 'deep_link') {
-        this.$router
-          .push({
-            name: 'deep-link',
-            params: {
-              method: tab,
-              system: this.payment_system,
-              link: model.attr('send_data.deeplink'),
-              callback: model.attr('send_data.deepcallback'),
-            },
-          })
-          .catch(() => {})
+        this.$router.push({
+          name: 'deep-link',
+          params: {
+            method: tab,
+            system: this.payment_system,
+          },
+          query: model.attr('send_data'),
+        })
         return true
       } else if (model.attr('action') === 'show_client_fee') {
-        this.$router
-          .push({
-            name: 'client-fee',
-            params: {
-              method: tab,
-              system: this.payment_system,
-              data: model.serialize(),
-            },
-          })
-          .catch(() => {})
+        this.$router.push({
+          name: 'client-fee',
+          params: {
+            method: tab,
+            system: this.payment_system,
+          },
+        })
         return true
       }
 
@@ -275,20 +283,18 @@ export default {
         findGetParameter('action') === 'deep_link' &&
         DOMAIN === location.hostname
       ) {
-        this.$router
-          .push({
-            name: 'deep-link',
-            params: Object.fromEntries(
-              new URL(location.href).searchParams.entries()
-            ),
-          })
-          .catch(() => {})
+        const { method, system, ...query } = Object.fromEntries(
+          new URL(location.href).searchParams.entries()
+        )
+        this.$router.push({
+          name: 'deep-link',
+          params: { method, system },
+          query,
+        })
       } else if (autoSubmitParams) {
         this.formRequest(autoSubmitParams).catch(errorHandler)
       } else {
-        this.$router
-          .push(this.store.location(this.isBreakpointDownLg))
-          .catch(() => {})
+        this.$router.push(this.store.location(this.isBreakpointDownLg))
       }
     },
     waitForFinalOrderStatus() {

@@ -81,6 +81,7 @@ export default {
     FError,
     FLoading,
   },
+  inject: ['form'],
   props: {
     loading: makeProp(PROP_TYPE_BOOLEAN),
     disabled: makeProp(PROP_TYPE_BOOLEAN),
@@ -95,7 +96,6 @@ export default {
     ...mapState([
       'ready',
       'read_only',
-      'submited',
       'need_validate_card',
       'cvv2_requirement',
     ]),
@@ -131,7 +131,11 @@ export default {
         ? format(createDate(), 'MM/YY')
         : '01/19'
 
-      return `required|date_format:MM/yy|after:${minDate},true,MM/yy`
+      return {
+        required: true,
+        date_format: 'MM/yy',
+        after: [minDate, true, 'MM/yy'],
+      }
     },
     validCardNumber() {
       if (this.disabledCardNumber) return
@@ -139,7 +143,8 @@ export default {
 
       let needValidCard =
         !this.hash &&
-        ([16, 19].includes(this.card_number.length) || this.submited)
+        ([16, 19].includes(this.card_number.length) ||
+          this.form.state.isValidating)
 
       return needValidCard ? 'required|ccard' : 'required'
     },
