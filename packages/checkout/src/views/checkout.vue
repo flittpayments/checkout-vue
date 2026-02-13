@@ -188,12 +188,6 @@ export default {
     location(model) {
       this.order = model.data
 
-      if (model.attr('action') === 'qr_page') {
-        this.store.formLoading(false)
-
-        return
-      }
-
       if (model.sendResponse()) return
 
       if (

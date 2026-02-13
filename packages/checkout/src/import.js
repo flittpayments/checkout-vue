@@ -349,9 +349,6 @@ export const Click2payUserExistsNeedOtpCardPage = () =>
     /* webpackChunkName: "63" */ '@/views/click2pay/user-exists-need-otp-card-page'
   )
 
-export const FModalQr = () =>
-  import(/* webpackChunkName: "64" */ '@/components/modal/modal-qr')
-
 export const FSecureMessage = () =>
   import(/* webpackChunkName: "65" */ '@/components/secure-message')
 

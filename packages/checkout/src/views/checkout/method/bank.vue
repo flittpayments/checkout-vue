@@ -59,7 +59,6 @@
           <span v-text="$t('load_more')" />
         </f-button>
       </div>
-      <f-modal-qr v-if="showModalQr" ref="modal" :model="model" />
     </div>
     <div v-else key="2">
       <div class="f-row">
@@ -86,7 +85,7 @@ import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
 import FIcon from '@/components/icon'
 import FButton from '@/components/button/button'
-import { FCountry, FModalQr } from '@/import'
+import { FCountry } from '@/import'
 import { sort } from '@/utils/sort'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { errorHandler, removeDuplicate } from '@/utils/helpers'
@@ -116,7 +115,6 @@ export default {
     FIcon,
     FButton,
     FCountry,
-    FModalQr,
   },
   mixins: [timeoutMixin, resizeMixin],
   inject: ['submit'],
@@ -135,8 +133,6 @@ export default {
       counts: 0,
       spin: false,
       view_: 'bar',
-      model: {},
-      showModalQr: false,
     }
   },
   computed: {
@@ -259,18 +255,7 @@ export default {
           .catch(errorHandler)
       }
     },
-    success(model) {
-      this.model = model.attr('send_data') || {}
-
-      if (model.attr('action') === 'qr_page') {
-        this.showModalQr = true
-        FModalQr()
-          .then(() => this.$nextTick())
-          .then(() => {
-            this.$refs.modal.show()
-          })
-      }
-    },
+    success() {},
     clear() {
       this.search = ''
       this.setView('bar')
