@@ -1,14 +1,12 @@
 <template>
   <div v-if="show">
-    <click2pay-header :class="$style.mb_24" :email="email" />
+    <click2pay-header
+      :class="$style.mb_24"
+      :email="email"
+      :email-short="emailShort"
+    />
     <transition name="f-fade-enter">
-      <click2pay-new-user-success-page-checkout
-        v-if="showRegistration"
-        ref="registration"
-        :start-status="status"
-        :class="$style.mb_36"
-        :email="email"
-      />
+      <click2pay-checkout-form v-if="showRegistration" :class="$style.mb_36" />
       <div v-else :class="$style.mb_44">
         <div
           ref="desc"
@@ -33,30 +31,29 @@
 <script>
 import Click2payHeader from '@/views/click2pay/header'
 import FButton from '@/components/button/button'
-import Click2payNewUserSuccessPageCheckout from '@/views/click2pay/new-user-success-page-checkout'
+import Click2payCheckoutForm from '@/views/click2pay/checkout-form'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
 import { mapState } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
+import { getCards } from '@/click2pay'
 
 export default {
   components: {
     Click2payHeader,
     FButton,
-    Click2payNewUserSuccessPageCheckout,
+    Click2payCheckoutForm,
     Click2payModalAbout,
   },
   data() {
     return {
       show: false,
       showRegistration: false,
-      status: '',
+      emailShort: '',
     }
   },
   computed: {
+    ...mapState('click2pay', ['email']),
     ...mapState('order', ['order_data']),
-    email() {
-      return this.order_data.sender_email
-    },
     masked_card() {
       const card = this.order_data.masked_card.split('X').slice(-1)
       return `<span class="${this.$style.bold}">**** ${card}</span>`
@@ -66,38 +63,25 @@ export default {
     },
   },
   created() {
-    if (this.order_data.click2pay_checkout_data) {
-      this.store
-        .click2payCardEncrypt()
-        .then(({ encryptedCard }) => {
-          this.show = true
-          this.showRegistration = true
-          this.status = 'loading'
+    getCards()
+      .then(({ profiles }) => {
+        this.emailShort = profiles[0].maskedConsumer.maskedEmailAddress
+      })
+      .catch(() => {})
 
-          this.$nextTick(() => {
-            this.$refs.registration.checkout({
-              ...this.order_data.click2pay_checkout_data,
-              encryptedCard,
-            })
-          })
-        })
-        .catch(errorHandler)
-    } else {
-      this.store
-        .click2payCardEncrypt({
-          first_name: ' ',
-          last_name: ' ',
-        })
-        .then(() => {
-          this.show = true
-        })
-        .catch(errorHandler)
-    }
+    this.store
+      .click2payCardEncrypt({
+        first_name: ' ',
+        last_name: ' ',
+      })
+      .then(() => {
+        this.show = true
+      })
+      .catch(errorHandler)
   },
   methods: {
     click() {
       this.showRegistration = true
-      this.status = 'registration'
     },
     open({ target }) {
       if (target !== this.$refs.desc.querySelector('a')) return

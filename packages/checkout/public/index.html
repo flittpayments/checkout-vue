@@ -606,23 +606,16 @@
           options: {
             api_domain,
             show_email: true,
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
           },
           params: {
-            // click2pay_init_enabled: true
-
-            // click2pay_success_page_registration_enabled: true
-            // token: '',
+            // click2pay.priority: true,
             amount: 200,
             currency: 'GEL',
-            merchant_id: 1549901,
+            merchant_id: 1025,
 
-            // click2pay_checkout_registration_enabled: true
-            // token: '',
-            // amount: 200,
-            // currency: 'GEL',
-            // merchant_id: 1549901,
-
-            lang: 'uk',
+            lang: 'en',
           },
         },
         autosubmit: {
@@ -674,7 +667,7 @@
 
       setConfigsOption()
 
-      window.app = render('#app', 'max')
+      window.app = render('#app', 'click2pay')
       // render('#app2', 'min')
       // render('#app3', 'max2')
 

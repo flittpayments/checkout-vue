@@ -17,11 +17,7 @@
         :disabled="loading"
         :class="$style.mb_20"
       />
-      <div :class="$style.mb_32">
-        <f-form-group v-model="rememberMe" name="" component="checkbox">
-          <div v-html="$t('skip_verification_next_time')" />
-        </f-form-group>
-      </div>
+      <click2pay-remember-me :class="$style.mb_32" />
       <transition name="fade-enter">
         <div v-if="message" :class="$style.message">{{ message }}</div>
       </transition>
@@ -58,16 +54,12 @@ import Click2payHeader from '@/views/click2pay/header'
 import FForm from '@/components/form/form/form'
 import FLink from '@/components/link'
 import FOtp from '@/components/otp'
+import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButton from '@/components/button/button'
 import FSvg from '@/components/svg'
 import { timeoutMixin } from '@/mixins/timeout'
-import {
-  getRememberMe,
-  initiateIdentityValidation,
-  complete,
-  setRememberMe,
-  hasCards,
-} from '@/click2pay'
+import { getCards, initiateIdentityValidation, complete } from '@/click2pay'
+import { mask } from '@/utils/mask'
 
 export default {
   components: {
@@ -75,6 +67,7 @@ export default {
     FForm,
     FLink,
     FOtp,
+    Click2payRememberMe,
     FButton,
     FSvg,
   },
@@ -86,7 +79,6 @@ export default {
       second: 0,
       loading: false,
       validationData: '',
-      rememberMe: getRememberMe(),
       messageOk: '',
       message: '',
       maskedValidationChannel: ',',
@@ -111,8 +103,7 @@ export default {
   created() {
     this.second = this.timer
     this.tick()
-    this.resend().catch(() => {})
-    this.store.setClick2payOtp(true)
+    this.getMaskedValidationChannel()
   },
   methods: {
     tick() {
@@ -121,19 +112,20 @@ export default {
 
       this.timeout('tick', 1000)
     },
+    getMaskedValidationChannel() {
+      getCards().then(({ maskedValidationChannel }) => {
+        this.maskedValidationChannel = maskedValidationChannel
+      })
+    },
     resend() {
       this.messageOk = ''
       this.message = ''
 
-      return initiateIdentityValidation()
-        .then(({ maskedValidationChannel }) => {
-          this.maskedValidationChannel = maskedValidationChannel
-        })
-        .catch(error => {
-          this.message = this.$t(error)
+      return initiateIdentityValidation().catch(error => {
+        this.message = this.$t(error)
 
-          return Promise.reject()
-        })
+        return Promise.reject()
+      })
     },
     click() {
       this.second = this.timer
@@ -144,8 +136,8 @@ export default {
         })
         .catch(() => {})
     },
-    format(value = '') {
-      return value.replace(/[^\d]/g, '')
+    format(value) {
+      return mask(value, '#'.repeat(6))
     },
     onSubmit() {
       if (this.loading) return
@@ -154,30 +146,21 @@ export default {
       this.messageOk = ''
       this.message = ''
 
-      complete({ validationData: this.validationData })
+      complete(this.validationData)
         .finally(() => {
           this.loading = false
+          this.validationData = ''
         })
-        .then(() => {
-          setRememberMe(this.rememberMe)
-          this.store.setClick2payOtp(false)
-          hasCards()
-            .then(() => {
-              this.$router.push({ name: 'click2pay' }).catch(() => {})
-            })
-            .catch(() => {
-              this.$router.push({ name: 'card' }).catch(() => {})
-            })
+        .then(({ actionCode }) => {
+          this.store.setClick2payActionCode(actionCode)
+
+          this.$router.push({ name: 'click2pay' }).catch(() => {})
         })
         .catch(error => {
-          this.validationData = ''
-          this.loading = false
           this.message = this.$t(error)
         })
     },
     goCard() {
-      this.store.setClick2payOtp(false)
-
       this.$router.push({ name: 'card' }).catch(() => {})
     },
     goSwitchId() {

@@ -302,16 +302,11 @@ export const FLinkDownloadReceipt = () =>
     /* webpackChunkName: "52_" */ '@/views/checkout/without-sidebar/link-download-receipt'
   )
 
-export const loadUuid = () => import(/* webpackChunkName: "53" */ 'uuid')
-
 export const loadClick2pay = () =>
   import(/* webpackChunkName: "54" */ '@/click2pay')
 
-export const Click2payNewUserSuccessPage = () =>
-  import(/* webpackChunkName: "55" */ '@/views/click2pay/new-user-success-page')
-
-export const Click2payNewUserCardPage = () =>
-  import(/* webpackChunkName: "56" */ '@/views/click2pay/new-user-card-page')
+export const Click2payCheckout = () =>
+  import(/* webpackChunkName: "55" */ '@/views/click2pay/checkout')
 
 export const Click2payOtp = () =>
   import(/* webpackChunkName: "57" */ '@/views/click2pay/otp')
@@ -322,21 +317,11 @@ export const Click2payUserExists = () =>
 export const Click2payUserExistsHeader = () =>
   import(/* webpackChunkName: "59" */ '@/views/click2pay/user-exists-header')
 
-export const Click2payUserExistsCardPage = () =>
-  import(/* webpackChunkName: "60" */ '@/views/click2pay/user-exists-card-page')
-
-export const Click2payUserExistsSuccessPage = () =>
-  import(
-    /* webpackChunkName: "61" */ '@/views/click2pay/user-exists-success-page'
-  )
-
 export const Click2paySwitchId = () =>
   import(/* webpackChunkName: "62" */ '@/views/click2pay/switch-id')
 
-export const Click2payUserExistsNeedOtpCardPage = () =>
-  import(
-    /* webpackChunkName: "63" */ '@/views/click2pay/user-exists-need-otp-card-page'
-  )
+export const Click2payChangeEmail = () =>
+  import(/* webpackChunkName: "63" */ '@/views/click2pay/change-email')
 
 export const FSecureMessage = () =>
   import(/* webpackChunkName: "65" */ '@/components/secure-message')

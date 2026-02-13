@@ -22,7 +22,7 @@
 <script>
 import Click2payCards from '@/views/click2pay/cards'
 import FButton from '@/components/button/button'
-import { profiles, setSrcDigitalCardId } from '@/click2pay'
+import { getCards, setSrcDigitalCardId } from '@/click2pay'
 
 export default {
   components: {
@@ -37,10 +37,10 @@ export default {
     }
   },
   created() {
-    profiles()
+    getCards()
       .then(({ profiles }) => {
         this.show = true
-        this.cards = profiles[0].maskedCards
+        this.cards = profiles[0]?.maskedCards || []
         this.cardsActive = this.cards.filter(
           item => item.digitalCardData.status === 'ACTIVE'
         )

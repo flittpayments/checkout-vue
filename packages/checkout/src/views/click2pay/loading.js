@@ -2,20 +2,16 @@ import { loadClick2pay } from '@/import'
 import { mapState } from '@/utils/store'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
+import { consoleInfo } from '@/utils/console'
 
 export default {
   props: {
     value: makeProp(PROP_TYPE_BOOLEAN, false),
   },
-  data() {
-    return {
-      loaded: false,
-    }
-  },
   computed: {
-    ...mapState(['ready']),
+    ...mapState('click2pay', ['ready']),
+    ...mapState('info', ['click2pay']),
     ...mapState('order', ['ready_to_submit']),
-    ...mapState('params', ['email']),
   },
   watch: {
     ready: 'init',
@@ -27,17 +23,16 @@ export default {
     init() {
       if (!this.ready) return
       if (this.ready_to_submit) return
-      if (!this.store.enabledClick2pay()) return
-      if (this.loaded) return
+      if (!this.click2pay.priority) return
+      if (this.value) return
       this.$emit('input', true)
 
       loadClick2pay()
-        .then(({ loading }) => loading(this.email))
+        .then(({ initializeGetCards }) => initializeGetCards())
         .finally(() => {
-          this.loaded = true
           this.$emit('input', false)
         })
-        .catch(() => {})
+        .catch(error => consoleInfo('Click to Pay loading', error))
     },
   },
   render() {},

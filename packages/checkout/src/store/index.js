@@ -351,8 +351,13 @@ class Store extends Model {
     if (!this.enabledClick2pay()) return
 
     loadClick2pay()
-      .then(({ initClick2pay }) =>
-        initClick2pay(this.state.info.click2pay_srci_dpa_id)
+      .then(({ setIdentityValue, initClick2pay }) =>
+        setIdentityValue(this.state.params.email)
+          .then(() => this.setClick2payEmail(this.state.params.email))
+          .finally(() => {
+            this.state.click2pay.ready = true
+            return initClick2pay(this.state.info.click2pay.sdk_url)
+          })
       )
       .catch(errorHandler)
   }
@@ -542,26 +547,26 @@ class Store extends Model {
   }
   readyToSubmit() {
     return !(
-      this.state.order.show_success_page ||
-      this.enabledClick2paySuccessPageRegistration()
+      this.state.order.show_success_page || this.enabledClick2payCheckout()
     )
   }
   enabledClick2pay() {
     return (
-      !!C2P_SDK &&
       !this.state.options.disable_request &&
-      this.state.info.click2pay_init_enabled
+      this.state.info.click2pay?.init_enabled
     )
   }
-  enabledClick2paySuccessPageRegistration() {
+  enabledClick2payCheckout() {
     return (
       this.enabledClick2pay() &&
-      (this.state.order.click2pay_success_page_registration_enabled ||
-        this.state.order.order_data?.click2pay_checkout_data)
+      this.state.order.order_data?.click2pay_save_card
     )
   }
-  setClick2payOtp(value) {
-    this.state.click2pay_otp = value
+  setClick2payEmail(value) {
+    this.state.click2pay.email = value
+  }
+  setClick2payActionCode(value) {
+    this.state.click2pay.actionCode = value
   }
 }
 

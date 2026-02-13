@@ -46,7 +46,7 @@
 
 <script>
 import Click2payHeader from '@/views/click2pay/header'
-import { profiles, switchId } from '@/click2pay'
+import { getCards, switchUser } from '@/click2pay'
 import FButton from '@/components/button/button.vue'
 import FBox from '@/components/box.vue'
 import FSvg from '@/components/svg.vue'
@@ -71,7 +71,7 @@ export default {
     }
   },
   created() {
-    profiles()
+    getCards()
       .then(({ profiles }) => {
         this.emailShort = profiles[0].maskedConsumer.maskedEmailAddress
       })
@@ -79,8 +79,6 @@ export default {
   },
   methods: {
     goCard() {
-      this.store.setClick2payOtp(false)
-
       this.$router.push({ name: 'card' }).catch(() => {})
     },
     onSubmit() {
@@ -89,14 +87,19 @@ export default {
 
       this.error = ''
 
-      switchId(this.email)
+      switchUser(this.email)
         .finally(() => {
           this.loading = false
         })
-        .then(() => {
-          this.$router.push({ name: 'click2pay_otp' }).catch(() => {})
+        .then(([actionCode, name]) => {
+          this.store.setClick2payEmail(this.email)
+          this.store.setClick2payActionCode(actionCode)
+          this.store.state.params.email = this.email
+
+          this.$router.push({ name }).catch(() => {})
         })
         .catch(error => {
+          this.store.setClick2payActionCode('')
           this.error = error
         })
     },

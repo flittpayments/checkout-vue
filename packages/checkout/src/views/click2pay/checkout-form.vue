@@ -10,6 +10,7 @@
             v-model="countryCode"
             class="f-col-4"
             rules="required"
+            :disabled="loading"
             @calling-code="onCallingCode"
           />
           <f-form-group
@@ -18,6 +19,7 @@
             name="phone_number"
             :label="$t('phone_number')"
             rules="required"
+            :disabled="loading"
             :mask="maskPhone"
           />
         </div>
@@ -26,6 +28,7 @@
           name="last_name"
           :label="$t('last_name')"
           rules="required"
+          :disabled="loading"
           :mask="maskLatinCyrillicWord"
         />
         <f-form-group
@@ -33,11 +36,10 @@
           name="first_name"
           :label="$t('first_name')"
           rules="required"
+          :disabled="loading"
           :mask="maskLatinCyrillicWord"
         />
-        <f-form-group v-model="rememberMe" name="" component="checkbox">
-          <div v-html="$t('remember_me_on_this_device')" />
-        </f-form-group>
+        <click2pay-remember-me :class="$style.mb_16" />
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
         <f-button
           class="f-mb-20"
@@ -85,48 +87,44 @@
 import FBox from '@/components/box'
 import FForm from '@/components/form/form/form'
 import FCallingCodes from '@/components/calling-codes'
+import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButton from '@/components/button/button'
 import FSvg from '@/components/svg'
 import Click2payLoader from '@/views/click2pay/loader'
-import { checkout, setRememberMe, getRememberMe } from '@/click2pay'
-import { makeProp } from '@/utils/props'
-import { PROP_TYPE_STRING } from '@/constants/props'
+import { checkout } from '@/click2pay'
 import { mapState } from '@/utils/store'
 import { maskLatinCyrillicWord, maskPhone } from '@/config/mask'
+import { coinsToAmountString } from '@/utils/helpers'
 
 export default {
   components: {
     FBox,
     FForm,
     FCallingCodes,
+    Click2payRememberMe,
     FButton,
     FSvg,
     Click2payLoader,
   },
-  props: {
-    email: makeProp(PROP_TYPE_STRING),
-    startStatus: makeProp(PROP_TYPE_STRING, '', value =>
-      ['registration', 'loading'].includes(value)
-    ),
-  },
   data() {
     return {
-      status: '',
+      status: 'registration',
       loading: false,
       countryCode: '',
       callingCode: '',
       phoneNumber: '',
       lastName: '',
       firstName: '',
-      rememberMe: getRememberMe(),
       error: '',
       maskLatinCyrillicWord: maskLatinCyrillicWord,
       maskPhone: maskPhone,
     }
   },
   computed: {
-    ...mapState('params', ['lang']),
-    ...mapState('info', ['country_user_by_ip']),
+    ...mapState('options', ['title']),
+    ...mapState('click2pay', ['email']),
+    ...mapState('info', ['country_user_by_ip', 'click2pay']),
+    ...mapState('order', ['order_data']),
     isRegistration() {
       return this.status === 'registration'
     },
@@ -140,24 +138,19 @@ export default {
       return this.status === 'expired'
     },
     terms() {
-      return `<a href="${this.termsUrl}" target="_blank">
-        ${this.$t('terms')}
-      </a>`
+      return `<a href="${this.termsUrl}" target="_blank">${this.$t('terms')}</a>`
     },
     termsUrl() {
       return this.$t('c2p_terms_url')
     },
     privacyNotice() {
-      return `<a href="${this.privacyNoticeUrl}" target="_blank">
-        ${this.$t('privacy_notice')}
-      </a>`
+      return `<a href="${this.privacyNoticeUrl}" target="_blank">${this.$t('privacy_notice')}</a>`
     },
     privacyNoticeUrl() {
       return this.$t('c2p_privacy_notice_url')
     },
   },
   created() {
-    this.status = this.startStatus
     this.countryCode = this.country_user_by_ip
   },
   methods: {
@@ -167,21 +160,31 @@ export default {
 
       this.error = ''
 
-      setRememberMe(this.rememberMe)
-
       this.store
         .click2payCardEncrypt({
           first_name: this.firstName,
           last_name: this.lastName,
         })
-        .then(({ encryptedCard, firstName, lastName }) =>
-          checkout({
+        .then(({ encryptedCard, firstName, lastName }) => {
+          const {
+            currency: transactionCurrencyCode,
+            order_id: merchantOrderId,
+          } = this.order_data
+          const {
+            merchantCategoryCode,
+            acquirerBIN,
+            authenticationMethodType,
+            challengeIndicator,
+          } = this.click2pay
+
+          return checkout({
             encryptedCard,
             consumer: {
               countryCode: this.countryCode,
+              locale: 'en',
               firstName,
               lastName,
-              languageCode: this.lang,
+              fullName: `${firstName} ${lastName}`,
               mobileNumber: {
                 countryCode: this.callingCode,
                 phoneNumber: this.phoneNumber,
@@ -191,7 +194,29 @@ export default {
                 identityType: 'EMAIL_ADDRESS',
                 identityValue: this.email,
               },
-              emailAddress: this.email,
+            },
+            dpaTransactionOptions: {
+              transactionAmount: {
+                transactionAmount: coinsToAmountString(
+                  this.order_data.actual_amount
+                ),
+                transactionCurrencyCode,
+              },
+              merchantCategoryCode,
+              merchantOrderId,
+              merchantName: this.title,
+              acquirerBIN,
+              acquirerMerchantId: String(this.order_data.merchant_id),
+              authenticationPreferences: {
+                authenticationMethods: [
+                  {
+                    authenticationMethodType,
+                    methodAttributes: {
+                      challengeIndicator,
+                    },
+                  },
+                ],
+              },
             },
           })
             .finally(() => {
@@ -203,33 +228,9 @@ export default {
             .catch(error => {
               this.error = error
             })
-        )
+        })
         .catch(() => {
           this.status = 'expired'
-        })
-    },
-    checkout(input) {
-      checkout(input)
-        .then(() => {
-          this.status = 'registered'
-        })
-        .catch(error => {
-          const {
-            consumer: {
-              countryCode,
-              firstName,
-              lastName,
-              mobileNumber: { phoneNumber },
-            },
-          } = input
-
-          this.countryCode = countryCode
-          this.phoneNumber = phoneNumber
-          this.lastName = lastName
-          this.firstName = firstName
-          this.error = error
-
-          this.status = 'registration'
         })
     },
     onCallingCode(value) {
@@ -287,5 +288,9 @@ export default {
   line-height: px-to-rem(20px);
   font-weight: 500;
   color: #de4761;
+}
+
+.mb_16 {
+  margin-bottom: px-to-rem(16px);
 }
 </style>

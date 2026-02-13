@@ -4,9 +4,9 @@ import { consoleInfo } from '@/utils/console'
 
 export default {
   computed: {
-    ...mapState(['ready']),
-    ...mapState('order', ['ready_to_submit']),
-    ...mapState('params', ['email']),
+    ...mapState('click2pay', ['ready']),
+    ...mapState('info', ['click2pay']),
+    ...mapState('order', ['ready_to_submit', 'need_verify_code']),
   },
   watch: {
     ready: 'init',
@@ -16,20 +16,22 @@ export default {
   },
   methods: {
     init() {
-      const name = 'Click to Pay otp'
+      const text = 'Click to Pay redirect'
       if (!this.ready) return
       if (this.ready_to_submit) return
-      if (!this.store.enabledClick2pay()) return
-      console.time(name)
+      if (this.need_verify_code) return
+      if (!this.click2pay.priority) return
+      console.time(text)
 
       loadClick2pay()
-        .then(({ needOtp }) => needOtp(this.email))
-        .then(() => {
-          console.timeEnd(name)
-          this.$router.push({ name: 'click2pay_otp' }).catch(() => {})
+        .then(({ redirect }) => redirect())
+        .then(([actionCode, name]) => {
+          console.timeEnd(text)
+          this.store.setClick2payActionCode(actionCode)
+          this.$router.push({ name }).catch(() => {})
         })
         .catch(error => {
-          consoleInfo(name, error)
+          consoleInfo(text, error)
         })
     },
   },

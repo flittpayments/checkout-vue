@@ -22,7 +22,8 @@ import FSvg from '@/components/svg'
 import { validatorMixin } from '@/mixins/validator'
 import { mapState } from '@/utils/store'
 import { checkoutSelectedCard } from '@/click2pay'
-import { errorHandler } from '@/utils/helpers'
+import { coinsToAmountString, errorHandler } from '@/utils/helpers'
+import { v4 as uuidv4 } from 'uuid'
 
 export default {
   components: {
@@ -40,9 +41,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('options', ['show_pay_button_amount']),
-    ...mapState('params', ['currency']),
+    ...mapState('options', ['show_pay_button_amount', 'title']),
+    ...mapState('params', ['currency', 'order_id', 'merchant_id']),
     ...mapState(['total_amount']),
+    ...mapState('info', ['click2pay']),
     disabled() {
       return this.isError && this.isSubmit
     },
@@ -59,9 +61,40 @@ export default {
 
       this.isSubmit = true
 
+      const {
+        merchantCategoryCode,
+        acquirerBIN,
+        authenticationMethodType,
+        challengeIndicator,
+      } = this.click2pay
+
       this.validate()
         .then(() =>
-          checkoutSelectedCard().catch(error => {
+          checkoutSelectedCard({
+            payloadTypeIndicatorCheckout: 'FULL',
+            dpaTransactionOptions: {
+              transactionAmount: {
+                transactionAmount: coinsToAmountString(this.total_amount),
+                transactionCurrencyCode: this.currency,
+              },
+              merchantCategoryCode,
+              merchantOrderId:
+                this.order_id || crypto?.randomUUID() || uuidv4(),
+              merchantName: this.title,
+              acquirerBIN,
+              acquirerMerchantId: String(this.merchant_id),
+              authenticationPreferences: {
+                authenticationMethods: [
+                  {
+                    authenticationMethodType,
+                    methodAttributes: {
+                      challengeIndicator,
+                    },
+                  },
+                ],
+              },
+            },
+          }).catch(error => {
             this.error = error
 
             return Promise.reject()

@@ -93,11 +93,7 @@ export const createRouter = name => {
                             next({
                               name: verify,
                             })
-                          else if (instanceStore.state.click2pay_otp) {
-                            next({
-                              name: click2pay_otp,
-                            })
-                          } else next()
+                          else next()
                         },
                         meta: {
                           method: card,

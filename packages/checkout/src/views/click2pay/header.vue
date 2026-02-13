@@ -2,8 +2,8 @@
   <div :class="$style.wrapper">
     <svg-click2pay-visa-mastercard :class="$style.icon" />
     <div :class="$style.right">
-      <div v-if="email" :class="$style.email">{{ emailText }}</div>
       <div v-if="emailShort" :class="$style.email">{{ emailShort }}</div>
+      <div v-else-if="email" :class="$style.email">{{ emailText }}</div>
       <slot />
     </div>
   </div>

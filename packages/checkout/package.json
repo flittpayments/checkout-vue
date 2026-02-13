@@ -8,7 +8,7 @@
   },
   "author": "Mykhailo Holubovskyi <lamerumiata@gmail.com>",
   "scripts": {
-    "dev": "vue-cli-service serve --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --c2p_sdk= --c2p_src_initiator_id= --sentry_dsn= --environment=development",
+    "dev": "vue-cli-service serve --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
     "serve": "serve -s dist --cors",
     "build": "npm run gulp && vue-cli-service build --no-module",
     "build:localhost": "npm run gulp && vue-cli-service build --no-module --public-path=http://localhost:3000/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
@@ -84,8 +84,6 @@
       "SAAS_CDN_URL": "readonly",
       "SAAS_TEMPLATE_NAME": "readonly",
       "API_DOMAIN": "readonly",
-      "C2P_SDK": "readonly",
-      "C2P_SRC_INITIATOR_ID": "readonly",
       "PUBLIC_PATH": "readonly",
       "LIBRARY_TYPE": "readonly"
     },

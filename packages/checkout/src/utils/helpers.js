@@ -121,3 +121,5 @@ export const codeToFlag = code => {
 
 export const amountToCoins = value =>
   Math.round(parseFloat(value).toFixed(2) * 100) || 0
+
+export const coinsToAmountString = value => (value / 100).toFixed(2)

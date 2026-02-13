@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { profiles, hasCards } from '@/click2pay'
+import { getCards } from '@/click2pay'
 import SvgClick2payVisaMastercard from '@/svg/click2pay-visa-mastercard.svg'
 import FLink from '@/components/link.vue'
 
@@ -40,23 +40,17 @@ export default {
     },
   },
   created() {
-    profiles()
+    getCards()
       .then(({ profiles }) => {
         this.show = true
         this.email = profiles[0].maskedConsumer.maskedEmailAddress
         this.cards = profiles[0].maskedCards
       })
       .catch(() => {})
-
-    this.goClick2pay()
   },
   methods: {
     goClick2pay() {
-      hasCards()
-        .then(() => {
-          this.$router.push({ name: 'click2pay' }).catch(() => {})
-        })
-        .catch(() => {})
+      this.$router.push({ name: 'click2pay' }).catch(() => {})
     },
     goSwitchId() {
       this.$router.push({ name: 'click2pay_switch_id' }).catch(() => {})

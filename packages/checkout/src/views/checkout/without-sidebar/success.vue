@@ -5,8 +5,7 @@
       <svg-decline v-if="isDeclined" :class="$style.svg" />
       <div :class="$style.title" v-text="title" />
     </div>
-    <click2pay-new-user-success-page-wrapper />
-    <click2pay-user-exists-success-page-wrapper />
+    <click2pay-checkout-wrapper />
     <f-info />
     <f-price readonly />
     <f-link-download-receipt v-if="receipt_url" />
@@ -29,8 +28,7 @@ import SvgApproved from '@/svg/approved.svg'
 import SvgDecline from '@/svg/decline.svg'
 import { mapState } from '@/utils/store'
 import { FButtonReturnToSite, FLinkDownloadReceipt } from '@/import'
-import Click2payNewUserSuccessPageWrapper from '@/views/click2pay/new-user-success-page-wrapper'
-import Click2payUserExistsSuccessPageWrapper from '@/views/click2pay/user-exists-success-page-wrapper'
+import Click2payCheckoutWrapper from '@/views/click2pay/checkout-wrapper'
 
 export default {
   components: {
@@ -40,8 +38,7 @@ export default {
     SvgApproved,
     FLinkDownloadReceipt,
     FButtonReturnToSite,
-    Click2payNewUserSuccessPageWrapper,
-    Click2payUserExistsSuccessPageWrapper,
+    Click2payCheckoutWrapper,
   },
   computed: {
     ...mapState('order', ['order_data', 'response_url', 'receipt_url']),

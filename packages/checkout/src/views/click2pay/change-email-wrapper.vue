@@ -1,16 +1,18 @@
 <template>
-  <click2pay-user-exists-need-otp-card-page v-if="show" />
+  <transition name="f-fade-enter">
+    <click2pay-change-email v-if="show" />
+  </transition>
 </template>
 
 <script>
-import { Click2payUserExistsNeedOtpCardPage, loadClick2pay } from '@/import'
-import { mapState } from '@/utils/store'
+import { Click2payChangeEmail, loadClick2pay } from '@/import'
+import { mapState, mapStateGetSet } from '@/utils/store'
 import { timeoutMixin } from '@/mixins/timeout'
 import { consoleInfo } from '@/utils/console'
 
 export default {
   components: {
-    Click2payUserExistsNeedOtpCardPage,
+    Click2payChangeEmail,
   },
   mixins: [timeoutMixin],
   data() {
@@ -19,9 +21,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['ready']),
+    ...mapState('click2pay', ['ready']),
     ...mapState('order', ['ready_to_submit']),
     ...mapState('params', ['email']),
+    ...mapStateGetSet(['params']),
   },
   watch: {
     ready: 'init',
@@ -34,15 +37,16 @@ export default {
     init() {
       if (!this.ready) return
       if (this.ready_to_submit) return
-      if (!this.store.enabledClick2pay()) return
 
       loadClick2pay()
-        .then(({ needOtp }) => needOtp(this.email))
+        .then(({ initialize, validateEmail }) =>
+          initialize().then(() => validateEmail(this.email))
+        )
         .then(() => {
           this.show = true
         })
         .catch(error => {
-          consoleInfo('Click to Pay user-exists-need-otp-card', error)
+          consoleInfo('Click to Pay', error)
           this.show = false
         })
     },

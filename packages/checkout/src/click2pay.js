@@ -1,14 +1,11 @@
-import { loadUuid } from '@/import'
 import { loadScript } from '@/utils/load-script'
-import { memoizePromise } from '@/utils/memoize-promise'
-import { i18n } from '@/i18n/index'
+import { memoizeSinglePromise } from '@/utils/memoize-single-promise'
+import { i18n } from '@/i18n'
 import { sessionStorage } from '@/utils/store'
 import { validate } from 'vee-validate'
 import { captureMessage } from '@/sentry/error-buffer'
-
-const delay = memoizePromise(
-  time => new Promise(resolve => setTimeout(resolve, time))
-)
+import { consoleInfo } from '@/utils/console'
+import { mergeDeep } from '@/utils/object'
 
 // Standard Error Codes
 // $t('c2p_unknown_error')
@@ -21,40 +18,37 @@ const delay = memoizePromise(
 // $t('c2p_rate_limit_exceeded')
 // $t('c2p_service_error')
 
-let vSrcAdapter
-let vSrc
-let srciDpaId
-let srciTransactionId
-export let srcCorrelationId
-export let idToken
+let VSDK
+let sdkUrl
 export let srcDigitalCardId
-let idTokens
+let identityValue
 
 const clickToPay = 'Click to Pay'
 const sdkLoad = 'sdk load'
-const error = 'error'
-const createTransactionIdText = 'createTransactionId'
-const initText = 'init'
-const isRecognizedText = 'isRecognized'
-const identityLookupEmailText = 'identityLookupEmail'
+const initializeText = 'initialize'
+const getCardsText = 'getCards'
 const checkoutText = 'checkout'
 const initiateIdentityValidationText = 'initiateIdentityValidation'
-const completeIdentityValidationText = 'completeIdentityValidation'
-const getSrcProfileText = 'getSrcProfile'
 const unbindAppInstanceText = 'unbindAppInstance'
 
-const logMessage = (name, response = 'ok') => {
-  console.log(clickToPay, name, JSON.stringify(response, null, 2))
+const logMessage = (type, name, response = 'ok') => {
+  consoleInfo(clickToPay, type, name, JSON.stringify(response, null, 2))
 }
 
+const logPayload = (...args) => logMessage('payload', ...args)
+
 const onMessage = name => response => {
-  logMessage(`response ${name}`, response)
+  if (response.actionCode === 'ERROR') {
+    return Promise.reject(response)
+  }
+
+  logMessage('response', name, response)
 
   return response
 }
 
 const onError = name => response => {
-  const reason = response?.error?.reason || error
+  const reason = response?.error?.reason || 'error'
   const message = `${clickToPay} ${name} ${reason}`
 
   console.warn(message, JSON.stringify(response, null, 2))
@@ -65,315 +59,238 @@ const onError = name => response => {
   return Promise.reject(`c2p_${reason.replace(/ /g, '_').toLowerCase()}`)
 }
 
-const loadMemoize = memoizePromise(() =>
-  loadScript(C2P_SDK).then(onMessage(sdkLoad)).catch(onError(sdkLoad))
+const loadMemoize = memoizeSinglePromise(() =>
+  loadScript(sdkUrl).then(onMessage(sdkLoad)).catch(onError(sdkLoad))
 )
 
-const createTransactionIdMemoize = memoizePromise(() =>
-  loadUuid()
-    .then(({ v4 }) => (srciTransactionId = v4()))
-    .then(onMessage(createTransactionIdText))
-    .catch(onError(createTransactionIdText))
-)
+const initializeMemoize = memoizeSinglePromise(() => {
+  VSDK = window.VSDK
 
-const initMemoize = memoizePromise(() => {
-  vSrcAdapter = window.vAdapters.VisaSRCI
-  vSrc = new vSrcAdapter()
-
-  const initData = {
-    srcInitiatorId: C2P_SRC_INITIATOR_ID,
-    srciDpaId,
-    srciTransactionId,
+  const payload = {
     dpaTransactionOptions: {
-      paymentOptions: {
-        dynamicDataType: 'TAVV',
-        dpaPanRequested: false,
-      },
-      payloadTypeIndicator: 'PAYMENT',
-      customInputData: {
-        checkoutOrchestrator: 'merchant',
-      },
+      dpaBillingPreference: 'NONE',
     },
   }
 
-  logMessage(initText, initData)
+  logPayload(initializeText, payload)
+
+  return VSDK.initialize(payload)
+    .then(onMessage(initializeText))
+    .catch(onError(initializeText))
+})
+
+const getCardsMemoize = memoizeSinglePromise(data => {
+  const payload = mergeDeep(
+    {
+      consumerIdentity: {
+        identityProvider: 'SRC',
+        identityValue,
+        identityType: 'EMAIL_ADDRESS',
+      },
+    },
+    data
+  )
+  logPayload(getCardsText, payload)
 
   return (
-    vSrc
-      .init(initData)
-      .then(response => {
-        const reason = Object.keys(response)
-        if (reason.length) {
-          return Promise.reject({ error: { reason } })
-        }
-        return response
-      })
-      .then(onMessage(initText))
-      // $t('c2p_srci_id_missing')
-      // $t('c2p_dpa_id_missing')
-      // $t('c2p_srci_txn_id_missing')
-      .catch(onError(initText))
+    VSDK.getCards(payload)
+      .then(onMessage(getCardsText))
+      // $t('c2p_auth_invalid')
+      // $t('c2p_acct_inaccessible')
+      // $t('c2p_acct_fraud')
+      // $t('c2p_consumer_id_missing')
+      // $t('c2p_consumer_id_format_unsupported')
+      // $t('c2p_consumer_id_format_invalid')
+      // $t('c2p_otp_send_failed')
+      // $t('c2p_validation_data_missing')
+      // $t('c2p_validation_data_expired')
+      // $t('c2p_validation_data_invalid')
+      // $t('c2p_retries_exceeded')
+      .catch(onError(getCardsText))
   )
 })
 
-const isRecognizedMemoize = memoizePromise(() =>
-  vSrc
-    .isRecognized()
-    .then(onMessage(isRecognizedText))
-    // $t('c2p_acct_inaccessible')
-    .catch(onError(isRecognizedText))
-)
-
-const identityLookupEmailMemoize = memoizePromise(identityValue =>
-  vSrc
-    .identityLookup({
-      identityProvider: 'SRC',
-      identityValue,
-      type: 'EMAIL',
-    })
-    .then(onMessage(`${identityLookupEmailText} ${identityValue}`))
-    // $t('c2p_fraud')
-    // $t('c2p_id_format_unsupported')
-    // $t('c2p_consumer_id_missing')
-    // $t('c2p_acct_inaccessible')
-    .catch(onError(`${identityLookupEmailText} ${identityValue}`))
-)
-
-const identityLookupEmail = email =>
-  validate(email, 'required|email')
-    .then(({ valid }) =>
-      valid ? Promise.resolve() : Promise.reject('email is not valid')
-    )
-    .then(() => identityLookupEmailMemoize(email))
-
 export const checkout = input => {
   input = getCheckoutSettings(input)
-  logMessage(checkoutText, input)
+  logPayload(checkoutText, input)
 
   return (
-    vSrc
-      .checkout(input)
+    VSDK.checkout(input)
       .then(onMessage(checkoutText))
-      // $t('c2p_risk_decision')
+      // $t('c2p_auth_invalid')
+      // $t('c2p_acct_inaccessible')
       // $t('c2p_card_missing')
-      // $t('c2p_card_add_failed')
+      // $t('c2p_unable_to_connect')
+      // $t('c2p_card_not_recognized')
       // $t('c2p_card_security_code_missing')
+      // $t('c2p_billing_address_required')
       // $t('c2p_card_invalid')
       // $t('c2p_card_exp_invalid')
-      // $t('c2p_cardid_missing')
-      // $t('c2p_card_not_recognized')
-      // $t('c2p_acct_inaccessible')
-      // $t('c2p_merchant_data_invalid')
-      // $t('c2p_unable_to_connect')
-      // $t('c2p_auth_invalid')
+      // $t('c2p_card_add_failed')
       // $t('c2p_terms_and_conditions_not_accepted')
+      // $t('c2p_card_not_recognized')
+      // $t('c2p_authentication_method_not_supported')
+      // $t('c2p_otp_send_failed')
+      // $t('c2p_retries_exceeded')
+      // $t('c2p_validation_data_missing')
+      // $t('c2p_validation_data_expired')
+      // $t('c2p_validation_data_invalid')
       .catch(onError(checkoutText))
   )
 }
 
 export const initiateIdentityValidation = () =>
-  vSrc
-    .initiateIdentityValidation()
+  VSDK.initiateIdentityValidation()
     .then(onMessage(initiateIdentityValidationText))
     // $t('c2p_otp_send_failed')
     // $t('c2p_retries_exceeded')
-    // $t('c2p_id_invalid')
-    // $t('c2p_unrecognized_consumer_id')
     // $t('c2p_acct_inaccessible')
     .catch(onError(initiateIdentityValidationText))
 
-const completeIdentityValidation = input =>
-  vSrc
-    .completeIdentityValidation(input)
-    .then(onMessage(completeIdentityValidationText))
-    // $t('c2p_unknown_error')
-    // $t('c2p_code_invalid')
-    // $t('c2p_code_expired')
-    // $t('c2p_retries_exceeded')
-    // $t('c2p_validation_data_missing')
-    // $t('c2p_acct_inaccessible')
-    .catch(onError(completeIdentityValidationText))
-
-export const getSrcProfileMemoize = memoizePromise(idTokens =>
-  vSrc
-    .getSrcProfile({ idTokens })
-    .then(onMessage(getSrcProfileText))
-    // $t('c2p_auth_invalid')
-    // $t('c2p_acct_inaccessible')
-    .catch(onError(getSrcProfileText))
-)
-
 export const unbindAppInstance = () =>
-  vSrc
-    .unbindAppInstance(idToken)
+  VSDK.unbindAppInstance()
     .then(onMessage(unbindAppInstanceText))
     // $t('c2p_auth_invalid')
     // $t('c2p_acct_inaccessible')
     .catch(onError(unbindAppInstanceText))
 
-const isRecognized = () =>
-  isRecognizedMemoize().then(({ recognized }) =>
-    recognized ? Promise.resolve() : Promise.reject('no recognized')
+export const setIdentityValue = email =>
+  validateEmail(email)
+    .then(() => (identityValue = email))
+    .catch(error => consoleInfo(clickToPay, 'setIdentityValue', error))
+
+export const validateEmail = email =>
+  validate(email, 'required|email').then(({ valid }) =>
+    valid ? Promise.resolve() : Promise.reject('email is not valid')
   )
 
-const noRecognized = () =>
-  isRecognizedMemoize().then(({ recognized }) =>
-    recognized ? Promise.reject('is recognized') : Promise.resolve()
+export const getCards = () => getCardsMemoize()
+
+export const initialize = () => loadMemoize().then(() => initializeMemoize())
+
+export const initializeGetCards = () =>
+  validateEmail(identityValue)
+    .then(() => initialize())
+    .then(() => getCards())
+
+export const initClick2pay = value => {
+  sdkUrl = value
+  return initialize()
+}
+
+export const allowedCheckout = () =>
+  initializeGetCards().then(response =>
+    ['ADD_CARD', 'SUCCESS'].includes(response.actionCode)
+      ? Promise.resolve(response)
+      : Promise.reject('actionCode is not ADD_CARD or SUCCESS')
   )
 
-const isIdentityLookupEmail = email => () =>
-  identityLookupEmail(email).then(({ consumerPresent }) =>
-    consumerPresent
-      ? Promise.resolve()
-      : Promise.reject('no identityLookupEmail')
-  )
-
-const noIdentityLookupEmail = email => () =>
-  identityLookupEmail(email).then(({ consumerPresent }) =>
-    consumerPresent
-      ? Promise.reject('is identityLookupEmail')
-      : Promise.resolve()
-  )
-
-const setIdTokensStorage = value => (idTokens = value)
-
-const getIdTokensStorage = () =>
-  idTokens ? Promise.resolve(idTokens) : Promise.reject('no idTokensStorage')
-
-const hasIdTokensStorage = () =>
-  idTokens ? Promise.resolve() : Promise.reject()
-
-const noIdTokensStorage = () =>
-  idTokens ? Promise.reject('is idTokensStorage') : Promise.resolve()
-
-const UserExists = () =>
-  Promise.any([hasIdTokensStorage(), isRecognized()]).catch(() =>
-    Promise.reject('no UserExists')
-  )
-
-const getIdTokensRecognized = () =>
-  isRecognizedMemoize().then(({ idTokens }) =>
-    idTokens ? Promise.resolve(idTokens) : Promise.reject()
-  )
-
-export const initClick2pay = dpaId =>
-  loadMemoize()
-    .then(() => (srciDpaId = dpaId))
-    .then(() => createTransactionIdMemoize())
-    .then(() => initMemoize())
-    .then(() => isRecognizedMemoize())
-
-export const needRegistration = email =>
-  loadMemoize()
-    .then(() => createTransactionIdMemoize())
-    .then(() => initMemoize())
-    .then(noRecognized)
-    .then(noIdTokensStorage)
-    .then(noIdentityLookupEmail(email))
+export const redirect = () =>
+  initializeGetCards().then(({ actionCode }) => [
+    actionCode,
+    getRouterName(actionCode),
+  ])
 
 export const setRememberMe = value => sessionStorage.set('rememberMe', value)
 
 export const getRememberMe = () => !!sessionStorage.get('rememberMe')
 
-export const complianceSettings = () => {
-  let complianceResources = [
-    {
-      complianceType: 'TERMS_AND_CONDITIONS',
-      uri: i18n.t('c2p_terms_url'),
-    },
-    {
-      complianceType: 'PRIVACY_POLICY',
-      uri: i18n.t('c2p_privacy_notice_url'),
-    },
-  ]
-  if (getRememberMe()) {
-    complianceResources.push({
-      complianceType: 'REMEMBER_ME',
-      uri: 'visa.checkout.com/privacy',
+export const complete = validationData => {
+  const cache = getCardsMemoize.get()
+  getCardsMemoize.clear()
+  return getCardsMemoize({
+    validationData,
+  })
+    .then(response =>
+      response.actionCode === 'SUCCESS'
+        ? Promise.resolve(response)
+        : Promise.reject('actionCode is not SUCCESS')
+    )
+    .catch(response => {
+      getCardsMemoize.set(cache)
+      return Promise.reject(response)
     })
-  }
-  return {
-    complianceResources,
-  }
 }
-
-export const getCheckoutSettings = input => ({
-  srciTransactionId,
-  dpaTransactionOptions: {
-    customInputData: {
-      checkoutOrchestrator: 'merchant',
-    },
-  },
-  complianceSettings: complianceSettings(),
-  ...input,
-})
-
-export const needOtp = email =>
-  loadMemoize()
-    .then(() => createTransactionIdMemoize())
-    .then(() => initMemoize())
-    .then(noRecognized)
-    .then(isIdentityLookupEmail(email))
-    .then(noIdTokensStorage)
-
-export const profiles = () =>
-  getIdTokensRecognized()
-    .catch(getIdTokensStorage)
-    .then(getSrcProfileMemoize)
-    .then(response => {
-      srcCorrelationId = response.srcCorrelationId
-      idToken = response.profiles[0].idToken
-      return response
-    })
-
-export const complete = input =>
-  completeIdentityValidation(input)
-    .then(({ idToken }) => [idToken])
-    .then(setIdTokensStorage)
-    .then(profiles)
-
-export const isUserExists = () =>
-  loadMemoize()
-    .then(() => createTransactionIdMemoize())
-    .then(() => initMemoize())
-    .then(UserExists)
-    .then(profiles)
-
-export const hasCards = () =>
-  profiles().then(({ profiles }) =>
-    profiles[0].maskedCards.length
-      ? Promise.resolve()
-      : Promise.reject('no cards')
-  )
 
 export const setSrcDigitalCardId = value => (srcDigitalCardId = value)
 
-export const checkoutSelectedCard = () =>
+export const checkoutSelectedCard = data =>
   checkout({
-    srcCorrelationId,
     srcDigitalCardId,
+    ...data,
   }).then(({ checkoutResponse }) =>
     checkoutResponse
       ? Promise.resolve({ data: { token: checkoutResponse } })
       : Promise.reject('c2p_no_checkout_response')
   )
 
-export const switchId = email =>
-  unbindAppInstance()
-    .then(() => {
-      getSrcProfileMemoize.cache.clear()
-      setIdTokensStorage(null)
-      idToken = null
-    })
-    .then(() => identityLookupEmail(email))
-    // $t('c2p_no identity_lookup_email')
-    .then(({ consumerPresent }) =>
-      consumerPresent
-        ? Promise.resolve()
-        : Promise.reject('c2p_no identity_lookup_email')
+export const switchUser = email =>
+  validateEmail(email)
+    .then(() => getCardsMemoize.clear())
+    .then(() =>
+      getCardsMemoize({
+        consumerIdentity: {
+          identityValue: email,
+        },
+      })
     )
+    .then(({ actionCode }) => {
+      setIdentityValue(email)
 
-export const loading = email =>
-  Promise.any([needRegistration(email), needOtp(email), isUserExists()]).then(
-    () => delay(200)
+      return [actionCode, getRouterName(actionCode)]
+    })
+
+const getRouterName = actionCode =>
+  ({
+    SUCCESS: 'click2pay',
+    PENDING_CONSUMER_IDV: 'click2pay_otp',
+    ADD_CARD: 'card',
+  })[actionCode]
+
+const getCheckoutSettings = data =>
+  mergeDeep(
+    {
+      dpaTransactionOptions: {
+        dpaBillingPreference: 'NONE',
+        dpaAcceptedBillingCountries: ['GE'],
+        consumerNationalIdentifierRequested: false,
+        merchantCountryCode: 'GE',
+        paymentOptions: [
+          {
+            dpaDynamicDataTtlMinutes: 2,
+            dynamicDataType: 'CARD_APPLICATION_CRYPTOGRAM_LONG_FORM',
+          },
+        ],
+        dpaLocale: 'en_GE',
+        authenticationPreferences: {
+          authenticationMethods: [
+            {
+              authenticationSubject: 'CARDHOLDER',
+            },
+          ],
+          payloadRequested: 'AUTHENTICATED',
+        },
+      },
+      complianceSettings: {
+        complianceResources: [
+          {
+            complianceType: 'TERMS_AND_CONDITIONS',
+            uri: i18n.t('c2p_terms_url'),
+          },
+          {
+            complianceType: 'PRIVACY_POLICY',
+            uri: i18n.t('c2p_privacy_notice_url'),
+          },
+          ...(getRememberMe()
+            ? [
+                {
+                  complianceType: 'REMEMBER_ME',
+                  uri: i18n.t('c2p_cookie_notice_url'),
+                },
+              ]
+            : []),
+        ],
+      },
+    },
+    data
   )
