@@ -275,18 +275,8 @@ export const countriesSearch = () =>
 export const FLoading = () =>
   import(/* webpackChunkName: "42" */ '@/components/loading-custom')
 
-export const LoadingMono = () =>
-  import(/* webpackChunkName: "45" */ '@/views/checkout/loading-monobank')
-
 export const Installments = () =>
-  import(
-    /* webpackChunkName: "46" */ '@/views/checkout/method/installments/list'
-  )
-
-export const InstallmentsSystem = () =>
-  import(
-    /* webpackChunkName: "47" */ '@/views/checkout/method/installments/system'
-  )
+  import(/* webpackChunkName: "46" */ '@/views/checkout/method/installments')
 
 export const FMode = () =>
   import(/* webpackChunkName: "48" */ '@/components/mode')

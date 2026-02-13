@@ -4,5 +4,4 @@ export const methodRoute = {
   loans: 'system',
   emoney: 'system',
   crypto: 'system',
-  installments: 'installments-system',
 }

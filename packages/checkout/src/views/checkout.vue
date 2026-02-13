@@ -227,8 +227,6 @@ export default {
         this.$router
           .push(this.store.location(this.isBreakpointDownLg))
           .catch(() => {})
-      } else if (this.$route.query.next) {
-        this.$router.push(this.$route.query.next).catch(() => {})
       }
     },
     locationPending() {

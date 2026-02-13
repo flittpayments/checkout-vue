@@ -31,8 +31,6 @@ import {
   BlankWallets,
   MostPopular,
   Installments,
-  InstallmentsSystem,
-  LoadingMono,
   Click2paySwitchId,
 } from '@/import'
 
@@ -225,14 +223,6 @@ export const createRouter = name => {
                 },
               },
               {
-                path: ':method(installments)/:system',
-                name: 'installments-system',
-                component: InstallmentsSystem,
-                meta: {
-                  method: installments,
-                },
-              },
-              {
                 path: ':method/:system',
                 name: 'system',
                 component: System,
@@ -255,16 +245,6 @@ export const createRouter = name => {
                 path: menu,
                 name: menu,
                 component: Menu,
-              },
-              {
-                name: 'loading-monobank',
-                path: 'loading-monobank/:system',
-                component: LoadingMono,
-                meta: {
-                  noLoading: true,
-                  noTop: true,
-                  method: installments,
-                },
               },
             ],
           },

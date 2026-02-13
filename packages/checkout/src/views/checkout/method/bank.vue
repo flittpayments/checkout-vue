@@ -105,6 +105,7 @@ const supportSystemRoute = [
   'loans',
   'emoney',
   'crypto',
+  'installments',
 ]
 
 export default {

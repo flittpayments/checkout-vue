@@ -35,7 +35,7 @@ export default {
     },
   },
   methods: {
-    parseField({ label, placeholder, name, type, validate, mask = '' }) {
+    parseField({ label, placeholder, name, type, validate }) {
       const format = (value = '') => value.toLowerCase().replace(/[. ]/g, '_')
       label = format(label)
       placeholder = format(placeholder)
@@ -43,19 +43,9 @@ export default {
       let noLabelFloating = Boolean(
         (label && placeholder) || (!label && !placeholder)
       )
-      let prependText
 
       if (!label && placeholder) {
         label = placeholder
-        placeholder = ''
-      }
-
-      if (mask) {
-        let lastNumberIndex = mask.search(/(\d+)(?!.*\d)/) + 1
-        prependText = mask.slice(0, lastNumberIndex)
-        mask = mask.slice(lastNumberIndex)
-        noLabelFloating = true
-        label = label || placeholder
         placeholder = ''
       }
 
@@ -68,8 +58,6 @@ export default {
         rules: this.parseValidate(validate),
         autocomplete: 'on',
         type,
-        mask,
-        prependText,
       }
     },
     parseValidate(validate) {
