@@ -68,6 +68,13 @@ task(
     const from = 'en'
     const dirname = `./src/i18n/need-translation/`
     let translation
+    const escapePoMsgstr = (str = '') =>
+      String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"')
+        .replace(/\r/g, '\\r')
+        .replace(/\n/g, '\\n')
+        .replace(/\t/g, '\\t')
 
     return fsp
       .readFile(`./src/i18n/po/${from}/messages.json`, 'utf-8')
@@ -94,7 +101,10 @@ task(
               .then(content => content.map(([name]) => name))
               .then(content =>
                 content.map(
-                  name => `msgid "${name}"\nmsgstr "${translation[name]}"\n`
+                  name =>
+                    `msgid "${name}"\nmsgstr "${escapePoMsgstr(
+                      translation[name]
+                    )}"\n`
                 )
               )
               .then(content => content.join('\n'))

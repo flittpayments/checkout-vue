@@ -11,7 +11,7 @@ export const timeoutMixin = {
     })
   },
   methods: {
-    timeout(callback, time, clearTimeout = true) {
+    timeout(callback, time = 0, clearTimeout = true) {
       if (!this.timeout.data) this.timeout.data = {}
       if (!clearTimeout && this.timeout.data[callback]) return
 
@@ -19,6 +19,7 @@ export const timeoutMixin = {
       this.timeout.data[callback] = setTimeout(this.proxy(callback), time)
     },
     clearTimeout(callback) {
+      if (!this.timeout.data) return
       clearTimeout(this.timeout.data[callback])
       delete this.timeout.data[callback]
     },

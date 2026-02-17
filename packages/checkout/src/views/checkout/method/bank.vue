@@ -175,7 +175,7 @@ export default {
       return this.list.slice(0, this.counts)
     },
     showCountry() {
-      return this.enableCountry && this.listCountry.length > 0
+      return this.enableCountry && this.listCountry.length > 1
     },
     showSearch() {
       return !this.noSearch && this.listSelect.length > 10
@@ -272,7 +272,7 @@ export default {
       this.view_ = view
     },
     listSelectFilter({ country, method }) {
-      return this.enableCountry && method === 'banks'
+      return this.showCountry && method === 'banks'
         ? [this.default_country, 'XX'].includes(country)
         : true
     },

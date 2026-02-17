@@ -301,7 +301,6 @@ class Store extends Model {
 
     this.initFavicon()
     this.initMethods()
-    this.initLocaleMessageEn()
     this.initLang()
     this.initCssDevice()
     this.initHasFields()
@@ -319,12 +318,6 @@ class Store extends Model {
       this.state.options.methods,
       this.state.options.methods_disabled
     )
-  }
-  initLocaleMessageEn() {
-    i18n.setLocaleMessage('en', {
-      ...i18n._vm.messages.en,
-      ...this.state.messages['en'],
-    })
   }
   initLang() {
     this.changeLang(

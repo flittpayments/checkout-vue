@@ -214,7 +214,7 @@ export const ErrorModal = () =>
   import(/* webpackChunkName: "22" */ '@/views/error_modal')
 
 export const System = () =>
-  import(/* webpackChunkName: "23" */ '@/views/checkout/method/system')
+  import(/* webpackChunkName: "23" */ '@/views/checkout/method/system/info')
 
 export const FSubscription = () =>
   import(/* webpackChunkName: "24" */ '@/components/subscription')
