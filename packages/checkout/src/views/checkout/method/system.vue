@@ -17,7 +17,6 @@
       <f-button-pay @success="success" />
       <f-button-cancel-wrapper />
     </div>
-    <f-alert-gdpr-yapily-wrapper v-if="showGdprYapily" />
   </div>
 </template>
 
@@ -31,7 +30,6 @@ import FFieldsUser from '@/components/fields/user'
 import FOffer from '@/components/offer'
 import FButtonPay from '@/components/button/button-pay'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
-import FAlertGdprYapilyWrapper from '@/components/alert/alert-gdpr-yapily-wrapper'
 import { mapState } from '@/utils/store'
 
 export default {
@@ -45,7 +43,6 @@ export default {
     FOffer,
     FButtonPay,
     FButtonCancelWrapper,
-    FAlertGdprYapilyWrapper,
   },
   data() {
     return {
@@ -63,12 +60,6 @@ export default {
     system() {
       return this.$route.params.system
     },
-    id() {
-      return `${this.country}_${this.logo}`
-    },
-    showGdprYapily() {
-      return this.country === 'gb'
-    },
   },
   watch: {
     $route: 'initSystem',
@@ -81,19 +72,12 @@ export default {
       this.$router.push({ name: this.method }).catch(() => {})
     },
     initSystem() {
-      let {
-        name,
-        iban,
-        logo,
-        form,
-        country = '',
-      } = this.tabs[this.method][this.system]
+      let { name, iban, logo, form } = this.tabs[this.method][this.system]
 
       this.name = name
       this.iban = iban
       this.logo = logo
       this.form = form || {}
-      this.country = country.toLowerCase()
     },
     success() {},
   },

@@ -272,9 +272,6 @@ export const FCountry = () =>
 export const countriesSearch = () =>
   import(/* webpackChunkName: "40" */ '@/config/countries-search')
 
-export const FAlertGdprYapily = () =>
-  import(/* webpackChunkName: "41" */ '@/components/alert/alert-gdpr-yapily')
-
 export const FLoading = () =>
   import(/* webpackChunkName: "42" */ '@/components/loading-custom')
 
