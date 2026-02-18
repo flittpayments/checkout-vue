@@ -122,6 +122,8 @@ export const store = () => import(/* webpackChunkName: "07" */ '@/store')
 export const configDefault = () =>
   import(/* webpackChunkName: "08" */ '@/config/config-default')
 
+export const plugins = () => import(/* webpackChunkName: "09" */ '@/plugins')
+
 export const loadCheckout = () =>
   import(/* webpackChunkName: "1" */ '@flittpayments/js-sdk').then(
     module => module.default
