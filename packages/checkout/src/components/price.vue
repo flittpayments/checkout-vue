@@ -47,7 +47,7 @@
           <tr v-if="showDiscount">
             <td class="f-pr-16" v-text="$t('discount')" />
             <td>
-              <span v-if="discount_percent">{{ discountPercent }}</span>
+              <f-percent v-if="discount_percent" :value="discount_percent" />
               <span v-if="discount_percent && discount_amount"> + </span>
               <f-amount
                 v-if="discount_amount"
@@ -81,9 +81,11 @@ import { errorHandler } from '@/utils/helpers'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { timeoutMixin } from '@/mixins/timeout'
+import FPercent from '@/components/base/percent.vue'
 
 export default {
   components: {
+    FPercent,
     FPreloader,
     FAmount,
     InputAmount,
@@ -179,9 +181,6 @@ export default {
         this.isSubscription &&
         !this.isTrial
       )
-    },
-    discountPercent() {
-      return parseFloat(this.discount_percent * 100).toFixed(2) * 1 + '%'
     },
   },
   watch: {
