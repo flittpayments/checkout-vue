@@ -3,9 +3,7 @@
     <component :is="tagAmount" :class="amountClass"
       >{{ integer }}<component :is="tagFractional">{{ fractional }}</component>
     </component>
-    <template v-if="currency">
-      <span :class="currencyClasses" v-text="$t(currency)" />
-    </template>
+    <span v-if="currency" :class="classCurrency" v-text="$t(currency)" />
   </span>
 </template>
 
@@ -16,36 +14,32 @@ import {
   PROP_TYPE_BOOLEAN,
 } from '@/constants/props'
 import { makeProp } from '@/utils/props'
+import { mapState } from '@/utils/store'
 
 export default {
   props: {
-    value: makeProp(PROP_TYPE_NUMBER_STRING),
+    value: makeProp(PROP_TYPE_NUMBER_STRING, 0),
     currency: makeProp(PROP_TYPE_STRING),
     sup: makeProp(PROP_TYPE_BOOLEAN, false),
     amountClass: makeProp(PROP_TYPE_STRING),
     currencyClass: makeProp(PROP_TYPE_STRING),
     noBold: makeProp(PROP_TYPE_BOOLEAN, false),
   },
-  data() {
-    return {
-      separator: '.',
-    }
-  },
   computed: {
+    ...mapState('params', ['lang']),
+    format() {
+      return new Intl.NumberFormat(this.lang, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    },
     amount() {
-      let result = this.value / 100
+      const value = this.value / 100
       try {
-        result = new Intl.NumberFormat().format(result)
-        // eslint-disable-next-line no-empty
-      } catch (e) {}
-
-      if (this.value % 100 === 0) {
-        result = result + this.separator + '00'
-      } else if (this.value % 10 === 0) {
-        result = result + '0'
+        return this.format.format(value)
+      } catch {
+        return value.toFixed(2)
       }
-
-      return result
     },
     integer() {
       return String(this.amount).slice(0, -2)
@@ -59,15 +53,9 @@ export default {
     tagFractional() {
       return this.sup ? 'sup' : 'span'
     },
-    currencyClasses() {
+    classCurrency() {
       return [this.currencyClass, this.$style.currency]
     },
-  },
-  created() {
-    try {
-      this.separator = new Intl.NumberFormat().format(0.1)[1]
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
   },
 }
 </script>
