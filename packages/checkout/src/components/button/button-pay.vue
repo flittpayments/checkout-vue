@@ -60,11 +60,7 @@ export default {
   methods: {
     click() {
       this.isSubmit = true
-      this.submit()
-        .then(model => {
-          this.$emit('success', model)
-        })
-        .catch(errorHandler)
+      this.submit().catch(errorHandler)
     },
   },
 }

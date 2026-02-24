@@ -187,6 +187,15 @@ class Store extends Model {
       }
     )
   }
+  getAutoSubmitParams() {
+    const infoParams = this.state.info.autosubmit_params
+
+    if (infoParams) {
+      this.state.params.payment_system = String(infoParams.payment_system)
+
+      return infoParams
+    }
+  }
   activeMethod() {
     let active_method = this.state.options.active_method
 
@@ -567,6 +576,11 @@ class Store extends Model {
   }
   setClick2payActionCode(value) {
     this.state.click2pay.actionCode = value
+  }
+  getTabByMethodId(id) {
+    return Object.values(this.state.tabs)
+      .flatMap(Object.values)
+      .find(method => method.id === id)?.tab
   }
 }
 

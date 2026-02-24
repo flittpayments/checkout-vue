@@ -26,8 +26,12 @@ import {
   Error,
   ErrorModal,
   System,
+  MethodInfo,
+  MethodQrCode,
+  MethodDeepLink,
   WithoutSidebar,
   Menu,
+  Loading,
   BlankWallets,
   MostPopular,
   Installments,
@@ -220,11 +224,37 @@ export const createRouter = name => {
               },
               {
                 path: ':method/:system',
-                name: 'system',
                 component: System,
-                meta: route => ({
-                  method: route.params.method,
-                }),
+                props: true,
+                children: [
+                  {
+                    path: 'info',
+                    name: 'system',
+                    component: MethodInfo,
+                    meta: route => ({
+                      method: route.params.method,
+                    }),
+                    props: true,
+                  },
+                  {
+                    path: 'qr-code',
+                    name: 'qr-code',
+                    component: MethodQrCode,
+                    meta: route => ({
+                      method: route.params.method,
+                    }),
+                    props: true,
+                  },
+                  {
+                    path: 'deep-link',
+                    name: 'deep-link',
+                    component: MethodDeepLink,
+                    meta: route => ({
+                      method: route.params.method,
+                    }),
+                    props: true,
+                  },
+                ],
               },
             ],
           },
@@ -241,6 +271,18 @@ export const createRouter = name => {
                 path: menu,
                 name: menu,
                 component: Menu,
+              },
+              {
+                name: 'loading',
+                path: 'loading',
+                component: Loading,
+                props: true,
+                meta: {
+                  noLoading: true,
+                  noTop: true,
+                  isCentered: true,
+                  method: installments,
+                },
               },
             ],
           },

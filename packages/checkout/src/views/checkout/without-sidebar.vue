@@ -7,6 +7,7 @@
           <div class="f-top-inner" />
         </div>
         <div class="f-method">
+          <div v-if="isCentered" class="f-flex-grow-1" />
           <transition name="f-fade-enter">
             <router-view />
           </transition>
@@ -37,6 +38,9 @@ export default {
     ...mapState('options', ['full_screen']),
     showTop() {
       return this.full_screen && !this.$route.meta.noTop
+    },
+    isCentered() {
+      return this.full_screen && this.$route.meta.isCentered
     },
   },
 }

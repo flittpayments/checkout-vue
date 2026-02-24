@@ -214,7 +214,7 @@ export const ErrorModal = () =>
   import(/* webpackChunkName: "22" */ '@/views/error_modal')
 
 export const System = () =>
-  import(/* webpackChunkName: "23" */ '@/views/checkout/method/system/info')
+  import(/* webpackChunkName: "23" */ '@/views/checkout/method/system')
 
 export const FSubscription = () =>
   import(/* webpackChunkName: "24" */ '@/components/subscription')
@@ -328,3 +328,19 @@ export const FSecureMessage = () =>
 
 export const FProcessed = () =>
   import(/* webpackChunkName: "66" */ '@/components/processed')
+
+export const MethodInfo = () =>
+  import(/* webpackChunkName: "68" */ '@/views/checkout/method/system/info')
+
+export const MethodQrCode = () =>
+  import(/* webpackChunkName: "69" */ '@/views/checkout/method/system/qr-code')
+
+export const MethodDeepLink = () =>
+  import(
+    /* webpackChunkName: "70" */ '@/views/checkout/method/system/deep-link'
+  )
+
+export const Loading = () =>
+  import(
+    /* webpackChunkName: "71" */ '@/views/checkout/without-sidebar/loading'
+  )

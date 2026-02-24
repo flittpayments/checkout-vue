@@ -480,20 +480,17 @@
           options: {
             methods: ['installments'],
             api_domain,
-            active_tab: 'installments',
+            offerta_url:
+              'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
             theme: {
               type: 'dark',
               preset: 'euphoric_pink',
             },
           },
           params: {
-            // amount: 500000,
-            // currency: 'GEL',
-            // merchant_id: 1549901,
-            // token: '',
-
-            // WAL-582
-            button: '594c49e6f646c609e5c10cf06a066f80ebb3d816',
+            amount: 10000,
+            currency: 'GEL',
+            merchant_id: 1012,
           },
         },
         fields_custom: {
@@ -663,11 +660,29 @@
             amount: 100,
           },
         },
+        payme: {
+          options: {
+            theme: {
+              type: 'dark',
+              preset: 'euphoric_pink',
+            },
+            methods: ['banks'],
+            api_domain,
+            // offerta_url:
+            //   'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
+          },
+          params: {
+            // token: '959d072265bc12e2df93691099965652eeb0dbff', // server auto submit // amount: 10000, currency: 'UZS', merchant_id: 1027,
+            amount: 10000,
+            currency: 'UZS',
+            merchant_id: 1027,
+          },
+        },
       }
 
       setConfigsOption()
 
-      window.app = render('#app', 'click2pay')
+      window.app = render('#app', 'installments')
       // render('#app2', 'min')
       // render('#app3', 'max2')
 

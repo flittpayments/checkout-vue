@@ -1,6 +1,7 @@
 <template>
   <transition name="f-fade-enter">
     <div v-if="ready" key="1">
+      <div v-if="title" :class="$uiClass('title')">{{ title }}</div>
       <div class="f-row">
         <div v-if="showCountry" class="f-col f-bank-country">
           <f-country
@@ -140,6 +141,13 @@ export default {
     ...mapState(['ready', 'has_fields']),
     ...mapState('options', ['countries']),
     ...mapStateGetSet('options', ['default_country']),
+    ...mapStateGetSet('params', ['payment_system']),
+    title() {
+      // $t('select_bank_to_pay_banks')
+      // $t('select_bank_to_pay_installments')
+      const key = `select_bank_to_pay_${this.$route.meta.method}`
+      return this.$te(key) ? this.$t(key) : ''
+    },
     // [{id: 147209, country: 'PL', name: '', logo: 'mbank'}]
     values() {
       return Object.values(this.config)
@@ -251,12 +259,10 @@ export default {
           .push({ name: 'system', params: { method, system: id } })
           .catch(() => {})
       } else {
-        this.submit({ payment_system: id })
-          .then(this.success)
-          .catch(errorHandler)
+        this.payment_system = id
+        this.submit().catch(errorHandler)
       }
     },
-    success() {},
     clear() {
       this.search = ''
       this.setView('bar')
@@ -279,3 +285,20 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.title {
+  font-size: px-to-rem(18px);
+  line-height: px-to-rem(26px);
+  font-weight: 500;
+  margin-bottom: px-to-rem(24px);
+}
+
+.title_light {
+  color: #3d3d3d;
+}
+
+.title_dark {
+  color: #fff;
+}
+</style>

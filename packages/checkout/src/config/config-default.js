@@ -97,6 +97,7 @@ export const configDefault = {
     order_id: '',
     save_card: true,
     verification_type: null,
+    payment_system: '',
     token: '',
     promocode: '',
   },

@@ -27,7 +27,7 @@ import FModalErrorWrapper from '@/components/modal/modal-error-wrapper'
 import FModal3ds from '@/components/modal/modal-3ds'
 import FAlertGdprWrapper from '@/components/alert/alert-gdpr-wrapper'
 import FAlertNotificationWrapper from '@/components/alert/alert-notification-wrapper'
-import { errorHandler } from '@/utils/helpers'
+import { errorHandler, findGetParameter } from '@/utils/helpers'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { timeoutMixin } from '@/mixins/timeout'
 import { resizeMixin } from '@/mixins/resize'
@@ -53,6 +53,8 @@ export default {
   provide() {
     return {
       formRequest: this.formRequest,
+      cancelWaitForFinalOrderStatus: this.cancelWaitForFinalOrderStatus,
+      waitForFinalOrderStatus: this.waitForFinalOrderStatus,
     }
   },
   data() {
@@ -67,7 +69,7 @@ export default {
     ...mapState('options.theme', ['type']),
     ...mapState(['loading', 'info']),
     ...mapState('options', ['autosubmit']),
-    ...mapState('params', ['token', 'fee']),
+    ...mapState('params', ['token', 'fee', 'payment_system']),
 
     ...mapStateGetSet(['ready', 'order']),
     ...mapStateGetSet('params', [
@@ -159,8 +161,6 @@ export default {
       this.store.infoSuccess(model.instance(model.attr('info')))
       this.orderSuccess(model.instance(model.attr('order')))
       this.store.cardSuccess(model.attr('cards'))
-
-      this.autoSubmit()
     },
     orderSuccess(model) {
       this.location(model)
@@ -210,29 +210,72 @@ export default {
         ) {
           this.$router.push({ name: method }).catch(() => {})
         }
-        this.locationPending()
-
+        this.waitForFinalOrderStatus()
         return
       }
 
       this.store.formLoading(false)
 
-      if (model.needVerifyCode()) {
+      const tab = this.store.getTabByMethodId(this.payment_system)
+      const autoSubmitParams = this.store.getAutoSubmitParams()
+
+      if (model.attr('action') === 'qr_code') {
+        this.$router
+          .push({
+            name: 'qr-code',
+            params: {
+              method: tab,
+              system: this.payment_system,
+              data: model.attr('send_data'),
+            },
+          })
+          .catch(() => {})
+      } else if (model.attr('action') === 'deep_link') {
+        this.$router
+          .push({
+            name: 'deep-link',
+            params: {
+              method: tab,
+              system: this.payment_system,
+              link: model.attr('send_data.deeplink'),
+              callback: model.attr('send_data.deepcallback'),
+            },
+          })
+          .catch(() => {})
+      } else if (model.needVerifyCode()) {
         this.$router.push({ name: 'verify' }).catch(() => {})
       } else if (model.inProgress()) {
         this.store.hideError()
         this.$router.push({ name: 'success' }).catch(() => {})
-      } else if (!this.flag && this.store.location(this.isBreakpointDownLg)) {
+      } else if (
+        !this.flag &&
+        findGetParameter('action') === 'deep_link' &&
+        DOMAIN === location.hostname
+      ) {
+        this.flag = true
+        this.$router
+          .push({
+            name: 'deep-link',
+            params: Object.fromEntries(
+              new URL(location.href).searchParams.entries()
+            ),
+          })
+          .catch(() => {})
+      } else if (!this.flag && autoSubmitParams) {
+        this.flag = true
+        this.formRequest(autoSubmitParams).catch(errorHandler)
+      } else if (!this.flag) {
         this.flag = true
         this.$router
           .push(this.store.location(this.isBreakpointDownLg))
           .catch(() => {})
       }
     },
-    locationPending() {
+    waitForFinalOrderStatus() {
+      this.store.formLoading(true)
       this.count++
       this.timeout('getOrder', fib(this.count) * 1000)
-      this.timeout('getOrderClear', 4 * 60 * 1000, false)
+      this.timeout('cancelWaitForFinalOrderStatus', 4 * 60 * 1000, false)
     },
     getOrder() {
       this.store
@@ -242,28 +285,13 @@ export default {
         .then(this.orderSuccess)
         .catch(errorHandler)
     },
-    getOrderClear() {
+    cancelWaitForFinalOrderStatus() {
+      this.count = 0
       this.clearTimeout('getOrder')
-      this.clearTimeout('getOrderClear')
+      this.clearTimeout('cancelWaitForFinalOrderStatus')
     },
     submit3ds() {
       model3ds.submit3dsForm()
-    },
-    autoSubmit() {
-      if (!this.info.autosubmit_params) return
-
-      this.store.formLoading(true)
-
-      return this.store
-        .sendRequest(
-          'api.checkout.form',
-          'request',
-          this.info.autosubmit_params,
-          {},
-          this.submitProgress
-        )
-        .then(this.submitSuccess, this.submitError)
-        .catch(errorHandler)
     },
   },
 }

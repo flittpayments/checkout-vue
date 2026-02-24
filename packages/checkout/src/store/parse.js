@@ -83,6 +83,7 @@ function parse(systems, method) {
       {
         ...value,
         method,
+        tab: method,
         id,
         logo: logo(value, id),
         iban: id.split('|')[1] || '',

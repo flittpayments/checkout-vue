@@ -1,28 +1,20 @@
 <template>
   <div>
-    <div class="f-system">
-      <f-icon :name="logo" :type="method" class="f-system-icon" size="48" />
-      <div class="f-system-name">{{ name }}</div>
-
-      <div>{{ iban }}</div>
-      <f-button-close class="f-system-close" @click="goMethod" />
-    </div>
-    <div class="f-bank-desc" v-text="$t('bank_desc')" />
+    <div :class="$uiClass('title')" v-text="$t('enter_details_to_continue')" />
+    <div class="f-bank-desc" v-text="$t('bank_desc', { name: info.name })" />
     <div class="f-container-sm">
-      <f-fields-bank :fields="form.fields" />
+      <f-fields-bank :fields="info.form?.fields" />
       <f-fields-customer />
       <f-fields-custom />
       <f-fields-user />
       <f-offer />
-      <f-button-pay @success="success" />
+      <f-button-pay />
       <f-button-cancel-wrapper />
     </div>
   </div>
 </template>
 
 <script>
-import FIcon from '@/components/icon'
-import { FButtonClose } from '@/components/button/button-close'
 import FFieldsBank from '@/components/fields/bank'
 import FFieldsCustomer from '@/components/fields/customer'
 import FFieldsCustom from '@/components/fields/custom'
@@ -31,11 +23,11 @@ import FOffer from '@/components/offer'
 import FButtonPay from '@/components/button/button-pay'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
 import { mapState } from '@/utils/store'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_STRING } from '@/constants/props'
 
 export default {
   components: {
-    FIcon,
-    FButtonClose,
     FFieldsBank,
     FFieldsCustomer,
     FFieldsCustom,
@@ -44,42 +36,32 @@ export default {
     FButtonPay,
     FButtonCancelWrapper,
   },
-  data() {
-    return {
-      name: '',
-      iban: '',
-      logo: '',
-      form: {},
-    }
+  props: {
+    method: makeProp(PROP_TYPE_STRING),
+    system: makeProp(PROP_TYPE_STRING),
   },
   computed: {
     ...mapState(['tabs']),
-    method() {
-      return this.$route.params.method
+    info() {
+      return this.tabs[this.method][this.system]
     },
-    system() {
-      return this.$route.params.system
-    },
-  },
-  watch: {
-    $route: 'initSystem',
-  },
-  created() {
-    this.initSystem()
-  },
-  methods: {
-    goMethod() {
-      this.$router.push({ name: this.method }).catch(() => {})
-    },
-    initSystem() {
-      let { name, iban, logo, form } = this.tabs[this.method][this.system]
-
-      this.name = name
-      this.iban = iban
-      this.logo = logo
-      this.form = form || {}
-    },
-    success() {},
   },
 }
 </script>
+
+<style lang="scss" module>
+.title {
+  font-size: px-to-rem(20px);
+  line-height: px-to-rem(29px);
+  font-weight: 500;
+  margin-bottom: px-to-rem(8px);
+}
+
+.title_light {
+  color: #3d3d3d;
+}
+
+.title_dark {
+  color: #fff;
+}
+</style>
