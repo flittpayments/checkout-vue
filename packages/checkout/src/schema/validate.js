@@ -124,7 +124,10 @@ class Validate {
   }
 
   log(message) {
-    captureMessage(message, 'warning')
+    if (DOMAIN === location.hostname) {
+      captureMessage(message, 'warning')
+    }
+
     console.warn(message)
   }
 
