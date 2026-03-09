@@ -3,7 +3,7 @@
     <div v-if="full_screen" class="f-top"><div class="f-top-inner" /></div>
     <f-info />
     <f-price />
-    <f-button-wallet-el :no-append="!showWallets" classname="f-mb-32" />
+    <f-button-wallet-el :no-append="showWalletsTab" classname="f-mb-32" />
     <div
       v-if="showTitle"
       class="f-menu-title"
@@ -37,12 +37,9 @@ export default {
   mixins: [resizeMixin],
   computed: {
     ...mapState('options', ['full_screen']),
-    ...mapState(['has_fields', 'can_make_payment']),
-    showWallets() {
-      return !this.has_fields
-    },
+    ...mapState(['showWalletsTab', 'can_make_payment']),
     showTitle() {
-      return this.showWallets && this.can_make_payment
+      return !this.showWalletsTab && this.can_make_payment
     },
   },
 }

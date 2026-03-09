@@ -130,6 +130,8 @@ export const configDefault = {
   fields_customer: [],
   validate_expdate: true,
   isOnlyCard: true,
+  isOnlyWallets: false,
+  showWalletsTab: false,
   region: '',
   show_gdpr_frame: false,
   subscription: configSubscription[subscriptionType],

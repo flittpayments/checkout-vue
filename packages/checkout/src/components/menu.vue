@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapState('options', ['methods']),
-    ...mapState(['has_fields', 'can_make_payment']),
+    ...mapState(['showWalletsTab', 'can_make_payment']),
     className() {
       return function (item) {
         return [
@@ -79,7 +79,7 @@ export default {
       }
     },
     list() {
-      return this.has_fields && this.can_make_payment
+      return this.showWalletsTab && this.can_make_payment
         ? this.methods
         : this.methods.filter(removeWallets)
     },

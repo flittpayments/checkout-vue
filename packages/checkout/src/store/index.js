@@ -169,6 +169,8 @@ class Store extends Model {
     }
     this.initHasFields()
     this.initIsOnlyCard()
+    this.initIsOnlyWallets()
+    this.initShowWalletsTab()
     this.initClick2pay()
   }
   cardSuccess(data) {
@@ -308,6 +310,8 @@ class Store extends Model {
     this.initCssDevice()
     this.initHasFields()
     this.initIsOnlyCard()
+    this.initIsOnlyWallets()
+    this.initShowWalletsTab()
     initCssVariable(this.state.css_variable)
     this.initTotalAmount()
     this.initMethodsDisabled()
@@ -345,6 +349,14 @@ class Store extends Model {
   initIsOnlyCard() {
     let methods = this.state.options.methods.filter(removeWallets)
     this.state.isOnlyCard = methods.length === 1 && methods[0] === 'card'
+  }
+  initIsOnlyWallets() {
+    let methods = this.state.options.methods
+    this.state.isOnlyWallets = methods.length === 1 && methods[0] === 'wallets'
+  }
+  initShowWalletsTab() {
+    this.state.showWalletsTab =
+      this.state.has_fields || this.state.isOnlyWallets
   }
   initTotalAmount() {
     this.state.total_amount = this.state.params.amount
@@ -580,15 +592,19 @@ class Store extends Model {
   getRouteName(isBreakpointDownLg = false) {
     const methods = this.state.options.methods
     const active = this.state.options.active_tab
-    const isOnlyWallets = methods.length === 1 && methods[0] === 'wallets'
-    const showWalletsTab = this.state.has_fields || isOnlyWallets
+    const getRootDomain = hostname => hostname.split('.').slice(-2).join('.')
+
     let name = methods.includes(active) ? active : methods[0]
 
-    if (name === 'wallets' && !showWalletsTab) {
+    if (name === 'wallets' && !this.state.showWalletsTab) {
       name = methods.filter(removeWallets)[0]
     }
 
-    if (isOnlyWallets) {
+    if (
+      this.state.options.theme.layout === 'wallets_only' ||
+      (this.state.isOnlyWallets &&
+        getRootDomain(DOMAIN) !== getRootDomain(location.hostname))
+    ) {
       name = 'blank-wallets'
     } else if (active === 'menu' && isBreakpointDownLg) {
       name = active
