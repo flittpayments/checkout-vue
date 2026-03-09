@@ -3,7 +3,7 @@
     <div v-if="full_screen" class="f-top"><div class="f-top-inner" /></div>
     <f-info />
     <f-price />
-    <f-button-wallet-el v-show="!has_fields" classname="f-mb-32" />
+    <f-button-wallet-el :no-append="!showWallets" classname="f-mb-32" />
     <div
       v-if="showTitle"
       class="f-menu-title"
@@ -38,8 +38,11 @@ export default {
   computed: {
     ...mapState('options', ['full_screen']),
     ...mapState(['has_fields', 'can_make_payment']),
+    showWallets() {
+      return !this.has_fields
+    },
     showTitle() {
-      return this.can_make_payment && !this.has_fields
+      return this.showWallets && this.can_make_payment
     },
   },
 }
