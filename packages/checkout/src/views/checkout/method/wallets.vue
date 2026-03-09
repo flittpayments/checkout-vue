@@ -1,6 +1,8 @@
 <template>
   <div class="f-container-sm">
-    <f-price v-if="isBreakpointDownLg" />
+    <template v-if="isBreakpointDownLg">
+      <f-price />
+    </template>
     <f-fields-customer />
     <f-fields-custom />
     <f-fields-user />

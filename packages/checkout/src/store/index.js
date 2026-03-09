@@ -334,12 +334,13 @@ class Store extends Model {
     loadStyleAdaptive()
   }
   initHasFields() {
-    this.state.has_fields =
+    this.state.has_fields = Boolean(
       !this.state.options.amount_readonly ||
-      this.state.fields_customer.length ||
-      this.state.fields_custom.length ||
-      select('#f-fields') ||
-      this.state.options.offerta_url
+        this.state.fields_customer.length ||
+        this.state.fields_custom.length ||
+        select('#f-fields') ||
+        this.state.options.offerta_url
+    )
   }
   initIsOnlyCard() {
     let methods = this.state.options.methods.filter(removeWallets)
@@ -410,7 +411,6 @@ class Store extends Model {
       this.setState(config)
       this.initLang()
       this.initHasFields()
-      this.initIsOnlyCard()
       this.initTotalAmount()
       this.initMethodsDisabled()
     })
