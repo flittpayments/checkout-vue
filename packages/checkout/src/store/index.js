@@ -150,7 +150,7 @@ class Store extends Model {
     this.info(model)
 
     this.state.options.active_tab =
-      findGetParameter('active_tab') ||
+      mappingMethod(findGetParameter('active_tab')) ||
       this.parseActiveTab(model) ||
       this.state.options.active_tab
     this.state.options.active_method =

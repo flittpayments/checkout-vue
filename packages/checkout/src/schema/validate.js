@@ -209,12 +209,12 @@ class Validate {
 
   activeTab() {
     const getParameter = findGetParameter('active_tab')
-    const active_tab = getParameter || this.options.active_tab
+    const active_tab = mappingMethod(getParameter) || this.options.active_tab
     const show_menu_first = this.options.show_menu_first
     const methods = this.options.methods || []
     const methodsLength = methods.filter(removeWallets).length
 
-    if (getParameter && !configMethods.includes(mappingMethod(getParameter))) {
+    if (getParameter && !configMethods.includes(getParameter)) {
       this.log(
         `GET parameter active_tab=${getParameter} must be one of ${configMethods.join(', ')}`
       )
