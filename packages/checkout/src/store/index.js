@@ -11,6 +11,7 @@ import {
   getRouteName,
   findGetParameter,
 } from '@/utils/helpers'
+import { removeMostPopular } from '@/utils/method'
 import { sendRequest } from '@/api'
 import { isExist } from '@/utils/inspect'
 import { i18n, loadLanguageAsync, getBrowserLanguage } from '@/i18n/index'
@@ -21,6 +22,7 @@ import loadCardImg from '@/store/card-img'
 import { methods, most_popular_icons, tabs, tabs_order } from '@/store/parse'
 import { localStorage } from '@/utils/store'
 import configSubscription from '@/config/subscription'
+import { allowAutoSubmit } from '@/config/allow-auto-submit'
 import { activeMethod } from '@/config/active-method'
 import { methodRoute } from '@/config/method-route'
 import { mappingMethod } from '@/config/mapping-method'
@@ -178,6 +180,7 @@ class Store extends Model {
   }
   location(isBreakpointDownLg) {
     return (
+      this.getRouteIfSinglePaymentMethod() ||
       this.activeMethod() || {
         name: getRouteName(
           this.state.options.methods,
@@ -189,12 +192,64 @@ class Store extends Model {
   }
   getAutoSubmitParams() {
     const infoParams = this.state.info.autosubmit_params
+    const methodId = this.getMethodIdIfAutoSubmitAllowed()
 
     if (infoParams) {
       this.state.params.payment_system = String(infoParams.payment_system)
 
       return infoParams
+    } else if (methodId) {
+      this.state.params.payment_system = methodId
+
+      return this.formParams()
     }
+  }
+  getRouteIfSinglePaymentMethod() {
+    if (this.getAutoSubmitParams()) return
+
+    const singleMethod = this.getSingleMethodIfExists()
+
+    if (!singleMethod) return
+
+    return {
+      name: 'system',
+      params: { method: singleMethod.method, system: singleMethod.id },
+    }
+  }
+  getMethodIdIfAutoSubmitAllowed() {
+    if (this.state.has_fields) return
+
+    const singleMethod = this.getSingleMethodIfExists()
+
+    if (!singleMethod) return
+
+    if (singleMethod.form?.fields.length) return
+
+    return singleMethod.id
+  }
+  getSingleMethodIfExists() {
+    let tabs = this.state.options.methods.filter(removeMostPopular)
+
+    if (
+      !this.user.options?.methods?.includes('wallets') ||
+      this.user.options?.methods_disabled?.includes('wallets')
+    ) {
+      tabs = tabs.filter(removeWallets)
+    }
+
+    if (tabs.length !== 1) return
+
+    const tab = tabs[0]
+
+    if (!allowAutoSubmit.includes(tab)) return
+
+    if (!this.state.tabs[tab]) return
+
+    let methods = Object.values(this.state.tabs[tab])
+
+    if (methods.length !== 1) return
+
+    return methods[0]
   }
   activeMethod() {
     let active_method = this.state.options.active_method
