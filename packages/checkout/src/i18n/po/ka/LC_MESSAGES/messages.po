@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-13 14:59+0200\n"
+"POT-Creation-Date: 2026-03-24 18:53+0200\n"
 "Language: ka\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -224,6 +224,9 @@ msgstr "სრულად ნახვა"
 msgid "order_details"
 msgstr "შეკვეთის დეტალები"
 
+msgid "other_payment_method"
+msgstr "სხვა გადახდის მეთოდები"
+
 msgid "submit3ds_title"
 msgstr "გადახდა ვერ შესრულდა"
 
@@ -289,9 +292,6 @@ msgstr ""
 "მომხმარებლის ინფორმაცია დაცულია საერთაშორისო სტანდარტების (PCI/DSS) და "
 "საბარათე სისტემების მოთხოვნების შესაბამისად"
 
-msgid "other_payment_method"
-msgstr "სხვა გადახდის მეთოდები"
-
 msgid "subscription"
 msgstr "განმეორებითი გადახდა"
 
@@ -335,6 +335,12 @@ msgstr "ელ. ფოსტა"
 
 msgid "load_more"
 msgstr "მეტის ნახვა"
+
+msgid "select_bank_to_pay_banks"
+msgstr ""
+
+msgid "select_bank_to_pay_installments"
+msgstr "აირჩიე ბანკი განაწილებით გადახდისთვის"
 
 msgid "pay_with_card"
 msgstr "ბარათით გადახდა"
@@ -410,8 +416,53 @@ msgstr ""
 msgid "sepa_t"
 msgstr "მიუთითეთ ბანკის რეკვიზიტები"
 
+msgid "confirm_details_in_app"
+msgstr "დაადასტურე მონაცემები {name}-ის მობაილბანკში"
+
+msgid "open_mobile_app"
+msgstr "გახსენი {name}-ის მობაილბანკი"
+
+msgid "enter_details_to_continue"
+msgstr "გასაგრძელებლად შეიყვანე მონაცემები"
+
 msgid "bank_desc"
-msgstr "გამისამართებთ ბანკის საიტზე გადახდის დასრულებისთვის"
+msgstr "გადახდისთვის გადახვალ {name}-ის მობაილბანკში"
+
+msgid "follow_link_to_complete_payment_in_web_banking"
+msgstr "ან გადადი {link}-ზე ინტერნეტბანკში გადახდის დასასრულებლად"
+
+msgid "link"
+msgstr "ბმული"
+
+msgid "limit"
+msgstr "ლიმიტი"
+
+msgid "number_of_payments"
+msgstr "გადახდების რაოდენობა"
+
+msgid "interest_rate"
+msgstr "საპროცენტო განაკვეთი"
+
+msgid "effective_interest_rate"
+msgstr "ეფექტური საპროცენტო განაკვეთი"
+
+msgid "agree_to_terms"
+msgstr "გაგრძელებით ეთანხმები {name}-ის {terms}"
+
+msgid "no_mobile_app"
+msgstr "არ გაქვს {name}-ის მობაილბანკი?"
+
+msgid "download_to_scan_qr"
+msgstr "ჩამოტვირთე QR-ის დასასკანერებლად"
+
+msgid "scan_to_pay_banks"
+msgstr "დაასკანერე ბანკით გადახდისთვის"
+
+msgid "scan_to_pay_installments"
+msgstr "დაასკანერე განაწილებით გადახდისთვის"
+
+msgid "terms"
+msgstr "პირობები"
 
 msgid "return_to_site"
 msgstr ""
@@ -421,6 +472,24 @@ msgstr "გადამისამართდებით მერჩან�
 
 msgid "download_receipt"
 msgstr "ქვითრის გადმოწერა"
+
+msgid "approve_payment_in_app"
+msgstr "დაადასტურე გადახდა {name}-ის მობაილბანკში"
+
+msgid "waiting_for_confirmation"
+msgstr "ველოდებით დადასტურებას"
+
+msgid "processing"
+msgstr "მუშავდება"
+
+msgid "redirected_automatically_after_confirmation"
+msgstr "დადასტურების შემდეგ გადამისამართდები ავტომატურად."
+
+msgid "confirm_payment_in_app_banks"
+msgstr "დაადასტურე საბანკო გადახდა {name}-ის მობაილბანკში"
+
+msgid "confirm_payment_in_app_installments"
+msgstr "დაადასტურე განაწილებით გადახდა {name}-ის მობაილბანკში"
 
 msgid "payment_id"
 msgstr "გადახდის ID"
@@ -481,9 +550,6 @@ msgstr "ბარათი წარმატებით შეინახა 
 
 msgid "c2p_card_add_expired"
 msgstr "ბარათის შენახვა ვერ მოხერხდა, სცადე მოგვიანებით"
-
-msgid "terms"
-msgstr "პირობები"
 
 msgid "c2p_terms_url"
 msgstr "https://usa.visa.com/legal/checkout/terms-of-service.html"
@@ -790,9 +856,6 @@ msgstr ""
 
 msgid "currencies"
 msgstr ""
-
-msgid "number_of_payments"
-msgstr "გადახდების რაოდენობა"
 
 msgid "subscription_every"
 msgstr "სიხშირე"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-13 14:59+0200\n"
+"POT-Creation-Date: 2026-03-24 18:53+0200\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -247,6 +247,9 @@ msgstr "Show in full"
 msgid "order_details"
 msgstr "Order details"
 
+msgid "other_payment_method"
+msgstr "Or pay with"
+
 msgid "submit3ds_title"
 msgstr "Payment incomplete"
 
@@ -317,9 +320,6 @@ msgstr ""
 "<p>In compliance with PCI DSS<p>Listed on Visa Global Registry and verified "
 "by Mastercard"
 
-msgid "other_payment_method"
-msgstr "Or pay with"
-
 msgid "subscription"
 msgstr "Repeat this payment automatically"
 
@@ -363,6 +363,12 @@ msgstr "Email"
 
 msgid "load_more"
 msgstr "Show more..."
+
+msgid "select_bank_to_pay_banks"
+msgstr ""
+
+msgid "select_bank_to_pay_installments"
+msgstr "Select your bank to pay in installments"
 
 msgid "pay_with_card"
 msgstr "Pay with card"
@@ -446,8 +452,54 @@ msgstr ""
 msgid "sepa_t"
 msgstr "Provide your bank account details"
 
+msgid "confirm_details_in_app"
+msgstr "Confirm details in {name} mobile application"
+
+msgid "open_mobile_app"
+msgstr "Open {name} mobile application"
+
+msgid "enter_details_to_continue"
+msgstr "Enter your details to continue"
+
 msgid "bank_desc"
-msgstr "You will be redirected to the bank's website to complete your payment"
+msgstr ""
+"You'll be redirected to {name} mobile application to complete your payment"
+
+msgid "follow_link_to_complete_payment_in_web_banking"
+msgstr "or follow the {link} to complete payment in the web banking"
+
+msgid "link"
+msgstr "link"
+
+msgid "limit"
+msgstr "Limit"
+
+msgid "number_of_payments"
+msgstr "Number of payments"
+
+msgid "interest_rate"
+msgstr "Interest rate"
+
+msgid "effective_interest_rate"
+msgstr "Effective interest rate"
+
+msgid "agree_to_terms"
+msgstr "By continuing, you agree to the {terms} by {name}."
+
+msgid "no_mobile_app"
+msgstr "Don’t have {name} mobile application?"
+
+msgid "download_to_scan_qr"
+msgstr "Download to scan QR"
+
+msgid "scan_to_pay_banks"
+msgstr "Scan to pay by bank"
+
+msgid "scan_to_pay_installments"
+msgstr "Scan to pay in installments"
+
+msgid "terms"
+msgstr "terms"
 
 msgid "return_to_site"
 msgstr "Return to the site"
@@ -457,6 +509,24 @@ msgstr "will be redirected to merchant site in ... <b>{0} seconds</b>"
 
 msgid "download_receipt"
 msgstr "Download receipt"
+
+msgid "approve_payment_in_app"
+msgstr "Approve payment in {name} mobile application"
+
+msgid "waiting_for_confirmation"
+msgstr "Waiting for confirmation"
+
+msgid "processing"
+msgstr "Processing"
+
+msgid "redirected_automatically_after_confirmation"
+msgstr "Once confirmed, you’ll be redirected automatically."
+
+msgid "confirm_payment_in_app_banks"
+msgstr "Confirm your bank payment in {name} mobile application"
+
+msgid "confirm_payment_in_app_installments"
+msgstr "Confirm your installment payment in {name} mobile application"
 
 msgid "payment_id"
 msgstr "Payment ID"
@@ -518,9 +588,6 @@ msgstr "The card has been successfully saved in Click to Pay"
 
 msgid "c2p_card_add_expired"
 msgstr "Unable to save card in Click to Pay. Try again later"
-
-msgid "terms"
-msgstr "terms"
 
 msgid "c2p_terms_url"
 msgstr "https://usa.visa.com/legal/checkout/terms-of-service.html"
@@ -830,9 +897,6 @@ msgstr "Enter your Street address"
 
 msgid "currencies"
 msgstr "currencies"
-
-msgid "number_of_payments"
-msgstr "Number of payments"
 
 msgid "subscription_every"
 msgstr "Every"
