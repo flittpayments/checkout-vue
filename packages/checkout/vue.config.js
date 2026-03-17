@@ -15,14 +15,15 @@ const COMMITHASH = gitRevisionPlugin.commithash()
 const VERSION = argv.version || (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
 const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
-const DOMAIN = (PUBLIC_PATH.match(/https?:\/\/([\w.]+)/) || [])[1]
+const DOMAIN = new URL(PUBLIC_PATH).hostname
 const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
-const LIBRARY_TYPE = argv.library_type
+const INITIATOR = argv.library_type || new URL(PUBLIC_PATH).pathname.split('/').filter(Boolean)[0]
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
-const isModule = LIBRARY_TYPE === 'module'
+const isModule = INITIATOR === 'module'
+const localhostServe = 'http://localhost:3000/'
 
 function addF (options) {
   return {
@@ -150,7 +151,10 @@ module.exports = defineConfig({
             }])
             .end()
       })
-      .when(isProduction && PUBLIC_PATH === 'http://localhost:3000/', config => {
+      .when(isProduction && PUBLIC_PATH !== localhostServe, config => {
+        config.plugins.delete('html-checkout')
+      })
+      .when(isProduction && PUBLIC_PATH === localhostServe, config => {
         config
           .plugin('webpack-bundle-analyzer')
             .use(BundleAnalyzerPlugin)
@@ -169,9 +173,6 @@ module.exports = defineConfig({
               )
               return options
             })
-            .end()
-          .plugins
-            .delete('html-checkout')
             .end()
           .merge({
             output: {
@@ -245,7 +246,7 @@ module.exports = defineConfig({
           SAAS_TEMPLATE_NAME,
           API_DOMAIN,
           PUBLIC_PATH,
-          LIBRARY_TYPE,
+          INITIATOR,
         })])
         .end()
   }

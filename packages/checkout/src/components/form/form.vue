@@ -54,7 +54,7 @@ export default {
       return this.$nextTick()
         .then(() => this.validate())
         .then(() => {
-          return this.formRequest(data)
+          return this.formRequest(this.store.formParams(data))
         })
         .finally(() => {
           this.submited = false

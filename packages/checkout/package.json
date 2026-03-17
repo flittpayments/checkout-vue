@@ -85,7 +85,7 @@
       "SAAS_TEMPLATE_NAME": "readonly",
       "API_DOMAIN": "readonly",
       "PUBLIC_PATH": "readonly",
-      "LIBRARY_TYPE": "readonly"
+      "INITIATOR": "readonly"
     },
     "root": true,
     "env": {

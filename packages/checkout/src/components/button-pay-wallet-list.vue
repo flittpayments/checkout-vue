@@ -116,7 +116,7 @@ export default Vue.extend({
       this.can_make_payment = this.list.join('_')
     },
     onDetails(data) {
-      this.formRequest(data)
+      this.formRequest(this.store.formParams(data))
     },
     onError(error) {
       let name = ['Payment Button']

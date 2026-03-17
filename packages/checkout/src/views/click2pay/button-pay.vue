@@ -100,7 +100,7 @@ export default {
             return Promise.reject()
           })
         )
-        .then(this.formRequest)
+        .then(data => this.formRequest(this.store.formParams(data)))
         .finally(() => {
           this.loading = false
         })

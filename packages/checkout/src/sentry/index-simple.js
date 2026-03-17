@@ -48,7 +48,7 @@ function initSentry(optionsUser) {
   const scope = new Scope()
 
   scope.setTag('commithash', COMMITHASH)
-  scope.setTag('library_type', LIBRARY_TYPE)
+  scope.setTag('initiator', INITIATOR)
   if (token) {
     scope.setTag('token', token)
   }

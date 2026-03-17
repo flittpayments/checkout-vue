@@ -21,7 +21,7 @@
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
-import FMenu from '@/components/menu'
+import FMenu from '@/components/menu-item'
 import FProcessedWrapper from '@/components/processed-wrapper'
 import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'

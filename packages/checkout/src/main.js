@@ -14,6 +14,7 @@ import {
   loadAsyncValidator,
 } from '@/import'
 import { initError, stopErrorChunk } from '@/sentry/error-capture'
+import { consoleInfo } from '@/utils/console'
 
 initError()
 loadCheckout()
@@ -97,7 +98,8 @@ class F {
   }
 }
 
-console.log('commithash', COMMITHASH)
+consoleInfo('commithash', COMMITHASH)
+consoleInfo('initiator', INITIATOR)
 
 export const checkout = (window.checkout = function (el, optionsUser) {
   let app = new F()

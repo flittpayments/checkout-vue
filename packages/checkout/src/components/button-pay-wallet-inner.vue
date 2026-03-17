@@ -141,6 +141,7 @@ export default Vue.extend({
 
 <style lang="scss" module>
 .btn {
+  height: px-to-rem(44px);
   margin-bottom: px-to-rem(24px);
 
   &:last-child {

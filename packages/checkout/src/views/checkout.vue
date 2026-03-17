@@ -108,7 +108,7 @@ export default {
         .sendRequest(
           'api.checkout.form',
           'request',
-          this.store.formParams(data),
+          data,
           {},
           this.submitProgress
         )
