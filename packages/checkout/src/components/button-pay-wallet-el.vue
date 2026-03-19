@@ -5,10 +5,15 @@
 <script>
 import ButtonPayWalletList from '@/components/button-pay-wallet-list'
 import { mapState, mapStateGetSet } from '@/utils/store'
+import { makeProp } from '@/utils/props'
+import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 
 export default {
   inject: ['formRequest', '$_veeObserver'],
   inheritAttrs: false,
+  props: {
+    noAppend: makeProp(PROP_TYPE_BOOLEAN, false),
+  },
   computed: {
     ...mapStateGetSet(['vm_wallets']),
     ...mapState('options', [
@@ -23,6 +28,9 @@ export default {
         !this.methods_disabled.includes('wallets')
       )
     },
+  },
+  watch: {
+    noAppend: 'append',
   },
   created() {
     this.init()
@@ -45,7 +53,7 @@ export default {
       }).$mount()
     },
     append() {
-      if (window.getComputedStyle(this.$el).display === 'none') return
+      if (this.noAppend) return
       if (!this.show) return
       this.vm_wallets.className = this.$attrs.classname
       this.vm_wallets.load = false
