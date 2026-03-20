@@ -203,12 +203,22 @@ export default {
       if (this.store.readyToSubmit() && model.submitToMerchant()) return
 
       if (model.waitForResponse()) {
-        let method = mappingMethod(model.attr('order_data.payment_system'))
-        if (
-          arrayIncludes(configMethods, method) &&
-          this.$route.meta.method !== method
+        const tab = mappingMethod(model.attr('order_data.payment_system'))
+        const method = this.store.getMethodByMethodAlias(
+          model.attr('active_method')
+        )
+        if (method) {
+          this.$router
+            .push({
+              name: 'system',
+              params: { method: method.tab, system: method.id },
+            })
+            .catch(() => {})
+        } else if (
+          arrayIncludes(configMethods, tab) &&
+          this.$route.meta.method !== tab
         ) {
-          this.$router.push({ name: method }).catch(() => {})
+          this.$router.push({ name: tab }).catch(() => {})
         }
         this.waitForFinalOrderStatus()
         return

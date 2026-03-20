@@ -26,8 +26,6 @@ import { methods, most_popular_icons, tabs, tabs_order } from '@/store/parse'
 import { localStorage } from '@/utils/store'
 import configSubscription from '@/config/subscription'
 import { allowAutoSubmit } from '@/config/allow-auto-submit'
-import { activeMethod } from '@/config/active-method'
-import { methodRoute } from '@/config/method-route'
 import { mappingMethod } from '@/config/mapping-method'
 import { subscription } from '@/store/subscription'
 import validate from '@/schema/validate'
@@ -255,37 +253,17 @@ class Store extends Model {
     return methods[0]
   }
   activeMethod() {
-    let active_method = this.state.options.active_method
+    const alias = this.state.options.active_method
 
-    if (!active_method) return
+    if (!alias) return
 
-    let paymentSystems = Object.entries(this.state.tabs)
-      .filter(([method]) => arrayIncludes(activeMethod, method))
-      .reduce(
-        (accum, [method, value]) => ({
-          ...accum,
-          ...Object.fromEntries(
-            Object.entries(value)
-              .filter(([, { alias }]) => alias)
-              .map(([id, { alias }]) => [alias, { system: id, method }])
-          ),
-        }),
-        {}
-      )
+    const method = this.getMethodByMethodAlias(alias)
 
-    let paymentSystem = paymentSystems[active_method]
-
-    if (!paymentSystem) return
-
-    let { system, method } = paymentSystem
-
-    let name = methodRoute[method]
-
-    if (!name) return
+    if (!method) return
 
     return {
-      name,
-      params: { method, system },
+      name: 'system',
+      params: { method: method.tab, system: method.id },
     }
   }
   info(model) {
@@ -641,6 +619,11 @@ class Store extends Model {
     return Object.values(this.state.tabs)
       .flatMap(Object.values)
       .find(method => method.id === id)?.tab
+  }
+  getMethodByMethodAlias(alias) {
+    return Object.values(this.state.tabs)
+      .flatMap(Object.values)
+      .find(method => method.alias === alias)
   }
 }
 
