@@ -1,4 +1,5 @@
-import { deepMerge, findGetParameter, removeWallets } from '@/utils/helpers'
+import { deepMerge, findGetParameter } from '@/utils/helpers'
+import { removeWallets } from '@/utils/method'
 import { isPlainObject, isExist, isArray } from '@/utils/inspect'
 import descriptor from '@/schema/descriptor'
 import { captureMessage } from '@/sentry/error-buffer'

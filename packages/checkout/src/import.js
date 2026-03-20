@@ -344,3 +344,6 @@ export const Loading = () =>
   import(
     /* webpackChunkName: "71" */ '@/views/checkout/without-sidebar/loading'
   )
+
+export const FQuickAccess = () =>
+  import(/* webpackChunkName: "72" */ '@/components/quick-access')

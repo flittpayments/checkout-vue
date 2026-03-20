@@ -99,6 +99,7 @@ import {
 import { makeProp } from '@/utils/props'
 import { resizeMixin } from '@/mixins/resize'
 import { upperFirst } from '@/utils/string'
+import { isNotButtonOnly } from '@/utils/method'
 
 const supportSystemRoute = [
   'banks',
@@ -150,7 +151,7 @@ export default {
     },
     // [{id: 147209, country: 'PL', name: '', logo: 'mbank'}]
     values() {
-      return Object.values(this.config)
+      return Object.values(this.config).filter(isNotButtonOnly)
     },
     listCountry() {
       return this.countries && this.countries.length

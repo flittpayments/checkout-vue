@@ -10,7 +10,11 @@
       <div class="f-system-name">{{ info.name }}</div>
 
       <div>{{ info.iban }}</div>
-      <f-button-close class="f-system-close" @click="goMethod" />
+      <f-button-close
+        v-if="showClose"
+        class="f-system-close"
+        @click="goMethod"
+      />
     </div>
     <transition name="f-fade-enter">
       <router-view />
@@ -24,6 +28,7 @@ import { FButtonClose } from '@/components/button/button-close'
 import { mapState } from '@/utils/store'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
+import { isNotButtonOnly } from '@/utils/method'
 
 export default {
   components: {
@@ -39,6 +44,9 @@ export default {
     ...mapState(['tabs']),
     info() {
       return this.tabs[this.method][this.system]
+    },
+    showClose() {
+      return isNotButtonOnly(this.info)
     },
   },
   methods: {

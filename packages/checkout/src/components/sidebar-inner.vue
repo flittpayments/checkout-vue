@@ -4,11 +4,7 @@
     <f-info />
     <f-price />
     <f-button-wallet-el :no-append="!showWallets" classname="f-mb-32" />
-    <div
-      v-if="showTitle"
-      class="f-menu-title"
-      v-text="$t('other_payment_method')"
-    />
+    <f-quick-access v-if="showQuickAccess" class="f-mb-32" />
     <f-menu />
     <template v-if="!isBreakpointDownLg">
       <div class="f-flex-grow-1" />
@@ -21,6 +17,7 @@
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
+import { FQuickAccess } from '@/import'
 import FMenu from '@/components/menu'
 import FProcessedWrapper from '@/components/processed-wrapper'
 import { mapState } from '@/utils/store'
@@ -31,18 +28,19 @@ export default {
     FInfo,
     FPrice,
     FButtonWalletEl,
+    FQuickAccess,
     FMenu,
     FProcessedWrapper,
   },
   mixins: [resizeMixin],
   computed: {
-    ...mapState('options', ['full_screen']),
-    ...mapState(['has_fields', 'can_make_payment']),
+    ...mapState('options', ['full_screen', 'methods']),
+    ...mapState(['has_fields']),
     showWallets() {
       return !this.has_fields
     },
-    showTitle() {
-      return this.showWallets && this.can_make_payment
+    showQuickAccess() {
+      return this.methods.includes('quick_access')
     },
   },
 }

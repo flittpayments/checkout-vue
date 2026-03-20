@@ -7,11 +7,14 @@ import {
   getCookie,
   deepMerge,
   errorHandler,
-  removeWallets,
   getRouteName,
   findGetParameter,
 } from '@/utils/helpers'
-import { removeMostPopular } from '@/utils/method'
+import {
+  removeWallets,
+  removeMostPopular,
+  removeQuickAccess,
+} from '@/utils/method'
 import { sendRequest } from '@/api'
 import { isExist } from '@/utils/inspect'
 import { i18n, loadLanguageAsync, getBrowserLanguage } from '@/i18n/index'
@@ -405,7 +408,9 @@ class Store extends Model {
       this.state.options.offerta_url
   }
   initIsOnlyCard() {
-    let methods = this.state.options.methods.filter(removeWallets)
+    let methods = this.state.options.methods
+      .filter(removeWallets)
+      .filter(removeQuickAccess)
     this.state.isOnlyCard = methods.length === 1 && methods[0] === 'card'
   }
   initTotalAmount() {
