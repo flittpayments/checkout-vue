@@ -668,6 +668,7 @@
             },
             methods: ['banks'],
             api_domain,
+            cvv2_requirement: 'absent',
             // offerta_url:
             //   'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png',
           },
@@ -682,7 +683,7 @@
 
       setConfigsOption()
 
-      window.app = render('#app', 'installments')
+      window.app = render('#app', 'payme')
       // render('#app2', 'min')
       // render('#app3', 'max2')
 

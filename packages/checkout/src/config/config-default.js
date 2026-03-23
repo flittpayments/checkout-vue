@@ -65,6 +65,7 @@ export const configDefault = {
     show_secure_message: true,
     show_test_mode: true,
     show_title: true,
+    cvv2_requirement: 'mandatory',
   },
   params: {
     merchant_id: 1549901,
@@ -140,7 +141,7 @@ export const configDefault = {
   fee_amount: 0,
   total_amount: 0,
   notification: '',
-  cvv2_requirement: 'mandatory',
+  cvv2_requirement: '',
   currencies: [],
   vm_wallets: null,
   mode_test: false,

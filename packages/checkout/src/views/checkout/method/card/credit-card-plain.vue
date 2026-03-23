@@ -97,6 +97,9 @@ export default {
       'need_validate_card',
       'cvv2_requirement',
     ]),
+    ...mapState('options', {
+      optionsCvv2Requirement: 'cvv2_requirement',
+    }),
     ...mapStateGetSet('params', [
       'cvv2',
       'expiry_date',
@@ -148,13 +151,19 @@ export default {
       return !this.isCvvAbsent
     },
     isCvvAbsent() {
-      return this.cvv2_requirement === 'absent'
+      return this.cvv2_requirement
+        ? this.cvv2_requirement === 'absent'
+        : this.optionsCvv2Requirement === 'absent'
     },
     isCvvMandatory() {
-      return this.cvv2_requirement === 'mandatory'
+      return this.cvv2_requirement
+        ? this.cvv2_requirement === 'mandatory'
+        : this.optionsCvv2Requirement === 'mandatory'
     },
     isCvvOptional() {
-      return this.cvv2_requirement === 'optional'
+      return this.cvv2_requirement
+        ? this.cvv2_requirement === 'optional'
+        : this.optionsCvv2Requirement === 'optional'
     },
   },
   watch: {

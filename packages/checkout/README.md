@@ -58,6 +58,7 @@ Name                  | Type        | Default                 | Description     
 `show_secure_message` | Boolean     | true                    |                                                                                     |
 `show_test_mode`      | Boolean     | true                    |                                                                                     |
 `show_title`          | Boolean     | true                    |                                                                                     |
+`cvv2_requirement`    | String      | 'mandatory'             | support  `absent`, `mandatory`, `optional`                                          |
 
 ### options.endpoint
 Name                  | Type        | Default                                 | Description

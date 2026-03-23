@@ -38,6 +38,7 @@ const subscription = Object.keys(configDefault.options.subscription)
 const theme = Object.keys(configDefault.options.theme)
 const recurring_data = Object.keys(configDefault.params.recurring_data)
 const subscriptionType = Object.keys(configSubscription)
+const cvv2Requirement = ['absent', 'mandatory', 'optional']
 const config = [
   'options',
   'params',
@@ -328,6 +329,7 @@ export default {
           show_secure_message: typeBoolean,
           show_test_mode: typeBoolean,
           show_title: typeBoolean,
+          cvv2_requirement: typeEnum(cvv2Requirement),
         },
       },
       params: {
