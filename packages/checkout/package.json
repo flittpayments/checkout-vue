@@ -85,7 +85,8 @@
       "SAAS_TEMPLATE_NAME": "readonly",
       "API_DOMAIN": "readonly",
       "PUBLIC_PATH": "readonly",
-      "INITIATOR": "readonly"
+      "INITIATOR": "readonly",
+      "X_PAYMENT_GATEWAY": "readonly"
     },
     "root": true,
     "env": {

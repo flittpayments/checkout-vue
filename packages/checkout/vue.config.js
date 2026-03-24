@@ -20,6 +20,7 @@ const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
 const INITIATOR = argv.library_type || new URL(PUBLIC_PATH).pathname.split('/').filter(Boolean)[0]
+const X_PAYMENT_GATEWAY = argv['x-payment-gateway']
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isModule = INITIATOR === 'module'
@@ -245,6 +246,7 @@ module.exports = defineConfig({
           SAAS_CDN_URL,
           SAAS_TEMPLATE_NAME,
           API_DOMAIN,
+          X_PAYMENT_GATEWAY,
           PUBLIC_PATH,
           INITIATOR,
         })])

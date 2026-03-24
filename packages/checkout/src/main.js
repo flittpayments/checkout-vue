@@ -170,6 +170,7 @@ export const checkout = (window.checkout = function (el, optionsUser) {
           optionsUser.options?.endpoint || configDefault.options.endpoint
         installApi(
           {
+            version: X_PAYMENT_GATEWAY,
             origin,
             endpoint,
           },
