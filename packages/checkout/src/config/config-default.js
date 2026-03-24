@@ -114,7 +114,9 @@ export const configDefault = {
   },
   loading: false,
   order: {},
-  info: {},
+  info: {
+    merchant: {},
+  },
   cards: [],
   pay: {},
   isSubmit: false,
