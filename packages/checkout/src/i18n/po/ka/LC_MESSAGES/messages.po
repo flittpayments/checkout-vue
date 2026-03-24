@@ -61,7 +61,7 @@ msgid "crypto"
 msgstr "კრიპტო"
 
 msgid "most_popular"
-msgstr ""
+msgstr "პოპულარული გადახდები"
 
 msgid "installments"
 msgstr ""
@@ -466,7 +466,7 @@ msgid "bank_desc"
 msgstr "გამისამართებთ ბანკის საიტზე გადახდის დასრულებისთვის"
 
 msgid "return_to_site"
-msgstr ""
+msgstr "საიტზე დაბრუნება"
 
 msgid "will_be_redirected_to_merchant_site"
 msgstr "გადამისამართდებით მერჩანტის საიტზე ... <b>{0} წამში</b>"
