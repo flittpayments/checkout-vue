@@ -8,6 +8,30 @@ const option = {
 export const testCardNumbers = [
   {
     ...option,
+    card_number: '9860010099998881',
+    protocol: '3ds',
+    type: 'approved',
+  },
+  {
+    ...option,
+    card_number: '8600202020202023',
+    protocol: '3ds',
+    type: 'approved',
+  },
+  {
+    ...option,
+    card_number: '9860010088889992',
+    protocol: '3ds',
+    type: 'approved',
+  },
+  {
+    ...option,
+    card_number: '8600202020202023',
+    protocol: '3ds',
+    type: 'approved',
+  },
+  {
+    ...option,
     card_number: '4444555566661111',
     protocol: '3ds',
     type: 'approved',
