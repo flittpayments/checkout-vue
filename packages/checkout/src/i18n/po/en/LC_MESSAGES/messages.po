@@ -498,6 +498,9 @@ msgstr "Scan to pay by bank"
 msgid "scan_to_pay_installments"
 msgstr "Scan to pay in installments"
 
+msgid "scan_to_pay_app"
+msgstr "Scan to pay by {app_name}"
+
 msgid "terms"
 msgstr "terms"
 

@@ -156,7 +156,9 @@ export default {
     title() {
       // $t('scan_to_pay_banks')
       // $t('scan_to_pay_installments')
-      return this.$t(`scan_to_pay_${this.method}`)
+      return this.params.app_name
+        ? this.$t('scan_to_pay_app', { app_name: this.params.app_name })
+        : this.$t(`scan_to_pay_${this.method}`)
     },
     url() {
       return appendQueryParams(this.data.checkout_url, {
