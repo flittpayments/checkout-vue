@@ -11,22 +11,10 @@ import { excludeMessages } from '@/config/exclude-messages'
 import { isPlainObject, isString, isExist } from '@/utils/inspect'
 import { loadAsyncValidator } from '@/import'
 import { regexpColor } from '@/config/regexp'
+import { cardBrands } from '@/config/card-brands.js'
 
 const walletMethods = ['apple', 'google']
 const countries = Object.keys(configCountries)
-const cardIcons = [
-  'american_express',
-  'diners',
-  'discover',
-  'jcb',
-  'maestro',
-  'mastercard',
-  'mir',
-  'prostir',
-  'rupay',
-  'union_pay',
-  'visa',
-]
 const YN = ['Y', 'N', 'y', 'n']
 const verificationType = ['amount', 'code']
 const themeLayout = ['default', 'plain', 'wallets_only']
@@ -269,7 +257,7 @@ export default {
           methods: enumArray(methods),
           methods_disabled: enumArray(methods),
           wallet_methods_enabled: enumArray(walletMethods),
-          card_icons: enumArray(cardIcons),
+          card_icons: enumArray(cardBrands),
           title: typeString,
           link: typeUrl,
           full_screen: typeBoolean,

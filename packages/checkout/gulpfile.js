@@ -3,6 +3,7 @@ const { task, series, parallel } = require('gulp')
 const xgettext = require('xgettext-utils')
 const configLocale = require('./src/config/locales.json')
 const uk = require('./src/i18n/countries/uk.json')
+const bins = require('./src/config/bins.json')
 
 const excludes = list => item => !list.includes(item)
 const locales = Object.keys(configLocale)
@@ -261,6 +262,13 @@ task('presets-with-gradient', () =>
     )
 )
 
+task('card-brands', () =>
+  Promise.resolve(Object.keys(bins).sort())
+    .then(content => JSON.stringify(content, null, 2))
+    .then(content => `export const cardBrands = ${content}`)
+    .then(content => fsp.writeFile('./src/config/card-brands.js', content))
+)
+
 task(
   'default',
   parallel([
@@ -270,5 +278,6 @@ task(
     'exclude-message',
     'svg',
     'presets-with-gradient',
+    'card-brands',
   ])
 )

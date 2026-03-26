@@ -38,5 +38,6 @@ yarn-error.log*
 /packages/checkout/src/config/svg.js
 /packages/checkout/src/config/countries-calling-codes.js
 /packages/checkout/src/config/presets-with-gradient.js
+/packages/checkout/src/config/card-brands.js
 /packages/checkout/src/i18n/need-translation/*
 
