@@ -1,6 +1,7 @@
 <template>
   <div>
     <f-credit-card-plain v-if="isLayoutPlain" disabled />
+    <f-credit-card-inline v-else-if="isLayoutInline" disabled />
     <f-credit-card v-else disabled />
     <f-field-email />
     <f-form-group
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+import { FCreditCardPlain, FCreditCardInline } from '@/import'
 import FCreditCard from '@/views/checkout/method/card/credit-card'
 import FFieldEmail from '@/components/fields/email'
 import FSubscriptionWrapper from '@/components/subscription-wrapper'
@@ -33,11 +35,11 @@ import FOffer from '@/components/offer'
 import FButtonPay from '@/components/button/button-pay'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
 import { mapState, mapStateGetSet } from '@/utils/store'
-import { FCreditCardPlain } from '@/import'
 
 export default {
   components: {
     FCreditCardPlain,
+    FCreditCardInline,
     FCreditCard,
     FFieldEmail,
     FSubscriptionWrapper,
@@ -57,6 +59,9 @@ export default {
     ...mapState('options', ['theme']),
     isLayoutPlain() {
       return this.theme.layout === 'plain'
+    },
+    isLayoutInline() {
+      return this.theme.layout === 'inline'
     },
     validCode() {
       return /EURT/.test(this.code) ? 'required' : 'required|digits:4'

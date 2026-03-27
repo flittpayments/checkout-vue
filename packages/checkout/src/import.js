@@ -347,3 +347,8 @@ export const Loading = () =>
 
 export const FQuickAccess = () =>
   import(/* webpackChunkName: "72" */ '@/components/quick-access')
+
+export const FCreditCardInline = () =>
+  import(
+    /* webpackChunkName: "73" */ '@/views/checkout/method/card/credit-card-inline'
+  )

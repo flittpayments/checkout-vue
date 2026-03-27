@@ -251,7 +251,7 @@ class Validate {
         },
       })
     }
-    if (layout === 'plain') {
+    if (['plain', 'inline'].includes(layout)) {
       this.setDefaultData({
         options: {
           card_icons: [],
