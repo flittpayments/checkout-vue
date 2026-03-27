@@ -30,7 +30,7 @@ export default {
       return !this.has_fields && this.can_make_payment
     },
     showTitle() {
-      return this.showWalletButtons && this.tabs.length
+      return this.showWalletButtons || this.methods.includes('quick_access')
     },
     tabs() {
       return this.showWalletsTab
