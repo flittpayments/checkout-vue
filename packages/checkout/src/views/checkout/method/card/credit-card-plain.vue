@@ -22,8 +22,8 @@
       <f-form-group
         ref="expiry_date"
         v-model="expiry_date"
-        :class="$style.expiry_date"
-        :input-class="$style.expiry_date_input"
+        :class="classExpiryDateWrapper"
+        :input-class="classExpiryDateInput"
         :label-class="$style.expiry_date_label"
         name="expiry_date"
         :rules="validExpiryDate"
@@ -107,6 +107,16 @@ export default {
       'code',
       'hash',
     ]),
+    classExpiryDateWrapper() {
+      return this.$uiClass('expiry_date', {
+        full: !this.showCvv,
+      })
+    },
+    classExpiryDateInput() {
+      return this.$uiClass('expiry_date_input', {
+        full: !this.showCvv,
+      })
+    },
     disabledCardNumber() {
       return this.disabled || this.read_only
     },
@@ -257,19 +267,28 @@ export default {
 
 .expiry_date {
   width: 100%;
-  flex: 0 0 calc(50% + #{px-to-rem(1px)});
+  flex: 1;
   max-width: calc(50% + #{px-to-rem(1px)});
   margin-bottom: 0;
   margin-right: px-to-rem(-2px);
+}
+
+.expiry_date_full {
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 :global(#f) .expiry_date_input {
   border-radius: 0 0 0 $border-radius;
 }
 
+:global(#f) .expiry_date_input_full {
+  border-radius: 0 0 $border-radius $border-radius;
+}
+
 .cvv2 {
   width: 100%;
-  flex: 0 0 calc(50% + #{px-to-rem(1px)});
+  flex: 1;
   max-width: calc(50% + #{px-to-rem(1px)});
   margin-bottom: 0;
 }
