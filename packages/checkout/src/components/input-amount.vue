@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showCurrencies" class="f-input-group">
+  <f-input-group v-if="showCurrencies">
     <f-form-group v-model="form[name]" v-bind="attrs" class="f-col">
       <template #default="{ id }">
         <slot :id="id" />
@@ -16,7 +16,7 @@
       input-class="f-form-control-no-label"
       :disabled="disabled"
     />
-  </div>
+  </f-input-group>
   <f-form-group v-else v-model="form[name]" v-bind="attrs">
     <template #default="{ id }">
       <slot :id="id" />
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import FInputGroup from '@/components/base/input-group'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import {
   PROP_TYPE_STRING,
@@ -38,6 +39,9 @@ import { parseSelect } from '@/utils/sort'
 import { amountToCoins } from '@/utils/helpers'
 
 export default {
+  components: {
+    FInputGroup,
+  },
   inheritAttrs: false,
   props: {
     name: makeProp(PROP_TYPE_STRING, undefined, true),

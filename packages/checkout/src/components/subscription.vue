@@ -59,7 +59,7 @@
             <span v-text="$t('unlimited')" />
           </f-form-group>
         </div>
-        <div class="f-input-group f-mb-0">
+        <f-input-group no-margin>
           <f-form-group
             v-model.number="every"
             class="f-col-4"
@@ -82,7 +82,7 @@
             hide-error
             @error="onShowError"
           />
-        </div>
+        </f-input-group>
         <div class="f-mb-16">
           <transition name="f-slide-fade">
             <div v-if="error" class="f-error">
@@ -125,6 +125,7 @@
 
 <script>
 import FBox from '@/components/box'
+import FInputGroup from '@/components/base/input-group'
 import { InputAmount } from '@/import'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { parseSelect } from '@/utils/sort'
@@ -134,6 +135,7 @@ import { formatServer } from '@/config/date'
 export default {
   components: {
     FBox,
+    FInputGroup,
     InputAmount,
   },
   data() {

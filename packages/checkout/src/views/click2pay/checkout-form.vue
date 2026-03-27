@@ -5,7 +5,7 @@
         {{ $t('c2p_registration_desc') }}
       </div>
       <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
-        <div class="f-input-group">
+        <f-input-group>
           <f-calling-codes
             v-model="countryCode"
             class="f-col-4"
@@ -22,7 +22,7 @@
             :disabled="loading"
             :mask="maskPhone"
           />
-        </div>
+        </f-input-group>
         <f-form-group
           v-model="lastName"
           name="last_name"
@@ -86,6 +86,7 @@
 <script>
 import FBox from '@/components/box'
 import FForm from '@/components/form/form/form'
+import FInputGroup from '@/components/base/input-group'
 import FCallingCodes from '@/components/calling-codes'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButton from '@/components/button/button'
@@ -100,6 +101,7 @@ export default {
   components: {
     FBox,
     FForm,
+    FInputGroup,
     FCallingCodes,
     Click2payRememberMe,
     FButton,
