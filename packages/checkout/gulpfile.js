@@ -269,6 +269,29 @@ task('card-brands', () =>
     .then(content => fsp.writeFile('./src/config/card-brands.js', content))
 )
 
+task('check-bin-conflicts', async () => {
+  const conflicts = Object.entries(bins).flatMap(([nameA, listA]) =>
+    Object.entries(bins)
+      .filter(([nameB]) => nameA !== nameB)
+      .flatMap(([nameB, listB]) =>
+        listB
+          .filter(binB =>
+            new RegExp(`^(${listA.join('|')})`).test(String(binB))
+          )
+          .map(binB => ({
+            name: nameB,
+            value: binB,
+            conflict_with: nameA,
+          }))
+      )
+  )
+
+  if (conflicts.length) {
+    console.log(conflicts)
+    throw new Error('BIN conflicts detected')
+  }
+})
+
 task(
   'default',
   parallel([
@@ -279,5 +302,6 @@ task(
     'svg',
     'presets-with-gradient',
     'card-brands',
+    'check-bin-conflicts',
   ])
 )
