@@ -92,6 +92,11 @@ export const loadLang = chunk => {
         /* webpackChunkName: "uk" */
         '@/i18n/lang/uk'
       )
+    case 'uz':
+      return import(
+        /* webpackChunkName: "uz" */
+        '@/i18n/lang/uz'
+      )
     case 'zh':
       return import(
         /* webpackChunkName: "zh" */

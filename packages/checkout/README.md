@@ -30,7 +30,7 @@ Name                  | Type        | Default                 | Description     
 `title`               | String      |                         |                                                                                     | options or server
 `link`                | String      |                         | format url                                                                          | server or options
 `full_screen`         | Boolean     | true                    |                                                                                     |
-`locales`             | Array       | [all]                   | support `cs`, `de`, `en`, `es`, `fr`, `hu`, `it`, `ko`, `lv`, `pl`, `ro`, `ru`, `sk`, `uk`.|
+`locales`             | Array       | [all]                   | support `az`, `cs`, `da`, `de`, `en`, `es`, `fi`, `fr`, `hu`, `it`, `ka`, `ko`, `lv`, `nl`, `pl`, `ro`, `ru`, `sk`, `uk`, `uz`, `zh`.|
 `api_domain`          | String      | 'pay.flitt.com'         |                                                                                     |
 `endpoint`            | Object      |                         |                                                                                     |
 `active_tab`          | String      | 'card'                  | support `card`, `sepa`.                                                             | GET parameters or server or options

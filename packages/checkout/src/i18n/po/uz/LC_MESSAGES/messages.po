@@ -1,0 +1,968 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-02 13:01+0300\n"
+"Language: uz\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "humo"
+msgstr ""
+
+msgid "uzcard"
+msgstr ""
+
+msgid "diners"
+msgstr "Diners"
+
+msgid "union_pay"
+msgstr "Union Pay"
+
+msgid "discover"
+msgstr "Discover"
+
+msgid "maestro"
+msgstr "Maestro"
+
+msgid "visa"
+msgstr "Visa"
+
+msgid "american_express"
+msgstr "American Express"
+
+msgid "mastercard"
+msgstr "Mastercard"
+
+msgid "prostir"
+msgstr "Prostir"
+
+msgid "jcb"
+msgstr "Jcb"
+
+msgid "card"
+msgstr "Karta"
+
+msgid "sepa"
+msgstr "SEPA to'g'ridan-to'g'ri debiti"
+
+msgid "banks"
+msgstr "Bank orqali to'lash"
+
+msgid "receipt"
+msgstr "Bank o'tkazmasi"
+
+msgid "local_methods"
+msgstr "Mahalliy to'lov usullari"
+
+msgid "loans"
+msgstr "Onlayn bo'lib to'lash"
+
+msgid "emoney"
+msgstr "Raqamli hamyon"
+
+msgid "crypto"
+msgstr "Kripto hamyonlar"
+
+msgid "most_popular"
+msgstr "Eng mashhur"
+
+msgid "installments"
+msgstr "bo'lib to'lash"
+
+msgid "day"
+msgstr "Kun"
+
+msgid "week"
+msgstr "Hafta"
+
+msgid "month"
+msgstr "Oy"
+
+msgid "c2p_unknown_error"
+msgstr "Noma'lum xato"
+
+msgid "c2p_request_timeout"
+msgstr "So'rov vaqti tugashini so'rash"
+
+msgid "c2p_server_error"
+msgstr "Umumiy server xatosi"
+
+msgid "c2p_invalid_parameter"
+msgstr "Noto'g'ri ma'lumot kiritildi"
+
+msgid "c2p_invalid_request"
+msgstr "Server so'rovni tushunolmadi"
+
+msgid "c2p_auth_error"
+msgstr "Server so'rovni tushunadi, lekin autentifikatsiya qila olmaydi"
+
+msgid "c2p_not_found"
+msgstr ""
+"So'ralgan resurs/biznes ob'ekti mavjud emas. Resurs xavfsizlik sabablariga "
+"ko'ra ham yashirilgan bo'lishi mumkin."
+
+msgid "c2p_rate_limit_exceeded"
+msgstr "Belgilangan vaqt ichida juda ko'p so'rovlar yuborildi"
+
+msgid "c2p_service_error"
+msgstr ""
+"Serverda xato yuz berdi. Umumiy xabarni ko'rsating yoki bir xil so'rovni "
+"yana sinab ko'ring (muvaffaqiyatli bo'lishi mumkin)."
+
+msgid "c2p_auth_invalid"
+msgstr "Noto'g'ri autentifikatsiya ma'lumotlari"
+
+msgid "c2p_acct_inaccessible"
+msgstr "Hisob mavjud, lekin hozirda unga kirish mumkin emas"
+
+msgid "c2p_acct_fraud"
+msgstr ""
+
+msgid "c2p_consumer_id_missing"
+msgstr "Foydalanuvchi identifikatori so'rovda yo'q"
+
+msgid "c2p_consumer_id_format_unsupported"
+msgstr ""
+
+msgid "c2p_consumer_id_format_invalid"
+msgstr ""
+
+msgid "c2p_otp_send_failed"
+msgstr "OTP yuborilishi mumkin bo'lmadi"
+
+msgid "c2p_validation_data_missing"
+msgstr "Validatsiya ma'lumotlari yo'q"
+
+msgid "c2p_validation_data_expired"
+msgstr ""
+
+msgid "c2p_validation_data_invalid"
+msgstr ""
+
+msgid "c2p_retries_exceeded"
+msgstr ""
+"OTP hosil qilish uchun qayta urinishlar soni chegaradan oshdi. Iltimos, "
+"keyinroq yana urinib ko'ring"
+
+msgid "c2p_card_missing"
+msgstr "Karta yo'q"
+
+msgid "c2p_unable_to_connect"
+msgstr "Karta tajribasiga ulanish yoki ishga tushirish mumkin emas"
+
+msgid "c2p_card_not_recognized"
+msgstr "Ko'rsatilgan karta tan olinmadi"
+
+msgid "c2p_card_security_code_missing"
+msgstr "Karta xavfsizligi taqdim etilishi kerak"
+
+msgid "c2p_billing_address_required"
+msgstr ""
+
+msgid "c2p_card_invalid"
+msgstr "Noto'g'ri karta raqami"
+
+msgid "c2p_card_exp_invalid"
+msgstr "Karta amal qilish muddati noto'g'ri"
+
+msgid "c2p_card_add_failed"
+msgstr "Kartani qo'shib bo'lmadi"
+
+msgid "c2p_terms_and_conditions_not_accepted"
+msgstr "Iltimos, shartlar va qoidalarni qabul qiling"
+
+msgid "c2p_authentication_method_not_supported"
+msgstr ""
+
+msgid "gdpr_alert_text"
+msgstr ""
+"Ushbu veb-saytda onlayn to'lovlar bo'yicha tajribangizni yaxshilash uchun "
+"cookie-fayllardan foydalanamiz."
+
+msgid "learn_more"
+msgstr "Batafsil ma'lumot"
+
+msgid "gdpr_modal_text"
+msgstr ""
+"Bizning veb-saytimiz &quot;cookies&quot; va boshqa texnologiyalardan "
+"foydalanadi, ular sizning kompyuteringiz yoki qurilmangizda ma'lumot "
+"saqlaydi va veb-brauzeringizga oid ma'lum ma'lumotlarni yig'ishga imkon "
+"beradi. Cookies Internetda keng qo'llaniladi va veb-sayt/portalga "
+"foydalanuvchining qurilmasini aniqlashga imkon beradi, kompyuterdan "
+"foydalanayotgan shaxsni alohida identifikatsiya qilmasdan. Ushbu "
+"texnologiyalar sizga saytga kirish va undan foydalanishni osonlashtiradi "
+"hamda saytning qaysi bo'limlariga tashrif buyurganingiz haqida bizga "
+"ma'lumot beradi, shunda biz saytning samaradorligini baholab, "
+"foydalanuvchilarga yaxshiroq tajriba taqdim etishimiz yoki boshqa saytlarda "
+"Flitt reklamalarini ko'rsatishimiz mumkin. Qo'shimcha ma'lumot uchun <a "
+"href='https://flitt.com/wp-content/uploads/2024/11/Privacy_Policy_flitt.pdf' "
+"target='_blank'>https://flitt.com/privacy-policy/ manziliga</a> tashrif "
+"buyuring."
+
+msgid "remember_card_for_quick_re_payment"
+msgstr "Keyingi to'lovlar uchun kartamni saqlash"
+
+msgid "its_safe"
+msgstr "Bu xavfsiz"
+
+msgid "gdpr_modal_safe_title"
+msgstr ""
+"Kartangiz ma'lumotlari tokenlashtirilgan, bu takroriy xaridlarni xavfsiz va "
+"qulay qiladi"
+
+msgid "gdpr_modal_safe"
+msgstr ""
+"<p>Biz siz kiritgan kartangiz ma'lumotlarini saqlamaymiz. Aslida, biz "
+"kartangiz ma'lumotlarini darhol shifrlaymiz va tokenlashtirilgan formatda "
+"saqlaymiz. Tokenlar raqamlar va belgilarning tasodifiy kombinatsiyalaridir.</"
+"p><p>Keyingi har safar to'lov qilganingizda Flitt karta ma'lumotlari o'rniga "
+"tokenlardan foydalanadi, shunda potentsial firibgar ularni o'g'irlay "
+"olmaydi. Token ma'lumotlari Flitt to'lov xizmati tashqarisida hech qanday "
+"qiymatga ega emas.</p>"
+
+msgid "close"
+msgstr "Yopish"
+
+msgid "not_now"
+msgstr "Hozir emas"
+
+msgid "accept"
+msgstr "Men roziman"
+
+msgid "cancel"
+msgstr "Bekor qilish"
+
+msgid "pay"
+msgstr "To'lash"
+
+msgid "expires_on"
+msgstr "Muddat tugash sanasi"
+
+msgid "approved"
+msgstr "Ma'qullangan"
+
+msgid "declined"
+msgstr "Rad etildi"
+
+msgid "use_other_card"
+msgstr "Yana bir kartani kiriting"
+
+msgid "all_methods"
+msgstr "Barcha usullar"
+
+msgid "verification_t"
+msgstr "Karta tasdiqlash"
+
+msgid "see_more"
+msgstr "Toʻliq koʻrsating"
+
+msgid "order_details"
+msgstr "Buyurtma tafsilotlari"
+
+msgid "other_payment_method"
+msgstr "Yoki bilan to'lash"
+
+msgid "submit3ds_title"
+msgstr "To'lov to'liq yakunlanmagan"
+
+msgid "submit3ds_text"
+msgstr "Iltimos, boshqa tasdiqlash kodini kiriting"
+
+msgid "submit3ds_submit"
+msgstr "Iltimos, yana urinib ko'ring"
+
+msgid "submit3ds_wait"
+msgstr ""
+"To'lovingizni yakunlash uchun {0} soniyada bankning veb-saytiga "
+"yo'naltirilasiz"
+
+msgid "server_trouble_title"
+msgstr "Vay.."
+
+msgid "server_trouble_desc"
+msgstr ""
+"Muammo yuzaga keldi va biz allaqachon ustida ishlayapmiz. Iltimos, "
+"buyurtmangizga qayting va yana to'lovni bajaring."
+
+msgid "demo_title"
+msgstr "Demo rejimi"
+
+msgid "mode_test"
+msgstr "Sinov rejimi"
+
+msgid "offer_t"
+msgstr ""
+"Men <a href=\"{0}\" target=\"_blank\">taklif shartlari va qoidalarini</a> "
+"qabul qilaman<a href=\"{0}\" target=\"_blank\">. </a>"
+
+msgid "trial_period"
+msgstr "Sinov muddati"
+
+msgid "first_payment"
+msgstr "Birinchi to'lov"
+
+msgid "amount"
+msgstr "To'lanishi kerak bo'lgan summa"
+
+msgid "discount"
+msgstr "chegirma"
+
+msgid "fee"
+msgstr "To'lov komissiyasi"
+
+msgid "total_amount"
+msgstr "Jami to'lanishi kerak bo'lgan summa"
+
+msgid "processed_by"
+msgstr "Tomonidan qayta ishlangan"
+
+msgid "saas_name"
+msgstr "Flitt"
+
+msgid "enter_promo_code"
+msgstr "Promo kodni kiriting"
+
+msgid "add"
+msgstr "Qo'llang"
+
+msgid "security_title"
+msgstr "Mijozni kuchli autentifikatsiya"
+
+msgid "security_text"
+msgstr ""
+"<p>PCI DSS talablariga muvofiq</p><p>Visa Global Registry ro'yxatiga "
+"kiritilgan va Mastercard tomonidan tasdiqlangan</p>"
+
+msgid "subscription"
+msgstr "Ushbu to'lovni avtomatik ravishda takrorlang"
+
+msgid "subscription_amount"
+msgstr "Takroriy to'lov summasi"
+
+msgid "unlimited"
+msgstr "Cheksiz"
+
+msgid "verification_desc"
+msgstr ""
+"Kartangizni tasdiqlash uchun biz bank hisobingizdan 15 daqiqalab kichik "
+"tasdiqlash to'lovini ushlab turamiz."
+
+msgid "customer_name"
+msgstr "Ism va Familiya"
+
+msgid "customer_name_utf8"
+msgstr "Ism va Familiya"
+
+msgid "customer_address"
+msgstr "Manzil (ko'cha, bino, kvartira)"
+
+msgid "customer_zip"
+msgstr "ZIP/pochta indeksi"
+
+msgid "customer_city"
+msgstr "Shahar/Qishloq"
+
+msgid "customer_country"
+msgstr "Davlat"
+
+msgid "customer_state"
+msgstr "Shtat/Viloyat/Mintaqa"
+
+msgid "customer_phonemobile"
+msgstr "Telefon"
+
+msgid "customer_email"
+msgstr "Email"
+
+msgid "load_more"
+msgstr "Boshqalarini ko'rsating..."
+
+msgid "select_bank_to_pay_banks"
+msgstr ""
+
+msgid "select_bank_to_pay_installments"
+msgstr ""
+
+msgid "pay_with_card"
+msgstr "Karta bilan to'lash"
+
+msgid "cvv2_help"
+msgstr "Kartangiz orqa tomonidagi {0} raqamli kod"
+
+msgid "demo_desc"
+msgstr ""
+"Bu demo tizimidir. Ma'lumot kiritishingiz mumkin, ammo to'lov qayta "
+"ishlanmaydi."
+
+msgid "most_popular_methods_in"
+msgstr "Eng mashhur usullar:"
+
+msgid "see_all_other_methods"
+msgstr "Boshqa barcha usullarni ko'ring"
+
+msgid "mfo_title"
+msgstr "Buyurtma # {0} uchun to'lov tafsilotlari"
+
+msgid "ibox_title"
+msgstr "Buyurtma ID (iBox orqali to'lanadi)"
+
+msgid "full_requesites"
+msgstr "Qabul qiluvchining bank ma'lumotlari"
+
+msgid "full_requesites_explain"
+msgstr ""
+"To'lovni amalga oshirishda ularni ko'rsatishingiz shart emas, ammo ma'lumot "
+"uchun saqlab qo'yish foydali bo'lishi mumkin."
+
+msgid "UAH"
+msgstr "UAH"
+
+msgid "receiver"
+msgstr "Qabul qiluvchi"
+
+msgid "current_bill"
+msgstr "Bank hisob raqami (IBAN)"
+
+msgid "usreou"
+msgstr "Soliq identifikatsiya raqami (TIN)"
+
+msgid "bank"
+msgstr "Bank nomi"
+
+msgid "mfo"
+msgstr "Bank kodi (BIC yoki MFO)"
+
+msgid "purpose"
+msgstr "Tavsif"
+
+msgid "receipt_id"
+msgstr "Buyurtma ID"
+
+msgid "end_date"
+msgstr "To'lov muddati"
+
+msgid "ibox_desc"
+msgstr ""
+"To'lovlarni qabul qiladigan barcha iBox terminallari xaritada belgilangan."
+
+msgid "save_receipt"
+msgstr "Chekni saqlash"
+
+msgid "save_qr_code"
+msgstr "Smartfoningizga saqlash"
+
+msgid "qr_code_text"
+msgstr "Chekni smartfoningizga saqlash uchun ushbu QR-kodni skanerlang"
+
+msgid "ibox_info"
+msgstr ""
+"<p>Buyurtmani to'lash uchun iBox terminali ichida Flittpayments xizmatini "
+"topish uchun Qidiruv opsiyasidan foydalaning.</p><p>Sizning buyurtmangiz "
+"muddat tugagach avtomatik bekor qilinadi.</p><p>Biz bu buyurtma uchun iBox "
+"terminalidan boshqa terminallar orqali to'lovni qabul qila olmaymiz.</p>"
+
+msgid "sepa_t"
+msgstr "Bank hisobingiz ma'lumotlarini taqdim eting"
+
+msgid "confirm_details_in_app"
+msgstr ""
+
+msgid "open_mobile_app"
+msgstr ""
+
+msgid "enter_details_to_continue"
+msgstr ""
+
+msgid "bank_desc"
+msgstr "To'lovni yakunlash uchun bankning veb-saytiga yo'naltirilasiz"
+
+msgid "follow_link_to_complete_payment_in_web_banking"
+msgstr ""
+
+msgid "link"
+msgstr ""
+
+msgid "limit"
+msgstr ""
+
+msgid "number_of_payments"
+msgstr "To'lovlar soni"
+
+msgid "interest_rate"
+msgstr ""
+
+msgid "effective_interest_rate"
+msgstr ""
+
+msgid "agree_to_terms"
+msgstr ""
+
+msgid "no_mobile_app"
+msgstr ""
+
+msgid "download_to_scan_qr"
+msgstr ""
+
+msgid "scan_to_pay_banks"
+msgstr ""
+
+msgid "scan_to_pay_installments"
+msgstr ""
+
+msgid "scan_to_pay_app"
+msgstr ""
+
+msgid "terms"
+msgstr "Shartlar"
+
+msgid "return_to_site"
+msgstr "Saytga qaytish"
+
+msgid "will_be_redirected_to_merchant_site"
+msgstr "... <b>{0} </b>soniyada savdo saytiga yo'naltiriladi"
+
+msgid "download_receipt"
+msgstr "Chekni yuklab olish"
+
+msgid "approve_payment_in_app"
+msgstr ""
+
+msgid "waiting_for_confirmation"
+msgstr ""
+
+msgid "processing"
+msgstr ""
+
+msgid "redirected_automatically_after_confirmation"
+msgstr ""
+
+msgid "confirm_payment_in_app_banks"
+msgstr ""
+
+msgid "confirm_payment_in_app_installments"
+msgstr ""
+
+msgid "payment_id"
+msgstr "To'lov ID"
+
+msgid "active"
+msgstr "Faol"
+
+msgid "suspended"
+msgstr "To'xtatildi"
+
+msgid "expired"
+msgstr "Muddatidan oʻtgan"
+
+msgid "pending"
+msgstr "Kutishda"
+
+msgid "cancelled"
+msgstr "Bekor qilindi"
+
+msgid "select_card"
+msgstr "Kartani tanlang"
+
+msgid "c2p_pay_with_click_to_pay"
+msgstr ""
+
+msgid "c2p_registered_message"
+msgstr ""
+
+msgid "c2p_save_card_desc"
+msgstr ""
+"Keyingi safar ma'lumotlarni kiritishni oldini olish uchun {click2pay}da "
+"{masked_card} kartani saqlang"
+
+msgid "click2pay"
+msgstr "To'lash uchun bosing"
+
+msgid "c2p_registration_desc"
+msgstr ""
+"Iltimos, sizni ro'yxatdan o'tkazishimiz uchun ma'lumotlaringizni qo'shing:"
+
+msgid "phone_number"
+msgstr "Telefon raqami"
+
+msgid "last_name"
+msgstr "Familiya"
+
+msgid "first_name"
+msgstr "Birinchi ism"
+
+msgid "registration"
+msgstr "Ro'yxatdan o'tish"
+
+msgid "c2p_agreement_with_processing_of_data"
+msgstr ""
+"Davom etish orqali siz Click to Pay uchun {terms} shartlariga rozilik "
+"bildirasiz va ma'lumotlaringiz {privacy_notice} ga muvofiq qayta "
+"ishlanishini tushunasiz."
+
+msgid "c2p_card_add"
+msgstr "Karta Click to Payda muvaffaqiyatli saqlangan"
+
+msgid "c2p_card_add_expired"
+msgstr ""
+"Click to Pay'da kartani saqlash mumkin emas. Keyinroq yana urinib ko'ring"
+
+msgid "c2p_terms_url"
+msgstr "https://www.visa.com.ua/uk_UA/legal/checkout/terms-of-service.html"
+
+msgid "privacy_notice"
+msgstr "Maxfiylik bildirishi"
+
+msgid "c2p_privacy_notice_url"
+msgstr "https://www.visa.com.ua/uk_UA/legal/global-privacy-notice.html"
+
+msgid "save_card"
+msgstr "Kartani saqlash"
+
+msgid "c2p_card_add_loading_top"
+msgstr "Biz kartangizni Click to Pay tizimiga qo'shyapmiz..."
+
+msgid "c2p_card_add_loading_bottom"
+msgstr "(va biz sizga tasdiqlovchi elektron pochta xabarini yuboramiz)"
+
+msgid "c2p_how_does_work"
+msgstr "Click to Pay qanday ishlaydi"
+
+msgid "c2p_about_desc"
+msgstr ""
+"<li>Onlayn xarid qilayotganda ushbu belgini qidiring.</li><li>Ro'yxatdan "
+"o'tgan mobil raqam yoki elektron pochta manzilini kiriting.</li><li>Bir "
+"martalik parolni kiriting.</li><li>Foydalanmoqchi bo'lgan kartangizni "
+"tanlang.</li><li><b>To'landi!</b></li>"
+
+msgid "another_user"
+msgstr "Boshqa foydalanuvchi "
+
+msgid "c2p_access_to_saved_cards"
+msgstr "Click to Pay'da saqlangan kartalarga kirish"
+
+msgid "c2p_otp_desc"
+msgstr ""
+"Biz Click to Pay'dan shaxsni tasdiqlash uchun {email} va {phone} "
+"manzillariga bir martalik kod yuborishni so'radik."
+
+msgid "invite_new_code"
+msgstr "{time} ichida yangi kodni so'rang"
+
+msgid "send_again"
+msgstr "Yana jo'natish"
+
+msgid "check_and_continue"
+msgstr "Tekshirib, davom eting"
+
+msgid "or"
+msgstr "yoki"
+
+msgid "enter_card_details"
+msgstr "Karta ma'lumotlarini kiriting"
+
+msgid "code_sent"
+msgstr "Kod muvaffaqiyatli yuborildi"
+
+msgid "skip_verification_next_time"
+msgstr "Keyingi safar tekshirmang"
+
+msgid "skip_verification_next_time_desc"
+msgstr ""
+
+msgid "cookie_notice"
+msgstr ""
+
+msgid "c2p_cookie_notice_url"
+msgstr ""
+
+msgid "enter_another_email_to_download_set_of_stored_cards"
+msgstr ""
+"Saqlangan kartalar to'plamini yuklash uchun boshqa elektron pochta manzilini "
+"kiriting"
+
+msgid "email"
+msgstr "Email"
+
+msgid "change_user"
+msgstr "Foydalanuvchini o'zgartirish"
+
+msgid "c2p_no_saved_cards"
+msgstr ""
+"Afsuski, Click to Pay hisobingizda saqlangan karta yo'q. Iltimos, kartani "
+"qo'lda kiritishni davom ettiring."
+
+msgid "title_declined"
+msgstr "Afsuski, to'lovingiz muvaffaqiyatsiz bo'ldi"
+
+msgid "title_approved"
+msgstr "Rahmat! To'lovingiz qabul qilindi"
+
+msgid "verification_code_d"
+msgstr ""
+"Kartangizni tasdiqlash uchun biz bank hisobingizdan 15 daqiqalab kichik "
+"tasdiqlash to'lovini ushlab turamiz."
+
+msgid "verification_amount_d"
+msgstr ""
+"Karta egasini tasdiqlash uchun bank hisobingizdan 15 daqiqalab kichik to'lov "
+"ushlab turiladi. Iltimos, hisobingizda ushlab turilgan tasdiqlash summasini "
+"kiriting."
+
+msgid "rule_default"
+msgstr "{_field_} qiymati haqiqiy emas"
+
+msgid "rule_after"
+msgstr "Amaldorlik muddati {target}dan keyin bo'lishi mumkin emas"
+
+msgid "rule_alpha"
+msgstr "Iltimos, faqat harflardan foydalaning"
+
+msgid "rule_date_format"
+msgstr "Iltimos, oy/yilni kiriting"
+
+msgid "rule_decimal"
+msgstr ""
+"Iltimos, raqamlar (0-9), nuqtalar (.) yoki vergullar (,) dan foydalaning."
+
+msgid "rule_digits"
+msgstr "Iltimos, {length} raqamni kiriting"
+
+msgid "rule_email"
+msgstr "Iltimos, amal qiluvchi elektron pochta manzilini kiriting"
+
+msgid "rule_max"
+msgstr "Iltimos, maksimal {length} belgini kiriting."
+
+msgid "rule_min"
+msgstr "Iltimos, kamida {length} belgini kiriting."
+
+msgid "rule_numeric"
+msgstr "Iltimos, faqat raqamlardan (0-9) foydalaning"
+
+msgid "rule_required"
+msgstr "Iltimos, ushbu maydonni to'ldiring"
+
+msgid "rule_required_one"
+msgstr "Iltimos, ushbu maydonni to'ldiring"
+
+msgid "rule_regex"
+msgstr "Noto'g'ri format"
+
+msgid "rule_no_zero"
+msgstr "Summa nol dan katta bo'lishi kerak"
+
+msgid "rule_customer_name"
+msgstr ""
+"Iltimos, birinchi ism va familiya ikkalasini ham kiriting, harflar (A-Za-z) "
+"dan foydalaning"
+
+msgid "rule_customer_field"
+msgstr "Iltimos, harflar (A-Za-z) va raqamlardan (0-9) foydalaning"
+
+msgid "rule_customer_field_utf8"
+msgstr "Iltimos, bu yerda maxsus belgilarni ishlatmang"
+
+msgid "rule_phone"
+msgstr "Mobil telefon raqamini kiriting"
+
+msgid "rule_phonemobile"
+msgstr "Iltimos, kamida 7 xonali raqam (0-9) kiriting"
+
+msgid "rule_numrange"
+msgstr "Siz juda ko'p raqam kiritdingiz"
+
+msgid "rule_ccard"
+msgstr "Noto'g'ri karta raqami"
+
+msgid "rule_expiry_date"
+msgstr "Noto'g'ri amal qilish muddati"
+
+msgid "rule_cvv"
+msgstr "Noto'g'ri CVV2/CVC2"
+
+msgid "rule_one"
+msgstr "Ushbu qiymat 1 dan kam bo'lishi mumkin emas"
+
+msgid "price"
+msgstr "Narx"
+
+msgid "shipping"
+msgstr "Yetkazib berish"
+
+msgid "vat"
+msgstr "VAT"
+
+msgid "arbitrary_amount"
+msgstr "Summa"
+
+msgid "ibox_ua"
+msgstr "Terminal orqali naqd pul"
+
+msgid "loans_tooltip"
+msgstr "Hozir sotib oling, 15 kunda to'lang. Komissiya 0%."
+
+msgid "button_expired_title"
+msgstr "To'lov tugmasi muddati tugagan"
+
+msgid "button_expired_text"
+msgstr "Muammoni hal qilish uchun sotuvchi bilan bog'laning. "
+
+msgid "button_status_not_active_title"
+msgstr "To'lov havolasi o'chirib qo'yildi"
+
+msgid "button_status_not_active_text"
+msgstr "To'lov havolasini olish uchun sotuvchi bilan bog'laning."
+
+msgid "sender_name"
+msgstr "Nom"
+
+msgid "sender_familyname"
+msgstr "Familiya"
+
+msgid "bic"
+msgstr "BIC"
+
+msgid "iban"
+msgstr "IBAN"
+
+msgid "wallets_google"
+msgstr "Google Pay"
+
+msgid "wallets_apple"
+msgstr "Apple Pay"
+
+msgid "wallets_apple_google"
+msgstr "Apple Pay yoki Google Pay"
+
+msgid "3ds_title"
+msgstr ""
+"Siz 3ds sahifasiga yo'naltirilasiz. Agar uni ko'rmasangiz, iltimos, ustiga "
+"bosing"
+
+msgid "3ds_link"
+msgstr "link"
+
+msgid "account_number"
+msgstr "Hisob raqami"
+
+msgid "code"
+msgstr "Blik kodi"
+
+msgid "email_address"
+msgstr "Elektron pochta manzili"
+
+msgid "name"
+msgstr "Ism, Familiya "
+
+msgid "sort_code"
+msgstr "Sort kodi"
+
+msgid "specin_address"
+msgstr "Hisob-kitob manzili"
+
+msgid "specin_bic"
+msgstr "BIC"
+
+msgid "specin_city"
+msgstr "Shahar"
+
+msgid "specin_consumerref"
+msgstr "Iste'molchi ma'lumotnomas"
+
+msgid "specin_dob"
+msgstr "Tug'ilgan kun"
+
+msgid "specin_email"
+msgstr "Email"
+
+msgid "specin_iban"
+msgstr "IBAN"
+
+msgid "specin_nationalid"
+msgstr "Pasport ID"
+
+msgid "specin_zipcode"
+msgstr "Pocht indeksi"
+
+msgid "search_country"
+msgstr "Davlatni qidiring"
+
+msgid "credit_debit_cards"
+msgstr "Kredit/Debet kartalari"
+
+msgid "label_account_number"
+msgstr "Hisob raqami"
+
+msgid "placeholder_account_number"
+msgstr "Bank hisob raqamingizni kiriting"
+
+msgid "label_sort_code"
+msgstr "Sort kodi"
+
+msgid "placeholder_sort_code"
+msgstr "Bank sort kodini kiriting"
+
+msgid "message_address_number"
+msgstr "Ko'cha raqami, kvartira raqami, ofis, va hokazo."
+
+msgid "message_address_street"
+msgstr "Ko'cha manzili"
+
+msgid "message_customer_name_utf8"
+msgstr "Ism va Familiya"
+
+msgid "placeholder_customer_name_utf8"
+msgstr "O'zingizning ismingiz va familiyangizni kiriting"
+
+msgid "placeholder_address_street"
+msgstr "Ko'cha manzilingizni kiriting"
+
+msgid "currencies"
+msgstr "valyutalar"
+
+msgid "subscription_every"
+msgstr "Har bir"
+
+msgid "subscription_period"
+msgstr "Vaqt oralig'i"
+
+msgid "subscription_start_time"
+msgstr "Boshlanish sanasi"
+
+msgid "subscription_end_time"
+msgstr "Yakunlanish sanasi"
+
+msgid "default_country"
+msgstr "Mamlakat bo'yicha qidiruv:"
+
+msgid "system_search"
+msgstr "Bank nomi, IBAN yoki BIC bo'yicha qidiring"
+
+msgid "card_number"
+msgstr "Karta raqami"
+
+msgid "expiry_date"
+msgstr "MM/YY"
+
+msgid "cvv2"
+msgstr "CVV2/CVC2"
+
+msgid "verification_code"
+msgstr "Tasdiqlash kodi"
+
+msgid "verification_amount"
+msgstr "Verifikatsiya summasi"
+
+msgid "promo_status_approve"
+msgstr "Promo kod qo'llanildi"
+
+msgid "promo_status_expired"
+msgstr "Promo kod muddati tugadi"
+
+msgid "promo_status_invalid"
+msgstr "Noto'g'ri promo kod"
+
+msgid "other_promotional_propositions_will_not_work"
+msgstr "Boshqa reklama takliflari ishlamaydi"
+
+msgid "card_does_not_participate_in_discount_program"
+msgstr "Karta chegirma dasturida ishtirok etmaydi"
