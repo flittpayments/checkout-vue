@@ -1,6 +1,6 @@
 <template>
   <transition name="f-fade-enter">
-    <div v-if="svg" v-html="svg" />
+    <div v-if="svg" :class="$style.style" v-html="svg" />
     <f-loading v-else />
   </transition>
 </template>
@@ -59,3 +59,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  height: 100%;
+}
+
+.style svg {
+  height: 100%;
+}
+</style>

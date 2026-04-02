@@ -419,12 +419,14 @@ export default {
 .row {
   display: flex;
   gap: px-to-rem(12px);
+  max-height: px-to-rem(96px);
 }
 
 .app {
   display: flex;
   gap: px-to-rem(4px);
   align-items: center;
+  text-align: center;
   flex: 1;
   background: #fff;
   padding: px-to-rem(4px);
@@ -444,5 +446,9 @@ export default {
 
 .app_btn {
   flex: 2;
+}
+
+.app_btn svg {
+  max-height: px-to-rem(56px);
 }
 </style>
