@@ -10,6 +10,7 @@ import { resizeMixin } from '@/mixins/resize'
 import { errorHandler, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
+import configTabs from '@/config/methods.json'
 
 import '@/scss/fonts.scss'
 import '@/scss/style.scss'
@@ -93,13 +94,20 @@ export default {
       this.setParams()
     },
     location() {
-      this.$root.$on('location', (method, system) => {
-        if (system) {
+      this.$root.$on('location', tab => {
+        if (!tab) return
+
+        const method = this.store.getMethodByMethodAlias(tab)
+
+        if (configTabs.includes(tab)) {
+          this.$router.push({ name: tab }).catch(() => {})
+        } else if (method) {
           this.$router
-            .push({ name: 'system', params: { method, system } })
+            .push({
+              name: 'system',
+              params: { method: method.tab, system: method.id },
+            })
             .catch(() => {})
-        } else {
-          this.$router.push({ name: method }).catch(() => {})
         }
       })
     },

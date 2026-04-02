@@ -176,8 +176,8 @@ app.$on('show-pay', function(model) {})
 app.submit()
 app.$emit('submit')
 
-app.location({method}, {system})
-app.$emit('location', {method}, {system})
+app.location({tab|method_alias})
+app.$emit('location', {tab|method_alias})
 
 app.setParams({params})
 app.$emit('setParams', {params})
