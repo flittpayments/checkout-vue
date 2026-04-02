@@ -4,7 +4,7 @@
       <f-info v-if="isOnlyWallets" />
       <f-price />
     </template>
-    <f-fields-customer />
+    <f-field-email />
     <f-fields-custom />
     <f-fields-user />
     <f-offer />
@@ -16,7 +16,7 @@
 <script>
 import FInfo from '@/components/info'
 import FPrice from '@/components/price'
-import FFieldsCustomer from '@/components/fields/customer'
+import FFieldEmail from '@/components/fields/email'
 import FFieldsCustom from '@/components/fields/custom'
 import FFieldsUser from '@/components/fields/user'
 import FOffer from '@/components/offer'
@@ -29,7 +29,7 @@ export default {
   components: {
     FInfo,
     FPrice,
-    FFieldsCustomer,
+    FFieldEmail,
     FFieldsCustom,
     FFieldsUser,
     FOffer,

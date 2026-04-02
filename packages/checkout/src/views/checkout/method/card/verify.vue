@@ -3,7 +3,6 @@
     <f-credit-card-plain v-if="isLayoutPlain" disabled />
     <f-credit-card-inline v-else-if="isLayoutInline" disabled />
     <f-credit-card v-else disabled />
-    <f-field-email />
     <f-form-group
       v-if="isCode"
       v-model="code"
@@ -29,7 +28,6 @@
 <script>
 import { FCreditCardPlain, FCreditCardInline } from '@/import'
 import FCreditCard from '@/views/checkout/method/card/credit-card'
-import FFieldEmail from '@/components/fields/email'
 import FSubscriptionWrapper from '@/components/subscription-wrapper'
 import FOffer from '@/components/offer'
 import FButtonPay from '@/components/button/button-pay'
@@ -41,7 +39,6 @@ export default {
     FCreditCardPlain,
     FCreditCardInline,
     FCreditCard,
-    FFieldEmail,
     FSubscriptionWrapper,
     FOffer,
     FButtonPay,
