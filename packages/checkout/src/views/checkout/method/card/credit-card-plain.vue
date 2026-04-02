@@ -192,19 +192,23 @@ export default {
 
       this.readonlyExpiryDate = true
     },
+    ready: 'watchReady',
+  },
+  mounted() {
+    this.focus()
   },
   methods: {
     inputCardNumber(value) {
       if (value.length === 16 || value.length === 19) {
-        this.focus(['card_number', 'expiry_date', 'cvv2'])
+        this.focus()
       } else {
         this.hash = ''
       }
     },
     inputExpiryDate() {
-      this.focus(['expiry_date', 'cvv2'])
+      this.focusInvalid(['expiry_date', 'cvv2'])
     },
-    focus(fields) {
+    focusInvalid(fields) {
       fields
         .reduce((accum, name) => {
           return accum
@@ -235,6 +239,15 @@ export default {
         count => value.slice(0, count).length === count
       )
       return value.slice(0, count)
+    },
+    watchReady() {
+      if (this.isCards) return // TODO remove after new input
+      this.focus()
+    },
+    focus() {
+      if (!this.ready) return
+
+      this.focusInvalid(['card_number', 'expiry_date', 'cvv2'])
     },
     onError(error) {
       this.error = error

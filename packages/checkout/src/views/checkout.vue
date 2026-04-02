@@ -95,11 +95,11 @@ export default {
     this.store
       .sendRequestApp()
       .then(this.appSuccess)
+      .catch(this.appError)
+      .catch(errorHandler)
       .finally(() => {
         this.ready = true
       })
-      .catch(this.appError)
-      .catch(errorHandler)
   },
   methods: {
     formRequest(data) {
