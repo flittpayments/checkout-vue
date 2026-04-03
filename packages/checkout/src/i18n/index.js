@@ -5,6 +5,7 @@ import { localize } from 'vee-validate'
 import configLocales from '@/config/locales.json'
 import { loadLang } from '@/import'
 import { api } from '@/api'
+import { getCookie } from '@/utils/helpers'
 
 Vue.use(VueI18n)
 
@@ -14,8 +15,8 @@ export const i18n = new VueI18n({
   silentTranslationWarn: true,
 })
 
-export const loadLanguageAsync = (lang, store) => {
-  return loadLang(lang).then(({ messages, validate }) => {
+export const loadLanguageAsync = (lang, store) =>
+  loadLang(lang).then(({ messages, validate }) => {
     const translation = {
       ...messagesEn,
       ...store.state.messages['en'],
@@ -36,7 +37,6 @@ export const loadLanguageAsync = (lang, store) => {
 
     return setI18nLanguage(lang)
   })
-}
 
 function setI18nLanguage(lang) {
   i18n.locale = lang
@@ -53,18 +53,17 @@ function setI18nLanguage(lang) {
   return lang
 }
 
-export const getBrowserLanguage = () => {
-  let n = window.navigator
-  const browserLanguage = (n.language || n.browserLanguage || '')
-    .toLowerCase()
-    .split('-')[0]
-  return getSupportLang(browserLanguage)
+export const getCookieLanguage = () => {
+  const value = getCookie('lang_s')
+  return isSupportLang(value) ? value : ''
 }
 
-function getSupportLang(value) {
+export const getBrowserLanguage = () => {
+  let n = window.navigator
+  const value = (n.language || n.browserLanguage || '')
+    .toLowerCase()
+    .split('-')[0]
   return isSupportLang(value) ? value : 'en'
 }
 
-function isSupportLang(value) {
-  return Object.keys(configLocales).includes(value)
-}
+export const isSupportLang = value => Object.keys(configLocales).includes(value)

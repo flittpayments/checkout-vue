@@ -4,7 +4,6 @@ import notSet from '@/config/not-set'
 import cssVariable from '@/config/css-variable'
 import cssClass from '@/config/css-class'
 import {
-  getCookie,
   deepMerge,
   errorHandler,
   removeWallets,
@@ -13,7 +12,13 @@ import {
 } from '@/utils/helpers'
 import { sendRequest } from '@/api'
 import { isExist } from '@/utils/inspect'
-import { i18n, loadLanguageAsync, getBrowserLanguage } from '@/i18n/index'
+import {
+  i18n,
+  loadLanguageAsync,
+  getCookieLanguage,
+  getBrowserLanguage,
+  isSupportLang,
+} from '@/i18n'
 import store from '@/store/setup'
 import { loadButton } from '@/store/button'
 import { initCssVariable, setCssVariables } from '@/store/css-variable'
@@ -31,8 +36,6 @@ import initFavicon from '@/store/favicon'
 import { loadClick2pay, loadStyleAdaptive } from '@/import'
 import { arrayIncludes } from '@/utils/array'
 import { formatKiev } from '@/utils/date'
-import locales from '@/config/locales.json'
-import { keys } from '@/utils/object'
 import { testCardNumbers } from '@/config/test-card-numbers'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { select } from '@/utils/dom'
@@ -159,7 +162,7 @@ class Store extends Model {
       this.state.options.active_method
 
     let lang = model.attr('lang')
-    if (arrayIncludes(keys(locales), lang) && !this.user.params?.lang) {
+    if (isSupportLang(lang) && !this.user.params?.lang) {
       this.state.params.lang = lang
       this.initLang()
     }
@@ -324,7 +327,7 @@ class Store extends Model {
   }
   initLang() {
     this.changeLang(
-      getCookie('lang_s') || this.state.params.lang || getBrowserLanguage()
+      getCookieLanguage() || this.state.params.lang || getBrowserLanguage()
     )
   }
   initCssDevice() {
