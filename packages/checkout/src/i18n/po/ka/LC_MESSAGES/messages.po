@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-24 18:53+0200\n"
+"POT-Creation-Date: 2026-04-07 12:34+0300\n"
 "Language: ka\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "humo"
+msgstr ""
+
+msgid "uzcard"
+msgstr ""
 
 msgid "diners"
 msgstr ""
@@ -432,7 +438,7 @@ msgid "follow_link_to_complete_payment_in_web_banking"
 msgstr "ან გადადი {link}-ზე ინტერნეტბანკში გადახდის დასასრულებლად"
 
 msgid "link"
-msgstr "ბმული"
+msgstr "ბმულ"
 
 msgid "limit"
 msgstr "ლიმიტი"
@@ -462,10 +468,40 @@ msgid "scan_to_pay_installments"
 msgstr "დაასკანერე განაწილებით გადახდისთვის"
 
 msgid "scan_to_pay_app"
-msgstr "{app_name}-ით გადასახდელად დაასკანერე"
+msgstr "{app_name}-თ გადასახდელად დაასკანერე"
+
+msgid "Liberty Bank Mobile Banking"
+msgstr "ლიბერთი ბანკის მობაილბანკი"
+
+msgid "Credo Bank Mobile Banking"
+msgstr "კრედო ბანკის მობაილბანკი"
+
+msgid "Bank of Georgia Mobile Banking"
+msgstr "საქართველოს ბანკის მობაილბანკი"
+
+msgid "TBC Bank Mobile Banking"
+msgstr "თიბისი ბანკის მობაილბანკი"
+
+msgid "PayMe Mobile application"
+msgstr "ფეიმის მობილური აპლიკაცია"
 
 msgid "terms"
-msgstr "პირობები"
+msgstr "პირობებს"
+
+msgid "https://accounts.libertybank.ge/files/UA-en.pdf"
+msgstr "https://accounts.libertybank.ge/files/UA-ka.pdf"
+
+msgid "https://credobank.ge/en/conditions"
+msgstr "https://credobank.ge/conditions"
+
+msgid "https://conditions.bog.ge/en/main"
+msgstr "https://conditions.bog.ge/ka/main"
+
+msgid "https://tbcbank.ge/en/digital-channel-terms"
+msgstr "https://tbcbank.ge/ka/digital-channel-terms"
+
+msgid "https://cdn.payme.uz/terms/en/privacy_policy.htm"
+msgstr ""
 
 msgid "return_to_site"
 msgstr "საიტზე დაბრუნება"

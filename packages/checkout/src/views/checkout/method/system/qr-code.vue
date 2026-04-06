@@ -157,8 +157,16 @@ export default {
       // $t('scan_to_pay_banks')
       // $t('scan_to_pay_installments')
       return this.params.app_name
-        ? this.$t('scan_to_pay_app', { app_name: this.params.app_name })
+        ? this.$t('scan_to_pay_app', { app_name: this.appName })
         : this.$t(`scan_to_pay_${this.method}`)
+    },
+    appName() {
+      // $t('Liberty Bank Mobile Banking')
+      // $t('Credo Bank Mobile Banking')
+      // $t('Bank of Georgia Mobile Banking')
+      // $t('TBC Bank Mobile Banking')
+      // $t('PayMe Mobile application')
+      return this.$t(this.params.app_name)
     },
     url() {
       return appendQueryParams(this.data.checkout_url, {
@@ -186,7 +194,15 @@ export default {
       )
     },
     terms() {
-      return `<a href="${this.params.terms_url}" target="_blank">${this.$t('terms')}</a>`
+      return `<a href="${this.termsUrl}" target="_blank">${this.$t('terms')}</a>`
+    },
+    termsUrl() {
+      // $t('https://accounts.libertybank.ge/files/UA-en.pdf')
+      // $t('https://credobank.ge/en/conditions')
+      // $t('https://conditions.bog.ge/en/main')
+      // $t('https://tbcbank.ge/en/digital-channel-terms')
+      // $t('https://cdn.payme.uz/terms/en/privacy_policy.htm')
+      return this.$t(this.params.terms_url)
     },
     showApps() {
       return this.params.apple_app_url || this.params.google_app_url
