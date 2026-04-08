@@ -5,6 +5,18 @@
       v-text="$t('confirm_details_in_app', { name: info.name })"
     />
     <f-button
+      v-if="target === '_blank'"
+      :href="link"
+      target="_blank"
+      tag="a"
+      variant="success"
+      size="lg"
+      block
+      :text="$t('open_mobile_app', { name: info.name })"
+      @click="clickNonBlocking"
+    />
+    <f-button
+      v-else
       :href="link"
       tag="a"
       variant="success"
@@ -21,11 +33,13 @@ import FButton from '@/components/button/button'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 import { mapState } from '@/utils/store'
+import { timeoutMixin } from '@/mixins/timeout'
 
 export default {
   components: {
     FButton,
   },
+  mixins: [timeoutMixin],
   props: {
     method: makeProp(PROP_TYPE_STRING),
     system: makeProp(PROP_TYPE_STRING),
@@ -37,8 +51,20 @@ export default {
     info() {
       return this.tabs[this.method][this.system]
     },
+    params() {
+      return this.info.params || {}
+    },
+    target() {
+      return this.params.app_banking_target
+    },
   },
   methods: {
+    clickNonBlocking() {
+      this.timeout(() => {
+        this.sendCallback()
+        this.goLoading()
+      })
+    },
     click() {
       this.sendCallback()
       this.goLoading()

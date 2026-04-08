@@ -10,7 +10,7 @@
             v-if="target === '_blank'"
             :href="data.deeplink"
             target="_blank"
-            @click="clickParallel"
+            @click="clickNonBlocking"
             >{{ $t('link') }}</a
           >
           <a v-else href="#" @click.prevent="click">{{ $t('link') }}</a>
@@ -223,7 +223,7 @@ export default {
         this.request()
       }
     },
-    clickParallel() {
+    clickNonBlocking() {
       this.timeout(() => {
         this.sendCallback()
         this.goLoading()
