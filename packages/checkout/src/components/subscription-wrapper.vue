@@ -12,7 +12,7 @@ export default {
   },
   computed: {
     ...mapState(['ready']),
-    ...mapState('subscription', ['enabled', 'show']),
+    ...mapState('subscription', ['enabled']),
     ...mapState('subscription', { showSubscription: 'show' }),
     ...mapState('params', ['token']),
     ...mapStateGetSet('params', ['recurring']),

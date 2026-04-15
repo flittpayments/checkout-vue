@@ -40,6 +40,8 @@ import { testCardNumbers } from '@/config/test-card-numbers'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { select } from '@/utils/dom'
 
+const NON_SUBSCRIPTION_METHODS = ['banks', 'installments']
+
 Vue.use(store)
 
 let instance = {}
@@ -242,6 +244,12 @@ class Store extends Model {
 
     this.state.options.default_country =
       this.state.options.default_country || model.attr('default_country')
+
+    if (model.attr('order.subscription')) {
+      this.setState(subscription(model.attr('order.recurring_data')))
+      this.initMethodsDisabled()
+    }
+
     this.state.tabs = tabs(
       model.attr('tabs'),
       this.state.options.methods_disabled
@@ -264,10 +272,6 @@ class Store extends Model {
 
     this.state.params.order_desc =
       this.state.params.order_desc || model.attr('order.order_desc') || ' '
-
-    subscription(model.attr('order'))
-      .then(config => this.setState(config))
-      .catch(errorHandler)
 
     this.state.show_gdpr_frame = model.attr('show_gdpr_frame')
 
@@ -313,6 +317,7 @@ class Store extends Model {
     this.initIsOnlyCard()
     initCssVariable(this.state.css_variable)
     this.initTotalAmount()
+    this.initMethodsDisabled()
   }
   initFavicon() {
     if (!this.state.options.full_screen) return
@@ -349,6 +354,18 @@ class Store extends Model {
   }
   initTotalAmount() {
     this.state.total_amount = this.state.params.amount
+  }
+  initMethodsDisabled() {
+    const type = this.state.options.subscription.type
+    if (type === 'disabled') return
+
+    NON_SUBSCRIPTION_METHODS.forEach(method => {
+      const methods_disabled = this.state.options.methods_disabled
+
+      if (methods_disabled.includes(method)) return
+
+      methods_disabled.push(method)
+    })
   }
   initClick2pay() {
     if (!this.enabledClick2pay()) return
@@ -402,6 +419,7 @@ class Store extends Model {
       this.initHasFields()
       this.initIsOnlyCard()
       this.initTotalAmount()
+      this.initMethodsDisabled()
     })
   }
   loadCardImg() {
