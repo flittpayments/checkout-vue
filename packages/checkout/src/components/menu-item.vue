@@ -23,7 +23,6 @@ import FIcons from '@/components/icons'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
 import SvgTimer from '@/svg/timer.svg'
 import { resizeMixin } from '@/mixins/resize'
-import { isFunction } from '@/utils/inspect'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 import { mapState } from '@/utils/store'
@@ -63,12 +62,7 @@ export default {
       ]
     },
     isActive() {
-      return this.meta.method === this.method && !this.isBreakpointDownLg
-    },
-    meta() {
-      return isFunction(this.$route.meta)
-        ? this.$route.meta(this.$route)
-        : this.$route.meta
+      return this.$meta.method === this.method && !this.isBreakpointDownLg
     },
     showTooltip() {
       return (

@@ -37,10 +37,10 @@ export default {
   computed: {
     ...mapState('options', ['full_screen']),
     showTop() {
-      return this.full_screen && !this.$route.meta.noTop
+      return this.full_screen && !this.$meta.noTop
     },
     isCentered() {
-      return this.full_screen && this.$route.meta.isCentered
+      return this.full_screen && this.$meta.isCentered
     },
   },
 }

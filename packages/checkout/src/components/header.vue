@@ -86,7 +86,7 @@ export default {
     },
     isLogo() {
       return (
-        (this.isOnlyCard && this.$route.meta.method === 'card') ||
+        (this.isOnlyCard && this.$meta.method === 'card') ||
         this.$route.name === 'most_popular'
       )
     },

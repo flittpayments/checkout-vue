@@ -1,3 +1,5 @@
+import { isFunction } from '@/utils/inspect'
+
 export const install = Vue => {
   Vue.prototype.$uiClass = function (name, options = {}, style = '$style') {
     const theme = this.store.state.options.theme.type
@@ -21,4 +23,13 @@ export const install = Vue => {
       .map(([key]) => key)
       .join(' ')
   }
+
+  Object.defineProperty(Vue.prototype, '$meta', {
+    get() {
+      const route = this.$route
+      if (!route) return {}
+
+      return isFunction(route.meta) ? route.meta(route) : route.meta || {}
+    },
+  })
 }

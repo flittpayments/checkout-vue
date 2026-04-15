@@ -146,7 +146,7 @@ export default {
     title() {
       // $t('select_bank_to_pay_banks')
       // $t('select_bank_to_pay_installments')
-      const key = `select_bank_to_pay_${this.$route.meta.method}`
+      const key = `select_bank_to_pay_${this.$meta.method}`
       return this.$te(key) ? this.$t(key) : ''
     },
     // [{id: 147209, country: 'PL', name: '', logo: 'mbank'}]

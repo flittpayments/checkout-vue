@@ -83,7 +83,7 @@ export default {
       return this.autosubmit && !this.ready
     },
     showLoading() {
-      return !this.$route.meta.noLoading && this.loading
+      return !this.$meta.noLoading && this.loading
     },
     classNameContainer() {
       return [`f-page-${this.$route.name}`, `f-theme-${this.type}`]
@@ -216,7 +216,7 @@ export default {
             .catch(() => {})
         } else if (
           arrayIncludes(configMethods, tab) &&
-          this.$route.meta.method !== tab
+          this.$meta.method !== tab
         ) {
           this.$router.push({ name: tab }).catch(() => {})
         }
