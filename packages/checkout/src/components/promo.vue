@@ -10,7 +10,7 @@
         :placeholder="$t('enter_promo_code')"
         no-label-floating
         size="sm"
-        :disabled="isApprove"
+        :disabled="disabledInput"
       />
       <f-button
         variant="default"
@@ -56,8 +56,11 @@ export default {
     isApprove() {
       return this.status === 'approve'
     },
+    disabledInput() {
+      return this.$meta.noFeeCalc || this.isApprove
+    },
     disabledButton() {
-      return this.isApprove || !this.promocode
+      return this.$meta.noFeeCalc || this.isApprove || !this.promocode
     },
   },
   methods: {

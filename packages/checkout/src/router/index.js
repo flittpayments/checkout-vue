@@ -242,6 +242,7 @@ export const createRouter = name => {
                     component: MethodQrCode,
                     meta: route => ({
                       method: route.params.method,
+                      noFeeCalc: true,
                     }),
                     props: true,
                   },
@@ -251,6 +252,7 @@ export const createRouter = name => {
                     component: MethodDeepLink,
                     meta: route => ({
                       method: route.params.method,
+                      noFeeCalc: true,
                     }),
                     props: true,
                   },

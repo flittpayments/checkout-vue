@@ -132,7 +132,7 @@ export default {
       return this.showFee && this.actualAmount === this.amount
     },
     showAmountReadOnly() {
-      return this.amount_readonly || this.readonly
+      return this.$meta.noFeeCalc || this.amount_readonly || this.readonly
     },
     showAmount() {
       return this.ready || !this.amount_readonly
