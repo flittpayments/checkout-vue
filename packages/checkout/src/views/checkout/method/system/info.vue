@@ -25,6 +25,7 @@ import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
 import { mapState } from '@/utils/store'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
+import { errorHandler } from '@/utils/helpers'
 
 export default {
   components: {
@@ -36,6 +37,7 @@ export default {
     FButtonPay,
     FButtonCancelWrapper,
   },
+  inject: ['formRequest'],
   props: {
     method: makeProp(PROP_TYPE_STRING),
     system: makeProp(PROP_TYPE_STRING),
@@ -44,6 +46,16 @@ export default {
     ...mapState(['tabs']),
     info() {
       return this.tabs[this.method][this.system]
+    },
+  },
+  created() {
+    this.autoSubmit()
+  },
+  methods: {
+    autoSubmit() {
+      if (!this.store.isAutoSubmitAllowedByMethod(this.info)) return
+
+      this.formRequest(this.store.formParams()).catch(errorHandler)
     },
   },
 }

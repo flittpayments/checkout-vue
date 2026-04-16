@@ -18,33 +18,24 @@
 <script>
 import FButton from '@/components/button/button'
 import SvgPayme from '@/svg/payme.svg'
-import { mapState, mapStateGetSet } from '@/utils/store'
-import { errorHandler } from '@/utils/helpers'
+import { mapState } from '@/utils/store'
 
 export default {
   components: {
     FButton,
     SvgPayme,
   },
-  inject: ['formRequest'],
   computed: {
-    ...mapState(['has_fields']),
     ...mapState('tabs', ['quick_access']),
-    ...mapStateGetSet('params', ['payment_system']),
     methods() {
       return Object.values(this.quick_access)
     },
   },
   methods: {
-    click({ id, form, method }) {
-      if (form?.fields || this.has_fields) {
-        this.$router
-          .push({ name: 'system', params: { method, system: id } })
-          .catch(() => {})
-      } else {
-        this.payment_system = id
-        this.formRequest(this.store.formParams()).catch(errorHandler)
-      }
+    click({ tab, id }) {
+      this.$router
+        .push({ name: 'system', params: { method: tab, system: id } })
+        .catch(() => {})
     },
   },
 }

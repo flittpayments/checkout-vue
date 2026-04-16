@@ -46,7 +46,10 @@ export default {
       return this.tabs[this.method][this.system]
     },
     showClose() {
-      return isNotButtonOnly(this.info)
+      return (
+        isNotButtonOnly(this.info) &&
+        Object.values(this.tabs[this.method]).filter(isNotButtonOnly).length > 1
+      )
     },
   },
   methods: {

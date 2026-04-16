@@ -196,14 +196,14 @@ class Store extends Model {
   }
   getAutoSubmitParams() {
     const infoParams = this.state.info.autosubmit_params
-    const methodId = this.getMethodIdIfAutoSubmitAllowed()
+    const singleMethod = this.getSingleMethodIfExists()
 
     if (infoParams) {
       this.state.params.payment_system = String(infoParams.payment_system)
 
       return infoParams
-    } else if (methodId) {
-      this.state.params.payment_system = methodId
+    } else if (this.isAutoSubmitAllowedByMethod(singleMethod)) {
+      this.state.params.payment_system = singleMethod.id
 
       return this.formParams()
     }
@@ -220,16 +220,8 @@ class Store extends Model {
       params: { method: singleMethod.method, system: singleMethod.id },
     }
   }
-  getMethodIdIfAutoSubmitAllowed() {
-    if (this.state.has_fields) return
-
-    const singleMethod = this.getSingleMethodIfExists()
-
-    if (!singleMethod) return
-
-    if (singleMethod.form?.fields.length) return
-
-    return singleMethod.id
+  isAutoSubmitAllowedByMethod(method) {
+    return !!method && !this.state.has_fields && !method.form?.fields.length
   }
   getSingleMethodIfExists() {
     let tabs = this.state.options.methods.filter(removeMostPopular)

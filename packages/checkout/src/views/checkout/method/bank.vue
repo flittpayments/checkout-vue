@@ -38,7 +38,7 @@
           :key="item.id"
           :class="classBankItemWrapper"
         >
-          <f-button-unstyled :class="classBankItem" @click="goSystem(item)">
+          <f-button-unstyled :class="classBankItem" @click="clickItem(item)">
             <f-icon
               :name="item.logo"
               :type="item.method"
@@ -89,7 +89,7 @@ import FButton from '@/components/button/button'
 import { FCountry } from '@/import'
 import { sort } from '@/utils/sort'
 import { mapState, mapStateGetSet } from '@/utils/store'
-import { errorHandler, removeDuplicate } from '@/utils/helpers'
+import { removeDuplicate } from '@/utils/helpers'
 import { timeoutMixin } from '@/mixins/timeout'
 import {
   PROP_TYPE_OBJECT,
@@ -101,7 +101,7 @@ import { resizeMixin } from '@/mixins/resize'
 import { upperFirst } from '@/utils/string'
 import { isNotButtonOnly } from '@/utils/method'
 
-const supportSystemRoute = [
+const SUPPORTED_SYSTEM_ROUTE = [
   'banks',
   'local_methods',
   'loans',
@@ -120,7 +120,6 @@ export default {
     FCountry,
   },
   mixins: [timeoutMixin, resizeMixin],
-  inject: ['submit'],
   props: {
     // {147209: {country: 'PL', name: '', logo: 'mbank'}}
     config: makeProp(PROP_TYPE_OBJECT, {}),
@@ -139,10 +138,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['ready', 'has_fields']),
+    ...mapState(['ready']),
     ...mapState('options', ['countries']),
     ...mapStateGetSet('options', ['default_country']),
-    ...mapStateGetSet('params', ['payment_system']),
     title() {
       // $t('select_bank_to_pay_banks')
       // $t('select_bank_to_pay_installments')
@@ -247,21 +245,19 @@ export default {
       return this[`isBreakpointDown${upperFirst(this.breakpoint)}`]
     },
   },
+  watch: {
+    ready: 'watchReady',
+  },
   created() {
     this.counts = this.count
+    this.autoClick()
   },
   methods: {
-    goSystem(item) {
-      const { id, form, method } = item
-      if (!supportSystemRoute.includes(method)) {
-        this.$emit('select', item)
-      } else if (form?.fields || this.has_fields) {
-        this.$router
-          .push({ name: 'system', params: { method, system: id } })
-          .catch(() => {})
+    clickItem(item) {
+      if (SUPPORTED_SYSTEM_ROUTE.includes(item.tab)) {
+        this.goSystem(item)
       } else {
-        this.payment_system = id
-        this.submit().catch(errorHandler)
+        this.$emit('select', item)
       }
     },
     clear() {
@@ -282,6 +278,20 @@ export default {
       return this.showCountry && method === 'banks'
         ? [this.default_country, 'XX'].includes(country)
         : true
+    },
+    watchReady() {
+      this.autoClick()
+    },
+    goSystem({ tab, id }) {
+      this.$router
+        .push({ name: 'system', params: { method: tab, system: id } })
+        .catch(() => {})
+    },
+    autoClick() {
+      if (!this.ready) return
+      if (this.values.length !== 1) return
+
+      this.goSystem(this.values[0])
     },
   },
 }
