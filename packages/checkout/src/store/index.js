@@ -176,7 +176,10 @@ class Store extends Model {
   cardSuccess(data) {
     this.state.cards =
       !this.state.options.disable_request && this.state.mode_test
-        ? testCardNumbers
+        ? testCardNumbers.filter(
+            ({ country }) =>
+              !country || country === this.state.info.merchant.country
+          )
         : data
   }
   paySuccess(data) {
