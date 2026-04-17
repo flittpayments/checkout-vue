@@ -1,5 +1,4 @@
 import { isError, isPlainObject } from '@/utils/inspect'
-import { arrayIncludes } from '@/utils/array'
 import { captureMessage } from '@/sentry/error-buffer'
 import { memoize } from '@/utils/memoize'
 
@@ -90,18 +89,6 @@ export const createConfig = (names, values) =>
   }, {})
 
 export const key = (...arr) => arr.join('_')
-
-export const getRouteName = (methods, active, isBreakpointDownLg = false) => {
-  let name = arrayIncludes(methods, active) ? active : methods[0]
-
-  if (methods.length === 1 && methods[0] === 'wallets') {
-    name = 'blank-' + name
-  } else if (active === 'menu' && isBreakpointDownLg) {
-    name = active
-  }
-
-  return name
-}
 
 export const windowWidth = () => window.innerWidth
 

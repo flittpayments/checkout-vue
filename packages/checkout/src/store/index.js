@@ -7,7 +7,6 @@ import {
   deepMerge,
   errorHandler,
   removeWallets,
-  getRouteName,
   findGetParameter,
 } from '@/utils/helpers'
 import { sendRequest } from '@/api'
@@ -183,13 +182,7 @@ class Store extends Model {
   }
   location(isBreakpointDownLg) {
     return (
-      this.activeMethod() || {
-        name: getRouteName(
-          this.state.options.methods,
-          this.state.options.active_tab,
-          isBreakpointDownLg
-        ),
-      }
+      this.activeMethod() || { name: this.getRouteName(isBreakpointDownLg) }
     )
   }
   activeMethod() {
@@ -583,6 +576,25 @@ class Store extends Model {
   }
   setClick2payOtp(value) {
     this.state.click2pay_otp = value
+  }
+  getRouteName(isBreakpointDownLg = false) {
+    const methods = this.state.options.methods
+    const active = this.state.options.active_tab
+    const isOnlyWallets = methods.length === 1 && methods[0] === 'wallets'
+    const showWalletsTab = this.state.has_fields || isOnlyWallets
+    let name = methods.includes(active) ? active : methods[0]
+
+    if (name === 'wallets' && !showWalletsTab) {
+      name = methods.filter(removeWallets)[0]
+    }
+
+    if (isOnlyWallets) {
+      name = 'blank-wallets'
+    } else if (active === 'menu' && isBreakpointDownLg) {
+      name = active
+    }
+
+    return name
   }
 }
 
