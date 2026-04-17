@@ -38,7 +38,7 @@ import {
 import { toInteger } from '@/utils/number'
 import { keys } from '@/utils/object'
 import { FEvent } from '@/utils/event.class'
-import { TooltipTemplate } from '@/import'
+import { TooltipTemplate } from '@/components/tooltip/helpers/tooltip-template'
 import { CODE_DOWN, CODE_ENTER, CODE_SPACE } from '@/constants/key-codes'
 
 // Modal container selector for appending tooltip/popover
@@ -283,48 +283,46 @@ export const Tooltip = Vue.extend({
       // Creates the template instance and show it
       const container = this.getContainer()
 
-      TooltipTemplate().then(({ TooltipTemplate }) => {
-        const $tip = (this.$_tip = new TooltipTemplate({
-          parent: this,
-          // The following is not reactive to changes in the props data
-          propsData: {
-            // These values cannot be changed while template is showing
-            id: this.computedId,
-            html: this.html,
-            placement: this.placement,
-            fallbackPlacement: this.fallbackPlacement,
-            target: this.getPlacementTarget(),
-            boundary: this.getBoundary(),
-            // Ensure the following are integers
-            offset: toInteger(this.offset, 0),
-            arrowPadding: toInteger(this.arrowPadding, 0),
-            boundaryPadding: toInteger(this.boundaryPadding, 0),
-          },
-        }))
-        // We set the initial reactive data (values that can be changed while open)
-        this.handleTemplateUpdate()
-        // Template transition phase events (handled once only)
-        // When the template has mounted, but not visibly shown yet
-        $tip.$once('show', this.onTemplateShow)
-        // When the template has completed showing
-        $tip.$once('shown', this.onTemplateShown)
-        // When the template has started to hide
-        $tip.$once('hide', this.onTemplateHide)
-        // When the template has completed hiding
-        $tip.$once('hidden', this.onTemplateHidden)
-        // When the template gets destroyed for any reason
-        $tip.$once('hook:destroyed', this.destroyTemplate)
-        // Convenience events from template
-        // To save us from manually adding/removing DOM
-        // listeners to tip element when it is open
-        $tip.$on('focusin', this.handleEvent)
-        $tip.$on('focusout', this.handleEvent)
-        $tip.$on('mouseenter', this.handleEvent)
-        $tip.$on('mouseleave', this.handleEvent)
-        // Mount (which triggers the `show`)
-        $tip.$mount(container.appendChild(document.createElement('div')))
-        // Template will automatically remove its markup from DOM when hidden
-      })
+      const $tip = (this.$_tip = new TooltipTemplate({
+        parent: this,
+        // The following is not reactive to changes in the props data
+        propsData: {
+          // These values cannot be changed while template is showing
+          id: this.computedId,
+          html: this.html,
+          placement: this.placement,
+          fallbackPlacement: this.fallbackPlacement,
+          target: this.getPlacementTarget(),
+          boundary: this.getBoundary(),
+          // Ensure the following are integers
+          offset: toInteger(this.offset, 0),
+          arrowPadding: toInteger(this.arrowPadding, 0),
+          boundaryPadding: toInteger(this.boundaryPadding, 0),
+        },
+      }))
+      // We set the initial reactive data (values that can be changed while open)
+      this.handleTemplateUpdate()
+      // Template transition phase events (handled once only)
+      // When the template has mounted, but not visibly shown yet
+      $tip.$once('show', this.onTemplateShow)
+      // When the template has completed showing
+      $tip.$once('shown', this.onTemplateShown)
+      // When the template has started to hide
+      $tip.$once('hide', this.onTemplateHide)
+      // When the template has completed hiding
+      $tip.$once('hidden', this.onTemplateHidden)
+      // When the template gets destroyed for any reason
+      $tip.$once('hook:destroyed', this.destroyTemplate)
+      // Convenience events from template
+      // To save us from manually adding/removing DOM
+      // listeners to tip element when it is open
+      $tip.$on('focusin', this.handleEvent)
+      $tip.$on('focusout', this.handleEvent)
+      $tip.$on('mouseenter', this.handleEvent)
+      $tip.$on('mouseleave', this.handleEvent)
+      // Mount (which triggers the `show`)
+      $tip.$mount(container.appendChild(document.createElement('div')))
+      // Template will automatically remove its markup from DOM when hidden
     },
     hideTemplate() {
       // Trigger the template to start hiding
