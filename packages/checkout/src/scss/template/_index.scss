@@ -33,9 +33,11 @@
   a {
     font-weight: 500;
     color: $merchant_url_color;
+    text-decoration: none;
 
     @include hover {
       color: darken($merchant_url_color, 20%);
+      text-decoration: underline;
     }
   }
 }

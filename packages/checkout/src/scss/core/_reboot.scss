@@ -70,13 +70,13 @@ ul {
 //
 
 a {
-  font-weight: 600;
-  color: $link_color;
-  text-decoration: none;
+  font-weight: 400;
+  color: #788fff;
+  text-decoration: underline;
   background-color: transparent; // Remove the gray background on active links in IE 10.
 
   @include hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
