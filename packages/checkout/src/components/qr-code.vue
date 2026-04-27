@@ -9,14 +9,16 @@
 import { FLoading } from '@/import'
 import QRCode from 'qrcode'
 import { makeProp } from '@/utils/props'
-import { PROP_TYPE_STRING } from '@/constants/props'
+import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
 import { errorHandler } from '@/utils/helpers'
 import { mapState } from '@/utils/store'
+import { appendQueryParams } from '@/utils/url'
 
 export default {
   components: { FLoading },
   props: {
     url: makeProp(PROP_TYPE_STRING, '', true),
+    queryParams: makeProp(PROP_TYPE_OBJECT, {}),
   },
   data() {
     return {
@@ -47,7 +49,12 @@ export default {
         .sendRequestBase('api.checkout.shortener', 'get', {
           url: this.url,
         })
-        .then(model => `https://${this.api_domain}/s/${model.attr('token')}`)
+        .then(model =>
+          appendQueryParams(
+            `https://${this.api_domain}/s/${model.attr('token')}`,
+            this.queryParams
+          )
+        )
         .catch(() => this.url)
     },
     generateQRCode(url) {

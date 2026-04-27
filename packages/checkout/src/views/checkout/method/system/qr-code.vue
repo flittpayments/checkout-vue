@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="$uiClass('title')">{{ title }}</div>
-    <f-qr-code :class="$uiClass('qr')" :url="url" />
+    <f-qr-code :class="$uiClass('qr')" :url="url" :query-params="queryParams" />
     <div v-if="params.web_banking_enabled" :class="$style.link">
       <!--$t('follow_link_to_complete_payment_in_web_banking')-->
       <i18n path="follow_link_to_complete_payment_in_web_banking">
@@ -105,16 +105,7 @@ import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
 import { timeoutMixin } from '@/mixins/timeout'
 import { mapState } from '@/utils/store'
 import { errorHandler, fib } from '@/utils/helpers'
-
-export const appendQueryParams = (url, params) => {
-  const urlObj = new URL(url)
-
-  Object.entries(params).forEach(([key, value]) => {
-    urlObj.searchParams.set(key, value)
-  })
-
-  return urlObj.toString()
-}
+import { appendQueryParams } from '@/utils/url'
 
 export default {
   components: {
@@ -177,6 +168,11 @@ export default {
         link: this.data.deeplink,
         callback: this.data.deepcallback,
       })
+    },
+    queryParams() {
+      return this.params.shortener_with_deeplink_in_get
+        ? { link: this.data.deeplink }
+        : {}
     },
     showDesc() {
       return (
