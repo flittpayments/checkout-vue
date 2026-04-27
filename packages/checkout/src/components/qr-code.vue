@@ -1,6 +1,9 @@
 <template>
   <transition name="f-fade-enter">
-    <div v-if="svg" :class="$style.style" v-html="svg" />
+    <div v-if="renderImg" :class="$style.style">
+      <img :src="svg" :class="$style.img" />
+    </div>
+    <div v-else-if="renderSvg" :class="$style.style" v-html="svg" />
     <f-loading v-else />
   </transition>
 </template>
@@ -9,7 +12,11 @@
 import { FLoading } from '@/import'
 import QRCode from 'qrcode'
 import { makeProp } from '@/utils/props'
-import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
+import {
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING,
+  PROP_TYPE_BOOLEAN,
+} from '@/constants/props'
 import { errorHandler } from '@/utils/helpers'
 import { mapState } from '@/utils/store'
 import { appendQueryParams } from '@/utils/url'
@@ -19,6 +26,7 @@ export default {
   props: {
     url: makeProp(PROP_TYPE_STRING, '', true),
     queryParams: makeProp(PROP_TYPE_OBJECT, {}),
+    isSmall: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   data() {
     return {
@@ -27,6 +35,12 @@ export default {
   },
   computed: {
     ...mapState('options', ['api_domain']),
+    renderImg() {
+      return this.isSmall && this.svg
+    },
+    renderSvg() {
+      return !this.isSmall && this.svg
+    },
   },
   created() {
     this.getUrl()
@@ -58,10 +72,21 @@ export default {
         .catch(() => this.url)
     },
     generateQRCode(url) {
+      return this.isSmall ? this.createPng(url) : this.createSvg(url)
+    },
+    createPng(url) {
+      return QRCode.toDataURL(url, {
+        width: 96,
+        margin: 0,
+      })
+    },
+    createSvg(url) {
       return QRCode.toString(url, {
         type: 'svg',
         margin: 0,
-      })
+      }).then(svg =>
+        svg.replace('<svg', '<svg preserveAspectRatio="xMidYMid meet"')
+      )
     },
   },
 }
@@ -73,6 +98,10 @@ export default {
 }
 
 .style svg {
+  height: 100%;
+}
+
+.img {
   height: 100%;
 }
 </style>
