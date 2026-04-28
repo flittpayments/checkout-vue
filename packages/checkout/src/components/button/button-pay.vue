@@ -1,7 +1,7 @@
 <template>
   <f-button
     v-if="show"
-    class="f-button-pay"
+    :class="['f-button-pay', $style.style]"
     variant="success"
     :disabled="disabled"
     size="lg"
@@ -65,3 +65,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+.style {
+  margin-top: px-to-rem(20px);
+}
+</style>

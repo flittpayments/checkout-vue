@@ -8,6 +8,7 @@
       <f-fields-custom />
       <f-fields-user />
       <f-offer />
+      <f-agree-to-data-processing-terms :has-fields="hasFields" />
       <f-button-pay />
       <f-button-cancel-wrapper />
     </div>
@@ -20,6 +21,7 @@ import FFieldsCustomer from '@/components/fields/customer'
 import FFieldsCustom from '@/components/fields/custom'
 import FFieldsUser from '@/components/fields/user'
 import FOffer from '@/components/offer'
+import FAgreeToDataProcessingTerms from '@/components/agree-to-data-processing-terms'
 import FButtonPay from '@/components/button/button-pay'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
 import { mapState } from '@/utils/store'
@@ -34,6 +36,7 @@ export default {
     FFieldsCustom,
     FFieldsUser,
     FOffer,
+    FAgreeToDataProcessingTerms,
     FButtonPay,
     FButtonCancelWrapper,
   },
@@ -46,6 +49,9 @@ export default {
     ...mapState(['tabs']),
     info() {
       return this.tabs[this.method][this.system]
+    },
+    hasFields() {
+      return !!this.info.form?.fields.length
     },
   },
   created() {

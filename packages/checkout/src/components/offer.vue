@@ -41,6 +41,6 @@ export default {
 
 <style lang="scss" module>
 .wrapper {
-  margin-bottom: px-to-rem(20px);
+  margin-bottom: px-to-rem(16px);
 }
 </style>
