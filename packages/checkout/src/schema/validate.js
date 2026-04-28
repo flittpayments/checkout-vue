@@ -39,6 +39,7 @@ class Validate {
 
   monitoring() {
     this.legacyWalletsOnly()
+    this.legacyTabs()
   }
 
   legacyWalletsOnly() {
@@ -53,6 +54,25 @@ class Validate {
         extra: sanitize(this.data),
       }
     )
+  }
+
+  legacyTabs() {
+    const tabs = ['sepa', 'receipt', 'local_methods', 'loans', 'emoney']
+
+    const isLegacy = tabs.some(
+      tab =>
+        this.options.methods?.includes(tab) ||
+        this.options.methods_disabled.includes(tab) ||
+        this.options.active_tab === tab ||
+        this.options[`${tab}_icons`]
+    )
+
+    if (!isLegacy) return
+
+    captureMessage('legacy tabs usage', {
+      level: 'info',
+      extra: sanitize(this.data),
+    })
   }
 
   compatibility() {
