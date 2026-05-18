@@ -92,6 +92,7 @@ export default {
     noLabelFloating: makeProp(PROP_TYPE_BOOLEAN, false),
     tooltip: makeProp(PROP_TYPE_BOOLEAN, false),
     hideError: makeProp(PROP_TYPE_BOOLEAN, false),
+    immediateError: makeProp(PROP_TYPE_BOOLEAN, false),
     prepend: makeProp(PROP_TYPE_STRING),
     prependText: makeProp(PROP_TYPE_STRING),
     dynamicPlaceholder: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -159,7 +160,9 @@ export default {
       ]
     },
     hasError() {
-      return this.error && (this.touched || this.isSubmit)
+      return (
+        this.error && (this.immediateError || this.touched || this.isSubmit)
+      )
     },
     showError() {
       let showError = !this.tooltip && this.hasError && this.focus
@@ -167,7 +170,7 @@ export default {
       return showError && !this.hideError
     },
     showErrorTooltip() {
-      return this.tooltip && this.hasError && this.focus
+      return this.tooltip && this.error && this.focus
     },
     showPlaceholder() {
       return this.dynamicPlaceholder && this.noLabelFloating && this.safeId()

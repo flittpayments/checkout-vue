@@ -16,6 +16,7 @@
         inputmode="numeric"
         autocomplete="cc-number"
         hide-error
+        immediate-error
         @input="inputCardNumber"
         @error="onError"
       />
@@ -35,6 +36,7 @@
         autocomplete="cc-exp"
         :format="format"
         hide-error
+        immediate-error
         @input="inputExpiryDate"
         @error="onError"
       />
@@ -54,6 +56,7 @@
         :maxlength="digitsCvv"
         autocomplete="cc-csc"
         hide-error
+        immediate-error
         @error="onError"
       />
     </div>
