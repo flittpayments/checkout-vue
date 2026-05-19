@@ -3,7 +3,7 @@
     <div v-if="full_screen" class="f-top"><div class="f-top-inner" /></div>
     <f-info />
     <f-price />
-    <f-button-wallet-el :no-append="!showWallets" classname="f-mb-32" />
+    <f-button-wallet-el :no-append="showWalletsTab" classname="f-mb-32" />
     <f-quick-access v-if="showQuickAccess" class="f-mb-32" />
     <f-menu />
     <template v-if="!isBreakpointDownLg">
@@ -35,10 +35,7 @@ export default {
   mixins: [resizeMixin],
   computed: {
     ...mapState('options', ['full_screen', 'methods']),
-    ...mapState(['has_fields']),
-    showWallets() {
-      return !this.has_fields
-    },
+    ...mapState(['showWalletsTab']),
     showQuickAccess() {
       return this.methods.includes('quick_access')
     },

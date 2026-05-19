@@ -253,11 +253,6 @@ export const BlankWallets = () =>
 export const FCardListWrapper = () =>
   import(/* webpackChunkName: "32" */ '@/components/card-list-wrapper')
 
-export const TooltipTemplate = () =>
-  import(
-    /* webpackChunkName: "33" */ '@/components/tooltip/helpers/tooltip-template'
-  )
-
 export const Emoney = () =>
   import(/* webpackChunkName: "34" */ '@/views/checkout/method/emoney')
 

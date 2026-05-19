@@ -4,7 +4,7 @@
       <div v-if="full_screen" class="f-top"><div class="f-top-inner" /></div>
       <f-info />
       <f-price />
-      <f-button-wallet-el :no-append="has_fields" classname="f-mb-24" />
+      <f-button-wallet-el :no-append="showWalletsTab" classname="f-mb-24" />
     </template>
     <f-bank
       :config="config"
@@ -46,7 +46,7 @@ export default {
   mixins: [resizeMixin],
   computed: {
     ...mapState('tabs', ['most_popular']),
-    ...mapState(['ready', 'has_fields']),
+    ...mapState(['ready', 'showWalletsTab']),
     className() {
       return [
         this.$style.wrapper,

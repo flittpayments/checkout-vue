@@ -3,12 +3,7 @@ import { configDefault } from '@/config/config-default'
 import notSet from '@/config/not-set'
 import cssVariable from '@/config/css-variable'
 import cssClass from '@/config/css-class'
-import {
-  deepMerge,
-  errorHandler,
-  getRouteName,
-  findGetParameter,
-} from '@/utils/helpers'
+import { deepMerge, errorHandler, findGetParameter } from '@/utils/helpers'
 import {
   removeWallets,
   removeMostPopular,
@@ -42,6 +37,8 @@ import { formatKiev } from '@/utils/date'
 import { testCardNumbers } from '@/config/test-card-numbers'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { select } from '@/utils/dom'
+
+const NON_SUBSCRIPTION_METHODS = ['banks', 'installments']
 
 Vue.use(store)
 
@@ -171,6 +168,8 @@ class Store extends Model {
     }
     this.initHasFields()
     this.initIsOnlyCard()
+    this.initIsOnlyWallets()
+    this.initShowWalletsTab()
     this.initClick2pay()
   }
   cardSuccess(data) {
@@ -189,11 +188,7 @@ class Store extends Model {
     return (
       this.getRouteIfSinglePaymentMethod() ||
       this.activeMethod() || {
-        name: getRouteName(
-          this.state.options.methods,
-          this.state.options.active_tab,
-          isBreakpointDownLg
-        ),
+        name: this.getRouteName(isBreakpointDownLg),
       }
     )
   }
@@ -282,6 +277,12 @@ class Store extends Model {
 
     this.state.options.default_country =
       this.state.options.default_country || model.attr('default_country')
+
+    if (model.attr('order.subscription')) {
+      this.setState(subscription(model.attr('order.recurring_data')))
+      this.initMethodsDisabled()
+    }
+
     this.state.tabs = tabs(
       model.attr('tabs'),
       this.state.options.methods_disabled
@@ -304,10 +305,6 @@ class Store extends Model {
 
     this.state.params.order_desc =
       this.state.params.order_desc || model.attr('order.order_desc') || ' '
-
-    subscription(model.attr('order'))
-      .then(config => this.setState(config))
-      .catch(errorHandler)
 
     this.state.show_gdpr_frame = model.attr('show_gdpr_frame')
 
@@ -351,8 +348,11 @@ class Store extends Model {
     this.initCssDevice()
     this.initHasFields()
     this.initIsOnlyCard()
+    this.initIsOnlyWallets()
+    this.initShowWalletsTab()
     initCssVariable(this.state.css_variable)
     this.initTotalAmount()
+    this.initMethodsDisabled()
   }
   initFavicon() {
     if (!this.state.options.full_screen) return
@@ -376,12 +376,13 @@ class Store extends Model {
     loadStyleAdaptive()
   }
   initHasFields() {
-    this.state.has_fields =
+    this.state.has_fields = Boolean(
       !this.state.options.amount_readonly ||
-      this.state.fields_customer.length ||
-      this.state.fields_custom.length ||
-      select('#f-fields') ||
-      this.state.options.offerta_url
+        this.state.fields_customer.length ||
+        this.state.fields_custom.length ||
+        select('#f-fields') ||
+        this.state.options.offerta_url
+    )
   }
   initIsOnlyCard() {
     let methods = this.state.options.methods
@@ -389,8 +390,28 @@ class Store extends Model {
       .filter(removeQuickAccess)
     this.state.isOnlyCard = methods.length === 1 && methods[0] === 'card'
   }
+  initIsOnlyWallets() {
+    let methods = this.state.options.methods
+    this.state.isOnlyWallets = methods.length === 1 && methods[0] === 'wallets'
+  }
+  initShowWalletsTab() {
+    this.state.showWalletsTab =
+      this.state.has_fields || this.state.isOnlyWallets
+  }
   initTotalAmount() {
     this.state.total_amount = this.state.params.amount
+  }
+  initMethodsDisabled() {
+    const type = this.state.options.subscription.type
+    if (type === 'disabled') return
+
+    NON_SUBSCRIPTION_METHODS.forEach(method => {
+      const methods_disabled = this.state.options.methods_disabled
+
+      if (methods_disabled.includes(method)) return
+
+      methods_disabled.push(method)
+    })
   }
   initClick2pay() {
     if (!this.enabledClick2pay()) return
@@ -447,8 +468,8 @@ class Store extends Model {
       this.setState(config)
       this.initLang()
       this.initHasFields()
-      this.initIsOnlyCard()
       this.initTotalAmount()
+      this.initMethodsDisabled()
     })
   }
   loadCardImg() {
@@ -622,6 +643,29 @@ class Store extends Model {
     return Object.values(this.state.tabs)
       .flatMap(Object.values)
       .find(method => method.alias === alias)
+  }
+  getRouteName(isBreakpointDownLg = false) {
+    const methods = this.state.options.methods.filter(removeQuickAccess)
+    const active = this.state.options.active_tab
+    const getRootDomain = hostname => hostname.split('.').slice(-2).join('.')
+
+    let name = methods.includes(active) ? active : methods[0]
+
+    if (name === 'wallets' && !this.state.showWalletsTab) {
+      name = methods.filter(removeWallets)[0]
+    }
+
+    if (
+      this.state.options.theme.layout === 'wallets_only' ||
+      (this.state.isOnlyWallets &&
+        getRootDomain(DOMAIN) !== getRootDomain(location.hostname))
+    ) {
+      name = 'blank-wallets'
+    } else if (active === 'menu' && isBreakpointDownLg) {
+      name = active
+    }
+
+    return name
   }
 }
 

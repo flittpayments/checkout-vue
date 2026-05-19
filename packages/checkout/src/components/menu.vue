@@ -25,9 +25,9 @@ export default {
   },
   computed: {
     ...mapState('options', ['methods']),
-    ...mapState(['has_fields', 'can_make_payment']),
+    ...mapState(['showWalletsTab', 'can_make_payment']),
     showWalletButtons() {
-      return !this.has_fields && this.can_make_payment
+      return !this.showWalletsTab && this.can_make_payment
     },
     showTitle() {
       return (
@@ -36,12 +36,9 @@ export default {
       )
     },
     tabs() {
-      return this.showWalletsTab
+      return this.showWalletsTab && this.can_make_payment
         ? this.methods.filter(removeQuickAccess)
         : this.methods.filter(removeWallets).filter(removeQuickAccess)
-    },
-    showWalletsTab() {
-      return this.has_fields && this.can_make_payment
     },
   },
 }

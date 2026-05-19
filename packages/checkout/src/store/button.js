@@ -42,6 +42,8 @@ function parseOptions({
   host,
   token,
 }) {
+  const type = getType(button_type === 'recurring', recurring_state)
+
   amount = amountToCoins(amount)
 
   if (!currencies.includes(currency)) {
@@ -58,6 +60,7 @@ function parseOptions({
     options: {
       title: name,
       subscription: {
+        type,
         quantity: recurring_type === 'quantity',
         unlimited: recurring_type === 'period',
         trial: recurring_trial,
@@ -80,8 +83,7 @@ function parseOptions({
       button: token ? token : undefined,
     },
     fields_custom: fields,
-    subscription:
-      configSubscription[getType(button_type === 'recurring', recurring_state)],
+    subscription: configSubscription[type],
     currencies,
   }
 }

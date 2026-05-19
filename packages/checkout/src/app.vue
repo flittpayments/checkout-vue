@@ -7,7 +7,7 @@
 <script>
 import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'
-import { errorHandler, getRouteName, windowHeight } from '@/utils/helpers'
+import { errorHandler, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('options', ['active_tab', 'full_screen', 'methods', 'theme']),
+    ...mapState('options', ['full_screen', 'theme']),
     className() {
       return [
         `f-theme-${this.theme.type}`,
@@ -47,7 +47,7 @@ export default {
   watch: {
     isBreakpointDownLg(value) {
       if (!value && this.isMenu) {
-        this.$router.push({ name: this.methods[0] }).catch(() => {})
+        this.$router.push({ name: this.store.getRouteName() }).catch(() => {})
       }
     },
   },
@@ -75,12 +75,9 @@ export default {
       this.initHeight()
     },
     go() {
-      const name = getRouteName(
-        this.methods,
-        this.active_tab,
-        this.isBreakpointDownLg
-      )
-      this.$router.push({ name }).catch(() => {})
+      this.$router
+        .push({ name: this.store.getRouteName(this.isBreakpointDownLg) })
+        .catch(() => {})
     },
     goErrorModal(error) {
       this.$router

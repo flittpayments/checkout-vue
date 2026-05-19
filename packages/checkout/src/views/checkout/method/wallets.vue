@@ -1,6 +1,9 @@
 <template>
   <div class="f-container-sm">
-    <f-price v-if="isBreakpointDownLg" />
+    <template v-if="isBreakpointDownLg">
+      <f-info v-if="isOnlyWallets" />
+      <f-price />
+    </template>
     <f-fields-customer />
     <f-fields-custom />
     <f-fields-user />
@@ -11,6 +14,7 @@
 </template>
 
 <script>
+import FInfo from '@/components/info'
 import FPrice from '@/components/price'
 import FFieldsCustomer from '@/components/fields/customer'
 import FFieldsCustom from '@/components/fields/custom'
@@ -19,9 +23,11 @@ import FOffer from '@/components/offer'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
 import { resizeMixin } from '@/mixins/resize'
+import { mapState } from '@/utils/store'
 
 export default {
   components: {
+    FInfo,
     FPrice,
     FFieldsCustomer,
     FFieldsCustom,
@@ -31,5 +37,8 @@ export default {
     FButtonCancelWrapper,
   },
   mixins: [resizeMixin],
+  computed: {
+    ...mapState(['isOnlyWallets']),
+  },
 }
 </script>

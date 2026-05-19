@@ -57,7 +57,7 @@ export default {
     back: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   computed: {
-    ...mapState(['isOnlyCard', 'mode_test']),
+    ...mapState(['isOnlyCard', 'isOnlyWallets', 'mode_test']),
     ...mapState('params', ['lang']),
     ...mapState('options', [
       'locales',
@@ -87,6 +87,7 @@ export default {
     isLogo() {
       return (
         (this.isOnlyCard && this.$meta.method === 'card') ||
+        (this.isOnlyWallets && this.$meta.method === 'wallets') ||
         this.$route.name === 'most_popular'
       )
     },

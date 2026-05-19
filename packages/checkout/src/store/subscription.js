@@ -3,54 +3,49 @@ import configSubscription from '@/config/subscription'
 import { deepMerge } from '@/utils/helpers'
 import { configDefault } from '@/config/config-default'
 
-export const subscription = ({ subscription, recurring_data = {} } = {}) => {
-  return new Promise((resolve, reject) => {
-    if (!subscription) reject()
+export const subscription = (recurring_data = {}) => {
+  let {
+    amount,
+    period,
+    every,
+    start_time,
+    end_time,
+    readonly,
+    conditions = {},
+    state,
+  } = deepMerge({}, configDefault.params.recurring_data, recurring_data)
 
-    recurring_data = recurring_data || {}
-
-    let {
-      amount,
-      period,
-      every,
-      start_time,
-      end_time,
-      readonly,
-      conditions = {},
-      state,
-    } = deepMerge({}, configDefault.params.recurring_data, recurring_data)
-
-    const { quantity, trial_period, trial_quantity } = deepMerge(
-      {},
-      configDefault.params.recurring_data,
-      conditions
-    )
-
-    const unlimited = Boolean(!quantity && !end_time)
-    resolve({
-      options: {
-        subscription: {
-          quantity: Boolean(quantity || unlimited),
-          unlimited,
-          trial: Boolean(trial_period && trial_quantity),
-          readonly,
-        },
+  const { quantity, trial_period, trial_quantity } = deepMerge(
+    {},
+    configDefault.params.recurring_data,
+    conditions
+  )
+  const type = getType(true, state)
+  const unlimited = Boolean(!quantity && !end_time)
+  return {
+    options: {
+      subscription: {
+        type,
+        quantity: Boolean(quantity || unlimited),
+        unlimited,
+        trial: Boolean(trial_period && trial_quantity),
+        readonly,
       },
-      params: {
-        recurring_data: {
-          amount,
-          period,
-          every,
-          start_time,
-          end_time,
-          quantity,
-          trial_period,
-          trial_quantity,
-        },
+    },
+    params: {
+      recurring_data: {
+        amount,
+        period,
+        every,
+        start_time,
+        end_time,
+        quantity,
+        trial_period,
+        trial_quantity,
       },
-      subscription: configSubscription[getType(true, state)],
-    })
-  })
+    },
+    subscription: configSubscription[type],
+  }
 }
 
 export const getType = (isSubscription, state) => {
