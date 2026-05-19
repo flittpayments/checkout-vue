@@ -46,7 +46,7 @@ export default {
   mixins: [resizeMixin],
   computed: {
     ...mapState('tabs', ['most_popular']),
-    ...mapState(['ready', 'showWalletsTab']),
+    ...mapState(['ready', 'has_fields', 'showWalletsTab']),
     className() {
       return [
         this.$style.wrapper,
