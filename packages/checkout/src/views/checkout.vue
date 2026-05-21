@@ -69,7 +69,7 @@ export default {
     ...mapState('options.theme', ['type']),
     ...mapState(['loading', 'info']),
     ...mapState('options', ['autosubmit']),
-    ...mapState('params', ['token', 'fee', 'payment_system']),
+    ...mapState('params', ['token', 'payment_system']),
     ...mapStateGetSet(['ready', 'order']),
     showFirstLoading() {
       return this.autosubmit && !this.ready
@@ -140,10 +140,6 @@ export default {
     appSuccess(model) {
       this.$root.$emit('ready', model)
       this.appFinally(model)
-
-      if (this.fee) {
-        this.store.feeCalc()
-      }
     },
     appError(model) {
       this.$root.$emit('error', model)
@@ -254,6 +250,18 @@ export default {
               system: this.payment_system,
               link: model.attr('send_data.deeplink'),
               callback: model.attr('send_data.deepcallback'),
+            },
+          })
+          .catch(() => {})
+        return true
+      } else if (model.attr('action') === 'show_client_fee') {
+        this.$router
+          .push({
+            name: 'client-fee',
+            params: {
+              method: tab,
+              system: this.payment_system,
+              data: model.serialize(),
             },
           })
           .catch(() => {})

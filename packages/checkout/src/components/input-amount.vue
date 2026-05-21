@@ -102,7 +102,7 @@ export default {
       return amountToCoins(value)
     },
     feeCalc() {
-      this.store.feeCalc()
+      this.store.feeCalc(this.$route.name)
     },
   },
 }

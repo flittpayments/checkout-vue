@@ -108,7 +108,13 @@ export default {
       'start_time',
     ]),
     showFee() {
-      return this.show_fee && (this.showDiscount || this.fee_amount)
+      return (
+        this.show_fee &&
+        !this.$meta.hideFee &&
+        (this.showDiscount ||
+          this.fee_amount ||
+          this.actualAmount !== this.total_amount)
+      )
     },
     showAdjustmentAmount() {
       return (
@@ -196,7 +202,7 @@ export default {
       this.loading = true
 
       this.store
-        .feeCalc()
+        .feeCalc(this.$route.name)
         .then(this.setLeft)
         .finally(() => {
           this.loading = false

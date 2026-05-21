@@ -355,3 +355,8 @@ export const FCreditCardInline = () =>
 
 export const FFee = () =>
   import(/* webpackChunkName: "74" */ '@/components/base/fee')
+
+export const MethodClientFee = () =>
+  import(
+    /* webpackChunkName: "75" */ '@/views/checkout/method/system/client-fee'
+  )

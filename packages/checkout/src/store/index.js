@@ -85,7 +85,7 @@ class Store extends Model {
       })
     ).catch(errorHandler)
   }
-  feeCalc(data) {
+  feeCalc(routeName, data) {
     const {
       amount,
       currency,
@@ -94,7 +94,15 @@ class Store extends Model {
       button,
       merchant_id,
       promocode,
+      card_number,
     } = this.state.params
+
+    const getCardBin = value => {
+      let count = [9, 8, 7, 6, 1].find(
+        count => value.slice(0, count).length === count
+      )
+      return value.slice(0, count)
+    }
 
     this.state.notification = ''
 
@@ -109,6 +117,7 @@ class Store extends Model {
         button,
         merchant_id,
         promocode,
+        ...(routeName === 'card' ? { card_bin: getCardBin(card_number) } : {}),
         ...data,
       },
       {
@@ -177,6 +186,7 @@ class Store extends Model {
 
     const {
       amount,
+      actual_amount,
       currency,
       merchant_id,
       sender_email: email,
@@ -192,9 +202,8 @@ class Store extends Model {
         order_id,
         verification_type,
       },
+      total_amount: actual_amount || amount,
     })
-
-    this.initTotalAmount()
   }
   cardSuccess(data) {
     this.state.cards =
@@ -318,7 +327,6 @@ class Store extends Model {
     )
     this.state.options.most_popular_icons = most_popular_icons(this.state.tabs)
 
-    this.state.params.fee = model.attr('client_fee') || 0
     this.state.fields_customer = model.attr('customer_required_data') || []
 
     if (model.attr('order.fields_custom')) {

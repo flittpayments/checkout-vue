@@ -29,6 +29,7 @@ import {
   MethodInfo,
   MethodQrCode,
   MethodDeepLink,
+  MethodClientFee,
   WithoutSidebar,
   Menu,
   Loading,
@@ -253,6 +254,17 @@ export const createRouter = name => {
                     meta: route => ({
                       method: route.params.method,
                       noFeeCalc: true,
+                    }),
+                    props: true,
+                  },
+                  {
+                    path: 'client-fee',
+                    name: 'client-fee',
+                    component: MethodClientFee,
+                    meta: route => ({
+                      method: route.params.method,
+                      noFeeCalc: true,
+                      hideFee: true,
                     }),
                     props: true,
                   },

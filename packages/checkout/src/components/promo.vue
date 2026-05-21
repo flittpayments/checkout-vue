@@ -69,7 +69,7 @@ export default {
       this.loading = true
 
       this.store
-        .feeCalc({ promocode: this.promocode })
+        .feeCalc(this.$route.name, { promocode: this.promocode })
         .then(this.complete)
         .finally(() => {
           this.loading = false

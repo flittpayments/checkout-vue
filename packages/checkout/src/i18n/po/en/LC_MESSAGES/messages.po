@@ -458,6 +458,12 @@ msgstr ""
 msgid "sepa_t"
 msgstr "Provide your bank account details"
 
+msgid "accept_fees"
+msgstr "I accept the {fees}"
+
+msgid "fees"
+msgstr "fees"
+
 msgid "confirm_details_in_app"
 msgstr "Confirm details in {name} mobile application"
 

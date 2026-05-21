@@ -16,6 +16,7 @@ import FFieldEmail from '@/components/fields/email'
 import Click2payLoading from '@/views/click2pay/loading'
 import Click2payChangeEmailWrapper from '@/views/click2pay/change-email-wrapper'
 import { mapState } from '@/utils/store'
+import { errorHandler } from '@/utils/helpers'
 
 export default {
   components: {
@@ -32,12 +33,33 @@ export default {
     }
   },
   computed: {
+    ...mapState(['ready']),
     ...mapState('options', ['theme']),
+    ...mapState('params', ['card_number']),
+    ...mapState('order', ['ready_to_submit']),
     isLayoutPlain() {
       return this.theme.layout === 'plain'
     },
     isLayoutInline() {
       return this.theme.layout === 'inline'
+    },
+  },
+  watch: {
+    card_number: 'feeCalc',
+  },
+  created() {
+    this.feeCalc()
+  },
+  destroyed() {
+    this.feeCalc()
+  },
+  methods: {
+    feeCalc() {
+      if (!this.ready) return
+      if (this.ready_to_submit) return
+      if (this.$meta.noFeeCalc) return
+
+      this.store.feeCalc(this.$route.name).catch(errorHandler)
     },
   },
 }

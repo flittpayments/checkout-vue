@@ -120,7 +120,6 @@ export default {
   },
   data() {
     return {
-      config: [9, 8, 7, 6, 1],
       readonlyExpiryDate: false,
     }
   },
@@ -206,15 +205,6 @@ export default {
     },
   },
   watch: {
-    card_number(value) {
-      if (!this.ready) return
-
-      this.store
-        .feeCalc({
-          card_bin: this.getCardBin(value),
-        })
-        .catch(errorHandler)
-    },
     read_only(value) {
       if (!value) return
       if (!this.expiry_date) return
@@ -262,12 +252,6 @@ export default {
       }
 
       return value
-    },
-    getCardBin(value) {
-      let count = this.config.find(
-        count => value.slice(0, count).length === count
-      )
-      return value.slice(0, count)
     },
     watchReady() {
       if (this.isCards) return // TODO remove after new input
