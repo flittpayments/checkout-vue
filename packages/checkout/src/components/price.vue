@@ -40,32 +40,14 @@
             </template>
           </input-amount>
         </template>
-        <table v-if="showFee" class="f-table">
-          <tr>
-            <td class="f-pr-16" v-text="$t('amount')" />
-            <td><f-amount :value="actualAmount" no-bold /></td>
-          </tr>
-          <tr v-if="showDiscount">
-            <td class="f-pr-16" v-text="$t('discount')" />
-            <td>
-              <f-percent v-if="discount_percent" :value="discount_percent" />
-              <span v-if="discount_percent && discount_amount"> + </span>
-              <f-amount
-                v-if="discount_amount"
-                :value="discount_amount"
-                no-bold
-              />
-            </td>
-          </tr>
-          <tr v-if="fee_amount">
-            <td class="f-pr-16" v-text="$t('fee')" />
-            <td><f-amount :value="fee_amount" no-bold /></td>
-          </tr>
-          <tr>
-            <td class="f-pr-16" v-text="$t('total_amount')" />
-            <td><f-amount :value="total_amount" no-bold /></td>
-          </tr>
-        </table>
+        <f-fee
+          v-if="showFee"
+          :amount="actualAmount"
+          :discount-percent="discount_percent"
+          :discount-amount="discount_amount"
+          :fee-amount="fee_amount"
+          :total-amount="total_amount"
+        />
         <f-promo v-if="showPromoBottom" class="f-mt-20" />
       </template>
     </f-preloader>
@@ -76,20 +58,19 @@
 import FPreloader from '@/components/preloader'
 import FAmount from '@/components/base/amount'
 import FDate from '@/components/base/date'
-import { InputAmount, FPromo } from '@/import'
+import { InputAmount, FPromo, FFee } from '@/import'
 import { mapState } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { timeoutMixin } from '@/mixins/timeout'
-import FPercent from '@/components/base/percent.vue'
 
 export default {
   components: {
-    FPercent,
     FPreloader,
     FAmount,
     InputAmount,
+    FFee,
     FDate,
     FPromo,
   },
