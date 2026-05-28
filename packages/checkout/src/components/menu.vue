@@ -9,6 +9,7 @@
       v-for="tab in tabs"
       :key="tab"
       :method="tab"
+      data-menu-item
       :data-e2e-menu-item="tab"
     />
   </div>

@@ -22,7 +22,11 @@
       no-label-floating
       dynamic-placeholder
       autocomplete="cc-number"
+      data-card-input
+      :force-error="forceError.card_number"
       @input="inputCardNumber"
+      @focus="onFocus('card_number')"
+      @blur="onBlur"
     >
       <template v-if="disabled" #label="{ label }">
         <label class="f-card_label">
@@ -52,8 +56,12 @@
       no-label-floating
       dynamic-placeholder
       autocomplete="cc-exp"
+      data-card-input
       :format="format"
+      :force-error="forceError.expiry_date"
       @input="inputExpiryDate"
+      @focus="onFocus('expiry_date')"
+      @blur="onBlur"
     />
     <f-form-group
       v-if="showCvv"
@@ -74,6 +82,11 @@
       no-label-floating
       dynamic-placeholder
       autocomplete="cc-csc"
+      data-card-input
+      :force-error="forceError.cvv2"
+      @input="inputCvv"
+      @focus="onFocus('cvv2')"
+      @blur="onBlur"
     >
       <template v-if="!disabled" #label="{ id, label }">
         <label class="f-card_label" :for="id">
@@ -105,6 +118,8 @@ import { createDate, format } from '@/utils/date'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 
+const fields = ['card_number', 'expiry_date', 'cvv2']
+
 export default {
   components: {
     FCardBg,
@@ -122,6 +137,16 @@ export default {
     return {
       config: [9, 8, 7, 6, 1],
       readonlyExpiryDate: false,
+      forceError: {
+        card_number: false,
+        expiry_date: false,
+        cvv2: false,
+      },
+      focusCount: {
+        card_number: 0,
+        expiry_date: 0,
+        cvv2: 0,
+      },
     }
   },
   computed: {
@@ -129,7 +154,6 @@ export default {
       'ready',
       'read_only',
       'cards',
-      'submited',
       'need_validate_card',
       'cvv2_requirement',
     ]),
@@ -163,13 +187,7 @@ export default {
       if (this.disabledCardNumber) return
       if (!this.need_validate_card) return {}
 
-      let needValidCard =
-        !this.hash &&
-        (this.card_number.length === 16 ||
-          this.card_number.length === 19 ||
-          this.submited)
-
-      return needValidCard ? 'required|ccard' : 'required'
+      return !this.hash ? 'required|ccard' : 'required'
     },
     validCvv() {
       if (this.disabled) return
@@ -228,28 +246,54 @@ export default {
   },
   methods: {
     inputCardNumber(value) {
+      this.setError('card_number')
       if (value.length === 16 || value.length === 19) {
-        this.focus()
+        this.focusFirstInvalid()
       } else {
         this.hash = ''
       }
     },
     inputExpiryDate() {
-      this.focusInvalid(['expiry_date', 'cvv2'])
+      this.setError('expiry_date')
+      this.runIfValid('expiry_date', this.focusFirstInvalid)
     },
-    focusInvalid(fields) {
-      fields
-        .reduce((accum, name) => {
-          return accum
-            .then(() => this.$refs[name]?.validation.validate())
-            .then(response => {
-              if (response?.valid) return
+    inputCvv() {
+      this.setError('cvv2')
+      this.runIfValid('cvv2', this.focusFirstInvalid)
+    },
+    setError(name) {
+      if (this.focusCount[name] < 2) return
 
-              this.$refs[name]?.focused()
-              return Promise.reject()
-            })
-        }, Promise.resolve())
+      this.validate(name, valid => (this.forceError[name] = !valid))
+    },
+    focusFirstInvalid() {
+      this.findFirstInvalid(name => this.$refs[name]?.focused())
+    },
+    findFirstInvalid(cb) {
+      fields
+        .reduce(
+          (accum, name) =>
+            accum.then(() =>
+              this.validate(name, valid => {
+                if (valid) return
+
+                cb(name)
+                return Promise.reject()
+              })
+            ),
+          Promise.resolve()
+        )
         .catch(errorHandler)
+    },
+    runIfValid(name, cb) {
+      return this.validate(name, valid => {
+        if (valid) return cb()
+      })
+    },
+    validate(name, cb) {
+      return this.$refs[name]?.validation
+        .validate()
+        .then(({ valid } = {}) => cb(valid))
     },
     format(value) {
       value = value.replace(/[^\d]/, '/')
@@ -276,7 +320,40 @@ export default {
     focus() {
       if (!this.ready) return
 
-      this.focusInvalid(['card_number', 'expiry_date', 'cvv2'])
+      this.focusFirstInvalid()
+    },
+    onFocus(name) {
+      this.focusCount[name]++
+
+      if (this.focusCount[name] < 2) return
+
+      this.validate(name, valid => {
+        if (valid) return
+
+        this.setOnlyError(name)
+      })
+    },
+    onBlur({ relatedTarget }) {
+      const ATTRS = ['data-card-input', 'data-menu-item', 'data-wallet-item']
+      const shouldHideError = ATTRS.some(attr =>
+        relatedTarget?.hasAttribute(attr)
+      )
+
+      if (shouldHideError) {
+        this.clearAllErrors()
+      } else {
+        this.findFirstInvalid(name => this.setOnlyError(name))
+      }
+    },
+    setOnlyError(field) {
+      fields.forEach(k => {
+        this.forceError[k] = k === field
+      })
+    },
+    clearAllErrors() {
+      fields.forEach(k => {
+        this.forceError[k] = false
+      })
     },
   },
 }

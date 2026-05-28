@@ -75,6 +75,9 @@ export const ccard = {
     let nDigit = 0
     let bEven = false
     let strippedField = value.replace(/\D/g, '')
+
+    if (strippedField.length < 13 || strippedField.length > 19) return false
+
     for (let n = strippedField.length - 1; n >= 0; n--) {
       let cDigit = strippedField.charAt(n)
       nDigit = parseInt(cDigit, 10)

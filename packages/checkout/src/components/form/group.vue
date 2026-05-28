@@ -47,7 +47,7 @@
     </div>
     <f-tooltip-error
       v-if="showErrorTooltip"
-      :show.sync="showErrorTooltipFlag"
+      :show="forceError"
       :target="() => $refs.item?.$el"
     >
       <f-svg class="f-mr-8" name="warning" size="md" />
@@ -70,7 +70,6 @@ import { idMixin, idProps } from '@/mixins/id'
 import { isMountedMixin } from '@/mixins/is-mounted'
 import { PROP_TYPE_STRING, PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
-import { timeoutMixin } from '@/mixins/timeout'
 import { arrayIncludes } from '@/utils/array'
 
 export default {
@@ -80,7 +79,7 @@ export default {
     FPlaceholder,
     FTooltipError,
   },
-  mixins: [idMixin, isMountedMixin, timeoutMixin],
+  mixins: [idMixin, isMountedMixin],
   inheritAttrs: false,
   props: {
     ...idProps,
@@ -95,13 +94,13 @@ export default {
     prepend: makeProp(PROP_TYPE_STRING),
     prependText: makeProp(PROP_TYPE_STRING),
     dynamicPlaceholder: makeProp(PROP_TYPE_BOOLEAN, false),
+    forceError: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   data() {
     return {
       focus: false,
       hover: false,
       value: null,
-      showErrorTooltipFlag: false,
     }
   },
   computed: {
@@ -167,7 +166,7 @@ export default {
       return showError && !this.hideError
     },
     showErrorTooltip() {
-      return this.tooltip && this.hasError && this.focus
+      return this.tooltip
     },
     showPlaceholder() {
       return this.dynamicPlaceholder && this.noLabelFloating && this.safeId()
@@ -175,9 +174,6 @@ export default {
     showLabel() {
       return !arrayIncludes(['checkbox'], this.$attrs.component) && this.label
     },
-  },
-  watch: {
-    showErrorTooltip: 'watchShowErrorTooltip',
   },
   methods: {
     onFocus() {
@@ -191,11 +187,6 @@ export default {
     },
     mouseleave() {
       this.hover = false
-    },
-    watchShowErrorTooltip(value) {
-      this.timeout(() => {
-        this.showErrorTooltipFlag = value
-      })
     },
     focused() {
       this.$refs.item.focused()

@@ -50,6 +50,7 @@
         :maxlength="digitsCvv"
         autocomplete="cc-csc"
         hide-error
+        @input="inputCvv"
         @error="onError"
       />
     </f-input-group>
@@ -70,6 +71,8 @@ import { errorHandler } from '@/utils/helpers'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { FLoading } from '@/import'
+
+const fields = ['card_number', 'expiry_date', 'cvv2']
 
 export default {
   components: {
@@ -180,31 +183,53 @@ export default {
 
       this.readonlyExpiryDate = true
     },
+    ready: 'watchReady',
+  },
+  mounted() {
+    this.focus()
   },
   methods: {
     inputCardNumber(value) {
       if (value.length === 16 || value.length === 19) {
-        this.focus(['card_number', 'expiry_date', 'cvv2'])
+        this.focusFirstInvalid()
       } else {
         this.hash = ''
       }
     },
     inputExpiryDate() {
-      this.focus(['expiry_date', 'cvv2'])
+      this.runIfValid('expiry_date', this.focusFirstInvalid)
     },
-    focus(fields) {
+    inputCvv() {
+      this.runIfValid('cvv2', this.focusFirstInvalid)
+    },
+    focusFirstInvalid() {
+      this.findFirstInvalid(name => this.$refs[name]?.focused())
+    },
+    findFirstInvalid(cb) {
       fields
-        .reduce((accum, name) => {
-          return accum
-            .then(() => this.$refs[name]?.validation.validate())
-            .then(response => {
-              if (response?.valid) return
+        .reduce(
+          (accum, name) =>
+            accum.then(() =>
+              this.validate(name, valid => {
+                if (valid) return
 
-              this.$refs[name]?.focused()
-              return Promise.reject()
-            })
-        }, Promise.resolve())
+                cb(name)
+                return Promise.reject()
+              })
+            ),
+          Promise.resolve()
+        )
         .catch(errorHandler)
+    },
+    runIfValid(name, cb) {
+      return this.validate(name, valid => {
+        if (valid) return cb()
+      })
+    },
+    validate(name, cb) {
+      return this.$refs[name]?.validation
+        .validate()
+        .then(({ valid } = {}) => cb(valid))
     },
     format(value) {
       value = value.replace(/[^\d]/, '/')
@@ -223,6 +248,15 @@ export default {
         count => value.slice(0, count).length === count
       )
       return value.slice(0, count)
+    },
+    watchReady() {
+      if (this.isCards) return // TODO remove after new input
+      this.focus()
+    },
+    focus() {
+      if (!this.ready) return
+
+      this.focusFirstInvalid()
     },
     onError(error) {
       this.error = error

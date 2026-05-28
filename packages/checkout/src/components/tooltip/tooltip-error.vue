@@ -15,7 +15,7 @@ export default {
   computed: {
     attrs() {
       return {
-        triggers: 'focus',
+        triggers: '',
         placement: 'top',
         'custom-class': 'f-tooltip-error',
         variant: 'secondary',

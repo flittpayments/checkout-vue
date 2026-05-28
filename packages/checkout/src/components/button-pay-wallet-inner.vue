@@ -1,5 +1,11 @@
 <template>
-  <f-button :class="classButton" :variant="variant" block @click="click">
+  <f-button
+    :class="classButton"
+    :variant="variant"
+    block
+    data-wallet-item
+    @click="click"
+  >
     <transition v-if="isGooglePay" name="f-fade">
       <iframe v-show="load" :class="$style.iframe" :src="src" @load="onLoad" />
     </transition>

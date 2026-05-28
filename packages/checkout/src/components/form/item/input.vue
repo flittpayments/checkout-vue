@@ -6,7 +6,7 @@
       :class="className"
       v-bind="attrs"
       @focus="$emit('focus')"
-      @blur="$emit('blur')"
+      @blur="$emit('blur', $event)"
       @keydown="$emit('keydown', $event)"
       @paste="$emit('paste', $event)"
       @keyup.enter="onEnter"
