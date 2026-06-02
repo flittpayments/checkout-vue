@@ -70,15 +70,7 @@ export default {
     ...mapState(['loading', 'info']),
     ...mapState('options', ['autosubmit']),
     ...mapState('params', ['token', 'fee', 'payment_system']),
-
     ...mapStateGetSet(['ready', 'order']),
-    ...mapStateGetSet('params', [
-      'amount',
-      'currency',
-      'merchant_id',
-      'order_id',
-      'verification_type',
-    ]),
     showFirstLoading() {
       return this.autosubmit && !this.ready
     },
@@ -120,7 +112,12 @@ export default {
     submitProgress(model) {
       if (!model) return
 
-      this.location(model.instance(model.alt('order', model.data)))
+      if (!this.locationOrder(model.instance(model.attr('order')))) {
+        this.locationModel(
+          model.instance(model.alt('model', model.serialize()))
+        )
+      }
+
       this.submit3dsSuccess(model)
 
       return model
@@ -135,7 +132,9 @@ export default {
     submitError(model) {
       this.$root.$emit('error', model)
       this.store.setToken(model.attr('token'))
-      this.location(model.instance(model.attr('order')))
+      if (!this.locationOrder(model.instance(model.attr('order')))) {
+        this.store.formLoading(false)
+      }
       return Promise.reject(model)
     },
     appSuccess(model) {
@@ -159,24 +158,12 @@ export default {
 
       this.store.paySuccess(model.attr('pay'))
       this.store.infoSuccess(model.instance(model.attr('info')))
-      this.orderSuccess(model.instance(model.attr('order')))
+      this.store.orderSuccess(model.attr('order'))
       this.store.cardSuccess(model.attr('cards'))
-    },
-    orderSuccess(model) {
-      this.location(model)
 
-      let order_data = model.attr('order_data')
-
-      if (!order_data) return
-
-      this.amount = parseInt(order_data.amount, 10)
-      this.store.initTotalAmount()
-      this.currency = order_data.currency
-      this.merchant_id = order_data.merchant_id
-      this.store.state.params.email =
-        order_data.sender_email || this.store.state.params.email
-      this.order_id = order_data.order_id
-      this.verification_type = model.data.verification_type
+      if (!this.locationOrder(model.instance(model.attr('order')))) {
+        this.locationFirst()
+      }
     },
     submit3dsSuccess(model) {
       if (!model.waitOn3dsDecline()) return
@@ -185,10 +172,10 @@ export default {
       this.duration3ds = model.waitOn3dsDecline()
       model3ds = model
     },
-    location(model) {
-      this.order = model.data
+    locationOrder(model) {
+      if (!model.attr('order_data')) return false
 
-      if (model.sendResponse()) return
+      this.order = model.serialize()
 
       if (
         this.$root._events.callback?.length &&
@@ -197,10 +184,10 @@ export default {
         this.store.formLoading(false)
         this.$root.$emit('callback', model)
 
-        return
+        return true
       }
 
-      if (this.store.readyToSubmit() && model.submitToMerchant()) return
+      if (this.store.readyToSubmit() && model.submitToMerchant()) return true
 
       if (model.waitForResponse()) {
         const tab = mappingMethod(model.attr('order_data.payment_system'))
@@ -221,13 +208,29 @@ export default {
           this.$router.push({ name: tab }).catch(() => {})
         }
         this.waitForFinalOrderStatus()
-        return
+        return true
       }
 
-      this.store.formLoading(false)
+      if (model.needVerifyCode()) {
+        this.$router.push({ name: 'verify' }).catch(() => {})
+        this.store.formLoading(false)
+        return true
+      }
+      if (model.inProgress()) {
+        this.store.hideError()
+        this.$router.push({ name: 'success' }).catch(() => {})
+        this.store.formLoading(false)
+        return true
+      }
 
+      return false
+    },
+    locationModel(model) {
       const tab = this.store.getTabByMethodId(this.payment_system)
-      const autoSubmitParams = this.store.getAutoSubmitParams()
+
+      if (model.sendResponse()) return true
+
+      this.store.formLoading(false)
 
       if (model.attr('action') === 'qr_code') {
         this.$router
@@ -240,7 +243,9 @@ export default {
             },
           })
           .catch(() => {})
-      } else if (model.attr('action') === 'deep_link') {
+        return true
+      }
+      if (model.attr('action') === 'deep_link') {
         this.$router
           .push({
             name: 'deep-link',
@@ -252,17 +257,19 @@ export default {
             },
           })
           .catch(() => {})
-      } else if (model.needVerifyCode()) {
-        this.$router.push({ name: 'verify' }).catch(() => {})
-      } else if (model.inProgress()) {
-        this.store.hideError()
-        this.$router.push({ name: 'success' }).catch(() => {})
-      } else if (
-        !this.flag &&
+        return true
+      }
+
+      return false
+    },
+    locationFirst() {
+      const autoSubmitParams = this.store.getAutoSubmitParams()
+      this.store.formLoading(false)
+
+      if (
         findGetParameter('action') === 'deep_link' &&
         DOMAIN === location.hostname
       ) {
-        this.flag = true
         this.$router
           .push({
             name: 'deep-link',
@@ -271,11 +278,9 @@ export default {
             ),
           })
           .catch(() => {})
-      } else if (!this.flag && autoSubmitParams) {
-        this.flag = true
+      } else if (autoSubmitParams) {
         this.formRequest(autoSubmitParams).catch(errorHandler)
-      } else if (!this.flag) {
-        this.flag = true
+      } else {
         this.$router
           .push(this.store.location(this.isBreakpointDownLg))
           .catch(() => {})
@@ -292,7 +297,7 @@ export default {
         .sendRequest('api.checkout.order', 'get', {
           token: this.token,
         })
-        .then(this.orderSuccess)
+        .then(this.locationOrder)
         .catch(errorHandler)
     },
     cancelWaitForFinalOrderStatus() {

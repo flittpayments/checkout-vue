@@ -172,6 +172,30 @@ class Store extends Model {
     this.initShowWalletsTab()
     this.initClick2pay()
   }
+  orderSuccess({ order_data, verification_type } = {}) {
+    if (!order_data) return
+
+    const {
+      amount,
+      currency,
+      merchant_id,
+      sender_email: email,
+      order_id,
+    } = order_data
+
+    this.setState({
+      params: {
+        amount,
+        currency,
+        merchant_id,
+        email,
+        order_id,
+        verification_type,
+      },
+    })
+
+    this.initTotalAmount()
+  }
   cardSuccess(data) {
     this.state.cards =
       !this.state.options.disable_request && this.state.mode_test
