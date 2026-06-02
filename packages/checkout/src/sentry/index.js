@@ -27,7 +27,7 @@ function initSentry(optionsUser, router, Vue) {
       ...(router ? [browserTracingIntegration({ router })] : []),
       replayIntegration(),
     ],
-    tracesSampleRate: 1.0,
+    tracesSampleRate: 0.1,
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
     release: VERSION,
