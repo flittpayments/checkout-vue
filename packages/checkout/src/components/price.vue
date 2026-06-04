@@ -29,12 +29,13 @@
                 {{ totalAmount }}
               </div>
               <label
-                v-if="showFeeAmount"
+                v-if="showAdjustmentAmount"
                 :for="id"
                 class="f-fee"
                 :style="style"
               >
-                + <f-amount :value="fee_amount" />
+                {{ adjustmentSign }}
+                <f-amount :value="adjustmentAbsoluteAmount" />
               </label>
             </template>
           </input-amount>
@@ -128,8 +129,12 @@ export default {
     showFee() {
       return this.show_fee && (this.showDiscount || this.fee_amount)
     },
-    showFeeAmount() {
-      return this.showFee && this.actualAmount === this.amount
+    showAdjustmentAmount() {
+      return (
+        this.showFee &&
+        this.actualAmount === this.amount &&
+        this.adjustmentAmount
+      )
     },
     showAmountReadOnly() {
       return this.$meta.noFeeCalc || this.amount_readonly || this.readonly
@@ -145,6 +150,15 @@ export default {
     },
     showPromoBottom() {
       return !this.readonly && this.promo && !this.amount_readonly
+    },
+    adjustmentAmount() {
+      return this.total_amount - this.amount
+    },
+    adjustmentAbsoluteAmount() {
+      return Math.abs(this.adjustmentAmount)
+    },
+    adjustmentSign() {
+      return this.adjustmentAmount > 0 ? '+' : '-'
     },
     totalAmount() {
       return this.amount / 100
