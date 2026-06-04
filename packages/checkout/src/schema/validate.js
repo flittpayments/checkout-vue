@@ -11,12 +11,19 @@ import { formatServer } from '@/config/date'
 import configMethods from '@/config/methods.json'
 import { mappingMethod } from '@/config/mapping-method'
 
+const sanitize = data =>
+  Object.fromEntries(Object.entries(data).filter(([key]) => key !== '__ob__'))
+
 class Validate {
   constructor(data) {
-    this.data = deepMerge(data, {
-      options: { theme: {} },
-      params: {},
-    })
+    this.data = deepMerge(
+      {
+        options: { methods_disabled: [], theme: {} },
+        params: {},
+      },
+      data
+    )
+
     this.options = this.data.options
     this.params = this.data.params
   }
@@ -25,27 +32,27 @@ class Validate {
     this.format(this.data)
     this.monitoring()
     this.compatibility()
-    return this.validate().then(this.afterValidate.bind(this))
+    return this.validate()
+      .then(() => this.afterValidate())
+      .then(() => this.data)
   }
 
   monitoring() {
-    const hasMethodDisabledCard =
-      this.options.methods_disabled?.includes('card')
-    const isLayoutWalletsOnly = this.options.theme.layout === 'wallets_only'
-    const sanitize = data =>
-      Object.fromEntries(
-        Object.entries(data).filter(([key]) => key !== '__ob__')
-      )
+    this.legacyWalletsOnly()
+  }
 
-    if (hasMethodDisabledCard && !isLayoutWalletsOnly) {
-      captureMessage(
-        'method_disabled contains cards when the layout is not wallets_only',
-        {
-          level: 'info',
-          extra: sanitize(this.data),
-        }
-      )
-    }
+  legacyWalletsOnly() {
+    if (this.options.methods_disabled.includes('wallets')) return
+    if (!this.options.methods_disabled.includes('card')) return
+    if (this.options.theme.layout === 'wallets_only') return
+
+    captureMessage(
+      'method_disabled contains cards when the layout is not wallets_only',
+      {
+        level: 'info',
+        extra: sanitize(this.data),
+      }
+    )
   }
 
   compatibility() {

@@ -317,7 +317,7 @@ class Store extends Model {
   setOptions(userConfig) {
     return validate(userConfig)
       .init()
-      .then(() => {
+      .then(userConfig => {
         this.init(userConfig)
       })
   }
@@ -326,7 +326,7 @@ class Store extends Model {
     this.user = JSON.parse(JSON.stringify(userConfig))
 
     deepMerge(this.state.params, this.user.params, notSet.params)
-    deepMerge(this.state.options, this.user.options, notSet.options)
+    deepMerge(this.state.options, this.user.options)
     Object.assign(this.state.button, this.user.button)
     Object.assign(this.state.fields_custom, this.user.fields_custom)
     Object.assign(this.state.messages, this.user.messages)
