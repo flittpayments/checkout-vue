@@ -854,10 +854,7 @@ msgstr "Apple Pay or Google Pay"
 
 msgid "3ds_title"
 msgstr ""
-"You will be redirected to 3ds page. If you don't see it, please click the"
-
-msgid "3ds_link"
-msgstr "link"
+"Redirecting to your bank for 3-D Secure authentication. Use app or SMS code to complete the payment."
 
 msgid "account_number"
 msgstr "Account number"

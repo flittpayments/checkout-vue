@@ -45,7 +45,7 @@ function setI18nLanguage(lang) {
     api.extendParams({
       messages: {
         modalHeader: i18n.t('3ds_title'),
-        modalLinkLabel: i18n.t('3ds_link'),
+        modalLinkLabel: '',
       },
     })
   }

@@ -770,10 +770,7 @@ msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"
-msgstr "Sinut siirretään 3ds-sivulle. Jos et näe sitä, napsauta"
-
-msgid "3ds_link"
-msgstr "linkkiä"
+msgstr ""
 
 msgid "account_number"
 msgstr ""

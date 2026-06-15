@@ -317,6 +317,7 @@ export default {
           show_secure_message: typeBoolean,
           show_test_mode: typeBoolean,
           show_title: typeBoolean,
+          show_3ds_close: typeBoolean,
           cvv2_requirement: typeEnum(cvv2Requirement),
         },
       },

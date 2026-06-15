@@ -684,11 +684,23 @@
             merchant_id: 1027,
           },
         },
+        hide_3ds_close: {
+          options: {
+            api_domain,
+            show_3ds_close: false,
+          },
+          params: {
+            amount: 10000,
+            currency: 'GEL',
+            merchant_id: 1549901,
+
+          },
+        },
       }
 
       setConfigsOption()
 
-      window.app = render('#app', 'payme')
+      window.app = render('#app', 'hide_3ds_close')
       // render('#app2', 'min')
       // render('#app3', 'max2')
 

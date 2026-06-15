@@ -25,6 +25,10 @@ html {
     border-radius: 0;
   }
 
+  .flitt-modal-title {
+    padding-right: px-to-rem(50px);
+  }
+
   .flitt-modal-close {
     position: absolute;
     top: 0;

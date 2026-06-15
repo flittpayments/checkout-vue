@@ -67,6 +67,7 @@ export const configDefault = {
     show_secure_message: true,
     show_test_mode: true,
     show_title: true,
+    show_3ds_close: true,
     cvv2_requirement: 'mandatory',
   },
   params: {

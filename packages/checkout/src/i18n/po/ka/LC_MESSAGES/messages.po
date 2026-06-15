@@ -812,11 +812,6 @@ msgstr "Apple Pay ან Google Pay"
 
 msgid "3ds_title"
 msgstr ""
-"თქვენ გადამისამართდებით 3D-ს გვერდზე, თუ ავტომატურად არ გადამისამართდით "
-"გადადით"
-
-msgid "3ds_link"
-msgstr "ბმულზე"
 
 msgid "account_number"
 msgstr ""

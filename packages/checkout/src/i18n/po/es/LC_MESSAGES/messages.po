@@ -768,10 +768,7 @@ msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"
-msgstr "Serás redirigido a la página de 3ds. Si no la ves, haz clic en"
-
-msgid "3ds_link"
-msgstr "el enlace."
+msgstr ""
 
 msgid "account_number"
 msgstr ""

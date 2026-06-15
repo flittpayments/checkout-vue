@@ -773,9 +773,6 @@ msgstr ""
 msgid "3ds_title"
 msgstr ""
 
-msgid "3ds_link"
-msgstr ""
-
 msgid "account_number"
 msgstr ""
 

@@ -739,10 +739,6 @@ msgstr ""
 
 msgid "3ds_title"
 msgstr ""
-"Вы будете перенаправлены на страницу 3ds. Если вы не видите ее, перейдите по"
-
-msgid "3ds_link"
-msgstr "ссылке"
 
 msgid "account_number"
 msgstr ""

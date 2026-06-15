@@ -749,10 +749,7 @@ msgid "wallets_apple_google"
 msgstr ""
 
 msgid "3ds_title"
-msgstr "你将被重定向到 3ds 页面. 如果没有看到，请点击"
-
-msgid "3ds_link"
-msgstr "链接"
+msgstr ""
 
 msgid "account_number"
 msgstr ""

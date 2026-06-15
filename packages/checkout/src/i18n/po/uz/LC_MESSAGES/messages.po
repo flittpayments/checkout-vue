@@ -835,11 +835,6 @@ msgstr "Apple Pay yoki Google Pay"
 
 msgid "3ds_title"
 msgstr ""
-"Siz 3ds sahifasiga yo'naltirilasiz. Agar uni ko'rmasangiz, iltimos, ustiga "
-"bosing"
-
-msgid "3ds_link"
-msgstr "link"
 
 msgid "account_number"
 msgstr "Hisob raqami"

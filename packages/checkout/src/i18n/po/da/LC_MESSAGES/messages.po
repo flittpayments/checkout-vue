@@ -776,11 +776,6 @@ msgstr ""
 
 msgid "3ds_title"
 msgstr ""
-"Du vil blive omdirigeret til den tredje side. Hvis dette ikke skete, så klik "
-"her"
-
-msgid "3ds_link"
-msgstr "link"
 
 msgid "account_number"
 msgstr ""

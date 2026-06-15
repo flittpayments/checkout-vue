@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('options', ['full_screen', 'theme']),
+    ...mapState('options', ['full_screen', 'theme', 'show_3ds_close']),
     className() {
       return [
         `f-theme-${this.theme.type}`,
@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     init() {
+      this.add3dsCloseStyle()
       this.initHeight()
       this.store
         .load()
@@ -106,6 +107,11 @@ export default {
       this.$root.$on('setParams', params => {
         this.store.setParams(params)
       })
+    },
+    add3dsCloseStyle() {
+      if (this.show_3ds_close) return
+
+      import('@/scss/hide-3ds-close.scss')
     },
   },
 }
