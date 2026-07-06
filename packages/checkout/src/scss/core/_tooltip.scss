@@ -16,7 +16,6 @@ $tooltip-arrow-height: px-to-rem(7px);
     display: block;
     width: $tooltip-arrow-width;
     height: $tooltip-arrow-height;
-    margin: 0 $border-radius;
 
     &::before {
       position: absolute;
@@ -28,13 +27,6 @@ $tooltip-arrow-height: px-to-rem(7px);
 
   &.noninteractive {
     pointer-events: none;
-  }
-
-  &.f-tooltip-right,
-  &.f-tooltip-left {
-    .f-tooltip-arrow {
-      margin: $border-radius 0;
-    }
   }
 }
 
@@ -97,19 +89,19 @@ $tooltip-arrow-height: px-to-rem(7px);
 }
 
 .f-tooltip-auto {
-  &[x-placement^='top'] {
+  &[data-popper-placement^='top'] {
     @extend .f-tooltip-top;
   }
 
-  &[x-placement^='right'] {
+  &[data-popper-placement^='right'] {
     @extend .f-tooltip-right;
   }
 
-  &[x-placement^='bottom'] {
+  &[data-popper-placement^='bottom'] {
     @extend .f-tooltip-bottom;
   }
 
-  &[x-placement^='left'] {
+  &[data-popper-placement^='left'] {
     @extend .f-tooltip-left;
   }
 }

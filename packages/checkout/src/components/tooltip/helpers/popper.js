@@ -5,10 +5,10 @@
 //   Templates are only instantiated when shown, and destroyed when hidden
 //
 
-import PopperJs from 'popper.js'
+import { createPopper } from '@popperjs/core'
 import Vue from 'vue'
 import { Transition } from '@/utils/transition'
-import { getCS, isElement, requestAF, select } from '@/utils/dom'
+import { isElement, requestAF } from '@/utils/dom'
 import { toFloat } from '@/utils/number'
 import { HTMLElement, SVGElement } from '@/utils/safe-types'
 import {
@@ -28,26 +28,26 @@ const AttachmentMap = {
   TOPRIGHT: 'top',
   RIGHTTOP: 'right',
   RIGHTBOTTOM: 'right',
-  BOTTOMLEFT: 'bottom-start',
-  BOTTOMRIGHT: 'bottom-end',
+  BOTTOMLEFT: 'bottom',
+  BOTTOMRIGHT: 'bottom',
   LEFTTOP: 'left',
   LEFTBOTTOM: 'left',
 }
 
 const OffsetMap = {
-  AUTO: 0,
-  TOPLEFT: -1,
-  TOP: 0,
-  TOPRIGHT: +1,
-  RIGHTTOP: -1,
-  RIGHT: 0,
-  RIGHTBOTTOM: +1,
-  BOTTOMLEFT: 0,
-  BOTTOM: 0,
-  BOTTOMRIGHT: 0,
-  LEFTTOP: -1,
-  LEFT: 0,
-  LEFTBOTTOM: +1,
+  AUTO: 'auto',
+  TOP: 'top',
+  RIGHT: 'right',
+  BOTTOM: 'bottom',
+  LEFT: 'left',
+  TOPLEFT: 'top-end',
+  TOPRIGHT: 'top-start',
+  RIGHTTOP: 'right-end',
+  RIGHTBOTTOM: 'right-start',
+  BOTTOMLEFT: 'bottom-end',
+  BOTTOMRIGHT: 'bottom-start',
+  LEFTTOP: 'left-end',
+  LEFTBOTTOM: 'left-start',
 }
 
 // @vue/component
@@ -56,8 +56,8 @@ export const Popper = Vue.extend({
     // The minimum distance (in `px`) from the edge of the
     // tooltip/popover that the arrow can be positioned
     arrowPadding: makeProp(PROP_TYPE_NUMBER_STRING, 6),
-    // 'scrollParent', 'viewport', 'window', or `Element`
-    boundary: makeProp([HTMLElement, PROP_TYPE_STRING], 'scrollParent'),
+    // 'clippingParents', 'viewport', 'window', or `Element`
+    boundary: makeProp([HTMLElement, PROP_TYPE_STRING], 'clippingParents'),
     // Tooltip/popover will try and stay away from
     // boundary edge by this many pixels
     boundaryPadding: makeProp(PROP_TYPE_NUMBER_STRING, 5),
@@ -84,29 +84,54 @@ export const Popper = Vue.extend({
     popperConfig() {
       const { placement } = this
       return {
-        placement: this.getAttachment(placement),
-        modifiers: {
-          offset: { offset: this.getOffset(placement) },
-          flip: { behavior: this.fallbackPlacement },
-          // `arrow.element` can also be a reference to an HTML Element
-          // maybe we should make this a `$ref` in the templates?
-          arrow: { element: this.$refs.arrow },
-          preventOverflow: {
-            padding: this.boundaryPadding,
-            boundariesElement: this.boundary,
+        placement: OffsetMap[String(placement).toUpperCase()] || 'auto',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, toFloat(this.offset, 0)],
+            },
           },
-        },
-        onCreate: data => {
-          this.updatePopper()
-          // Handle flipping arrow classes
-          if (data.originalPlacement !== data.placement) {
-            this.popperPlacementChange(data)
-          }
-        },
-        onUpdate: data => {
-          // Handle flipping arrow classes
-          this.popperPlacementChange(data)
-        },
+          {
+            name: 'flip',
+            options: {
+              fallbackPlacements: Array.isArray(this.fallbackPlacement)
+                ? this.fallbackPlacement
+                : this.fallbackPlacement === 'flip'
+                  ? []
+                  : [this.fallbackPlacement],
+            },
+          },
+          {
+            name: 'arrow',
+            options: {
+              element: this.$refs.arrow,
+              padding: this.arrowPadding,
+            },
+          },
+          {
+            name: 'preventOverflow',
+            options: {
+              padding: this.boundaryPadding,
+              boundary: this.boundary,
+            },
+          },
+          {
+            name: 'eventListeners',
+            options: {
+              scroll: true,
+              resize: true,
+            },
+          },
+          {
+            name: 'onUpdate',
+            enabled: true,
+            phase: 'afterWrite',
+            fn: ({ state }) => {
+              this.popperPlacementChange(state)
+            },
+          },
+        ],
       }
     },
   },
@@ -161,42 +186,27 @@ export const Popper = Vue.extend({
     getAttachment(placement) {
       return AttachmentMap[String(placement).toUpperCase()] || 'auto'
     },
-    getOffset(placement) {
-      if (!this.offset) {
-        // Could set a ref for the arrow element
-        const arrow = this.$refs.arrow || select('.arrow', this.$el)
-        const arrowOffset =
-          toFloat(getCS(arrow).width, 0) + toFloat(this.arrowPadding, 0)
-        switch (OffsetMap[String(placement).toUpperCase()] || 0) {
-          case +1:
-            return `+50%p - ${arrowOffset}px`
-          case -1:
-            return `-50%p + ${arrowOffset}px`
-          default:
-            return 0
-        }
-      }
-      return this.offset
-    },
     popperCreate(el) {
       this.destroyPopper()
       // We use `el` rather than `this.$el` just in case the original
       // mountpoint root element type was changed by the template
-      let target = isElement(this.target?.reference)
+      const target = isElement(this.target?.reference)
         ? this.target.reference
         : this.target
-      this.$_popper = new PopperJs(target, el, this.popperConfig)
+      if (target && el) {
+        this.$_popper = createPopper(target, el, this.popperConfig)
+      }
     },
     destroyPopper() {
       this.$_popper && this.$_popper.destroy()
       this.$_popper = null
     },
     updatePopper() {
-      this.$_popper && this.$_popper.scheduleUpdate()
+      this.$_popper && this.$_popper.forceUpdate()
     },
     popperPlacementChange(data) {
       // Callback used by popper to adjust the arrow placement
-      this.attachment = this.getAttachment(data.placement)
+      this.attachment = data.placement.split('-')[0]
     },
     renderTemplate(h) {
       // Will be overridden by templates
