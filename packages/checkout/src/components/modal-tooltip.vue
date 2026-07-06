@@ -68,7 +68,7 @@ export default {
     scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
     modalWrapperClass: makeProp(PROP_TYPE_STRING, 'f-pr-20 f-pl-20 f-pb-20'),
     dropdownSize: makeProp(PROP_TYPE_STRING),
-    dropdownPlacement: makeProp(PROP_TYPE_STRING, 'bottomright'),
+    dropdownPlacement: makeProp(PROP_TYPE_STRING, 'bottom-start'),
     dropdownArrow: makeProp(PROP_TYPE_BOOLEAN, false),
     dropdownReference: makeProp(PROP_TYPE_FUNCTION),
   },
