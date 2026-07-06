@@ -135,22 +135,22 @@ $tooltip-arrow-height: px-to-rem(7px);
 }
 
 .top,
-.auto[x-placement^='top'] {
+.auto[data-popper-placement^='top'] {
   padding: $tooltip-arrow-height 0;
 }
 
 .right,
-.auto[x-placement^='right'] {
+.auto[data-popper-placement^='right'] {
   padding: 0 $tooltip-arrow-height;
 }
 
 .bottom,
-.auto[x-placement^='bottom'] {
+.auto[data-popper-placement^='bottom'] {
   padding: $tooltip-arrow-height 0;
 }
 
 .left,
-.auto[x-placement^='left'] {
+.auto[data-popper-placement^='left'] {
   padding: 0 $tooltip-arrow-height;
 }
 
@@ -167,11 +167,10 @@ $tooltip-arrow-height: px-to-rem(7px);
 }
 
 .arrow_top,
-.auto[x-placement^='top'] .arrow {
+.auto[data-popper-placement^='top'] .arrow {
   bottom: 0;
   width: $tooltip-arrow-width;
   height: $tooltip-arrow-height;
-  margin: 0 $border-radius;
 
   &::before {
     border-top-color: var(--bg);
@@ -181,11 +180,10 @@ $tooltip-arrow-height: px-to-rem(7px);
 }
 
 .arrow_right,
-.auto[x-placement^='right'] .arrow {
+.auto[data-popper-placement^='right'] .arrow {
   left: 0;
   width: $tooltip-arrow-height;
   height: $tooltip-arrow-width;
-  margin: $border-radius 0;
 
   &::before {
     border-right-color: var(--bg);
@@ -196,11 +194,10 @@ $tooltip-arrow-height: px-to-rem(7px);
 }
 
 .arrow_bottom,
-.auto[x-placement^='bottom'] .arrow {
+.auto[data-popper-placement^='bottom'] .arrow {
   top: 0;
   width: $tooltip-arrow-width;
   height: $tooltip-arrow-height;
-  margin: 0 $border-radius;
 
   &::before {
     border-bottom-color: var(--bg);
@@ -210,11 +207,10 @@ $tooltip-arrow-height: px-to-rem(7px);
 }
 
 .arrow_left,
-.auto[x-placement^='left'] .arrow {
+.auto[data-popper-placement^='left'] .arrow {
   right: 0;
   width: $tooltip-arrow-height;
   height: $tooltip-arrow-width;
-  margin: $border-radius 0;
 
   &::before {
     border-left-color: var(--bg);

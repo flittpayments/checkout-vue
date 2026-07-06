@@ -17,7 +17,7 @@ export default {
       return {
         ...this.$attrs,
         triggers: 'hover focus',
-        placement: 'topleft',
+        placement: 'top-end',
         customClass: this.$uiClass('style'),
         innerClass: this.$style.inner,
       }

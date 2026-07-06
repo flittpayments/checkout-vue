@@ -79,8 +79,8 @@ const templateData = {
   noArrow: false,
   // Boolean
   noFade: false,
-  // 'scrollParent', 'viewport', 'window', Element, or Component reference
-  boundary: 'scrollParent',
+  // 'clippingParents', 'viewport', 'window', Element, or Component reference
+  boundary: 'clippingParents',
   // Tooltip/popover will try and stay away from
   // boundary edge by this many pixels (Number)
   boundaryPadding: 5,
@@ -536,7 +536,9 @@ export const Tooltip = Vue.extend({
         : document.body
     },
     getBoundary() {
-      return this.boundary ? this.boundary.$el || this.boundary : 'scrollParent'
+      return this.boundary
+        ? this.boundary.$el || this.boundary
+        : 'clippingParents'
     },
     isInModal() {
       const target = this.getTarget()

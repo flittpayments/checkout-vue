@@ -17,12 +17,12 @@ import { makeProp } from '@/utils/props'
 export default {
   inheritAttrs: false,
   props: {
-    // String: scrollParent, window, or viewport
+    // String: clippingParents, window, or viewport
     // Element: element reference
     // Object: Vue component
     boundary: makeProp(
       [HTMLElement, PROP_TYPE_OBJECT, PROP_TYPE_STRING],
-      'scrollParent'
+      'clippingParents'
     ),
     boundaryPadding: makeProp(PROP_TYPE_NUMBER_STRING, 5),
     customClass: makeProp(PROP_TYPE_STRING),
