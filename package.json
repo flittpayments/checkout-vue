@@ -14,7 +14,7 @@
     "release": "changeset version && changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7"
+    "@changesets/cli": "^2.31.0"
   },
   "engines": {
     "node": ">=20.x"
