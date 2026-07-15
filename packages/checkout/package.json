@@ -16,7 +16,8 @@
     "stylelint:fix": "stylelint src/{**/,**/**/}*.scss --custom-syntax postcss-scss --color --formatter verbose --fix",
     "eslint:fix": "eslint src/**/*.{js,vue} --fix",
     "prettier:fix": "prettier src/**/*.{js,vue,scss} --write",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "changelog": "python3 scripts/get_releases_data.py > scripts/releases_data.json"
   },
   "files": [
     "dist"
