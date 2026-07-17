@@ -4,8 +4,8 @@ const require = createRequire(import.meta.url)
 const pkg = require('./package.json')
 import del from 'rollup-plugin-delete'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
-import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
+import esbuild from 'rollup-plugin-esbuild'
+import terser from '@rollup/plugin-terser'
 
 export default defineConfig({
   input: 'src/index.tsx',
@@ -13,13 +13,20 @@ export default defineConfig({
     {
       file: pkg.module,
       format: 'esm',
-      sourcemap: true
-    }
+      sourcemap: true,
+    },
   ],
   plugins: [
     del({ targets: 'dist/*' }),
     peerDepsExternal(),
-    typescript({ tsconfig: './tsconfig.json' }),
+    esbuild({
+      sourceMap: true,
+      minify: false,
+      target: 'esnext',
+      loaders: {
+        '.tsx': 'tsx',
+      },
+    }),
     terser(),
   ],
   external: ['react'],
