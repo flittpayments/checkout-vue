@@ -42,8 +42,8 @@ export const findGetParameter = name =>
   new URLSearchParams(location.search).get(name)
 
 export const errorHandler = error => {
+  console.error(error)
   if (isError(error)) {
-    console.log(error)
     captureMessage('error', {
       level: 'error',
       extra: error,
