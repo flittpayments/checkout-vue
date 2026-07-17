@@ -8,8 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build:checkout": "npm run build --workspace=packages/checkout",
-    "build:react": "npm run build --workspace=packages/checkout-react",
+    "build:checkout": "npm run build --workspace=@flittpayments/checkout",
+    "build:react": "npm run build --workspace=@flittpayments/checkout-react",
     "changeset": "changeset",
     "release": "changeset version && changeset publish"
   },
