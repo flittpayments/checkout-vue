@@ -116,9 +116,13 @@ export default Vue.extend({
       this.can_make_payment = this.list.join('_')
     },
     onDetails(data) {
+      this.$root.$emit('payment-request-closed')
+
       this.formRequest(this.store.formParams(data))
     },
     onError(error) {
+      this.$root.$emit('payment-request-closed')
+
       let name = ['Payment Button']
 
       if ([20].includes(error.code)) return
@@ -137,6 +141,8 @@ export default Vue.extend({
       })
     },
     click(method = this.list[0]) {
+      this.$root.$emit('payment-request-opened', method)
+
       this.paymentRequest.pay(method)
     },
     update() {
