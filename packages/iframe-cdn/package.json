@@ -1,0 +1,42 @@
+{
+  "name": "@flittpayments/checkout-iframe-cdn",
+  "version": "1.0.0",
+  "description": "CDN-hosted iframe application for Flitt Checkout",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flittpayments/checkout-vue.git",
+    "directory": "packages/iframe-cdn"
+  },
+  "license": "MIT",
+  "author": "Mykhailo Holubovskyi <lamerumiata@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "certs:gen": "sh ./scripts/generate-certs.sh",
+    "dev": "rollup -c -w --environment CHECKOUT_PATH:https://sandbox.pay.flitt.dev/latest/checkout-vue/",
+    "pre-commit": "lint-staged",
+    "prettier:fix": "prettier . --write",
+    "serve:ssl": "serve dist --cors --ssl-cert ./certs/cert.pem --ssl-key ./certs/key.pem --listen 3001"
+  },
+  "lint-staged": {
+    "package.json": "sort-package-json",
+    "*.{js,mjs,json,md,html}": "prettier --write"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.0",
+    "lint-staged": "^16.4.0",
+    "minimist": "^1.2.8",
+    "prettier": "^3.9.6",
+    "rollup": "^4.62.2",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "serve": "^14.2.6",
+    "sort-package-json": "^3.7.1"
+  }
+}

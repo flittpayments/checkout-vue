@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "build:checkout": "npm run build --workspace=@flittpayments/checkout",
+    "build:iframe-cdn": "npm run build --workspace=@flittpayments/checkout-iframe-cdn",
     "build:react": "npm run build --workspace=@flittpayments/checkout-react",
     "changeset": "changeset",
     "release": "changeset version && changeset publish"
