@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flitt Checkout Iframe Demo</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+          Arial, sans-serif;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+        line-height: 1.5;
+      }
+
+      #checkout-container {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px;
+        padding: 20px;
+      }
+
+      .controls {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f0f4f8;
+        border-radius: 8px;
+      }
+
+      pre {
+        background: #2d2d2d;
+        color: #ccc;
+        padding: 15px;
+        border-radius: 6px;
+        overflow: auto;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Flitt Checkout Iframe Demo</h1>
+
+    <div class="controls">
+      <button id="init-btn">Initialize Checkout</button>
+      <div
+        id="app-controls"
+        style="display: none; margin-top: 10px; gap: 5px; flex-wrap: wrap"
+      >
+        <button onclick="app.$emit('submit')">Submit</button>
+        <button onclick="app.$emit('location', 'most_popular')">
+          Location (Most popular)
+        </button>
+        <button
+          onclick="app.$emit('setParams', { amount: 1000, currency: 'GEL' })"
+        >
+          Set Params (1000)
+        </button>
+        <button onclick="app.$emit('click-wallet')">Click Wallet</button>
+        <button onclick="app.$emit('click-wallet', 'google')">
+          Google Pay
+        </button>
+        <button onclick="app.$emit('click-wallet', 'apple')">Apple Pay</button>
+        <button onclick="app.$destroy()">Destroy</button>
+      </div>
+    </div>
+
+    <div id="checkout-container"></div>
+
+    <h3>Event Logs:</h3>
+    <pre id="log"></pre>
+
+    <script src="./index.js"></script>
+
+    <script>
+      const logEl = document.getElementById('log')
+      const initBtn = document.getElementById('init-btn')
+
+      function log(msg, data) {
+        const time = new Date().toLocaleTimeString()
+        logEl.textContent =
+          `[${time}] ${msg} ${data ? JSON.stringify(data, null, 2) : ''}\n` +
+          logEl.textContent
+      }
+
+      let app = null
+
+      initBtn.addEventListener('click', () => {
+        if (app) return
+
+        app = checkout('#checkout-container', {
+          options: {
+            api_domain: 'sandbox.pay.flitt.dev',
+          },
+          params: {
+            merchant_id: 1549901,
+            currency: 'GEL',
+            amount: 500,
+          },
+        })
+
+        // app = checkout('#checkout-container', {
+        //   options: {
+        //     api_domain: 'sandbox.pay.flitt.dev',
+        //     theme: {
+        //       layout: 'wallets_only'
+        //     },
+        //   },
+        //   params: {
+        //     merchant_id: 1549901,
+        //     currency: 'GEL',
+        //     amount: 500,
+        //   },
+        // });
+
+        app.$on('success', model => {
+          log('on: success', model)
+        })
+
+        app.$on('error', model => {
+          log('on: error', model)
+        })
+
+        // app.$on('callback', (model) => {
+        //   log('on: callback', model);
+        // });
+
+        app.$on('show-pay', () => {
+          log('on: show-pay')
+        })
+
+        app.$on('ready', () => {
+          log('on: ready')
+        })
+
+        document.getElementById('app-controls').style.display = 'flex'
+        initBtn.disabled = true
+      })
+    </script>
+  </body>
+</html>
