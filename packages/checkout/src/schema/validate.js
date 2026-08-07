@@ -242,12 +242,6 @@ class Validate {
     const methods = this.options.methods || []
     const methodsLength = methods.filter(removeWallets).length
 
-    if (getParameter && !configMethods.includes(getParameter)) {
-      this.log(
-        `GET parameter active_tab=${getParameter} must be one of ${configMethods.join(', ')}`
-      )
-    }
-
     this.options.active_tab =
       !active_tab &&
       (show_menu_first || (!isExist(show_menu_first) && methodsLength > 1))
