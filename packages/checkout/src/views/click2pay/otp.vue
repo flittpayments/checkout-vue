@@ -56,7 +56,6 @@ import FButtonSuccess from '@/components/button/button-success'
 import FButton from '@/components/button/button'
 import { timeoutMixin } from '@/mixins/timeout'
 import { getCards, initiateIdentityValidation, complete } from '@/click2pay'
-import { mask } from '@/utils/mask'
 
 export default {
   components: {
@@ -133,9 +132,6 @@ export default {
           this.messageOk = this.$t('code_sent')
         })
         .catch(() => {})
-    },
-    format(value) {
-      return mask(value, '#'.repeat(6))
     },
     onSubmit() {
       if (this.loading) return

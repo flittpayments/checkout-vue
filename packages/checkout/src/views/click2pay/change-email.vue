@@ -62,13 +62,16 @@ export default {
   },
   computed: {
     ...mapState('click2pay', ['actionCode']),
+    ...mapState('click2pay', {
+      emailClick2pay: 'email',
+    }),
     ...mapStateGetSet(['params']),
     ...mapState('params', ['email']),
     click2pay() {
       return `<a href="">${this.$t('click2pay')}</a>`
     },
     showCheck() {
-      return this.actionCode !== 'SUCCESS'
+      return this.actionCode !== 'SUCCESS' && this.emailClick2pay !== this.email
     },
     showSave() {
       return ['SUCCESS', 'ADD_CARD'].includes(this.actionCode)
