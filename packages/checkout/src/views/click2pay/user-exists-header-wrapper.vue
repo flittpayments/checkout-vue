@@ -18,7 +18,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('click2pay', ['actionCode', 'email']),
+    ...mapState('click2pay', ['actionCode']),
     ...mapState('order', ['ready_to_submit']),
   },
   watch: {
