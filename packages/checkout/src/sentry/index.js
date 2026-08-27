@@ -30,7 +30,7 @@ function initSentry(optionsUser, router, Vue) {
     tracesSampleRate: 0.1,
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
-    release: VERSION,
+    release: RELEASE,
     environment: ENVIRONMENT,
     initialScope: scope => {
       scope.setTag('commithash', COMMITHASH)

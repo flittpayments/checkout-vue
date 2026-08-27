@@ -21,7 +21,7 @@ function initSentry(optionsUser) {
     defaultIntegrations: false,
     integrations: [],
     tracesSampleRate: 0,
-    release: VERSION,
+    release: RELEASE,
     environment: ENVIRONMENT,
     stackParser: () => [],
     beforeSend(event) {

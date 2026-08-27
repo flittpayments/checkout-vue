@@ -76,7 +76,7 @@
   },
   "eslintConfig": {
     "globals": {
-      "VERSION": "readonly",
+      "RELEASE": "readonly",
       "COMMITHASH": "readonly",
       "ENVIRONMENT": "readonly",
       "SENTRY_DSN": "readonly",
