@@ -379,10 +379,10 @@ class Store extends Model {
   initHasFields() {
     this.state.has_fields = Boolean(
       (this.state.options.show_amount && !this.state.options.amount_readonly) ||
-        this.state.fields_customer.length ||
-        this.state.fields_custom.length ||
-        select('#f-fields') ||
-        this.state.options.offerta_url
+      this.state.fields_customer.length ||
+      this.state.fields_custom.length ||
+      select('#f-fields') ||
+      this.state.options.offerta_url
     )
   }
   initIsOnlyCard() {
