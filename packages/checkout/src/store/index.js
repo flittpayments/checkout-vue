@@ -37,6 +37,7 @@ import { formatKiev } from '@/utils/date'
 import { testCardNumbers } from '@/config/test-card-numbers'
 import { parseFieldsCustom } from '@/schema/parse-fields-custom'
 import { select } from '@/utils/dom'
+import { isSameDomain } from '@/utils/url'
 
 const NON_SUBSCRIPTION_METHODS = ['banks', 'installments']
 
@@ -647,7 +648,6 @@ class Store extends Model {
   getRouteName(isBreakpointDownLg = false) {
     const methods = this.state.options.methods.filter(removeQuickAccess)
     const active = this.state.options.active_tab
-    const getRootDomain = hostname => hostname.split('.').slice(-2).join('.')
 
     let name = methods.includes(active) ? active : methods[0]
 
@@ -657,8 +657,7 @@ class Store extends Model {
 
     if (
       this.state.options.theme.layout === 'wallets_only' ||
-      (this.state.isOnlyWallets &&
-        getRootDomain(DOMAIN) !== getRootDomain(location.hostname))
+      (this.state.isOnlyWallets && !isSameDomain)
     ) {
       name = 'blank-wallets'
     } else if (active === 'menu' && isBreakpointDownLg) {

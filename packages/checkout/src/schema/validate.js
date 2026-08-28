@@ -10,6 +10,7 @@ import { createDate, format } from '@/utils/date'
 import { formatServer } from '@/config/date'
 import configMethods from '@/config/methods.json'
 import { mappingMethod } from '@/config/mapping-method'
+import { isSameDomain } from '@/utils/url'
 
 const sanitize = data =>
   Object.fromEntries(Object.entries(data).filter(([key]) => key !== '__ob__'))
@@ -46,6 +47,7 @@ class Validate {
     if (this.options.methods_disabled.includes('wallets')) return
     if (!this.options.methods_disabled.includes('card')) return
     if (this.options.theme.layout === 'wallets_only') return
+    if (isSameDomain) return
 
     captureMessage(
       'method_disabled contains cards when the layout is not wallets_only',
