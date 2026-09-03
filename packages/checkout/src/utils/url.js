@@ -7,3 +7,8 @@ export const appendQueryParams = (url, params) => {
 
   return urlObj.toString()
 }
+
+const getBaseDomain = hostname => hostname.split('.').slice(-2).join('.')
+
+export const isSameDomain =
+  getBaseDomain(DOMAIN) === getBaseDomain(location.hostname)
