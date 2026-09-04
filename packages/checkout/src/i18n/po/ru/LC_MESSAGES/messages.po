@@ -1,9 +1,15 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-13 14:59+0200\n"
+"POT-Creation-Date: 2026-09-04 17:59+0300\n"
 "Language: ru\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "humo"
+msgstr ""
+
+msgid "uzcard"
+msgstr ""
 
 msgid "diners"
 msgstr ""
@@ -205,6 +211,18 @@ msgstr "Не сейчас"
 msgid "accept"
 msgstr "Разрешаю"
 
+msgid "amount"
+msgstr "К оплате"
+
+msgid "discount"
+msgstr "Скидка"
+
+msgid "fee"
+msgstr "С учетом комиссии"
+
+msgid "total_amount"
+msgstr "Сумма к оплате"
+
 msgid "cancel"
 msgstr "Отменить"
 
@@ -234,6 +252,9 @@ msgstr "Показать полностью"
 
 msgid "order_details"
 msgstr "Полное описание заказа"
+
+msgid "other_payment_method"
+msgstr "Другие способы оплаты"
 
 msgid "submit3ds_title"
 msgstr "Оплата не завершена"
@@ -272,18 +293,6 @@ msgstr "Пробный период"
 msgid "first_payment"
 msgstr ""
 
-msgid "amount"
-msgstr "К оплате"
-
-msgid "discount"
-msgstr "Скидка"
-
-msgid "fee"
-msgstr "С учетом комиссии"
-
-msgid "total_amount"
-msgstr "Сумма к оплате"
-
 msgid "processed_by"
 msgstr ""
 
@@ -303,9 +312,6 @@ msgid "security_text"
 msgstr ""
 "<p>Согласно международному стандарту безопасности платежей PCI "
 "DSS<p>Регулируется международными платежными системами Visa и Mastercard"
-
-msgid "other_payment_method"
-msgstr "Другие способы оплаты"
 
 msgid "subscription"
 msgstr "Повторять платеж автоматически"
@@ -350,6 +356,12 @@ msgstr "Электронная почта"
 
 msgid "load_more"
 msgstr "Показать еще…"
+
+msgid "select_bank_to_pay_banks"
+msgstr ""
+
+msgid "select_bank_to_pay_installments"
+msgstr ""
 
 msgid "pay_with_card"
 msgstr "Оплатить картой"
@@ -431,8 +443,92 @@ msgstr ""
 msgid "sepa_t"
 msgstr "Укажите реквизиты банковского счета"
 
+msgid "accept_fees"
+msgstr ""
+
+msgid "fees"
+msgstr ""
+
+msgid "confirm_details_in_app"
+msgstr ""
+
+msgid "open_mobile_app"
+msgstr ""
+
+msgid "enter_details_to_continue"
+msgstr ""
+
 msgid "bank_desc"
 msgstr "Мы перенаправим вас на сайт банка для завершения платежа"
+
+msgid "follow_link_to_complete_payment_in_web_banking"
+msgstr ""
+
+msgid "link"
+msgstr ""
+
+msgid "limit"
+msgstr ""
+
+msgid "number_of_payments"
+msgstr "Количество платежей"
+
+msgid "interest_rate"
+msgstr ""
+
+msgid "effective_interest_rate"
+msgstr ""
+
+msgid "agree_to_terms"
+msgstr ""
+
+msgid "no_mobile_app"
+msgstr ""
+
+msgid "download_to_scan_qr"
+msgstr ""
+
+msgid "scan_to_pay_banks"
+msgstr ""
+
+msgid "scan_to_pay_installments"
+msgstr ""
+
+msgid "scan_to_pay_app"
+msgstr ""
+
+msgid "Liberty Bank Mobile Banking"
+msgstr ""
+
+msgid "Credo Bank Mobile Banking"
+msgstr ""
+
+msgid "Bank of Georgia Mobile Banking"
+msgstr ""
+
+msgid "TBC Bank Mobile Banking"
+msgstr ""
+
+msgid "PayMe Mobile application"
+msgstr ""
+
+msgid "terms"
+msgstr "Условия"
+
+msgid "https://accounts.libertybank.ge/files/UA-en.pdf"
+msgstr ""
+
+msgid "https://credobank.ge/en/conditions"
+msgstr ""
+
+msgid "https://conditions.bog.ge/en/main"
+msgstr ""
+
+msgid "https://tbcbank.ge/en/digital-channel-terms"
+msgstr ""
+
+msgid "https://cdn.payme.uz/terms/en/privacy_policy.htm"
+msgstr ""
 
 msgid "return_to_site"
 msgstr "Вернуться на сайт"
@@ -442,6 +538,24 @@ msgstr ""
 
 msgid "download_receipt"
 msgstr "Загрузить квитанцию"
+
+msgid "approve_payment_in_app"
+msgstr ""
+
+msgid "waiting_for_confirmation"
+msgstr ""
+
+msgid "processing"
+msgstr ""
+
+msgid "redirected_automatically_after_confirmation"
+msgstr ""
+
+msgid "confirm_payment_in_app_banks"
+msgstr ""
+
+msgid "confirm_payment_in_app_installments"
+msgstr ""
 
 msgid "payment_id"
 msgstr "ID платежа"
@@ -505,9 +619,6 @@ msgstr "Карта успешно сохранена в Click to Pay"
 
 msgid "c2p_card_add_expired"
 msgstr "Не удалось сохранить карту в Click to Pay. Попробуйте позже"
-
-msgid "terms"
-msgstr "Условия"
 
 msgid "c2p_terms_url"
 msgstr "https://usa.visa.com/legal/checkout/terms-of-service.html"
@@ -818,9 +929,6 @@ msgstr ""
 msgid "currencies"
 msgstr ""
 
-msgid "number_of_payments"
-msgstr "Количество платежей"
-
 msgid "subscription_every"
 msgstr "Частота"
 
@@ -868,4 +976,3 @@ msgstr "Другие акционные предложения не будут �
 
 msgid "card_does_not_participate_in_discount_program"
 msgstr "Карта не участвует в программе скидок"
-

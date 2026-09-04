@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 16:36+0300\n"
+"POT-Creation-Date: 2026-09-04 17:59+0300\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -223,6 +223,18 @@ msgstr "Not now"
 msgid "accept"
 msgstr "I agree"
 
+msgid "amount"
+msgstr "Amount due"
+
+msgid "discount"
+msgstr "discount"
+
+msgid "fee"
+msgstr "Payment fee"
+
+msgid "total_amount"
+msgstr "Total amount due"
+
 msgid "cancel"
 msgstr "Cancel"
 
@@ -293,18 +305,6 @@ msgstr "Trial period"
 
 msgid "first_payment"
 msgstr "First payment"
-
-msgid "amount"
-msgstr "Amount due"
-
-msgid "discount"
-msgstr "discount"
-
-msgid "fee"
-msgstr "Payment fee"
-
-msgid "total_amount"
-msgstr "Total amount due"
 
 msgid "processed_by"
 msgstr "Processed by"
@@ -860,7 +860,8 @@ msgstr "Apple Pay or Google Pay"
 
 msgid "3ds_title"
 msgstr ""
-"Redirecting to your bank for 3-D Secure authentication. Use app or SMS code to complete the payment."
+"Redirecting to your bank for 3-D Secure authentication. Use app or SMS code "
+"to complete the payment."
 
 msgid "account_number"
 msgstr "Account number"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07 12:34+0300\n"
+"POT-Creation-Date: 2026-09-04 17:59+0300\n"
 "Language: ka\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -200,6 +200,18 @@ msgstr "მოგვიანებით"
 msgid "accept"
 msgstr "თანხმობა"
 
+msgid "amount"
+msgstr "თანხა"
+
+msgid "discount"
+msgstr "ფასდაკლება"
+
+msgid "fee"
+msgstr "საკომისიო"
+
+msgid "total_amount"
+msgstr "სრული თანხა"
+
 msgid "cancel"
 msgstr ""
 
@@ -265,18 +277,6 @@ msgstr "გამოსაცდელი პერიოდი"
 
 msgid "first_payment"
 msgstr ""
-
-msgid "amount"
-msgstr "თანხა"
-
-msgid "discount"
-msgstr "ფასდაკლება"
-
-msgid "fee"
-msgstr "საკომისიო"
-
-msgid "total_amount"
-msgstr "სრული თანხა"
 
 msgid "processed_by"
 msgstr ""
@@ -421,6 +421,12 @@ msgstr ""
 
 msgid "sepa_t"
 msgstr "მიუთითეთ ბანკის რეკვიზიტები"
+
+msgid "accept_fees"
+msgstr ""
+
+msgid "fees"
+msgstr ""
 
 msgid "confirm_details_in_app"
 msgstr "დაადასტურე მონაცემები {name}-ის მობაილბანკში"

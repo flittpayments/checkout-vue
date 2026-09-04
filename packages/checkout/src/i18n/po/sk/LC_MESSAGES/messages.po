@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-09 10:30+0300\n"
+"POT-Creation-Date: 2026-09-04 17:59+0300\n"
 "PO-Revision-Date: 2020-09-30 10:39+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,6 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: smartCAT.ai\n"
+
+msgid "humo"
+msgstr ""
+
+msgid "uzcard"
+msgstr ""
 
 msgid "diners"
 msgstr ""
@@ -110,37 +116,52 @@ msgstr ""
 msgid "c2p_service_error"
 msgstr ""
 
-msgid "c2p_srci_id_missing"
-msgstr ""
-
-msgid "c2p_dpa_id_missing"
-msgstr ""
-
-msgid "c2p_srci_txn_id_missing"
+msgid "c2p_auth_invalid"
 msgstr ""
 
 msgid "c2p_acct_inaccessible"
 msgstr ""
 
-msgid "c2p_fraud"
-msgstr ""
-
-msgid "c2p_id_format_unsupported"
+msgid "c2p_acct_fraud"
 msgstr ""
 
 msgid "c2p_consumer_id_missing"
 msgstr ""
 
-msgid "c2p_risk_decision"
+msgid "c2p_consumer_id_format_unsupported"
+msgstr ""
+
+msgid "c2p_consumer_id_format_invalid"
+msgstr ""
+
+msgid "c2p_otp_send_failed"
+msgstr ""
+
+msgid "c2p_validation_data_missing"
+msgstr ""
+
+msgid "c2p_validation_data_expired"
+msgstr ""
+
+msgid "c2p_validation_data_invalid"
+msgstr ""
+
+msgid "c2p_retries_exceeded"
 msgstr ""
 
 msgid "c2p_card_missing"
 msgstr ""
 
-msgid "c2p_card_add_failed"
+msgid "c2p_unable_to_connect"
+msgstr ""
+
+msgid "c2p_card_not_recognized"
 msgstr ""
 
 msgid "c2p_card_security_code_missing"
+msgstr ""
+
+msgid "c2p_billing_address_required"
 msgstr ""
 
 msgid "c2p_card_invalid"
@@ -149,49 +170,13 @@ msgstr ""
 msgid "c2p_card_exp_invalid"
 msgstr ""
 
-msgid "c2p_cardid_missing"
-msgstr ""
-
-msgid "c2p_card_not_recognized"
-msgstr ""
-
-msgid "c2p_merchant_data_invalid"
-msgstr ""
-
-msgid "c2p_unable_to_connect"
-msgstr ""
-
-msgid "c2p_auth_invalid"
+msgid "c2p_card_add_failed"
 msgstr ""
 
 msgid "c2p_terms_and_conditions_not_accepted"
 msgstr ""
 
-msgid "c2p_otp_send_failed"
-msgstr ""
-
-msgid "c2p_retries_exceeded"
-msgstr ""
-
-msgid "c2p_id_invalid"
-msgstr ""
-
-msgid "c2p_unrecognized_consumer_id"
-msgstr ""
-
-msgid "c2p_code_invalid"
-msgstr ""
-
-msgid "c2p_code_expired"
-msgstr ""
-
-msgid "c2p_validation_data_missing"
-msgstr ""
-
-msgid "c2p_no identity_lookup_email"
-msgstr ""
-
-msgid "gdpr_yapily"
+msgid "c2p_authentication_method_not_supported"
 msgstr ""
 
 msgid "gdpr_alert_text"
@@ -232,6 +217,18 @@ msgstr "Opýtať sa neskôr"
 msgid "accept"
 msgstr "Súhlasím"
 
+msgid "amount"
+msgstr "Celkom"
+
+msgid "discount"
+msgstr ""
+
+msgid "fee"
+msgstr "Poplatok"
+
+msgid "total_amount"
+msgstr "Celkom"
+
 msgid "cancel"
 msgstr ""
 
@@ -261,6 +258,9 @@ msgstr "Zobraziť viac"
 
 msgid "order_details"
 msgstr "Podrobnosti o objednávke"
+
+msgid "other_payment_method"
+msgstr "Alebo zaplatiť s"
 
 msgid "submit3ds_title"
 msgstr "Platba nebola dokončená"
@@ -299,18 +299,6 @@ msgstr "Skúšobná doba"
 msgid "first_payment"
 msgstr ""
 
-msgid "amount"
-msgstr "Celkom"
-
-msgid "discount"
-msgstr ""
-
-msgid "fee"
-msgstr "Poplatok"
-
-msgid "total_amount"
-msgstr "Celkom"
-
 msgid "processed_by"
 msgstr ""
 
@@ -330,9 +318,6 @@ msgid "security_text"
 msgstr ""
 "<p>V súlade s PCI DSS<p>Uvedené v globálnom registri Visa a overené "
 "spoločnosťou Mastercard"
-
-msgid "other_payment_method"
-msgstr "Alebo zaplatiť s"
 
 msgid "subscription"
 msgstr "Opakovať túto platbu automaticky"
@@ -375,11 +360,14 @@ msgstr "Telefón"
 msgid "customer_email"
 msgstr "Email"
 
-msgid "use_monobank_application"
-msgstr ""
-
 msgid "load_more"
 msgstr "Nahrať viac..."
+
+msgid "select_bank_to_pay_banks"
+msgstr ""
+
+msgid "select_bank_to_pay_installments"
+msgstr ""
 
 msgid "pay_with_card"
 msgstr "Zaplatiť kartou"
@@ -388,30 +376,6 @@ msgid "cvv2_help"
 msgstr "{0}-číselný kód na zadnej strane karty"
 
 msgid "demo_desc"
-msgstr ""
-
-msgid "Payments"
-msgstr ""
-
-msgid "from_amount_month"
-msgstr ""
-
-msgid "payments"
-msgstr ""
-
-msgid "currency_month"
-msgstr ""
-
-msgid "expect_soon"
-msgstr ""
-
-msgid "conditions"
-msgstr ""
-
-msgid "installments_desc_monobank_ua"
-msgstr ""
-
-msgid "installments_desc_privatbank_ua"
 msgstr ""
 
 msgid "most_popular_methods_in"
@@ -485,17 +449,118 @@ msgstr ""
 msgid "sepa_t"
 msgstr "Zadajte údaje o svojom bankovom účte"
 
+msgid "accept_fees"
+msgstr ""
+
+msgid "fees"
+msgstr ""
+
+msgid "confirm_details_in_app"
+msgstr ""
+
+msgid "open_mobile_app"
+msgstr ""
+
+msgid "enter_details_to_continue"
+msgstr ""
+
 msgid "bank_desc"
 msgstr "Budete presmerovaní na webovú stránku banky, aby ste dokončili platbu"
+
+msgid "follow_link_to_complete_payment_in_web_banking"
+msgstr ""
+
+msgid "link"
+msgstr ""
+
+msgid "limit"
+msgstr ""
+
+msgid "number_of_payments"
+msgstr "Počet platieb"
+
+msgid "interest_rate"
+msgstr ""
+
+msgid "effective_interest_rate"
+msgstr ""
+
+msgid "agree_to_terms"
+msgstr ""
+
+msgid "no_mobile_app"
+msgstr ""
+
+msgid "download_to_scan_qr"
+msgstr ""
+
+msgid "scan_to_pay_banks"
+msgstr ""
+
+msgid "scan_to_pay_installments"
+msgstr ""
+
+msgid "scan_to_pay_app"
+msgstr ""
+
+msgid "Liberty Bank Mobile Banking"
+msgstr ""
+
+msgid "Credo Bank Mobile Banking"
+msgstr ""
+
+msgid "Bank of Georgia Mobile Banking"
+msgstr ""
+
+msgid "TBC Bank Mobile Banking"
+msgstr ""
+
+msgid "PayMe Mobile application"
+msgstr ""
+
+msgid "terms"
+msgstr ""
+
+msgid "https://accounts.libertybank.ge/files/UA-en.pdf"
+msgstr ""
+
+msgid "https://credobank.ge/en/conditions"
+msgstr ""
+
+msgid "https://conditions.bog.ge/en/main"
+msgstr ""
+
+msgid "https://tbcbank.ge/en/digital-channel-terms"
+msgstr ""
+
+msgid "https://cdn.payme.uz/terms/en/privacy_policy.htm"
+msgstr ""
 
 msgid "return_to_site"
 msgstr ""
 
-#
 msgid "will_be_redirected_to_merchant_site"
 msgstr ""
 
 msgid "download_receipt"
+msgstr ""
+
+msgid "approve_payment_in_app"
+msgstr ""
+
+msgid "waiting_for_confirmation"
+msgstr ""
+
+msgid "processing"
+msgstr ""
+
+msgid "redirected_automatically_after_confirmation"
+msgstr ""
+
+msgid "confirm_payment_in_app_banks"
+msgstr ""
+
+msgid "confirm_payment_in_app_installments"
 msgstr ""
 
 msgid "payment_id"
@@ -519,19 +584,16 @@ msgstr ""
 msgid "select_card"
 msgstr ""
 
-msgid "c2p_card_add_loading_top"
+msgid "c2p_pay_with_click_to_pay"
 msgstr ""
 
-msgid "c2p_card_add_loading_bottom"
-msgstr ""
-
-msgid "c2p_how_does_work"
-msgstr ""
-
-msgid "c2p_about_desc"
+msgid "c2p_registered_message"
 msgstr ""
 
 msgid "c2p_save_card_desc"
+msgstr ""
+
+msgid "click2pay"
 msgstr ""
 
 msgid "c2p_registration_desc"
@@ -546,16 +608,16 @@ msgstr ""
 msgid "first_name"
 msgstr ""
 
-msgid "remember_me_on_this_device"
+msgid "registration"
 msgstr ""
 
 msgid "c2p_agreement_with_processing_of_data"
 msgstr ""
 
-msgid "click2pay"
+msgid "c2p_card_add"
 msgstr ""
 
-msgid "terms"
+msgid "c2p_card_add_expired"
 msgstr ""
 
 msgid "c2p_terms_url"
@@ -567,16 +629,19 @@ msgstr ""
 msgid "c2p_privacy_notice_url"
 msgstr ""
 
-msgid "registration"
-msgstr ""
-
-msgid "c2p_card_add"
-msgstr ""
-
-msgid "c2p_card_add_expired"
-msgstr ""
-
 msgid "save_card"
+msgstr ""
+
+msgid "c2p_card_add_loading_top"
+msgstr ""
+
+msgid "c2p_card_add_loading_bottom"
+msgstr ""
+
+msgid "c2p_how_does_work"
+msgstr ""
+
+msgid "c2p_about_desc"
 msgstr ""
 
 msgid "another_user"
@@ -594,12 +659,6 @@ msgstr ""
 msgid "send_again"
 msgstr ""
 
-msgid "enter_code"
-msgstr ""
-
-msgid "skip_verification_next_time"
-msgstr ""
-
 msgid "check_and_continue"
 msgstr ""
 
@@ -612,6 +671,18 @@ msgstr ""
 msgid "code_sent"
 msgstr ""
 
+msgid "skip_verification_next_time"
+msgstr ""
+
+msgid "skip_verification_next_time_desc"
+msgstr ""
+
+msgid "cookie_notice"
+msgstr ""
+
+msgid "c2p_cookie_notice_url"
+msgstr ""
+
 msgid "enter_another_email_to_download_set_of_stored_cards"
 msgstr ""
 
@@ -622,9 +693,6 @@ msgid "change_user"
 msgstr ""
 
 msgid "c2p_no_saved_cards"
-msgstr ""
-
-msgid "c2p_need_otp_desc"
 msgstr ""
 
 msgid "title_declined"
@@ -847,9 +915,6 @@ msgstr ""
 
 msgid "currencies"
 msgstr ""
-
-msgid "number_of_payments"
-msgstr "Počet platieb"
 
 msgid "subscription_every"
 msgstr "Každých"

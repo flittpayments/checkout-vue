@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 13:01+0300\n"
+"POT-Creation-Date: 2026-09-04 17:59+0300\n"
 "Language: uz\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
@@ -228,6 +228,18 @@ msgstr "Hozir emas"
 msgid "accept"
 msgstr "Men roziman"
 
+msgid "amount"
+msgstr "To'lanishi kerak bo'lgan summa"
+
+msgid "discount"
+msgstr "chegirma"
+
+msgid "fee"
+msgstr "To'lov komissiyasi"
+
+msgid "total_amount"
+msgstr "Jami to'lanishi kerak bo'lgan summa"
+
 msgid "cancel"
 msgstr "Bekor qilish"
 
@@ -299,18 +311,6 @@ msgstr "Sinov muddati"
 
 msgid "first_payment"
 msgstr "Birinchi to'lov"
-
-msgid "amount"
-msgstr "To'lanishi kerak bo'lgan summa"
-
-msgid "discount"
-msgstr "chegirma"
-
-msgid "fee"
-msgstr "To'lov komissiyasi"
-
-msgid "total_amount"
-msgstr "Jami to'lanishi kerak bo'lgan summa"
 
 msgid "processed_by"
 msgstr "Tomonidan qayta ishlangan"
@@ -463,6 +463,12 @@ msgstr ""
 msgid "sepa_t"
 msgstr "Bank hisobingiz ma'lumotlarini taqdim eting"
 
+msgid "accept_fees"
+msgstr ""
+
+msgid "fees"
+msgstr ""
+
 msgid "confirm_details_in_app"
 msgstr ""
 
@@ -511,8 +517,38 @@ msgstr ""
 msgid "scan_to_pay_app"
 msgstr ""
 
+msgid "Liberty Bank Mobile Banking"
+msgstr ""
+
+msgid "Credo Bank Mobile Banking"
+msgstr ""
+
+msgid "Bank of Georgia Mobile Banking"
+msgstr ""
+
+msgid "TBC Bank Mobile Banking"
+msgstr ""
+
+msgid "PayMe Mobile application"
+msgstr ""
+
 msgid "terms"
 msgstr "Shartlar"
+
+msgid "https://accounts.libertybank.ge/files/UA-en.pdf"
+msgstr ""
+
+msgid "https://credobank.ge/en/conditions"
+msgstr ""
+
+msgid "https://conditions.bog.ge/en/main"
+msgstr ""
+
+msgid "https://tbcbank.ge/en/digital-channel-terms"
+msgstr ""
+
+msgid "https://cdn.payme.uz/terms/en/privacy_policy.htm"
+msgstr ""
 
 msgid "return_to_site"
 msgstr "Saytga qaytish"
