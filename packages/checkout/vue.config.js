@@ -233,26 +233,7 @@ module.exports = defineConfig({
             }])
             .end()
       })
-      .resolve
-        .alias
-          .set('vue$', '@vue/compat')
-          .end()
-        .end()
       .module
-        .rule('vue')
-          .use('vue-loader')
-            .tap(options => {
-              return {
-                ...options,
-                compilerOptions: {
-                  compatConfig: {
-                    MODE: 3,
-                  },
-                },
-              }
-            })
-            .end()
-          .end()
         .rule('scss')
           .oneOf('vue').use('postcss-loader').tap(addF).end().end()
           .oneOf('normal').use('postcss-loader').tap(addF).end().end()

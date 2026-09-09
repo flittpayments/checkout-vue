@@ -110,7 +110,7 @@ export const checkout = (window.checkout = function (el, optionsUser) {
   load
     .then(
       ([
-        { createApp, h, nextTick, configureCompat },
+        { createApp, h, nextTick },
         mitt,
         App,
         { install: installValidate },
@@ -122,10 +122,6 @@ export const checkout = (window.checkout = function (el, optionsUser) {
         { i18n },
         { configDefault },
       ]) => {
-        configureCompat({
-          MODE: 3,
-        })
-
         let id
         let node
         const isString = typeof el === 'string'
