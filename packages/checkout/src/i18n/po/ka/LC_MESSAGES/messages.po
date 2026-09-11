@@ -507,7 +507,7 @@ msgid "return_to_site"
 msgstr "საიტზე დაბრუნება"
 
 msgid "will_be_redirected_to_merchant_site"
-msgstr "გადამისამართდებით მერჩანტის საიტზე ... <b>{0} წამში</b>"
+msgstr "გადამისამართდებით მერჩანტის საიტზე ... {seconds} წამში"
 
 msgid "download_receipt"
 msgstr "ქვითრის გადმოწერა"
