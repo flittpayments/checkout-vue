@@ -544,7 +544,7 @@ msgid "return_to_site"
 msgstr "Return to the site"
 
 msgid "will_be_redirected_to_merchant_site"
-msgstr "will be redirected to merchant site in ... <b>{0} seconds</b>"
+msgstr "will be redirected to merchant site in ... {seconds} seconds"
 
 msgid "download_receipt"
 msgstr "Download receipt"

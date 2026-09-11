@@ -8,12 +8,15 @@
     <transition name="f-fade-enter">
       <click2pay-checkout-form v-if="showRegistration" :class="$style.mb_36" />
       <div v-else :class="$style.mb_44">
-        <div
-          ref="desc"
-          :class="$uiClass('desc')"
-          @click.prevent="open"
-          v-html="$t('c2p_save_card_desc', { masked_card, click2pay })"
-        />
+        <!--$t('c2p_save_card_desc')-->
+        <i18n path="c2p_save_card_desc" tag="div" :class="$uiClass('desc')">
+          <template #click2pay>
+            <a href="" @click.prevent="open">{{ $t('click2pay') }}</a>
+          </template>
+          <template #masked_card>
+            <span :class="$uiClass('bold')">{{ masked_card }}</span>
+          </template>
+        </i18n>
         <f-button-success
           class="f-mb-24"
           :text="$t('save_card')"
@@ -53,10 +56,7 @@ export default {
     ...mapState('order', ['order_data']),
     masked_card() {
       const card = this.order_data.masked_card.split('X').slice(-1)
-      return `<span class="${this.$uiClass('bold')}">**** ${card}</span>`
-    },
-    click2pay() {
-      return `<a href="">${this.$t('click2pay')}</a>`
+      return `**** ${card}`
     },
   },
   created() {
@@ -80,9 +80,7 @@ export default {
     click() {
       this.showRegistration = true
     },
-    open({ target }) {
-      if (target !== this.$refs.desc.querySelector('a')) return
-
+    open() {
       this.$refs.about.show()
     },
   },

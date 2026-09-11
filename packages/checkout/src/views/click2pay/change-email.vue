@@ -21,9 +21,14 @@
     </template>
     <transition name="f-fade-enter">
       <f-row-checkbox v-if="showSave" v-model="save" @input="input">
-        <div ref="save" :class="$style.save" @click="open">
+        <div :class="$style.save">
           <svg-click2pay :class="$uiClass('svg')" />
-          <span v-html="$t('c2p_save_card_desc', { click2pay })" />
+          <!--$t('c2p_save_card_desc')-->
+          <i18n path="c2p_save_card_desc" tag="span">
+            <template #click2pay>
+              <a href="" @click.prevent="open">{{ $t('click2pay') }}</a>
+            </template>
+          </i18n>
           <click2pay-modal-about ref="about" />
         </div>
       </f-row-checkbox>
@@ -63,9 +68,6 @@ export default {
     }),
     ...mapStateGetSet(['params']),
     ...mapState('params', ['email']),
-    click2pay() {
-      return `<a href="">${this.$t('click2pay')}</a>`
-    },
     showCheck() {
       return this.actionCode !== 'SUCCESS' && this.emailClick2pay !== this.email
     },
@@ -97,10 +99,7 @@ export default {
           this.error = error
         })
     },
-    open(ev) {
-      if (ev.target !== this.$refs.save.querySelector('a')) return
-      ev.preventDefault()
-
+    open() {
       this.$refs.about.show()
     },
     input(value) {

@@ -518,7 +518,7 @@ msgid "return_to_site"
 msgstr "Saytga qaytish"
 
 msgid "will_be_redirected_to_merchant_site"
-msgstr "... <b>{0} </b>soniyada savdo saytiga yo'naltiriladi"
+msgstr "... {seconds} soniyada savdo saytiga yo'naltiriladi"
 
 msgid "download_receipt"
 msgstr "Chekni yuklab olish"

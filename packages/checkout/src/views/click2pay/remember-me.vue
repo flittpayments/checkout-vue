@@ -1,16 +1,17 @@
 <template>
   <f-box-more>
     <f-row-checkbox :value="rememberMe" @input="input">
-      <div v-html="$t('skip_verification_next_time')" />
+      <div>{{ $t('skip_verification_next_time') }}</div>
     </f-row-checkbox>
     <template #more>
-      <span
-        v-html="
-          $t('skip_verification_next_time_desc', {
-            cookie_notice: cookieNotice,
-          })
-        "
-      />
+      <!--$t('skip_verification_next_time_desc')-->
+      <i18n path="skip_verification_next_time_desc" tag="span">
+        <template #cookie_notice>
+          <a :href="cookieNoticeUrl" target="_blank" rel="noopener noreferrer">
+            {{ $t('cookie_notice') }}
+          </a>
+        </template>
+      </i18n>
     </template>
   </f-box-more>
 </template>
@@ -31,11 +32,6 @@ export default {
     }
   },
   computed: {
-    cookieNotice() {
-      return `<a href="${this.cookieNoticeUrl}" target="_blank">${this.$t(
-        'cookie_notice'
-      )}</a>`
-    },
     cookieNoticeUrl() {
       return this.$t('c2p_cookie_notice_url')
     },

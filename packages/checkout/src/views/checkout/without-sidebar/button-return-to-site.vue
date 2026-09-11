@@ -8,11 +8,17 @@
       data-e2e-button-return-to-site
       @click="click"
     />
-    <div
-      v-if="second"
-      :class="$style.second"
-      v-html="$t('will_be_redirected_to_merchant_site', [second])"
-    />
+    <!--$t('will_be_redirected_to_merchant_site')-->
+    <i18n
+      v-if="seconds"
+      path="will_be_redirected_to_merchant_site"
+      tag="div"
+      :class="$style.message"
+    >
+      <template #seconds>
+        <b>{{ seconds }}</b>
+      </template>
+    </i18n>
   </div>
 </template>
 
@@ -30,7 +36,7 @@ export default {
   data() {
     return {
       loading: false,
-      second: 11,
+      seconds: 11,
     }
   },
   computed: {
@@ -41,9 +47,9 @@ export default {
   },
   methods: {
     tick() {
-      this.second -= 1
+      this.seconds -= 1
 
-      if (this.second) {
+      if (this.seconds) {
         this.timeout('tick', 1000)
       } else {
         this.click()
@@ -72,7 +78,7 @@ export default {
   margin-top: px-to-rem(32px);
 }
 
-.second {
+.message {
   font-size: px-to-rem(14px);
   line-height: px-to-rem(20px);
   margin-top: px-to-rem(16px);
