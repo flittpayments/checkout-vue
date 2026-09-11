@@ -293,8 +293,10 @@ msgstr ""
 
 msgid "offer_t"
 msgstr ""
-"Ich akzeptiere <a href=\"{0}\" target=\"_blank\">die Bedingungen des "
-"Angebots </a>"
+"Ich akzeptiere {offer_terms}"
+
+msgid "offer_terms"
+msgstr "die Bedingungen des Angebots"
 
 msgid "trial_period"
 msgstr "Probezeit"

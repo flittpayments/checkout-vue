@@ -293,7 +293,10 @@ msgid "mode_test"
 msgstr ""
 
 msgid "offer_t"
-msgstr "Hyväksyn <a href=\"{0}\" target=\"_blank\">tilauksen käyttöehdot. </a>"
+msgstr "Hyväksyn {offer_terms}"
+
+msgid "offer_terms"
+msgstr "tilauksen käyttöehdot"
 
 msgid "trial_period"
 msgstr "Koeaika"

@@ -193,10 +193,14 @@ msgstr ""
 "hamda saytning qaysi bo'limlariga tashrif buyurganingiz haqida bizga "
 "ma'lumot beradi, shunda biz saytning samaradorligini baholab, "
 "foydalanuvchilarga yaxshiroq tajriba taqdim etishimiz yoki boshqa saytlarda "
-"Flitt reklamalarini ko'rsatishimiz mumkin. Qo'shimcha ma'lumot uchun <a "
-"href='https://flitt.com/wp-content/uploads/2024/11/Privacy_Policy_flitt.pdf' "
-"target='_blank'>https://flitt.com/privacy-policy/ manziliga</a> tashrif "
+"Flitt reklamalarini ko'rsatishimiz mumkin. Qo'shimcha ma'lumot uchun {privacy_policy} tashrif "
 "buyuring."
+
+msgid "privacy_policy_url"
+msgstr ""
+
+msgid "privacy_policy"
+msgstr "Maxfiylik siyosatiga"
 
 msgid "remember_card_for_quick_re_payment"
 msgstr "Keyingi to'lovlar uchun kartamni saqlash"
@@ -303,8 +307,10 @@ msgstr "Sinov rejimi"
 
 msgid "offer_t"
 msgstr ""
-"Men <a href=\"{0}\" target=\"_blank\">taklif shartlari va qoidalarini</a> "
-"qabul qilaman<a href=\"{0}\" target=\"_blank\">. </a>"
+"Men {offer_terms} qabul qilaman"
+
+msgid "offer_terms"
+msgstr "taklif shartlari va qoidalarini"
 
 msgid "trial_period"
 msgstr "Sinov muddati"
@@ -554,7 +560,7 @@ msgid "return_to_site"
 msgstr "Saytga qaytish"
 
 msgid "will_be_redirected_to_merchant_site"
-msgstr "... <b>{0} </b>soniyada savdo saytiga yo'naltiriladi"
+msgstr "... {seconds} soniyada savdo saytiga yo'naltiriladi"
 
 msgid "download_receipt"
 msgstr "Chekni yuklab olish"

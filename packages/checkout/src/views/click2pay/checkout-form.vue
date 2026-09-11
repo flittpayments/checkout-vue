@@ -49,15 +49,21 @@
           @click="submit"
         />
       </f-form>
-      <div
-        :class="$style.agreement"
-        v-html="
-          $t('c2p_agreement_with_processing_of_data', {
-            terms,
-            privacy_notice: privacyNotice,
-          })
-        "
-      />
+      <!--$t('c2p_agreement_with_processing_of_data')-->
+      <i18n
+        :class="$uiClass('agreement')"
+        path="c2p_agreement_with_processing_of_data"
+        tag="div"
+      >
+        <template #terms>
+          <a :href="termsUrl" target="_blank">{{ $t('terms') }}</a>
+        </template>
+        <template #privacy_notice>
+          <a :href="privacyNoticeUrl" target="_blank">{{
+            $t('privacy_notice')
+          }}</a>
+        </template>
+      </i18n>
     </f-box>
     <click2pay-loader v-else-if="isLoading" />
     <div
@@ -127,14 +133,8 @@ export default {
     isExpired() {
       return this.status === 'expired'
     },
-    terms() {
-      return `<a href="${this.termsUrl}" target="_blank">${this.$t('terms')}</a>`
-    },
     termsUrl() {
       return this.$t('c2p_terms_url')
-    },
-    privacyNotice() {
-      return `<a href="${this.privacyNoticeUrl}" target="_blank">${this.$t('privacy_notice')}</a>`
     },
     privacyNoticeUrl() {
       return this.$t('c2p_privacy_notice_url')
