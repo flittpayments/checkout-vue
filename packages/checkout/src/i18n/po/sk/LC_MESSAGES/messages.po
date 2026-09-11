@@ -291,7 +291,10 @@ msgid "mode_test"
 msgstr ""
 
 msgid "offer_t"
-msgstr "Prijímam <a href=\"{0}\" target=\"_blank\">podmienky ponuky </a>"
+msgstr "Prijímam {offer_terms}"
+
+msgid "offer_terms"
+msgstr "podmienky ponuky"
 
 msgid "trial_period"
 msgstr "Skúšobná doba"

@@ -52,11 +52,18 @@
         </div>
       </div>
     </div>
-    <div
+    <!--$t('agree_to_terms')-->
+    <i18n
       v-if="params.terms_url"
+      path="agree_to_terms"
+      tag="div"
       :class="$uiClass('terms')"
-      v-html="$t('agree_to_terms', { terms, name: info.name })"
-    />
+    >
+      <template #terms>
+        <a :href="termsUrl" target="_blank">{{ $t('terms') }}</a>
+      </template>
+      <template #name>{{ info.name }}</template>
+    </i18n>
     <div v-if="showApps" :class="$uiClass('apps')">
       <div :class="$uiClass('apps_col')">
         <div
@@ -188,9 +195,6 @@ export default {
         this.installments.max_limit &&
         this.installments.currency
       )
-    },
-    terms() {
-      return `<a href="${this.termsUrl}" target="_blank">${this.$t('terms')}</a>`
     },
     termsUrl() {
       // $t('https://accounts.libertybank.ge/files/UA-en.pdf')

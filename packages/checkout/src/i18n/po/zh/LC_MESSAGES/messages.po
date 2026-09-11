@@ -283,7 +283,10 @@ msgid "mode_test"
 msgstr ""
 
 msgid "offer_t"
-msgstr "我同意接受 <a href=\"{0}\" target=\"_blank\">bid 条件和条款. </a>"
+msgstr "我同意接受 {offer_terms}"
+
+msgid "offer_terms"
+msgstr "bid 条件和条款"
 
 msgid "trial_period"
 msgstr "试用期"

@@ -289,7 +289,10 @@ msgid "mode_test"
 msgstr ""
 
 msgid "offer_t"
-msgstr "<a href=\"{0}\" target=\"_blank\">sifariş şərtlərini</a> qəbul edirəm"
+msgstr "{offer_terms} qəbul edirəm"
+
+msgid "offer_terms"
+msgstr "sifariş şərtlərini"
 
 msgid "trial_period"
 msgstr "sınaq müddəti"

@@ -3,9 +3,16 @@
     <div class="f-mb-16">
       <span v-text="$t('gdpr_alert_text')" />&nbsp;
       <a href="#" @click="$refs.text.show()" v-text="$t('learn_more')" />
-      <f-modal-wrapper ref="text"
-        ><span v-html="$t('gdpr_modal_text')"
-      /></f-modal-wrapper>
+      <f-modal-wrapper ref="text">
+        <!--$t('gdpr_modal_text')-->
+        <i18n path="gdpr_modal_text">
+          <template #privacy_policy>
+            <a :href="$t('privacy_policy_url')" target="_blank">{{
+              $t('privacy_policy')
+            }}</a>
+          </template>
+        </i18n>
+      </f-modal-wrapper>
     </div>
 
     <f-form-base>
