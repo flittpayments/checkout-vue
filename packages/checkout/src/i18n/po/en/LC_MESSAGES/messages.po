@@ -190,9 +190,14 @@ msgstr ""
 "easier for you to log on and use the site and provide feedback to us as to "
 "which parts of the website you visit, so we can assess the effectiveness of "
 "the site and provide a better user experience or serve Flitt adverts to you "
-"whilst browsing other sites. For more information, please visit <a "
-"href='https://flitt.com/wp-content/uploads/2024/11/Privacy_Policy_flitt.pdf' "
-"target='_blank'>https://flitt.com/privacy-policy/</a>"
+"whilst browsing other sites. For more information, please visit "
+"{privacy_policy}"
+
+msgid "privacy_policy_url"
+msgstr "https://flitt.com/wp-content/uploads/2026/02/Privacy-Policy-ENG-22.01.2025.pdf"
+
+msgid "privacy_policy"
+msgstr "Privacy Policy"
 
 msgid "remember_card_for_quick_re_payment"
 msgstr "Save my card for future payments"
@@ -298,7 +303,10 @@ msgstr "Test mode"
 
 msgid "offer_t"
 msgstr ""
-"I accept the <a href=\"{0}\" target=\"_blank\">bid terms and conditions. </a>"
+"I accept the {offer_terms}"
+
+msgid "offer_terms"
+msgstr "bid terms and conditions"
 
 msgid "trial_period"
 msgstr "Trial period"
@@ -550,7 +558,7 @@ msgid "return_to_site"
 msgstr "Return to the site"
 
 msgid "will_be_redirected_to_merchant_site"
-msgstr "will be redirected to merchant site in ... <b>{0} seconds</b>"
+msgstr "will be redirected to merchant site in ... {seconds} seconds"
 
 msgid "download_receipt"
 msgstr "Download receipt"
