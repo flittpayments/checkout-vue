@@ -292,7 +292,10 @@ msgid "mode_test"
 msgstr ""
 
 msgid "offer_t"
-msgstr "Eu accept <a href=\"{0}\" target=\"_blank\">condițiile ofertei </a>"
+msgstr "Eu accept {offer_terms}"
+
+msgid "offer_terms"
+msgstr "condițiile ofertei"
 
 msgid "trial_period"
 msgstr "Perioada de probă"

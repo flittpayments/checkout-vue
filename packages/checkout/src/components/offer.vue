@@ -7,9 +7,18 @@
       component="checkbox"
       :rules="rules"
     >
-      <span v-html="text" />
+      <!--$t('offer_t')-->
+      <i18n path="offer_t">
+        <template #offer_terms>
+          <a :href="url" target="_blank">{{ $t('offer_terms') }}</a>
+        </template>
+      </i18n>
     </f-form-group>
-    <div v-else v-html="text" />
+    <i18n v-else path="offer_t">
+      <template #offer_terms>
+        <a :href="url" target="_blank">{{ $t('offer_terms') }}</a>
+      </template>
+    </i18n>
   </div>
 </template>
 
@@ -31,9 +40,6 @@ export default {
       return this.$te('offerta_url')
         ? this.$t(`offerta_url`)
         : (this.offerta_url || '').replace(/{lang}/g, this.lang)
-    },
-    text() {
-      return this.$t('offer_t', [this.url])
     },
   },
 }

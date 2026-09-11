@@ -292,7 +292,10 @@ msgstr ""
 
 msgid "offer_t"
 msgstr ""
-"Es pieņemu <a href=\"{0}\" target=\"_blank\"> piedāvājuma nosacījumus </a>"
+"Es pieņemu {offer_terms}"
+
+msgid "offer_terms"
+msgstr "piedāvājuma nosacījumus"
 
 msgid "trial_period"
 msgstr "Pārbaudes laiks"

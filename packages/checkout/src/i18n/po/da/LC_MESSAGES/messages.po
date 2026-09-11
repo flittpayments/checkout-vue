@@ -295,8 +295,10 @@ msgstr ""
 
 msgid "offer_t"
 msgstr ""
-"tilbud_tJeg accepterer <a href=\"{0}\" target=\"_blank\">bid vilkår og "
-"betingelser. </a>"
+"tilbud_tJeg accepterer {offer_terms}"
+
+msgid "offer_terms"
+msgstr "bid vilkår og betingelser"
 
 msgid "trial_period"
 msgstr "Prøvetid"
