@@ -285,7 +285,10 @@ msgid "mode_test"
 msgstr "Тестовый режим"
 
 msgid "offer_t"
-msgstr "Я принимаю <a href=\"{0}\" target=\"_blank\">условия оферты</a>"
+msgstr "Я принимаю {offer_terms}"
+
+msgid "offer_terms"
+msgstr "условия оферты"
 
 msgid "trial_period"
 msgstr "Пробный период"

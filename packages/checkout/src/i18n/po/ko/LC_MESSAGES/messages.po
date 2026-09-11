@@ -287,7 +287,10 @@ msgid "mode_test"
 msgstr ""
 
 msgid "offer_t"
-msgstr "<a href=\"{0}\" target=\"_blank\">주문의 조건에 동의합니다.</a>"
+msgstr "{offer_terms}"
+
+msgid "offer_terms"
+msgstr "주문의 조건에 동의합니다"
 
 msgid "trial_period"
 msgstr "시험 기간"

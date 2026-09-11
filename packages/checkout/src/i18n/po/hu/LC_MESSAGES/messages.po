@@ -293,7 +293,10 @@ msgstr ""
 
 msgid "offer_t"
 msgstr ""
-"Elfogadom <a href=\"{0}\" target=\"_blank\">az ajánlat feltételeit </a>"
+"Elfogadom {offer_terms}"
+
+msgid "offer_terms"
+msgstr "az ajánlat feltételeit"
 
 msgid "trial_period"
 msgstr "Próbaidő"
