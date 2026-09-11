@@ -270,7 +270,10 @@ msgid "mode_test"
 msgstr "სატესტო რეჟიმი"
 
 msgid "offer_t"
-msgstr "ვეთანხმები <a href=\"{0}\" target=\"_blank\">პირობებს</a>"
+msgstr "ვეთანხმები {offer_terms}"
+
+msgid "offer_terms"
+msgstr "პირობებს"
 
 msgid "trial_period"
 msgstr "გამოსაცდელი პერიოდი"
@@ -513,7 +516,7 @@ msgid "return_to_site"
 msgstr "საიტზე დაბრუნება"
 
 msgid "will_be_redirected_to_merchant_site"
-msgstr "გადამისამართდებით მერჩანტის საიტზე ... <b>{0} წამში</b>"
+msgstr "გადამისამართდებით მერჩანტის საიტზე ... {seconds} წამში"
 
 msgid "download_receipt"
 msgstr "ქვითრის გადმოწერა"
