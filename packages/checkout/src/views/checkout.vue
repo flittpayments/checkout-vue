@@ -140,6 +140,10 @@ export default {
     appSuccess(model) {
       this.$root.$emit('ready', model)
       this.appFinally(model)
+
+      if (model.attr('info.client_fee')) {
+        this.store.feeCalc(this.$route.name)
+      }
     },
     appError(model) {
       this.$root.$emit('error', model)
