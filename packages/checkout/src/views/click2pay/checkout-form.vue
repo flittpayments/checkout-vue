@@ -56,12 +56,17 @@
         tag="div"
       >
         <template #terms>
-          <a :href="termsUrl" target="_blank">{{ $t('terms') }}</a>
+          <f-link variant="secondary" :href="termsUrl" target="_blank">{{
+            $t('terms')
+          }}</f-link>
         </template>
         <template #privacy_notice>
-          <a :href="privacyNoticeUrl" target="_blank">{{
-            $t('privacy_notice')
-          }}</a>
+          <f-link
+            variant="secondary"
+            :href="privacyNoticeUrl"
+            target="_blank"
+            >{{ $t('privacy_notice') }}</f-link
+          >
         </template>
       </i18n>
     </f-box>
@@ -86,6 +91,7 @@ import FInputGroup from '@/components/base/input-group'
 import FCallingCodes from '@/components/calling-codes'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButtonSuccess from '@/components/button/button-success'
+import FLink from '@/components/link'
 import Click2payLoader from '@/views/click2pay/loader'
 import { checkout } from '@/click2pay'
 import { mapState } from '@/utils/store'
@@ -100,6 +106,7 @@ export default {
     FCallingCodes,
     Click2payRememberMe,
     FButtonSuccess,
+    FLink,
     Click2payLoader,
   },
   data() {
