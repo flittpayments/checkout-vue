@@ -12,9 +12,9 @@
       <!--$t('skip_verification_next_time_desc')-->
       <i18n path="skip_verification_next_time_desc">
         <template #cookie_notice>
-          <a :href="cookieNoticeUrl" target="_blank">{{
+          <f-link variant="secondary" :href="cookieNoticeUrl" target="_blank">{{
             $t('cookie_notice')
-          }}</a>
+          }}</f-link>
         </template>
       </i18n>
     </template>
@@ -23,11 +23,13 @@
 
 <script>
 import FBoxMore from '@/components/box-more'
+import FLink from '@/components/link'
 import { getRememberMe, setRememberMe } from '@/click2pay'
 
 export default {
   components: {
     FBoxMore,
+    FLink,
   },
   data() {
     return {

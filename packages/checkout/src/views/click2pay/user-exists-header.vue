@@ -7,7 +7,9 @@
       />
       <div :class="$style.right">
         <div :class="$style.email">{{ email }}</div>
-        <f-link @click="goSwitchId">{{ $t('another_user') }}</f-link>
+        <f-link :class="$style.link" @click="goSwitchId">{{
+          $t('another_user')
+        }}</f-link>
       </div>
     </div>
     <div v-if="showMessage">
@@ -92,6 +94,11 @@ export default {
   :global(.f-theme-light) & {
     color: #5a6470;
   }
+}
+
+.link {
+  --font-size: #{px-to-rem(14px)};
+  --line-height: #{px-to-rem(20px)};
 }
 
 .h3 {
