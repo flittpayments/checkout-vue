@@ -32,7 +32,9 @@
           <!--$t('c2p_save_card_desc')-->
           <i18n path="c2p_save_card_desc">
             <template #click2pay>
-              <a href="#" @click.prevent="open">{{ $t('click2pay') }}</a>
+              <f-link :class="$style.click2pay" @click="open">{{
+                $t('click2pay')
+              }}</f-link>
             </template>
           </i18n>
           <click2pay-modal-about ref="about" />
@@ -45,17 +47,19 @@
 
 <script>
 import SvgClick2pay from '@/svg/click2pay.svg'
-import FBox from '@/components/box.vue'
+import FBox from '@/components/box'
+import FSvg from '@/components/svg'
+import FLink from '@/components/link'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { switchUser } from '@/click2pay'
-import FSvg from '@/components/svg.vue'
 
 export default {
   components: {
-    FSvg,
     SvgClick2pay,
     FBox,
+    FSvg,
+    FLink,
     Click2payModalAbout,
   },
   data() {
@@ -171,6 +175,10 @@ export default {
   :global(.f-theme-dark) & {
     color: #fff;
   }
+}
+
+.click2pay {
+  --font-weight: 600;
 }
 
 .spin {

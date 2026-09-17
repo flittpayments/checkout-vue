@@ -6,14 +6,17 @@
       <!--$t('follow_link_to_complete_payment_in_web_banking')-->
       <i18n path="follow_link_to_complete_payment_in_web_banking">
         <template #link>
-          <a
+          <f-link
             v-if="target === '_blank'"
+            variant="secondary"
             :href="data.deeplink"
             target="_blank"
             @click="clickNonBlocking"
-            >{{ $t('link') }}</a
+            >{{ $t('link') }}</f-link
           >
-          <a v-else href="#" @click.prevent="click">{{ $t('link') }}</a>
+          <f-link v-else variant="secondary" @click="click">{{
+            $t('link')
+          }}</f-link>
         </template>
       </i18n>
     </div>
@@ -60,7 +63,9 @@
       :class="$uiClass('terms')"
     >
       <template #terms>
-        <a :href="termsUrl" target="_blank">{{ $t('terms') }}</a>
+        <f-link variant="secondary" :href="termsUrl" target="_blank">{{
+          $t('terms')
+        }}</f-link>
       </template>
       <template #name>{{ info.name }}</template>
     </i18n>
@@ -78,23 +83,23 @@
       <div :class="[$uiClass('apps_col'), $style.row]">
         <div :class="$uiClass('app')">
           <f-qr-code :class="$uiClass('app_qr')" :url="params.apple_app_url" />
-          <a
+          <f-link
             :class="$style.app_btn"
             :href="params.apple_app_url"
             target="_blank"
           >
             <svg-app-store />
-          </a>
+          </f-link>
         </div>
         <div :class="$uiClass('app')">
           <f-qr-code :class="$uiClass('app_qr')" :url="params.google_app_url" />
-          <a
+          <f-link
             :class="$style.app_btn"
             :href="params.google_app_url"
             target="_blank"
           >
             <svg-google-play />
-          </a>
+          </f-link>
         </div>
       </div>
     </div>
@@ -103,6 +108,7 @@
 
 <script>
 import FQrCode from '@/components/qr-code'
+import FLink from '@/components/link'
 import FAmount from '@/components/base/amount'
 import FPercent from '@/components/base/percent'
 import SvgAppStore from '@/svg/app-store.svg'
@@ -117,6 +123,7 @@ import { appendQueryParams } from '@/utils/url'
 export default {
   components: {
     FQrCode,
+    FLink,
     FAmount,
     FPercent,
     SvgAppStore,
@@ -461,6 +468,9 @@ export default {
 }
 
 .app_btn {
+  #{$prefix}outline_bg: transparent;
+  #{$prefix}container_bg: #{$white};
+
   flex: 2;
 }
 

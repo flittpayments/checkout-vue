@@ -10,22 +10,30 @@
       <!--$t('offer_t')-->
       <i18n path="offer_t">
         <template #offer_terms>
-          <a :href="url" target="_blank">{{ $t('offer_terms') }}</a>
+          <f-link variant="secondary" :href="url" target="_blank">{{
+            $t('offer_terms')
+          }}</f-link>
         </template>
       </i18n>
     </f-form-group>
     <i18n v-else path="offer_t">
       <template #offer_terms>
-        <a :href="url" target="_blank">{{ $t('offer_terms') }}</a>
+        <f-link variant="secondary" :href="url" target="_blank">{{
+          $t('offer_terms')
+        }}</f-link>
       </template>
     </i18n>
   </div>
 </template>
 
 <script>
+import FLink from '@/components/link'
 import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
+  components: {
+    FLink,
+  },
   computed: {
     ...mapStateGetSet('params', ['offer', 'lang']),
     ...mapState('options', ['offerta_url']),
