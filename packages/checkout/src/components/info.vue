@@ -9,7 +9,9 @@
   <div v-else>
     <div v-if="showTitle" class="f-merchant-name" v-text="$t(title)" />
     <div v-if="showLink" class="f-merchant-url">
-      <a :href="link" target="_blank">{{ link }}</a>
+      <f-link variant="secondary" :href="link" target="_blank">{{
+        link
+      }}</f-link>
     </div>
     <f-preloader
       v-if="show_order_desc"
@@ -33,6 +35,7 @@
 </template>
 
 <script>
+import FLink from '@/components/link'
 import FPreloader from '@/components/preloader'
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
@@ -42,6 +45,7 @@ import { mapState } from '@/utils/store'
 
 export default {
   components: {
+    FLink,
     FPreloader,
     FButtonUnstyled,
     FSvg,

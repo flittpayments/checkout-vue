@@ -11,7 +11,9 @@
         <!--$t('c2p_save_card_desc')-->
         <i18n path="c2p_save_card_desc" tag="div" :class="$uiClass('desc')">
           <template #click2pay>
-            <a href="" @click.prevent="open">{{ $t('click2pay') }}</a>
+            <f-link :class="$style.click2pay" @click="open">{{
+              $t('click2pay')
+            }}</f-link>
           </template>
           <template #masked_card>
             <span :class="$uiClass('bold')">{{ masked_card }}</span>
@@ -30,8 +32,9 @@
 
 <script>
 import Click2payHeader from '@/views/click2pay/header'
-import FButtonSuccess from '@/components/button/button-success'
 import Click2payCheckoutForm from '@/views/click2pay/checkout-form'
+import FLink from '@/components/link'
+import FButtonSuccess from '@/components/button/button-success'
 import Click2payModalAbout from '@/views/click2pay/modal-about'
 import { mapState } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
@@ -40,8 +43,9 @@ import { getCards } from '@/click2pay'
 export default {
   components: {
     Click2payHeader,
-    FButtonSuccess,
     Click2payCheckoutForm,
+    FLink,
+    FButtonSuccess,
     Click2payModalAbout,
   },
   data() {
@@ -97,6 +101,10 @@ export default {
   :global(.f-theme-light) & {
     color: #5a6470;
   }
+}
+
+.click2pay {
+  --font-weight: 600;
 }
 
 .bold {

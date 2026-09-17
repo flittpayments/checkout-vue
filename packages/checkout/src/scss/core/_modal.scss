@@ -77,6 +77,9 @@ html {
 
 // Actual modal
 .f-modal-content {
+  #{$prefix}container_bg: $white;
+  #{$prefix}outline_bg: #eef0f2;
+  #{$prefix}outline_border: #9ca7b3;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -95,6 +98,10 @@ html {
   // Remove focus outline from opened modal
   outline: 0;
   box-shadow: 0 20px 30px rgb(57 64 75 / 30%);
+
+  a {
+    --color: #{$modal_content_color};
+  }
 }
 
 // Modal background

@@ -2,14 +2,19 @@
   <f-alert-storage name="show_gdpr_frame" @ok="ok">
     <div class="f-mb-16">
       <span v-text="$t('gdpr_alert_text')" />&nbsp;
-      <a href="#" @click="$refs.text.show()" v-text="$t('learn_more')" />
+      <f-link variant="secondary" @click="$refs.text.show()">{{
+        $t('learn_more')
+      }}</f-link>
       <f-modal-wrapper ref="text">
         <!--$t('gdpr_modal_text')-->
         <i18n path="gdpr_modal_text">
           <template #privacy_policy>
-            <a :href="$t('privacy_policy_url')" target="_blank">{{
-              $t('privacy_policy')
-            }}</a>
+            <f-link
+              variant="secondary"
+              :href="$t('privacy_policy_url')"
+              target="_blank"
+              >{{ $t('privacy_policy') }}</f-link
+            >
           </template>
         </i18n>
       </f-modal-wrapper>
@@ -24,7 +29,9 @@
         variant="secondary"
       >
         <span v-text="$t('remember_card_for_quick_re_payment')" />&nbsp;
-        <a href="#" @click="$refs.safe.show()" v-text="$t('its_safe')" />
+        <f-link variant="secondary" @click="$refs.safe.show()">{{
+          $t('its_safe')
+        }}</f-link>
       </f-form-group>
     </f-form-base>
 
@@ -40,6 +47,7 @@
 
 <script>
 import FAlertStorage from '@/components/alert/alert-storage'
+import FLink from '@/components/link'
 import FModalWrapper from '@/components/modal/modal-wrapper'
 import FFormBase from '@/components/form/form/form-base'
 import SvgSafe from '@/svg/safe.svg'
@@ -49,6 +57,7 @@ import { mapStateGetSet, localStorage } from '@/utils/store'
 export default {
   components: {
     FAlertStorage,
+    FLink,
     FModalWrapper,
     FFormBase,
     SvgSafe,

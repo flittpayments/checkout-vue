@@ -1,7 +1,9 @@
 <template>
   <f-container>
     <click2pay-header :class="$style.mb_16" :email-short="email">
-      <f-link @click="goSwitchId">{{ $t('another_user') }}</f-link>
+      <f-link :class="$style.link" @click="goSwitchId">{{
+        $t('another_user')
+      }}</f-link>
     </click2pay-header>
     <h3 :class="$style.h3" v-text="$t('c2p_access_to_saved_cards')" />
     <div :class="$style.desc" v-text="$t('c2p_otp_desc', { email, phone })" />
@@ -9,7 +11,9 @@
       <span v-text="$t('invite_new_code', { time })" />
     </div>
     <div v-else :class="$style.resend">
-      <f-link @click="click">{{ $t('send_again') }}</f-link>
+      <f-link :class="$style.link" @click="click">{{
+        $t('send_again')
+      }}</f-link>
     </div>
     <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
       <f-otp
@@ -167,6 +171,11 @@ export default {
 <style lang="scss" module>
 .mb_16 {
   margin-bottom: px-to-rem(16px);
+}
+
+.link {
+  --font-size: #{px-to-rem(14px)};
+  --line-height: #{px-to-rem(20px)};
 }
 
 .h3 {

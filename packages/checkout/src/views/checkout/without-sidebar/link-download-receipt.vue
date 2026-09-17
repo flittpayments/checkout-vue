@@ -1,18 +1,26 @@
 <template>
   <div :class="$style.wrapper">
-    <a :class="$style.link" :href="receipt_url" target="_blank" download>
+    <f-link
+      variant="secondary"
+      :class="$style.link"
+      :href="receipt_url"
+      target="_blank"
+      download
+    >
       <span v-text="$t('download_receipt')" />
       <f-svg :class="$style.ml_4" name="download" :size="24" />
-    </a>
+    </f-link>
   </div>
 </template>
 
 <script>
+import FLink from '@/components/link'
 import FSvg from '@/components/svg'
 import { mapState } from '@/utils/store'
 
 export default {
   components: {
+    FLink,
     FSvg,
   },
   computed: {

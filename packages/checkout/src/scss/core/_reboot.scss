@@ -63,19 +63,6 @@ ul {
   margin-bottom: 1.5rem;
 }
 
-// Links
-
-a {
-  font-weight: 600;
-  color: $link_color;
-  text-decoration: none;
-  background-color: transparent; // Remove the gray background on active links in IE 10.
-
-  @include hover {
-    text-decoration: underline;
-  }
-}
-
 // Images and content
 
 img {
