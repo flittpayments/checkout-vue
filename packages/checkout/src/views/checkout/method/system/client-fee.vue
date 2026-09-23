@@ -9,17 +9,12 @@
       :total-amount="data.total_amount"
     />
     <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
-      <f-form-group
-        v-model="accepted"
-        name=""
-        component="checkbox"
-        :rules="rules"
-      >
+      <f-row-checkbox v-model="accepted" :rules="rules">
         <!--$t('accept_fees')-->
         <i18n path="accept_fees">
           <template #fees><b v-text="$t('fees')" /></template>
         </i18n>
-      </f-form-group>
+      </f-row-checkbox>
       <f-button
         class="f-button-pay"
         variant="success"
@@ -39,6 +34,7 @@
 import FContainer from '@/components/base/container'
 import { FFee } from '@/import'
 import FForm from '@/components/form/form/form.vue'
+import FRowCheckbox from '@/components/input/row-checkbox'
 import FButton from '@/components/button/button'
 import FAmount from '@/components/base/amount.vue'
 import { makeProp } from '@/utils/props'
@@ -51,6 +47,7 @@ export default {
     FContainer,
     FFee,
     FForm,
+    FRowCheckbox,
     FButton,
     FAmount,
   },
