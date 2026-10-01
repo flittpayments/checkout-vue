@@ -52,7 +52,7 @@ import FSvg from '@/components/svg'
 import FModalWrapper from '@/components/modal/modal-wrapper'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
 import { FSecureMessageIcons } from '@/import'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { isPhone } from '@/utils/mobile'
 
 export default {
@@ -63,7 +63,7 @@ export default {
     FTooltipDefault,
     FSecureMessageIcons,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   data() {
     return {
       showTooltip: false,

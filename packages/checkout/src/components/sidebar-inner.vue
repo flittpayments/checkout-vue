@@ -22,7 +22,7 @@ import { FQuickAccess } from '@/import'
 import FMenu from '@/components/menu'
 import FProcessedWrapper from '@/components/processed-wrapper'
 import { mapState } from '@/utils/store'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
     FMenu,
     FProcessedWrapper,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   computed: {
     ...mapState('options', ['full_screen', 'methods']),
     ...mapState(['showWalletsTab']),

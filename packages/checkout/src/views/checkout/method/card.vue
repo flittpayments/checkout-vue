@@ -27,7 +27,7 @@ import FPrice from '@/components/price'
 import FIcons from '@/components/icons'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import { FQuickAccess } from '@/import'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import Click2payRedirectWrapper from '@/views/click2pay/redirect-wrapper'
 
 export default {
@@ -40,7 +40,7 @@ export default {
     FQuickAccess,
     Click2payRedirectWrapper,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   computed: {
     ...mapState('options', ['methods']),
     ...mapState(['isOnlyCard']),

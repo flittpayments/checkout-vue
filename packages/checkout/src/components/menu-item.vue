@@ -25,7 +25,7 @@ import FSvg from '@/components/svg'
 import FIcons from '@/components/icons'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
 import SvgTimer from '@/svg/timer.svg'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_STRING } from '@/constants/props'
 import { mapState } from '@/utils/store'
@@ -38,7 +38,7 @@ export default {
     FTooltipDefault,
     SvgTimer,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   props: {
     method: makeProp(PROP_TYPE_STRING),
   },

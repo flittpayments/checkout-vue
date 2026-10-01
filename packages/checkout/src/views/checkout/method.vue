@@ -36,7 +36,7 @@ import FShadow from '@/components/base/shadow'
 import FProcessedWrapper from '@/components/processed-wrapper'
 import FSecureMessageWrapper from '@/components/secure-message-wrapper'
 import { mapState } from '@/utils/store'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 
 export default {
   components: {
@@ -49,7 +49,7 @@ export default {
     FProcessedWrapper,
     FSecureMessageWrapper,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   computed: {
     ...mapState('options', ['full_screen']),
   },

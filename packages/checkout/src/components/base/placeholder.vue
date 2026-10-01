@@ -59,9 +59,6 @@ export default {
   watch: {
     maskedValue: 'setLeft',
   },
-  mounted() {
-    this.setLeft()
-  },
   methods: {
     setLeft() {
       this.$nextTick().then(() => {
