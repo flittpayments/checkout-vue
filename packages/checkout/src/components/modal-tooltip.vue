@@ -44,6 +44,7 @@ import FButtonUnstyled from '@/components/button/button-unstyled'
 import FDropdown from '@/components/tooltip/dropdown'
 import FModalWrapper from '@/components/modal/modal-wrapper'
 import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { isPhone } from '@/utils/mobile'
 import {
   PROP_TYPE_BOOLEAN,
@@ -60,7 +61,7 @@ export default {
     FModalWrapper,
     FScrollbarVertical,
   },
-  mixins: [resizeMixin],
+  mixins: [resizeMixin, breakpointMixin],
   inheritAttrs: false,
   props: {
     id: makeProp(PROP_TYPE_STRING),

@@ -34,7 +34,7 @@ import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import FBank from '@/views/checkout/method/bank'
 import FButtonDefault from '@/components/button/button-default'
 import FSvg from '@/components/svg'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
     FButtonDefault,
     FSvg,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   computed: {
     ...mapState('tabs', ['most_popular']),
     ...mapState(['ready', 'has_fields', 'showWalletsTab']),

@@ -1,43 +1,20 @@
 import { listenOnWindowMixin } from '@/mixins/listen-on-window'
-import { mapState } from '@/utils/store'
 import { isFunction } from '@/utils/inspect'
-import { windowWidth } from '@/utils/helpers'
-
-function init() {
-  let width = windowWidth()
-
-  this.isBreakpointDownMd = this.full_screen ? width < 768 : true
-  this.isBreakpointDownLg = this.full_screen ? width < 992 : true
-  this.isWidthSm = width < 768
-}
-
-function resize() {
-  init.apply(this)
-  if (isFunction(this.resize)) {
-    this.resize()
-  }
-}
 
 // @vue/component
 export const resizeMixin = {
   mixins: [listenOnWindowMixin],
-  data() {
-    return {
-      isBreakpointDownMd: false,
-      isBreakpointDownLg: false,
-      isWidthSm: false,
+  mounted() {
+    const handler = () => {
+      if (isFunction(this.resize)) {
+        this.resize()
+      }
     }
-  },
-  computed: {
-    ...mapState('options', ['full_screen']),
-  },
-  created() {
-    let handler = resize.bind(this)
+
     this.listenOnWindow('resize', handler)
     this.listenOnWindow('orientationchange', handler)
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(handler)
-    }
-    init.apply(this)
+    document.fonts?.ready?.then(handler)
+
+    handler()
   },
 }

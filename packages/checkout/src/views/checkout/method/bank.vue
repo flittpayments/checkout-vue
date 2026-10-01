@@ -87,7 +87,7 @@ import {
   PROP_TYPE_STRING,
 } from '@/constants/props'
 import { makeProp } from '@/utils/props'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { upperFirst } from '@/utils/string'
 import { isNotButtonOnly } from '@/utils/method'
 
@@ -111,7 +111,7 @@ export default {
     FCountry,
     FProgressBankItem,
   },
-  mixins: [timeoutMixin, resizeMixin],
+  mixins: [timeoutMixin, breakpointMixin],
   props: {
     // {147209: {country: 'PL', name: '', logo: 'mbank'}}
     config: makeProp(PROP_TYPE_OBJECT, {}),
