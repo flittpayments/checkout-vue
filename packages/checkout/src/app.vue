@@ -11,7 +11,6 @@ import { errorHandler, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 
-import '@/scss/fonts.scss'
 import '@/scss/style.scss'
 
 export default {
