@@ -13,6 +13,7 @@
 <script>
 import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { errorHandler, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
@@ -21,7 +22,7 @@ import '@/scss/fonts.scss'
 import '@/scss/style.scss'
 
 export default {
-  mixins: [resizeMixin],
+  mixins: [resizeMixin, breakpointMixin],
   props: {
     optionsUser: makeProp(PROP_TYPE_OBJECT),
   },
