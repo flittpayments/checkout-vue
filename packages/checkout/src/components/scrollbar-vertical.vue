@@ -54,9 +54,6 @@ export default {
   beforeDestroy() {
     document.addEventListener('mouseup', this.dragend)
   },
-  mounted() {
-    this.$nextTick().then(this.getThumbSize)
-  },
   methods: {
     resize() {
       this.getThumbSize()

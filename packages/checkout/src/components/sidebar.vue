@@ -9,14 +9,14 @@
 <script>
 import FScrollbarVertical from '@/components/scrollbar-vertical'
 import { FSidebarInner } from '@/import'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 
 export default {
   components: {
     FScrollbarVertical,
     FSidebarInner,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   computed: {
     show() {
       return !this.isBreakpointDownLg

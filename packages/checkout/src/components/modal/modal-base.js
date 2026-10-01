@@ -29,7 +29,7 @@ import { listenOnRootMixin } from '@/mixins/listen-on-root'
 import { listenOnWindowMixin } from '@/mixins/listen-on-window'
 import { normalizeSlotMixin } from '@/mixins/normalize-slot'
 import { scopedStyleAttrsMixin } from '@/mixins/scoped-style-attrs'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { modalManager } from '@/components/modal/helpers/modal-manager'
 import { FModalEvent } from '@/components/modal/helpers/modal-event.class'
 import {
@@ -60,7 +60,7 @@ export default {
     listenOnWindowMixin,
     normalizeSlotMixin,
     scopedStyleAttrsMixin,
-    resizeMixin,
+    breakpointMixin,
   ],
   inheritAttrs: false,
   model: {

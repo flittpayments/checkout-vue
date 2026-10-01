@@ -29,7 +29,7 @@ import FAlertNotificationWrapper from '@/components/alert/alert-notification-wra
 import { errorHandler, findGetParameter } from '@/utils/helpers'
 import { mapState, mapStateGetSet } from '@/utils/store'
 import { timeoutMixin } from '@/mixins/timeout'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { isError } from '@/utils/inspect'
 import { fib } from '@/utils/helpers'
 import { FLoading } from '@/import'
@@ -48,7 +48,7 @@ export default {
     FAlertGdprWrapper,
     FAlertNotificationWrapper,
   },
-  mixins: [timeoutMixin, resizeMixin],
+  mixins: [timeoutMixin, breakpointMixin],
   provide() {
     return {
       formRequest: this.formRequest,

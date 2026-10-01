@@ -33,7 +33,7 @@ import FModeWrapper from '@/components/mode-wrapper'
 import FButtonLink from '@/components/button/button-link'
 import FSvg from '@/components/svg'
 import { FLogo, FSelect } from '@/import'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { mapState } from '@/utils/store'
 import { sort, parseSelect } from '@/utils/sort'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
@@ -47,7 +47,7 @@ export default {
     FLogo,
     FSelect,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   props: {
     back: makeProp(PROP_TYPE_BOOLEAN, false),
     withoutSidebar: makeProp(PROP_TYPE_BOOLEAN, false),

@@ -23,7 +23,7 @@ import FFieldsUser from '@/components/fields/user'
 import FOffer from '@/components/offer'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
-import { resizeMixin } from '@/mixins/resize'
+import { breakpointMixin } from '@/mixins/breakpoint'
 import { mapState } from '@/utils/store'
 
 export default {
@@ -38,7 +38,7 @@ export default {
     FButtonWalletEl,
     FButtonCancelWrapper,
   },
-  mixins: [resizeMixin],
+  mixins: [breakpointMixin],
   computed: {
     ...mapState(['isOnlyWallets']),
   },

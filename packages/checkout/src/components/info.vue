@@ -101,9 +101,6 @@ export default {
       this.$nextTick().then(this.resize)
     },
   },
-  mounted() {
-    this.resize()
-  },
   methods: {
     resize() {
       if (!this.$refs.desc) return
