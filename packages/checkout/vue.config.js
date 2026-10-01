@@ -109,7 +109,6 @@ module.exports = defineConfig({
             })
             .end()
           .output
-            .filename('[name].js')
             .crossOriginLoading('anonymous')
             .end()
           .plugin('extract-css')
@@ -117,11 +116,6 @@ module.exports = defineConfig({
               return [{
                 ...options,
                 ignoreOrder: true,
-                filename: '[name].css',
-                insert: function(linkTag) {
-                  linkTag.removeAttribute && linkTag.removeAttribute('crossorigin')
-                  document.head.appendChild(linkTag)
-                },
               }]
             })
             .end()
