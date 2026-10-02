@@ -38,7 +38,7 @@ import {
 import { toInteger } from '@/utils/number'
 import { keys } from '@/utils/object'
 import { FEvent } from '@/utils/event.class'
-import { TooltipTemplate } from '@/components/tooltip/helpers/tooltip-template'
+import TooltipTemplate from '@/components/tooltip/helpers/tooltip-template'
 import { CODE_DOWN, CODE_ENTER, CODE_SPACE } from '@/constants/key-codes'
 
 // Modal container selector for appending tooltip/popover
@@ -282,8 +282,8 @@ export const Tooltip = Vue.extend({
     createTemplateAndShow() {
       // Creates the template instance and show it
       const container = this.getContainer()
-
-      const $tip = (this.$_tip = new TooltipTemplate({
+      const TooltipTemplateCtor = Vue.extend(TooltipTemplate)
+      const $tip = (this.$_tip = new TooltipTemplateCtor({
         parent: this,
         // The following is not reactive to changes in the props data
         propsData: {

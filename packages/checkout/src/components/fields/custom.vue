@@ -1,15 +1,18 @@
 <template>
-  <f-form-save v-if="show" name="params.custom" :includes="includes">
-    <template #default="{ input }">
-      <component
-        :is="field.componentName"
-        v-for="field in list"
-        :key="field.name"
-        v-bind="field"
-        v-model="params.custom[field.name]"
-        @input="input(field.name, $event)"
-      />
-    </template>
+  <f-form-save
+    v-if="show"
+    v-slot="{ input }"
+    name="params.custom"
+    :includes="includes"
+  >
+    <component
+      :is="field.componentName"
+      v-for="field in list"
+      :key="field.name"
+      v-bind="field"
+      v-model="params.custom[field.name]"
+      @input="input(field.name, $event)"
+    />
   </f-form-save>
 </template>
 

@@ -58,6 +58,7 @@ export default {
   overflow: visible;
   font-size: inherit;
   vertical-align: -0.125em;
+  pointer-events: none;
 }
 
 .w_16 {

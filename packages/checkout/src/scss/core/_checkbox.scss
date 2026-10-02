@@ -139,7 +139,7 @@
 
 .f-checkbox-secondary {
   @include checkbox-variant(
-    $input_bg,
+    $white,
     $checkbox_secondary_border,
     $checkbox_secondary_hover_bg,
     $checkbox_secondary_hover_border,
