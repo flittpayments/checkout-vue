@@ -50,7 +50,7 @@ export default {
   created() {
     this.feeCalc()
   },
-  destroyed() {
+  unmounted() {
     this.feeCalc()
   },
   methods: {

@@ -14,13 +14,7 @@
           subscription
           :disabled="readonly"
         />
-        <f-row
-          v-if="showTrial"
-          key="trial"
-          :value="trial"
-          label="trial_period"
-          disabled
-        />
+        <f-row v-if="showTrial" :value="trial" label="trial_period" disabled />
         <div
           v-if="showQuantity"
           class="f-row"
@@ -47,7 +41,6 @@
           />
           <f-row-checkbox
             v-if="showUnlimited"
-            key="unlimited"
             v-model="unlimited"
             class="f-col"
             :disabled="readonly"

@@ -20,7 +20,7 @@ export default {
           parse(this.value, formatServer)
         )
         // eslint-disable-next-line no-empty
-      } catch (e) {}
+      } catch {}
 
       return result
     },

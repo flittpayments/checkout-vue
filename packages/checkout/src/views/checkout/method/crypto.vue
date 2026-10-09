@@ -10,7 +10,6 @@ export default {
   components: {
     FBank,
   },
-  inject: ['submit'],
   computed: {
     ...mapState('tabs', ['crypto']),
     config() {

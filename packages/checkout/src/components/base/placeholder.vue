@@ -30,12 +30,13 @@ export default {
   inheritAttrs: false,
   props: {
     id: makeProp(PROP_TYPE_STRING),
-    value: makeProp(PROP_TYPE_NUMBER_STRING),
+    modelValue: makeProp(PROP_TYPE_NUMBER_STRING, ''),
     placeholder: makeProp(PROP_TYPE_STRING),
     offset: makeProp(PROP_TYPE_NUMBER, 0),
     nameClass: makeProp(PROP_TYPE_ARRAY),
     textClass: makeProp(PROP_TYPE_STRING),
   },
+  emits: ['request-focus'],
   data() {
     return {
       left: 0,
@@ -43,7 +44,7 @@ export default {
   },
   computed: {
     maskedValue() {
-      return String(this.value).replace(/ /g, '\xa0')
+      return String(this.modelValue).replace(/ /g, '\xa0')
     },
     placeholderText() {
       return this.placeholder

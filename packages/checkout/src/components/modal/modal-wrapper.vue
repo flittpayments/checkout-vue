@@ -1,13 +1,7 @@
 <template>
-  <f-modal
-    v-if="isShow"
-    ref="modal"
-    v-bind="$attrs"
-    v-on="$listeners"
-    @hidden="onHidden"
-  >
-    <template v-for="slot in Object.keys($scopedSlots)" #[slot]="scope">
-      <slot :name="slot" v-bind="scope" />
+  <f-modal v-if="isShow" v-bind="$attrs" ref="modal" @hidden="onHidden">
+    <template v-for="slot in Object.keys($slots)" #[slot]="scope">
+      <slot v-bind="scope" :name="slot" />
     </template>
   </f-modal>
 </template>

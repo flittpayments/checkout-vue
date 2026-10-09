@@ -4,7 +4,7 @@
       <div :class="$uiClass('desc')">
         {{ $t('c2p_registration_desc') }}
       </div>
-      <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
+      <f-form v-slot="{ submit, state }" @submit="onSubmit">
         <f-input-group>
           <f-calling-codes
             v-model="countryCode"
@@ -40,16 +40,16 @@
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
         <f-button-success
           class="f-mb-20"
-          :disabled="disabled"
+          :disabled="state.disabled"
           :loading="loading"
           :text="$t('registration')"
           @click="submit"
         />
       </f-form>
       <!--$t('c2p_agreement_with_processing_of_data')-->
-      <i18n
+      <i18n-t
         :class="$uiClass('agreement')"
-        path="c2p_agreement_with_processing_of_data"
+        keypath="c2p_agreement_with_processing_of_data"
         tag="div"
       >
         <template #terms>
@@ -65,7 +65,7 @@
             >{{ $t('privacy_notice') }}</f-link
           >
         </template>
-      </i18n>
+      </i18n-t>
     </f-box>
     <click2pay-loader v-else-if="isLoading" />
     <div
@@ -83,12 +83,13 @@
 
 <script>
 import FBox from '@/components/box'
-import FForm from '@/components/form/form/form'
+import FForm from '@/components/form/form'
 import FInputGroup from '@/components/base/input-group'
 import FCallingCodes from '@/components/calling-codes'
 import FRow from '@/components/input/row'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
 import FButtonSuccess from '@/components/button/button-success'
+import I18nT from '@/components/base/i18n-t'
 import FLink from '@/components/link'
 import Click2payLoader from '@/views/click2pay/loader'
 import { checkout } from '@/click2pay'
@@ -105,6 +106,7 @@ export default {
     FRow,
     Click2payRememberMe,
     FButtonSuccess,
+    I18nT,
     FLink,
     Click2payLoader,
   },

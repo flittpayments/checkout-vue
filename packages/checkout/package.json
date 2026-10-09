@@ -37,15 +37,14 @@
     ]
   },
   "browserslist": [
-    "defaults",
-    "Chrome >= 45",
-    "Firefox >= 38",
-    "Edge >= 12",
-    "Explorer >= 11",
-    "iOS >= 9",
-    "Safari >= 9",
-    "Android >= 4.4",
-    "Opera >= 30"
+    "Chrome >= 49",
+    "Firefox >= 52",
+    "Edge >= 79",
+    "Safari >= 10",
+    "iOS >= 10",
+    "Android >= 5",
+    "not IE 11",
+    "not dead"
   ],
   "prettier": {
     "arrowParens": "avoid",
@@ -61,7 +60,7 @@
       "parser": "@babel/eslint-parser"
     },
     "extends": [
-      "plugin:vue/recommended",
+      "plugin:vue/vue3-recommended",
       "eslint:recommended",
       "plugin:prettier/recommended"
     ],
@@ -124,20 +123,21 @@
     "@flittpayments/js-sdk": "^2.0.11",
     "@popperjs/core": "^2.11.8",
     "@sentry/vue": "^8.55.2",
+    "@vee-validate/i18n": "^4.15.1",
+    "@vee-validate/rules": "^4.15.1",
     "async-validator": "^3.5.2",
     "axios": "^1.20.0",
     "core-js": "^3.50.0",
     "css-vars-ponyfill": "^2.4.9",
     "date-format-parse": "^0.2.7",
     "ismobilejs": "^1.1.1",
+    "mitt": "^3.0.1",
     "qrcode": "^1.5.4",
     "uuid": "^14.0.2",
-    "vee-validate": "^3.4.15",
-    "vue": "^2.7.16",
-    "vue-functional-data-merge": "^3.1.0",
-    "vue-i18n": "^8.28.2",
-    "vue-router": "^3.6.5",
-    "vue2-datepicker": "~3.8.2",
+    "vee-validate": "^4.15.1",
+    "vue": "^3.5.43",
+    "vue-i18n": "^11.4.13",
+    "vue-router": "^5.4.0",
     "world-countries": "^5.1.0"
   },
   "devDependencies": {
@@ -146,6 +146,7 @@
     "@vue/cli-plugin-babel": "^5.0.9",
     "@vue/cli-plugin-eslint": "^5.0.9",
     "@vue/cli-service": "^5.0.9",
+    "@vue/compiler-sfc": "^3.5.43",
     "circular-dependency-plugin": "^5.2.2",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
@@ -165,7 +166,6 @@
     "stylelint-config-standard-scss": "^14.0.0",
     "stylelint-webpack-plugin": "^5.1.0",
     "vue-svg-loader": "^0.17.0-beta.2",
-    "vue-template-compiler": "^2.7.16",
     "webpack-assets-manifest": "^6.5.4",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-subresource-integrity": "^5.2.0-rc.1",

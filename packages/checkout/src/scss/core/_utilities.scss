@@ -1,7 +1,9 @@
 @use '@/scss/core/variables';
 @use '@/scss/core/mixins/utilities';
 
-@include utilities.api-utility(
-  variables.$utilities,
-  variables.$grid-breakpoints-mobile
-);
+#f {
+  @include utilities.api-utility(
+    variables.$utilities,
+    variables.$grid-breakpoints-mobile
+  );
+}

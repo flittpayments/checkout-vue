@@ -1,6 +1,6 @@
 <template>
   <div :class="className">
-    <checkbox v-bind="attrs" v-on="$listeners" />
+    <checkbox v-bind="attrs" />
     <label :class="classLabel" :for="safeId()">
       <slot>{{ $t(label) }}</slot>
     </label>
@@ -21,8 +21,6 @@ export default {
   inheritAttrs: false,
   props: {
     ...idProps,
-    // required for ValidationProvider
-    value: makeProp(PROP_TYPE_BOOLEAN, false),
     invalid: makeProp(PROP_TYPE_BOOLEAN),
     variant: makeProp(PROP_TYPE_STRING, 'default', value =>
       ['default', 'secondary'].includes(value)
@@ -39,8 +37,6 @@ export default {
     attrs() {
       return {
         ...this.$attrs,
-        // required for ValidationProvider
-        value: this.value,
         id: this.safeId(),
         ref: 'input',
         class: this.classInput,

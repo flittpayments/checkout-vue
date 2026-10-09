@@ -2,17 +2,17 @@
   <f-form-save v-slot="{ input }" name="params.form" :includes="includes">
     <component
       :is="field.component"
+      v-bind="omit(field, ['component'])"
       v-for="field in list"
       :key="field.name"
-      v-bind="omit(field, ['component'])"
       v-model="params.form[field.name]"
-      @input="input(field.name, $event)"
+      @update:model-value="input(field.name, $event)"
     />
   </f-form-save>
 </template>
 
 <script>
-import FFormSave from '@/components/form/form/form-save'
+import FFormSave from '@/components/form/form-save'
 import FRow from '@/components/input/row'
 import { mapState } from '@/utils/store'
 import { PROP_TYPE_ARRAY } from '@/constants/props'

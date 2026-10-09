@@ -1,5 +1,5 @@
 <template>
-  <f-modal-wrapper v-bind="attrs" v-on="$listeners">
+  <f-modal-wrapper v-bind="attrs">
     <template #image>
       <svg-click2pay-circle :class="$style.svg" />
     </template>

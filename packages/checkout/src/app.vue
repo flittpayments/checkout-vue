@@ -14,6 +14,7 @@
 import { mapState } from '@/utils/store'
 import { resizeMixin } from '@/mixins/resize'
 import { breakpointMixin } from '@/mixins/breakpoint'
+import { listenMixin } from '@/mixins/listen-on-root'
 import { errorHandler, windowHeight } from '@/utils/helpers'
 import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
@@ -22,7 +23,7 @@ import '@/scss/fonts.scss'
 import '@/scss/style.scss'
 
 export default {
-  mixins: [resizeMixin, breakpointMixin],
+  mixins: [resizeMixin, breakpointMixin, listenMixin],
   props: {
     optionsUser: makeProp(PROP_TYPE_OBJECT),
   },
@@ -45,7 +46,7 @@ export default {
   watch: {
     isBreakpointDownLg(value) {
       if (!value && this.isMenu) {
-        this.$router.push({ name: this.store.getRouteName() }).catch(() => {})
+        this.$router.push({ name: this.store.getRouteName() })
       }
     },
   },
@@ -74,35 +75,31 @@ export default {
       this.initHeight()
     },
     go() {
-      this.$router
-        .push({ name: this.store.getRouteName(this.isBreakpointDownLg) })
-        .catch(() => {})
+      this.$router.push({
+        name: this.store.getRouteName(this.isBreakpointDownLg),
+      })
     },
     goErrorModal(error) {
-      this.$router
-        .push({ name: 'error_modal', query: { error } })
-        .catch(() => {})
+      this.$router.push({ name: 'error_modal', query: { error } })
     },
     goError(errors) {
-      this.$router.push({ name: 'error', query: { errors } }).catch(() => {})
+      this.$router.push({ name: 'error', query: { errors } })
     },
     initEvents() {
       this.location()
       this.setParams()
     },
     location() {
-      this.$root.$on('location', (method, system) => {
+      this.listen('location', (method, system) => {
         if (system) {
-          this.$router
-            .push({ name: 'system', params: { method, system } })
-            .catch(() => {})
+          this.$router.push({ name: 'system', params: { method, system } })
         } else {
-          this.$router.push({ name: method }).catch(() => {})
+          this.$router.push({ name: method })
         }
       })
     },
     setParams() {
-      this.$root.$on('setParams', params => {
+      this.listen('setParams', params => {
         this.store.setParams(params)
       })
     },

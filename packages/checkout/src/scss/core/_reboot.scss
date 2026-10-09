@@ -4,139 +4,141 @@
 @use '@/scss/core/variables';
 @use '@/scss/core/functions/px-to-rem' as *;
 
-// stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
+#f {
+  // stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
-// Reboot
-//
-// Normalization of HTML elements, manually forked from Normalize.css to remove
-// styles targeting irrelevant browsers while applying new styles.
-//
-// Normalize is licensed MIT. https://github.com/necolas/normalize.css
+  // Reboot
+  //
+  // Normalization of HTML elements, manually forked from Normalize.css to remove
+  // styles targeting irrelevant browsers while applying new styles.
+  //
+  // Normalize is licensed MIT. https://github.com/necolas/normalize.css
 
-// Document
-//
-// 1. Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+  // Document
+  //
+  // 1. Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box; // 1
-}
-
-// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
-// on elements that programmatically receive focus but wouldn't normally show a visible
-// focus outline. In general, this would mean that the outline is only applied if the
-// interaction that led to the element receiving programmatic focus was a keyboard interaction,
-// or the browser has somehow determined that the user is primarily a keyboard user and/or
-// wants focus outlines to always be presented.
-//
-// See https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible
-// and https://developer.paciellogroup.com/blog/2018/03/focus-visible-and-backwards-compatibility/
-[tabindex='-1']:focus:not(:focus-visible) {
-  outline: 0 !important;
-}
-
-//
-// Typography
-//
-
-// Remove top margins from headings
-//
-// By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
-// margin for easier control within type scales as it avoids margin collapsing.
-// stylelint-disable-next-line selector-list-comma-newline-after
-h1,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-  margin-bottom: math.div(variables.$spacer, 2);
-}
-
-// Reset margins on paragraphs
-//
-// Similarly, the top margin on `<p>`s get reset. However, we also reset the
-// bottom margin to use `rem` units instead of `em`.
-p {
-  margin: 0 0 px-to-rem(16px);
-
-  &:last-child {
-    margin-bottom: 0;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box; // 1
   }
-}
 
-ul {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-}
+  // Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
+  // on elements that programmatically receive focus but wouldn't normally show a visible
+  // focus outline. In general, this would mean that the outline is only applied if the
+  // interaction that led to the element receiving programmatic focus was a keyboard interaction,
+  // or the browser has somehow determined that the user is primarily a keyboard user and/or
+  // wants focus outlines to always be presented.
+  //
+  // See https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible
+  // and https://developer.paciellogroup.com/blog/2018/03/focus-visible-and-backwards-compatibility/
+  [tabindex='-1']:focus:not(:focus-visible) {
+    outline: 0 !important;
+  }
 
-//
-// Images and content
-//
+  //
+  // Typography
+  //
 
-img {
-  vertical-align: middle;
-  border-style: none; // Remove the border on images inside links in IE 10-.
-}
+  // Remove top margins from headings
+  //
+  // By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
+  // margin for easier control within type scales as it avoids margin collapsing.
+  // stylelint-disable-next-line selector-list-comma-newline-after
+  h1,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+    margin-bottom: math.div(variables.$spacer, 2);
+  }
 
-svg {
-  // Workaround for the SVG overflow bug in IE10/11 is still required.
-  // See https://github.com/twbs/bootstrap/issues/26878
-  overflow: hidden;
-  vertical-align: middle;
-}
+  // Reset margins on paragraphs
+  //
+  // Similarly, the top margin on `<p>`s get reset. However, we also reset the
+  // bottom margin to use `rem` units instead of `em`.
+  p {
+    margin: 0 0 px-to-rem(16px);
 
-//
-// Tables
-//
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 
-table {
-  border-collapse: collapse; // Prevent double borders
-}
+  ul {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
 
-th {
-  // Matches default `<td>` alignment by inheriting from the `<body>`, or the
-  // closest parent with a set `text-align`.
-  text-align: inherit;
-}
+  //
+  // Images and content
+  //
 
-//
-// Forms
-//
+  img {
+    vertical-align: middle;
+    border-style: none; // Remove the border on images inside links in IE 10-.
+  }
 
-// Set the cursor for non-`<button>` buttons
-//
-// Details at https://github.com/twbs/bootstrap/pull/30562
-[role='button'] {
-  cursor: pointer;
-}
+  svg {
+    // Workaround for the SVG overflow bug in IE10/11 is still required.
+    // See https://github.com/twbs/bootstrap/issues/26878
+    overflow: hidden;
+    vertical-align: middle;
+  }
 
-// 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
-//    controls in Android 4.
-// 2. Correct the inability to style clickable types in iOS and Safari.
-button,
-[type="button"], // 1
-[type="submit"] {
-  -webkit-appearance: button; // 2
-}
+  //
+  // Tables
+  //
 
-// Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
-button::-moz-focus-inner,
-[type='button']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
+  table {
+    border-collapse: collapse; // Prevent double borders
+  }
 
-input[type='radio'],
-input[type='checkbox'] {
-  box-sizing: border-box; // 1. Add the correct box sizing in IE 10-
-  padding: 0; // 2. Remove the padding in IE 10-
-}
+  th {
+    // Matches default `<td>` alignment by inheriting from the `<body>`, or the
+    // closest parent with a set `text-align`.
+    text-align: inherit;
+  }
 
-// Correct the cursor style of increment and decrement buttons in Chrome.
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
-  height: auto;
+  //
+  // Forms
+  //
+
+  // Set the cursor for non-`<button>` buttons
+  //
+  // Details at https://github.com/twbs/bootstrap/pull/30562
+  [role='button'] {
+    cursor: pointer;
+  }
+
+  // 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+  //    controls in Android 4.
+  // 2. Correct the inability to style clickable types in iOS and Safari.
+  button,
+  [type="button"], // 1
+  [type="submit"] {
+    -webkit-appearance: button; // 2
+  }
+
+  // Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
+  button::-moz-focus-inner,
+  [type='button']::-moz-focus-inner,
+  [type='submit']::-moz-focus-inner {
+    padding: 0;
+    border-style: none;
+  }
+
+  input[type='radio'],
+  input[type='checkbox'] {
+    box-sizing: border-box; // 1. Add the correct box sizing in IE 10-
+    padding: 0; // 2. Remove the padding in IE 10-
+  }
+
+  // Correct the cursor style of increment and decrement buttons in Chrome.
+  [type='number']::-webkit-inner-spin-button,
+  [type='number']::-webkit-outer-spin-button {
+    height: auto;
+  }
 }

@@ -1,8 +1,4 @@
-import { deepMerge } from '@/utils/helpers'
-
 export const rulesEmail = 'required|email'
-
-export const rulesEmailRequiredOne = 'required_one:@f-phonemobile|email'
 
 export const configCustomer = {
   // $t('customer_name')
@@ -60,12 +56,3 @@ export const configCustomer = {
     autocomplete: 'email',
   },
 }
-
-export const configCustomerRequiredOne = deepMerge({}, configCustomer, {
-  phonemobile: {
-    rules: 'required_one:@f-email|phonemobile',
-  },
-  email: {
-    rules: rulesEmailRequiredOne,
-  },
-})

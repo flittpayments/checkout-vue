@@ -79,7 +79,7 @@ function getStorage(storage) {
     window[storage].setItem('test', new Array(10000).join('0'))
     window[storage].removeItem('test')
     return window[storage]
-  } catch (e) {
+  } catch {
     return new backupStorage()
   }
 }

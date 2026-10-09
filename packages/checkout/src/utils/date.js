@@ -121,7 +121,7 @@ function getOffsetKiev() {
     if (!arrayIncludes(include, result)) {
       result = resultDefault
     }
-  } catch (e) {
+  } catch {
     result = resultDefault
   }
 

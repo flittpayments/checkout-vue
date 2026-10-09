@@ -8,9 +8,11 @@
       >
         <f-shadow v-if="showShadow" />
         <div v-if="isCentered" :class="$style.flex_grow_1" />
-        <transition name="f-fade-enter">
-          <router-view />
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition name="f-fade-enter">
+            <component :is="Component" />
+          </transition>
+        </router-view>
         <div :class="$style.flex_grow_1" />
         <f-processed-wrapper />
         <f-secure-message-wrapper />

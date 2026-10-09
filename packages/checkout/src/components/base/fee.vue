@@ -1,30 +1,32 @@
 <template>
   <table>
-    <tr>
-      <td :class="$style.pr_16" v-text="$t('amount')" />
-      <td><f-amount :value="amount" :currency="currency" no-bold /></td>
-    </tr>
-    <tr v-if="showDiscount">
-      <td :class="$style.pr_16" v-text="$t('discount')" />
-      <td>
-        <f-percent v-if="discountPercent" :value="discountPercent" />
-        <span v-if="discountPercent && discountAmount"> + </span>
-        <f-amount
-          v-if="discountAmount"
-          :value="discountAmount"
-          :currency="currency"
-          no-bold
-        />
-      </td>
-    </tr>
-    <tr v-if="feeAmount">
-      <td :class="$style.pr_16" v-text="$t('fee')" />
-      <td><f-amount :value="feeAmount" :currency="currency" no-bold /></td>
-    </tr>
-    <tr>
-      <td :class="$style.pr_16" v-text="$t('total_amount')" />
-      <td><f-amount :value="totalAmount" :currency="currency" no-bold /></td>
-    </tr>
+    <tbody>
+      <tr>
+        <td :class="$style.pr_16" v-text="$t('amount')" />
+        <td><f-amount :value="amount" :currency="currency" no-bold /></td>
+      </tr>
+      <tr v-if="showDiscount">
+        <td :class="$style.pr_16" v-text="$t('discount')" />
+        <td>
+          <f-percent v-if="discountPercent" :value="discountPercent" />
+          <span v-if="discountPercent && discountAmount"> + </span>
+          <f-amount
+            v-if="discountAmount"
+            :value="discountAmount"
+            :currency="currency"
+            no-bold
+          />
+        </td>
+      </tr>
+      <tr v-if="feeAmount">
+        <td :class="$style.pr_16" v-text="$t('fee')" />
+        <td><f-amount :value="feeAmount" :currency="currency" no-bold /></td>
+      </tr>
+      <tr>
+        <td :class="$style.pr_16" v-text="$t('total_amount')" />
+        <td><f-amount :value="totalAmount" :currency="currency" no-bold /></td>
+      </tr>
+    </tbody>
   </table>
 </template>
 
