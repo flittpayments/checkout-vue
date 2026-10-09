@@ -2,22 +2,22 @@
   <f-container>
     <f-fee
       :class="$style.mb_16"
-      :amount="data.amount"
-      :discount-percent="data.discount_percent"
-      :discount-amount="data.discount_amount"
-      :fee-amount="data.fee_amount"
-      :total-amount="data.total_amount"
+      :amount="model.amount"
+      :discount-percent="model.discount_percent"
+      :discount-amount="model.discount_amount"
+      :fee-amount="model.fee_amount"
+      :total-amount="model.total_amount"
     />
-    <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
+    <f-form v-slot="{ submit, state }" @submit="onSubmit">
       <f-row-checkbox v-model="accepted" :rules="rules">
         <!--$t('accept_fees')-->
-        <i18n path="accept_fees">
+        <i18n-t keypath="accept_fees">
           <template #fees><b v-text="$t('fees')" /></template>
-        </i18n>
+        </i18n-t>
       </f-row-checkbox>
-      <f-button-success :disabled="disabled" @click="submit">
+      <f-button-success :disabled="state.disabled" @click="submit">
         <span v-text="$t('pay')" />&nbsp;
-        <f-amount :value="data.total_amount" :currency="currency" />
+        <f-amount :value="model.total_amount" :currency="currency" />
       </f-button-success>
     </f-form>
   </f-container>
@@ -26,12 +26,13 @@
 <script>
 import FContainer from '@/components/base/container'
 import { FFee } from '@/import'
-import FForm from '@/components/form/form/form.vue'
+import FForm from '@/components/form/form'
 import FRowCheckbox from '@/components/input/row-checkbox'
+import I18nT from '@/components/base/i18n-t'
 import FButtonSuccess from '@/components/button/button-success'
 import FAmount from '@/components/base/amount.vue'
 import { makeProp } from '@/utils/props'
-import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
+import { PROP_TYPE_STRING } from '@/constants/props'
 import { mapState } from '@/utils/store'
 import { errorHandler } from '@/utils/helpers'
 
@@ -41,30 +42,28 @@ export default {
     FFee,
     FForm,
     FRowCheckbox,
+    I18nT,
     FButtonSuccess,
     FAmount,
   },
   inject: ['formRequest'],
-  beforeRouteLeave(to, from, next) {
+  beforeRouteLeave(to) {
     if (!this.isSubmitted) {
       this.store
         .sendRequestBase('api.checkout.form', 'request', {
           payment_system: 'confirm_fee',
-          token: this.data.token,
-          tran_id: this.data.tran_id,
+          token: this.model.token,
+          tran_id: this.model.tran_id,
           status: 'cancel',
         })
         .catch(errorHandler)
 
       this.store.feeCalc(to.name).catch(errorHandler)
     }
-
-    next()
   },
   props: {
     method: makeProp(PROP_TYPE_STRING),
     system: makeProp(PROP_TYPE_STRING),
-    data: makeProp(PROP_TYPE_OBJECT),
   },
   data() {
     return {
@@ -73,6 +72,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['model']),
     ...mapState('params', ['currency']),
     rules() {
       return { required: true }
@@ -80,10 +80,10 @@ export default {
   },
   created() {
     this.store.setState({
-      discount_percent: this.data.discount_percent,
-      discount_amount: this.data.discount_amount,
-      fee_amount: this.data.fee_amount,
-      total_amount: this.data.total_amount,
+      discount_percent: this.model.discount_percent,
+      discount_amount: this.model.discount_amount,
+      fee_amount: this.model.fee_amount,
+      total_amount: this.model.total_amount,
     })
   },
   methods: {
@@ -92,8 +92,8 @@ export default {
 
       this.formRequest({
         payment_system: 'confirm_fee',
-        token: this.data.token,
-        tran_id: this.data.tran_id,
+        token: this.model.token,
+        tran_id: this.model.tran_id,
         status: 'confirm',
       })
         .finally(() => {

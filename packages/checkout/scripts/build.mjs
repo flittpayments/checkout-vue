@@ -28,4 +28,4 @@ const run = (command, args = []) => {
 
 run('gulp')
 run('vue-cli-service', ['build', '--no-module'])
-run('es-check', ['es5', 'dist/**/*.js'])
+run('es-check', ['es2015', 'dist/**/*.js'])

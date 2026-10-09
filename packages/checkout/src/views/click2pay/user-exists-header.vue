@@ -3,7 +3,7 @@
     <div :class="$style.header">
       <svg-click2pay-visa-mastercard
         :class="$uiClass('icon')"
-        @click.native="goClick2pay"
+        @click="goClick2pay"
       />
       <div :class="$style.right">
         <div :class="$uiClass('email')">{{ email }}</div>
@@ -52,10 +52,10 @@ export default {
   },
   methods: {
     goClick2pay() {
-      this.$router.push({ name: 'click2pay' }).catch(() => {})
+      this.$router.push({ name: 'click2pay' })
     },
     goSwitchId() {
-      this.$router.push({ name: 'click2pay_switch_id' }).catch(() => {})
+      this.$router.push({ name: 'click2pay_switch_id' })
     },
   },
 }

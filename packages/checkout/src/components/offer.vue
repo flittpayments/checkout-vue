@@ -6,32 +6,34 @@
       :rules="rules"
     >
       <!--$t('offer_t')-->
-      <i18n path="offer_t">
+      <i18n-t keypath="offer_t">
         <template #offer_terms>
           <f-link variant="secondary" :href="url" target="_blank">{{
             $t('offer_terms')
           }}</f-link>
         </template>
-      </i18n>
+      </i18n-t>
     </f-row-checkbox>
-    <i18n v-else path="offer_t">
+    <i18n-t v-else keypath="offer_t">
       <template #offer_terms>
         <f-link variant="secondary" :href="url" target="_blank">{{
           $t('offer_terms')
         }}</f-link>
       </template>
-    </i18n>
+    </i18n-t>
   </div>
 </template>
 
 <script>
 import FRowCheckbox from '@/components/input/row-checkbox'
+import I18nT from '@/components/base/i18n-t'
 import FLink from '@/components/link'
 import { mapState, mapStateGetSet } from '@/utils/store'
 
 export default {
   components: {
     FRowCheckbox,
+    I18nT,
     FLink,
   },
   computed: {

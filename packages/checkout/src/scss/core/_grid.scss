@@ -1,16 +1,18 @@
 @use '@/scss/core/mixins/grid';
 @use '@/scss/core/variables';
 
-.f-row {
-  @include grid.make-row;
+#f {
+  .f-row {
+    @include grid.make-row;
 
-  > * {
-    @include grid.make-col-ready;
+    > * {
+      @include grid.make-col-ready;
+    }
   }
-}
 
-@include grid.make-grid-columns(
-  variables.$grid-columns,
-  variables.$grid-gutter-width,
-  variables.$grid-breakpoints-mobile
-);
+  @include grid.make-grid-columns(
+    variables.$grid-columns,
+    variables.$grid-gutter-width,
+    variables.$grid-breakpoints-mobile
+  );
+}

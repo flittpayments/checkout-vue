@@ -1,8 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
 const { defineConfig } = require('@vue/cli-service')
-const increaseSpecificity = require('./build/postcss-increase-specificity')
-const autoprefixer = require('autoprefixer')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity')
@@ -34,22 +32,6 @@ const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isModule = INITIATOR === 'module'
 const localhostServe = 'http://localhost:3000/'
-
-function addF(options) {
-  return {
-    ...options,
-    postcssOptions: {
-      plugins: [
-        increaseSpecificity({
-          repeat: 1,
-          stackableRoot: '#f',
-          overrideIds: false,
-        }),
-        autoprefixer(),
-      ],
-    },
-  }
-}
 
 function stringify(obj) {
   return Object.fromEntries(
@@ -224,10 +206,6 @@ module.exports = defineConfig({
             .end()
       })
       .module
-        .rule('scss')
-          .oneOf('vue').use('postcss-loader').tap(addF).end().end()
-          .oneOf('normal').use('postcss-loader').tap(addF).end().end()
-          .end()
         .rules.delete('svg').end()
         .rule('svg')
           .test(/\.(svg)(\?.*)?$/)

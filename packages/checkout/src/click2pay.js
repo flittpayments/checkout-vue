@@ -275,17 +275,17 @@ const getCheckoutSettings = data =>
         complianceResources: [
           {
             complianceType: 'TERMS_AND_CONDITIONS',
-            uri: i18n.t('c2p_terms_url'),
+            uri: i18n.global.t('c2p_terms_url'),
           },
           {
             complianceType: 'PRIVACY_POLICY',
-            uri: i18n.t('c2p_privacy_notice_url'),
+            uri: i18n.global.t('c2p_privacy_notice_url'),
           },
           ...(getRememberMe()
             ? [
                 {
                   complianceType: 'REMEMBER_ME',
-                  uri: i18n.t('c2p_cookie_notice_url'),
+                  uri: i18n.global.t('c2p_cookie_notice_url'),
                 },
               ]
             : []),

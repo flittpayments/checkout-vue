@@ -1,5 +1,5 @@
 <template>
-  <f-tooltip-base v-bind="attrs" v-on="$listeners">
+  <f-tooltip-base v-bind="attrs">
     <slot />
   </f-tooltip-base>
 </template>

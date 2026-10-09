@@ -2,7 +2,7 @@
   <div>
     <div v-if="error" :class="$style.error" v-text="$t(error)" />
     <f-button-success-pay
-      :disabled="disabled"
+      :disabled="form.state.disabled"
       :loading="loading"
       @click="click"
     />
@@ -11,7 +11,6 @@
 
 <script>
 import FButtonSuccessPay from '@/components/button/button-success-pay'
-import { validatorMixin } from '@/mixins/validator'
 import { mapState } from '@/utils/store'
 import { checkoutSelectedCard } from '@/click2pay'
 import { coinsToAmountString, errorHandler } from '@/utils/helpers'
@@ -21,11 +20,9 @@ export default {
   components: {
     FButtonSuccessPay,
   },
-  mixins: [validatorMixin],
-  inject: ['validate', 'formRequest'],
+  inject: ['form', 'formRequest'],
   data() {
     return {
-      isSubmit: false,
       loading: false,
       error: '',
     }
@@ -35,9 +32,6 @@ export default {
     ...mapState('params', ['currency', 'order_id', 'merchant_id']),
     ...mapState(['total_amount']),
     ...mapState('info', ['click2pay']),
-    disabled() {
-      return this.isError && this.isSubmit
-    },
   },
   methods: {
     click() {
@@ -46,8 +40,6 @@ export default {
 
       this.error = ''
 
-      this.isSubmit = true
-
       const {
         merchantCategoryCode,
         acquirerBIN,
@@ -55,7 +47,8 @@ export default {
         challengeIndicator,
       } = this.click2pay
 
-      this.validate()
+      this.form
+        .validate()
         .then(() =>
           checkoutSelectedCard({
             payloadTypeIndicatorCheckout: 'FULL',

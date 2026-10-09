@@ -1,5 +1,5 @@
 <template>
-  <f-modal-base v-bind="attrs" v-on="$listeners">
+  <f-modal-base v-bind="attrs">
     <template #header>
       <f-button-close v-if="!$attrs.noHeaderClose" @click="hide" />
       <slot name="image" />
@@ -38,7 +38,7 @@ export default {
         ...this.$attrs,
         ref: 'modal',
         visible: true,
-        footer: !!this.$scopedSlots.footer,
+        footer: !!this.$slots.footer,
         modalClass: this.$style.modal, //.f-modal
         dialogClass: this.dialogClass,
         contentClass: this.$style.content,
@@ -60,7 +60,7 @@ export default {
       return [
         this.$style.header,
         {
-          [this.$style.p_0]: !this.title && !this.$scopedSlots.image,
+          [this.$style.p_0]: !this.title && !this.$slots.image,
         },
       ]
     },

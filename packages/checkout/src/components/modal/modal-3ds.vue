@@ -1,5 +1,5 @@
 <template>
-  <f-modal v-bind="attrs" v-on="$listeners" @shown="onShown" @hide="onHide">
+  <f-modal v-bind="attrs" @shown="onShown" @hide="onHide">
     <span v-text="$t('submit3ds_text')" />
     <template #footer>
       <f-button-secondary :text="$t('submit3ds_submit')" @click="click" />
@@ -24,6 +24,7 @@ export default {
   props: {
     duration: makeProp(PROP_TYPE_NUMBER, 0),
   },
+  emits: ['submit3ds'],
   data() {
     return {
       second: 0,

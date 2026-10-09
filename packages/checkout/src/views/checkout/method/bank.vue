@@ -15,14 +15,14 @@
           />
         </div>
         <div v-if="showSearch" :class="[$style.col_12, $style.search]">
-          <f-form-base>
+          <f-form-scope>
             <f-row
               v-model="search"
               label="system_search"
               size="44"
               prepend="search"
             />
-          </f-form-base>
+          </f-form-scope>
         </div>
         <div v-if="showView" :class="[$style.col_12, $uiClass('view')]">
           <div :class="classBankViewBar" @click="setView('bar')">
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import FFormBase from '@/components/form/form/form-base'
+import FFormScope from '@/components/form/form-scope'
 import FRow from '@/components/input/row'
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FSvg from '@/components/svg'
@@ -102,7 +102,7 @@ const SUPPORTED_SYSTEM_ROUTE = [
 
 export default {
   components: {
-    FFormBase,
+    FFormScope,
     FRow,
     FButtonUnstyled,
     FSvg,
@@ -121,6 +121,7 @@ export default {
     noSearch: makeProp(PROP_TYPE_BOOLEAN, false),
     label: makeProp(PROP_TYPE_STRING, ''),
   },
+  emits: ['select'],
   data() {
     return {
       search: '',
@@ -279,9 +280,7 @@ export default {
       this.autoClick()
     },
     goSystem({ tab, id }) {
-      this.$router
-        .push({ name: 'system', params: { method: tab, system: id } })
-        .catch(() => {})
+      this.$router.push({ name: 'system', params: { method: tab, system: id } })
     },
     autoClick() {
       if (!this.ready) return

@@ -11,9 +11,11 @@
         @click="goMethod"
       />
     </div>
-    <transition name="f-fade-enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="f-fade-enter">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
@@ -49,7 +51,7 @@ export default {
   },
   methods: {
     goMethod() {
-      this.$router.push({ name: this.method }).catch(() => {})
+      this.$router.push({ name: this.method })
     },
   },
 }

@@ -27,6 +27,7 @@ export default {
   props: {
     label: makeProp(PROP_TYPE_STRING),
   },
+  emits: ['input'],
   computed: {
     ...mapState(['cards']),
     attrs() {
@@ -38,7 +39,7 @@ export default {
         dropdownSize: 'card',
         dropdownPlacement: 'bottom',
         dropdownArrow: true,
-        dropdownReference: () => this.$refs.arrow?.$el,
+        dropdownPlacementTarget: () => this.$refs.arrow?.$el,
       }
     },
     list() {

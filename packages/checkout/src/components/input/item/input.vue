@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <input v-bind="attrs" v-on="listeners" />
+  <div :class="$attrs.class">
+    <input v-bind="attrs" />
     <slot :id="safeId()" :class-name="className" />
   </div>
 </template>
@@ -13,6 +13,7 @@ import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_FUNCTION,
+  PROP_TYPE_OBJECT,
 } from '@/constants/props'
 import { idMixin, idProps } from '@/mixins/id'
 import { toString } from '@/utils/string'
@@ -23,14 +24,10 @@ import { attemptFocus } from '@/utils/dom'
 export default {
   mixins: [idMixin],
   inheritAttrs: false,
-  model: {
-    prop: 'value',
-    event: 'update',
-  },
   props: {
     ...idProps,
-    // required for ValidationProvider
-    value: makeProp(PROP_TYPE_NUMBER_STRING),
+    modelValue: makeProp(PROP_TYPE_NUMBER_STRING),
+    modelModifiers: makeProp(PROP_TYPE_OBJECT, () => ({})),
     invalid: makeProp(PROP_TYPE_BOOLEAN),
     inputClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     inputErrorClass: makeProp(PROP_TYPE_STRING),
@@ -48,10 +45,11 @@ export default {
     formatter: makeProp(PROP_TYPE_FUNCTION),
     type: makeProp(PROP_TYPE_STRING, 'text'),
   },
+  emits: ['update:modelValue', 'input', 'change', 'blur'],
   data() {
     return {
-      localValue: toString(this.value),
-      vModelValue: this.modifyValue(this.value),
+      localValue: toString(this.modelValue),
+      vModelValue: this.modifyValue(this.modelValue),
     }
   },
   computed: {
@@ -69,14 +67,9 @@ export default {
         type,
         'aria-required': required ? 'true' : null,
         'aria-invalid': invalid ? 'true' : null,
-      }
-    },
-    listeners() {
-      return {
-        ...this.$listeners,
-        input: this.onInput,
-        change: this.onChange,
-        blur: this.onBlur,
+        onInput: this.onInput,
+        onChange: this.onChange,
+        onBlur: this.onBlur,
       }
     },
     className() {
@@ -99,7 +92,7 @@ export default {
     },
   },
   watch: {
-    value(newValue) {
+    modelValue(newValue) {
       const stringifyValue = toString(newValue)
       const modifiedValue = this.modifyValue(newValue)
       if (
@@ -127,7 +120,7 @@ export default {
       value = this.modifyValue(value)
       if (value !== this.vModelValue) {
         this.vModelValue = value
-        this.$emit('update', value)
+        this.$emit('update:modelValue', value)
       } else if (this.hasFormatter) {
         const $input = this.$refs.input
         if ($input && value !== $input.value) {

@@ -7,7 +7,6 @@ import { keys } from '@/utils/object'
 
 const PROP = '$_f_windowHandlers_'
 
-// @vue/component
 export const listenOnWindowMixin = {
   beforeCreate() {
     // Declare non-reactive property
@@ -15,7 +14,7 @@ export const listenOnWindowMixin = {
     // where value is an array of handlers
     this[PROP] = {}
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (isBrowser) {
       const items = this[PROP]
       // Immediately delete this[PROP] to prevent the

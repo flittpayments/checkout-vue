@@ -9,7 +9,7 @@
         v-text="$t('enter_another_email_to_download_set_of_stored_cards')"
       />
       <f-form
-        v-slot="{ submit, disabled }"
+        v-slot="{ submit, state }"
         :class="$style.mb_4"
         @submit="onSubmit"
       >
@@ -21,7 +21,7 @@
         />
         <div v-if="error" :class="$style.error" v-text="$t(error)" />
         <f-button-success
-          :disabled="disabled"
+          :disabled="state.disabled"
           :loading="loading"
           :text="$t('change_user')"
           @click="submit"
@@ -38,7 +38,7 @@
 import Click2payHeader from '@/views/click2pay/header'
 import { getCards, switchUser } from '@/click2pay'
 import FBox from '@/components/box'
-import FForm from '@/components/form/form/form'
+import FForm from '@/components/form/form'
 import FRow from '@/components/input/row'
 import FButtonSuccess from '@/components/button/button-success'
 import FButtonLink from '@/components/button/button-link'
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     goCard() {
-      this.$router.push({ name: 'card' }).catch(() => {})
+      this.$router.push({ name: 'card' })
     },
     onSubmit() {
       if (this.loading) return
@@ -86,7 +86,7 @@ export default {
           this.store.setClick2payActionCode(actionCode)
           this.store.state.params.email = this.email
 
-          this.$router.push({ name }).catch(() => {})
+          this.$router.push({ name })
         })
         .catch(error => {
           this.store.setClick2payActionCode('')

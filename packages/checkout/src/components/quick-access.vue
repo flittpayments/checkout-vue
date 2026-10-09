@@ -33,9 +33,7 @@ export default {
   },
   methods: {
     click({ tab, id }) {
-      this.$router
-        .push({ name: 'system', params: { method: tab, system: id } })
-        .catch(() => {})
+      this.$router.push({ name: 'system', params: { method: tab, system: id } })
     },
   },
 }

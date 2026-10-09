@@ -1,10 +1,5 @@
 <template>
-  <f-modal
-    v-if="isCodeMessage"
-    :title="$t('declined')"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <f-modal v-if="isCodeMessage" v-bind="$attrs" :title="$t('declined')">
     <template #image>
       <svg-decline :class="$style.svg" />
     </template>
@@ -12,12 +7,7 @@
       <b>{{ code }}</b> {{ message }}
     </p>
   </f-modal>
-  <f-modal
-    v-else
-    :title="$t('server_trouble_title')"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <f-modal v-else v-bind="$attrs" :title="$t('server_trouble_title')">
     <template #image>
       <svg-server-trouble :class="$style.svg" />
     </template>
