@@ -1,7 +1,7 @@
 <template>
   <div :class="$uiClass('wrapper')">
     <transition name="f-fade">
-      <div v-if="model">
+      <div v-if="Object.keys(model).length">
         <div
           v-if="model.send_data.mfo"
           :class="$uiClass('title')"
@@ -117,7 +117,7 @@ import FModalWrapper from '@/components/modal/modal-wrapper'
 import { FLoading } from '@/import'
 import FSvg from '@/components/svg'
 import { isDesktop } from '@/utils/mobile'
-import { errorHandler } from '@/utils/helpers'
+import { mapState } from '@/utils/store'
 
 export default {
   components: {
@@ -127,14 +127,14 @@ export default {
     FLoading,
     FSvg,
   },
-  inject: ['submit'],
+  inject: ['form'],
   data() {
     return {
-      model: null,
       loadingQrCode: false,
     }
   },
   computed: {
+    ...mapState(['model']),
     qrCode() {
       return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${this.model.url}`
     },
@@ -146,11 +146,7 @@ export default {
     },
   },
   mounted() {
-    this.submit()
-      .then(model => {
-        this.model = model.data
-      })
-      .catch(errorHandler)
+    this.form.submit()
   },
   methods: {
     click() {

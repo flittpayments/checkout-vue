@@ -7,7 +7,7 @@
       }}</f-link>
       <f-modal-wrapper ref="text">
         <!--$t('gdpr_modal_text')-->
-        <i18n path="gdpr_modal_text">
+        <i18n-t keypath="gdpr_modal_text">
           <template #privacy_policy>
             <f-link
               variant="secondary"
@@ -16,11 +16,11 @@
               >{{ $t('privacy_policy') }}</f-link
             >
           </template>
-        </i18n>
+        </i18n-t>
       </f-modal-wrapper>
     </div>
 
-    <f-form-base>
+    <f-form-scope>
       <f-row-checkbox
         v-model="save_card"
         :class="$style.mb_0"
@@ -31,7 +31,7 @@
           $t('its_safe')
         }}</f-link>
       </f-row-checkbox>
-    </f-form-base>
+    </f-form-scope>
 
     <f-modal-wrapper ref="safe" size="lg" :title="$t('gdpr_modal_safe_title')">
       <template #image>
@@ -48,7 +48,8 @@ import FAlertStorage from '@/components/alert/alert-storage'
 import FRowCheckbox from '@/components/input/row-checkbox'
 import FLink from '@/components/link'
 import FModalWrapper from '@/components/modal/modal-wrapper'
-import FFormBase from '@/components/form/form/form-base'
+import I18nT from '@/components/base/i18n-t'
+import FFormScope from '@/components/form/form-scope'
 import SvgSafe from '@/svg/safe.svg'
 
 import { mapStateGetSet, localStorage } from '@/utils/store'
@@ -59,7 +60,8 @@ export default {
     FRowCheckbox,
     FLink,
     FModalWrapper,
-    FFormBase,
+    I18nT,
+    FFormScope,
     SvgSafe,
   },
   computed: {

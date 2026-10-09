@@ -1,9 +1,11 @@
 <template>
   <div>
     <click2pay-user-exists-header-wrapper />
-    <transition name="f-fade-enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="f-fade-enter">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <f-fields-customer />
     <f-fields-custom />
     <f-fields-user />

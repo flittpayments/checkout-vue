@@ -2,13 +2,15 @@
 @use '@/scss/core/variables';
 @use '@/scss/core/mixins/utilities';
 
-@include grid.make-grid-columns(
-  variables.$grid-columns,
-  variables.$grid-gutter-width,
-  variables.$grid-breakpoints-adaptive
-);
+#f {
+  @include grid.make-grid-columns(
+    variables.$grid-columns,
+    variables.$grid-gutter-width,
+    variables.$grid-breakpoints-adaptive
+  );
 
-@include utilities.api-utility(
-  variables.$utilities,
-  variables.$grid-breakpoints-adaptive
-);
+  @include utilities.api-utility(
+    variables.$utilities,
+    variables.$grid-breakpoints-adaptive
+  );
+}

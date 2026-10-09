@@ -177,7 +177,6 @@ app.$emit('click-wallet', 'apple')
 ### Destroy app
 ```
 app.$destroy()
-app.$el.remove()
 ```
 
 ## Use validate

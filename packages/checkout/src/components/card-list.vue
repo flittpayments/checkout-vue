@@ -34,6 +34,7 @@ export default {
   props: {
     list: makeProp(PROP_TYPE_ARRAY),
   },
+  emits: ['input'],
   computed: {
     ...mapState(['mode_test']),
     showAdd() {

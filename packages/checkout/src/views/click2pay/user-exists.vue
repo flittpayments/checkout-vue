@@ -57,7 +57,7 @@ export default {
       this.srcDigitalCardId = id
     },
     goCard() {
-      this.$router.push({ name: 'card' }).catch(() => {})
+      this.$router.push({ name: 'card' })
     },
   },
 }
