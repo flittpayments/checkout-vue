@@ -122,6 +122,7 @@
   },
   "dependencies": {
     "@flittpayments/js-sdk": "^2.0.11",
+    "@popperjs/core": "^2.11.8",
     "@sentry/vue": "^8.55.2",
     "async-validator": "^3.5.2",
     "axios": "^1.20.0",
@@ -129,7 +130,6 @@
     "css-vars-ponyfill": "^2.4.9",
     "date-format-parse": "^0.2.7",
     "ismobilejs": "^1.1.1",
-    "popper.js": "^1.16.1",
     "qrcode": "^1.5.4",
     "uuid": "^14.0.2",
     "vee-validate": "^3.4.15",
