@@ -1,1 +1,13 @@
-["card", "sepa", "banks", "receipt", "local_methods", "wallets", "loans", "emoney", "crypto", "most_popular", "installments"]
+[
+  "card",
+  "sepa",
+  "banks",
+  "receipt",
+  "local_methods",
+  "wallets",
+  "loans",
+  "emoney",
+  "crypto",
+  "most_popular",
+  "installments"
+]

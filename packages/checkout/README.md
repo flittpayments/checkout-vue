@@ -1,12 +1,14 @@
 ![Flitt](https://flitt.com/wp-content/uploads/2024/09/Group.svg)
+
 # Flitt Checkout
 
 ### config
-``` js
+
+```js
 {
   options: {},
   params: {},
-  button: {}, // button config 
+  button: {}, // button config
   fields_custom: [],
   messages: {},
   css_variable: {},
@@ -14,8 +16,9 @@
 ```
 
 ### options
+
 | Name                     | Type    | Default                | Description                                                                                                                           | Priority                            |
-|--------------------------|---------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| ------------------------ | ------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | `methods`                | Array   | ['card']               | support `card`, `most_popular`, `banks`, `wallets`.                                                                                   |                                     |
 | `methods_disabled`       | Array   | []                     | support `card`, `most_popular`, `banks`, `wallets`.                                                                                   |                                     |
 | `wallet_methods_enabled` | Array   | ['apple', 'google']    | support `apple`, `google`.                                                                                                            |                                     |
@@ -58,66 +61,71 @@
 | `show_test_mode`         | Boolean | true                   |                                                                                                                                       |                                     |
 | `show_title`             | Boolean | true                   |                                                                                                                                       |                                     |
 | `show_3ds_close`         | Boolean | true                   |                                                                                                                                       |                                     |
-| `cvv2_requirement`       | String  | 'mandatory'            | support  `absent`, `mandatory`, `optional`                                                                                            |                                     |
+| `cvv2_requirement`       | String  | 'mandatory'            | support `absent`, `mandatory`, `optional`                                                                                             |                                     |
 
 ### options.endpoint
+
 | Name      | Type   | Default                                 | Description |
-|-----------|--------|-----------------------------------------|-------------|
+| --------- | ------ | --------------------------------------- | ----------- |
 | `gateway` | String | '/latest/checkout-v2/index.html'        |             |
 | `button`  | String | '/latest/checkout-v2/button/index.html' |             |
 
 ### options.theme
+
 | Name     | Type   | Default   | Description                                                                                                                                                                            |
-|----------|--------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------- | ------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `type`   | String | 'light'   | support `light`, `dark`.                                                                                                                                                               |
 | `preset` | String | 'black'   | support `reset`, `black`, `silver`, `vibrant_silver`, `vibrant_gold`, `solid_black`, `black_and_white`, `euphoric_pink`, `heated_steel`, `nude_pink`, `tropical_gold`, `navy_shimmer`. |
 | `layout` | String | 'default' | support `default`, `plain`, `wallets_only`.                                                                                                                                            |
 
 ### options.subscription
-| Name        | Type    | Default                   | Description                                                                       |
-|-------------|---------|---------------------------|-----------------------------------------------------------------------------------|
-| `type`      | String  | 'disable'                 | support `disable`, `hidden`, `shown_edit_on`, `shown_edit_off`, `shown_readonly`. |
-| `periods`   | Array   | ['day', 'week', 'month']  | support `day`, `week`, `month`.                                                   |
-| `quantity`  | Boolean | false                     |                                                                                   |
-| `trial`     | Boolean | false                     |                                                                                   |
-| `unlimited` | Boolean | true                      |                                                                                   |
-| `readonly`  | Boolean | false                     |                                                                                   |
 
+| Name        | Type    | Default                  | Description                                                                       |
+| ----------- | ------- | ------------------------ | --------------------------------------------------------------------------------- |
+| `type`      | String  | 'disable'                | support `disable`, `hidden`, `shown_edit_on`, `shown_edit_off`, `shown_readonly`. |
+| `periods`   | Array   | ['day', 'week', 'month'] | support `day`, `week`, `month`.                                                   |
+| `quantity`  | Boolean | false                    |                                                                                   |
+| `trial`     | Boolean | false                    |                                                                                   |
+| `unlimited` | Boolean | true                     |                                                                                   |
+| `readonly`  | Boolean | false                    |                                                                                   |
 
 ### params
-| Name                | Type    | Default                 | Description                 | Priority                  |
-|---------------------|---------|-------------------------|-----------------------------|---------------------------|
-| `merchant_id`       | Integer | 1549901                 |                             |                           |
-| `order_desc`        | String  |                         |                             | options or server         |
-| `amount`            | Integer | null                    |                             |                           |
-| `currency`          | String  | 'GEL'                   |                             |                           |
-| `response_url`      | String  |                         | format url                  |                           |
-| `lang`              | String  | browser language        |                             | server or options         |
-| `required_rectoken` | String  |                         | support `Y`, `N`, `y`, `n`. |                           |
-| `verification`      | String  |                         | support `Y`, `N`, `y`, `n`. |                           |
-| `verification_type` | String  |                         | support `amount`, `code`    |                           |
-| `token`             | String  |                         | length 40                   | GET parameters or options |
-| `button`            | String  |                         | length 20–80                | GET parameters or options |
-| `offer`             | Boolean | false                   |                             |                           |
-| `recurring_data`    | Object  |                         |                             |                           |
-| `custom`            | Object  |                         |                             |                           |
-| `customer_data`     | Object  |                         |                             | server or options         |
+
+| Name                | Type    | Default          | Description                 | Priority                  |
+| ------------------- | ------- | ---------------- | --------------------------- | ------------------------- |
+| `merchant_id`       | Integer | 1549901          |                             |                           |
+| `order_desc`        | String  |                  |                             | options or server         |
+| `amount`            | Integer | null             |                             |                           |
+| `currency`          | String  | 'GEL'            |                             |                           |
+| `response_url`      | String  |                  | format url                  |                           |
+| `lang`              | String  | browser language |                             | server or options         |
+| `required_rectoken` | String  |                  | support `Y`, `N`, `y`, `n`. |                           |
+| `verification`      | String  |                  | support `Y`, `N`, `y`, `n`. |                           |
+| `verification_type` | String  |                  | support `amount`, `code`    |                           |
+| `token`             | String  |                  | length 40                   | GET parameters or options |
+| `button`            | String  |                  | length 20–80                | GET parameters or options |
+| `offer`             | Boolean | false            |                             |                           |
+| `recurring_data`    | Object  |                  |                             |                           |
+| `custom`            | Object  |                  |                             |                           |
+| `customer_data`     | Object  |                  |                             | server or options         |
 
 #### params.recurring_data
-| Name             | Type    | Default                | Description                     |
-|------------------|---------|------------------------|---------------------------------|
-| `every`          | Integer | 1                      |                                 |
-| `period`         | String  | 'month'                | support `day`, `week`, `month`. |
-| `amount`         | Integer | 0                      |                                 |
-| `end_time`       | String  |                        | format YYYY-MM-DD               |
-| `start_time`     | String  |                        | format YYYY-MM-DD               |
-| `quantity`       | Integer | 0                      |                                 |
-| `trial_period`   | String  | ''                     |                                 |
-| `trial_quantity` | Integer | 0                      |                                 |
+
+| Name             | Type    | Default | Description                     |
+| ---------------- | ------- | ------- | ------------------------------- |
+| `every`          | Integer | 1       |                                 |
+| `period`         | String  | 'month' | support `day`, `week`, `month`. |
+| `amount`         | Integer | 0       |                                 |
+| `end_time`       | String  |         | format YYYY-MM-DD               |
+| `start_time`     | String  |         | format YYYY-MM-DD               |
+| `quantity`       | Integer | 0       |                                 |
+| `trial_period`   | String  | ''      |                                 |
+| `trial_quantity` | Integer | 0       |                                 |
 
 #### params.customer_data
+
 | Name               | Type   | Default | Description          |
-|--------------------|--------|---------|----------------------|
+| ------------------ | ------ | ------- | -------------------- |
 | `customer_name`    | String |         |                      |
 | `customer_address` | String |         |                      |
 | `customer_zip`     | String |         |                      |
@@ -128,7 +136,8 @@
 | `email`            | String |         | format email         |
 
 ### messages
-``` js
+
+```js
 {
   messages: {
     {en}: {
@@ -141,13 +150,15 @@
 ```
 
 ### css_variable
+
 | Name            | Type    | Default | Description         |
-|-----------------|---------|---------|---------------------|
+| --------------- | ------- | ------- | ------------------- |
 | `border_radius` | Integer | 8       | from 0 to 24 pixels |
 
-
 ## Use
+
 ### $on
+
 ```
 var app = checkout({css selector}, {config})
 
@@ -159,15 +170,16 @@ app.$on('show-pay', function(model) {})
 ```
 
 ### $emit
-``` js
+
+```js
 app.submit()
 app.$emit('submit')
 
-app.location({method}, {system})
-app.$emit('location', {method}, {system})
+app.location({ method }, { system })
+app.$emit('location', { method }, { system })
 
-app.setParams({params})
-app.$emit('setParams', {params})
+app.setParams({ params })
+app.$emit('setParams', { params })
 
 app.$emit('click-wallet')
 app.$emit('click-wallet', 'google')
@@ -175,6 +187,7 @@ app.$emit('click-wallet', 'apple')
 ```
 
 ### Destroy app
+
 ```
 app.$destroy()
 ```
@@ -185,7 +198,6 @@ https://vee-validate.logaretm.com/v3/guide/rules.html#rules
 
 support `after`, `alpha`, `date_format`, `digits`, `email`, `max`, `min`, `numeric`, `required`, `customer_field`, `phone`, `numrange`, `ccard`
 
-``` html
+```html
 <input-text name="email" validate="required|email"></input-text>
 ```
-
