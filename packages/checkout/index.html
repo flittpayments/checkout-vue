@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -31,6 +31,7 @@
         display: none;
       }
     </style>
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body>
     <div id="app"></div>
@@ -61,7 +62,7 @@
     </script>
 
     <script>
-      const api_domain = '<%= API_DOMAIN %>'
+      const api_domain = 'API_DOMAIN'
       var configs = {
         max: {
           options: {
@@ -401,7 +402,7 @@
           options: {
             theme: {
               type: 'dark',
-              preset: 'euphoric_pink'
+              preset: 'euphoric_pink',
             },
             methods: ['most_popular'],
             active_tab: 'most_popular',
@@ -606,7 +607,7 @@
             theme: {
               type: 'light',
               preset: 'reset',
-              layout: 'plain'
+              layout: 'plain',
             },
           },
           params: {
@@ -623,7 +624,7 @@
             api_domain,
             theme: {
               type: 'light',
-              layout: 'wallets_only'
+              layout: 'wallets_only',
             },
           },
           params: {
@@ -634,10 +635,7 @@
         },
         payme: {
           options: {
-            card_icons: [
-              'humo',
-              'uzcard',
-            ],
+            card_icons: ['humo', 'uzcard'],
             theme: {
               type: 'dark',
               preset: 'euphoric_pink',
@@ -665,37 +663,30 @@
             amount: 10000,
             currency: 'GEL',
             merchant_id: 1549901,
-
           },
         },
       }
 
       setConfigsOption()
 
-      window.app = render('#app', 'hide_3ds_close')
-      // render('#app2', 'min')
-      // render('#app3', 'max2')
+      window.addEventListener('load', () => {
+        window.app = render('#app', 'hide_3ds_close')
+        // render('#app2', 'min')
+        // render('#app3', 'max2')
+      })
 
-      document
-        .querySelector('.submit')
-        .addEventListener('click', function () {
-          app.submit()
-        })
-      document
-        .querySelector('.wallet')
-        .addEventListener('click', function () {
-          app.$emit('click-wallet')
-        })
-      document
-        .querySelector('.card')
-        .addEventListener('click', function () {
-          app.location('card')
-        })
-      document
-        .querySelector('.banks')
-        .addEventListener('click', function () {
-          app.location('banks')
-        })
+      document.querySelector('.submit').addEventListener('click', function () {
+        app.submit()
+      })
+      document.querySelector('.wallet').addEventListener('click', function () {
+        app.$emit('click-wallet')
+      })
+      document.querySelector('.card').addEventListener('click', function () {
+        app.location('card')
+      })
+      document.querySelector('.banks').addEventListener('click', function () {
+        app.location('banks')
+      })
       document
         .querySelector('.local_methods')
         .addEventListener('click', function () {
@@ -717,18 +708,16 @@
           })
         })
 
-      document
-        .querySelector('.render')
-        .addEventListener('click', function () {
-          render()
-        })
+      document.querySelector('.render').addEventListener('click', function () {
+        render()
+      })
 
       function setConfigsOption() {
         let select = document.querySelector('.configs')
 
         Object.keys(configs).forEach(item => {
           const option = document.createElement('option')
-          const text = document.createTextNode(item);
+          const text = document.createTextNode(item)
 
           option.setAttribute('value', item)
           option.appendChild(text)

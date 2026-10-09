@@ -1,3 +1,6 @@
+node_modules
+dist
+public
 /tests/*
 /vue.config.js
 /src/i18n/process/*
