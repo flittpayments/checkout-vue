@@ -35,7 +35,6 @@
       <f-tooltip-default
         :reference="() => $refs.reference?.$el"
         :target="() => $refs.target?.$el"
-        placement="topright"
         @shown="shown"
       >
         <div>
