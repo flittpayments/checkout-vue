@@ -20,7 +20,7 @@
         :input-class="$uiClass('lang')"
         :value="lang"
         :options="locale"
-        dropdown-placement="bottomleft"
+        dropdown-placement="bottom-end"
         data-e2e-lang
         @input="changeLang"
       />
