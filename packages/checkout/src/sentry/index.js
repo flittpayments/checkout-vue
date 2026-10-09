@@ -8,9 +8,9 @@ import { sendBufferedErrors } from '@/sentry/error-buffer'
 import { stopError, initErrorChunk } from '@/sentry/error-capture'
 import { findGetParameter } from '@/utils/helpers'
 
-let isInit
+let isInit = false
 
-function initSentry(optionsUser, router, Vue) {
+function initSentry(app, optionsUser, router) {
   if (isInit) return
   isInit = true
 
@@ -21,7 +21,7 @@ function initSentry(optionsUser, router, Vue) {
     optionsUser.button?.token
 
   init({
-    ...(Vue && { Vue }),
+    ...(app && { app }),
     dsn: SENTRY_DSN,
     integrations: [
       ...(router ? [browserTracingIntegration({ router })] : []),
@@ -51,10 +51,10 @@ function initSentry(optionsUser, router, Vue) {
   initErrorChunk()
 }
 
-export const install = (optionsUser, router) => Vue => {
-  initSentry(optionsUser, router, Vue)
+export const install = (optionsUser, router) => app => {
+  initSentry(app, optionsUser, router)
 }
 
 export const installMin = optionsUser => {
-  initSentry(optionsUser)
+  initSentry(null, optionsUser)
 }

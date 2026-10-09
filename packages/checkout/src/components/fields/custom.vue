@@ -7,17 +7,17 @@
   >
     <component
       :is="field.component"
+      v-bind="omit(field, ['component'])"
       v-for="field in list"
       :key="field.name"
-      v-bind="omit(field, ['component'])"
       v-model="params.custom[field.name]"
-      @input="input(field.name, $event)"
+      @update:model-value="input(field.name, $event)"
     />
   </f-form-save>
 </template>
 
 <script>
-import FFormSave from '@/components/form/form/form-save'
+import FFormSave from '@/components/form/form-save'
 import { InputHidden } from '@/import'
 import FRowCheckbox from '@/components/input/row-checkbox'
 import FRow from '@/components/input/row'
@@ -42,7 +42,7 @@ export default {
   },
   created() {
     this.list.forEach(({ name, value }) => {
-      this.$set(this.params.custom, name, value)
+      this.params.custom[name] = value
     })
   },
   methods: {

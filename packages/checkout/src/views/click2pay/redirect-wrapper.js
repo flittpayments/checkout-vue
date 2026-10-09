@@ -28,7 +28,7 @@ export default {
         .then(([actionCode, name]) => {
           console.timeEnd(text)
           this.store.setClick2payActionCode(actionCode)
-          this.$router.push({ name }).catch(() => {})
+          this.$router.push({ name })
         })
         .catch(error => {
           consoleInfo(text, error)

@@ -1,9 +1,4 @@
-/**
- * Private ModalManager helper
- * Handles controlling modal stacking zIndexes and body adjustments/classes
- */
-
-import Vue from 'vue'
+import { defineComponent, createApp } from 'vue'
 import {
   addClass,
   getAttr,
@@ -23,9 +18,6 @@ import { isNull } from '@/utils/inspect'
 import { toFloat, toInteger } from '@/utils/number'
 import { windowWidth } from '@/utils/helpers'
 
-// --- Constants ---
-
-// Default modal backdrop z-index
 const DEFAULT_ZINDEX = 1040
 
 // Selectors for padding/margin adjustments
@@ -35,8 +27,8 @@ const Selector = {
   NAVBAR_TOGGLER: '.navbar-toggler',
 }
 
-// @vue/component
-const ModalManager = Vue.extend({
+const ModalManager = defineComponent({
+  name: 'ModalManager',
   data() {
     return {
       modals: [],
@@ -70,11 +62,15 @@ const ModalManager = Vue.extend({
         setAttr(document.body, 'data-modal-open-count', String(newCount))
       }
     },
-    modals(newVal) {
-      this.checkScrollbar()
-      requestAF(() => {
-        this.updateModals(newVal || [])
-      })
+    modals: {
+      deep: true,
+      handler(newVal) {
+        this.checkScrollbar()
+
+        requestAF(() => {
+          this.updateModals(newVal || [])
+        })
+      },
     },
   },
   methods: {
@@ -84,9 +80,6 @@ const ModalManager = Vue.extend({
       if (modal && this.modals.indexOf(modal) === -1) {
         // Add modal to modals array
         this.modals.push(modal)
-        modal.$once('hook:beforeDestroy', () => {
-          this.unregisterModal(modal)
-        })
       }
     },
     unregisterModal(modal) {
@@ -94,10 +87,7 @@ const ModalManager = Vue.extend({
       if (index > -1) {
         // Remove modal from modals array
         this.modals.splice(index, 1)
-        // Reset the modal's data
-        if (!(modal._isBeingDestroyed || modal._isDestroyed)) {
-          this.resetModal(modal)
-        }
+        this.resetModal(modal)
       }
     },
     getBaseZIndex() {
@@ -236,7 +226,12 @@ const ModalManager = Vue.extend({
       }
     },
   },
+  template: '<div style="display:none"></div>',
 })
 
-// Create and export our modal manager instance
-export const modalManager = new ModalManager()
+const mountNode = document.createElement('div')
+document.body.appendChild(mountNode)
+const app = createApp(ModalManager)
+app.config.compilerOptions.whitespace = 'condense'
+
+export const modalManager = app.mount(mountNode)

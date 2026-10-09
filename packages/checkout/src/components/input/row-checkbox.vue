@@ -1,11 +1,10 @@
 <template>
-  <f-row-error v-slot="{ invalid }" v-bind="attrsRow">
+  <f-row-error v-slot="{ invalid, handleBlur }" v-bind="attrsRow">
     <f-checkbox
       v-bind="attrs"
       :invalid="invalid"
-      v-on="$listeners"
       @focus="focus"
-      @blur="blur"
+      @blur="blur(handleBlur)"
       @keyup.enter="onEnter"
     >
       <slot />
@@ -19,7 +18,7 @@ import FCheckbox from '@/components/input/item/checkbox'
 import { idMixin, idProps } from '@/mixins/id'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '@/constants/props'
-import { errorHandler } from '@/utils/helpers'
+import { omit } from '@/utils/helpers'
 
 export default {
   components: {
@@ -27,7 +26,7 @@ export default {
     FCheckbox,
   },
   mixins: [idMixin],
-  inject: ['submit'],
+  inject: ['form'],
   inheritAttrs: false,
   props: {
     ...idProps,
@@ -51,7 +50,7 @@ export default {
     },
     attrs() {
       return {
-        ...this.$attrs,
+        ...omit(this.$attrs, ['rules', 'hide-error', 'class']),
         id: this.safeId(),
         name: this.name || this.safeId(),
       }
@@ -59,7 +58,7 @@ export default {
     parseRules() {
       const rules = { ...this.rules }
       if (rules.required) {
-        rules.required = { allowFalse: false }
+        rules.required = { allowFalsy: false }
       }
       return rules
     },
@@ -68,11 +67,12 @@ export default {
     focus() {
       this.focused = true
     },
-    blur() {
+    blur(handleBlur) {
+      handleBlur()
       this.focused = false
     },
     onEnter() {
-      this.submit().catch(errorHandler)
+      this.form.submit()
     },
   },
 }

@@ -3,14 +3,13 @@ import vue from 'eslint-plugin-vue'
 import globals from 'globals'
 import prettier from 'eslint-plugin-prettier'
 import eslintConfigPrettier from 'eslint-config-prettier'
-import babelParser from '@babel/eslint-parser'
 
 export default [
   {
     ignores: ['src/i18n/process/**', 'src/i18n/po/**', 'dist/**'],
   },
   js.configs.recommended,
-  ...vue.configs['flat/vue2-recommended'],
+  ...vue.configs['flat/recommended'],
   eslintConfigPrettier,
   {
     plugins: {
@@ -19,10 +18,6 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parserOptions: {
-        parser: babelParser,
-        requireConfigFile: false,
-      },
       globals: {
         ...globals.browser,
         ...globals.node,

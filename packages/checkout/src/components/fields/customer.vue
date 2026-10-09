@@ -7,23 +7,20 @@
   >
     <component
       :is="field.component"
+      v-bind="omit(field, ['component'])"
       v-for="field in list"
       :key="field.name"
-      v-bind="omit(field, ['component'])"
       v-model="params.customer_data[field.name]"
-      @input="input(field.name, $event)"
+      @update:model-value="input(field.name, $event)"
     />
   </f-form-save>
 </template>
 
 <script>
-import FFormSave from '@/components/form/form/form-save'
+import FFormSave from '@/components/form/form-save'
 import { FCountry } from '@/import'
 import FRow from '@/components/input/row'
-import {
-  configCustomer,
-  configCustomerRequiredOne,
-} from '@/config/customer-fields'
+import { configCustomer } from '@/config/customer-fields'
 import countries from '@/i18n/countries/en.json'
 import { mapState } from '@/utils/store'
 import { omit } from '@/utils/helpers'
@@ -32,6 +29,7 @@ export default {
   components: {
     FFormSave,
   },
+  inject: ['form'],
   computed: {
     ...mapState('options', ['show_email']),
     ...mapState(['params', 'fields_customer']),
@@ -40,9 +38,19 @@ export default {
       return this.list.length
     },
     config() {
-      return this.required_one_of_checkout_customer_fields
-        ? configCustomerRequiredOne
-        : configCustomer
+      let result = { ...configCustomer }
+      if (this.required_one_of_checkout_customer_fields) {
+        result.phonemobile.rules = {
+          required_one: [this.form.values.email],
+          phonemobile: true,
+        }
+
+        result.email.rules = {
+          required_one: [this.form.values.phonemobile],
+          email: true,
+        }
+      }
+      return result
     },
     list() {
       return this.fields_customer

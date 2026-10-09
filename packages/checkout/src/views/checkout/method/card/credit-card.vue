@@ -104,6 +104,7 @@ export default {
     FTooltipCvv2,
     FLoading,
   },
+  inject: ['form'],
   props: {
     loading: makeProp(PROP_TYPE_BOOLEAN),
     disabled: makeProp(PROP_TYPE_BOOLEAN),
@@ -118,7 +119,6 @@ export default {
       'ready',
       'read_only',
       'cards',
-      'submited',
       'need_validate_card',
       'cvv2_requirement',
     ]),
@@ -174,7 +174,11 @@ export default {
         ? format(createDate(), 'MM/YY')
         : '01/19'
 
-      return `required|date_format:MM/yy|after:${minDate},true,MM/yy`
+      return {
+        required: true,
+        date_format: 'MM/yy',
+        after: [minDate, true, 'MM/yy'],
+      }
     },
     cardNumberValid() {
       if (this.cardNumberDisabled) return
@@ -183,7 +187,7 @@ export default {
       let needValidCard =
         !this.hash &&
         (this.cardConfig.cardNumberLengths.includes(this.card_number.length) ||
-          this.submited)
+          this.form.state.isValidating)
 
       return needValidCard ? 'required|ccard' : 'required'
     },

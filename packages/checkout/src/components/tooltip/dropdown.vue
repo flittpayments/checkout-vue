@@ -1,5 +1,5 @@
 <template>
-  <f-tooltip-base v-bind="attrs" v-on="$listeners">
+  <f-tooltip-base v-bind="attrs">
     <f-scrollbar-vertical
       :wrap-class="$uiClass('wrap', [size])"
       data-e2e-dropdown-wrap
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     hide() {
-      this.$refs.tooltip.$emit('close')
+      this.$refs.tooltip.close()
     },
   },
 }

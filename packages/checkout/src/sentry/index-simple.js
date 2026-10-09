@@ -4,7 +4,7 @@ import { sendBufferedErrors } from '@/sentry/error-buffer'
 import { findGetParameter } from '@/utils/helpers'
 import { isString } from '@/utils/inspect'
 
-let isInit
+let isInit = false
 
 function initSentry(optionsUser) {
   if (isInit) return
@@ -45,7 +45,12 @@ function initSentry(optionsUser) {
       }
     },
   })
+
+  client.init()
+
   const scope = new Scope()
+
+  scope.setClient(client)
 
   scope.setTag('commithash', COMMITHASH)
   scope.setTag('initiator', INITIATOR)

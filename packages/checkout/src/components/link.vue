@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" v-bind="attrs" v-on="$listeners">
+  <component :is="tag" v-bind="attrs">
     <slot />
   </component>
 </template>
@@ -31,7 +31,11 @@ export default {
         ...this.$attrs,
         href,
         target,
-        class: [this.$style.style, this.$uiClass(this.variant)],
+        class: [
+          this.$attrs.class,
+          this.$style.style,
+          this.$uiClass(this.variant),
+        ],
         ...(target === '_blank' ? { rel: 'noopener noreferrer' } : {}),
       }
     },

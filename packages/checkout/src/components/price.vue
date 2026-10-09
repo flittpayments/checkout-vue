@@ -27,7 +27,7 @@
             <f-placeholder
               v-if="showAdjustmentAmount"
               :id="id"
-              :value="totalAmount"
+              :model-value="totalAmount"
               :offset="5"
               :name-class="className"
               :text-class="$uiClass('fee')"

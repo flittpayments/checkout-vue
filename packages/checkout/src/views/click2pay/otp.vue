@@ -18,7 +18,7 @@
         $t('send_again')
       }}</f-link>
     </div>
-    <f-form v-slot="{ submit, disabled }" @submit="onSubmit">
+    <f-form v-slot="{ submit, state }" @submit="onSubmit">
       <f-otp
         v-model="validationData"
         :disabled="loading"
@@ -32,7 +32,7 @@
         <div v-if="messageOk" :class="$style.message_ok">{{ messageOk }}</div>
       </transition>
       <f-button-success
-        :disabled="disabled"
+        :disabled="state.disabled"
         :loading="loading"
         :text="$t('check_and_continue')"
         @click="submit"
@@ -55,7 +55,7 @@
 <script>
 import FContainer from '@/components/base/container'
 import Click2payHeader from '@/views/click2pay/header'
-import FForm from '@/components/form/form/form'
+import FForm from '@/components/form/form'
 import FLink from '@/components/link'
 import FOtp from '@/components/otp'
 import Click2payRememberMe from '@/views/click2pay/remember-me'
@@ -155,17 +155,17 @@ export default {
         .then(({ actionCode }) => {
           this.store.setClick2payActionCode(actionCode)
 
-          this.$router.push({ name: 'click2pay' }).catch(() => {})
+          this.$router.push({ name: 'click2pay' })
         })
         .catch(error => {
           this.message = this.$t(error)
         })
     },
     goCard() {
-      this.$router.push({ name: 'card' }).catch(() => {})
+      this.$router.push({ name: 'card' })
     },
     goSwitchId() {
-      this.$router.push({ name: 'click2pay_switch_id' }).catch(() => {})
+      this.$router.push({ name: 'click2pay_switch_id' })
     },
   },
 }

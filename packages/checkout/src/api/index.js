@@ -1,4 +1,4 @@
-import { loadCheckout } from '@/import'
+import { loadCheckout } from '@/import-main'
 
 export let api
 let cache = {}

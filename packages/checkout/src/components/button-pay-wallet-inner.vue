@@ -56,12 +56,13 @@ export default {
   components: {
     FButtonInverted,
   },
-  inject: ['validate'],
+  inject: ['form'],
   props: {
     method: makeProp(PROP_TYPE_STRING, '', true),
     index: makeProp(PROP_TYPE_NUMBER),
     load: makeProp(PROP_TYPE_BOOLEAN),
   },
+  emits: ['click', 'update:load'],
   computed: {
     ...mapStateGetSet(['need_validate_card']),
     ...mapState(['has_fields']),
@@ -101,8 +102,8 @@ export default {
     click() {
       if (this.has_fields) {
         this.need_validate_card = false
-        this.$nextTick()
-          .then(() => this.validate())
+        this.form
+          .validate()
           .then(() => this.$emit('click', this.method))
           .finally(() => {
             this.need_validate_card = true
@@ -124,14 +125,14 @@ export default {
     addMostPopular() {
       if (!this.most_popular) return
 
-      this.$set(this.most_popular, this.method, {
+      this.most_popular[this.method] = {
         id: this.method,
         method: 'wallets',
         logo: this.method,
         name: `wallets_${this.method}`,
         user_priority: 98 - this.index,
         country: 'XX',
-      })
+      }
     },
   },
 }

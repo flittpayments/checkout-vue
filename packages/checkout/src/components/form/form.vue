@@ -1,88 +1,95 @@
 <template>
-  <ValidationObserver ref="observer" tag="div">
-    <slot />
-  </ValidationObserver>
+  <div>
+    <slot :submit="submit" :state="state" />
+  </div>
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate'
-import { mapStateGetSet } from '@/utils/store'
-import { isMountedMixin } from '@/mixins/is-mounted'
+import { provide, reactive, nextTick, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useForm } from 'vee-validate'
+import { select, attemptFocus } from '@/utils/dom'
 import { errorHandler } from '@/utils/helpers'
-import { attemptFocus } from '@/utils/dom'
 
 export default {
-  components: {
-    ValidationObserver,
-  },
-  mixins: [isMountedMixin],
-  inject: ['formRequest'],
-  provide() {
-    return {
-      submit: this.submit,
-      validate: this.validate,
-    }
-  },
-  computed: {
-    ...mapStateGetSet(['submited', 'isSubmit']),
-    observer() {
-      if (!this.isMounted) return
-      return this.$refs.observer
-    },
-    errors() {
-      if (!this.isMounted) return
-      return Object.entries(this.observer.errors).filter(
-        ([, value]) => value.length
-      )
-    },
-  },
-  watch: {
-    $route: 'watchRoute',
-  },
-  created() {
-    this.$root.$on('submit', () => {
-      this.submit().catch(errorHandler)
+  emits: ['submit'],
+
+  setup(props, { emit }) {
+    const route = useRoute()
+    const { errors, values, validate: formValidate, resetForm } = useForm()
+
+    const state = reactive({
+      hasSubmitted: false,
+      isValidating: false,
+
+      get disabled() {
+        return state.hasSubmitted && Object.keys(errors.value).length > 0
+      },
     })
-  },
-  methods: {
-    watchRoute() {
-      this.observer.reset()
-      this.isSubmit = false
-    },
-    submit(data) {
-      this.submited = true
-      return this.$nextTick()
-        .then(() => this.validate())
-        .then(() => {
-          return this.formRequest(this.store.formParams(data))
+
+    const submit = () => {
+      state.hasSubmitted = true
+
+      return validate()
+        .then(() => emit('submit'))
+        .catch(errorHandler)
+    }
+
+    const validate = () => {
+      state.isValidating = true
+
+      return nextTick()
+        .then(() => formValidate())
+        .then(({ valid, errors }) => {
+          if (!valid) {
+            autoFocus(errors)
+            return Promise.reject()
+          }
         })
         .finally(() => {
-          this.submited = false
+          state.isValidating = false
         })
-    },
-    validate() {
-      return this.observer.validate().then(isValid => {
-        this.isSubmit = true
+    }
 
-        if (!isValid) return this.autoFocus(this.errors[0][0])
-      })
-    },
-    autoFocus(id) {
-      // mask point
-      id = id.replace(/\./g, '\\.')
-      let $firstErrorField = this.$el.querySelector(`[name=${id}]`)
+    const autoFocus = errors => {
+      if (!errors) return
 
-      if (!$firstErrorField) return Promise.reject()
+      const [name] = Object.keys(errors)
 
-      $firstErrorField.scrollIntoView({
+      if (!name) return
+
+      const el = select(`[name="${name.replace(/\./g, '\\.')}"]`)
+
+      if (!el) return
+
+      el.scrollIntoView({
         block: 'center',
         behavior: 'smooth',
       })
 
-      attemptFocus($firstErrorField)
+      attemptFocus(el)
+    }
 
-      return Promise.reject()
-    },
+    watch(
+      () => route.fullPath,
+      () => {
+        resetForm()
+        state.hasSubmitted = false
+        state.isValidating = false
+      }
+    )
+
+    provide('form', {
+      state,
+      submit,
+      validate,
+      values,
+    })
+
+    return {
+      state,
+      submit,
+    }
   },
 }
 </script>

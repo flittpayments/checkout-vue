@@ -1,62 +1,52 @@
-.f-fade {
-  transition: opacity 0.15s linear;
+#f {
+  .f-fade {
+    transition: opacity 0.15s linear;
 
-  &:not(.f-show) {
+    &:not(.f-show) {
+      opacity: 0;
+    }
+  }
+
+  // collapse
+  .f-collapse-enter-active,
+  .f-collapse-leave-active {
+    max-height: 100vh;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .f-collapse-enter-from,
+  .f-collapse-leave-to {
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  // fade-enter
+  .f-fade-enter-enter-active {
+    transition: opacity ease-in-out 0.3s;
+  }
+
+  .f-fade-enter-enter-from {
     opacity: 0;
   }
-}
 
-// collapse
-.f-collapse-enter-active,
-.f-collapse-leave-active {
-  max-height: 100vh;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
-}
+  .f-fade-enter-leave-active {
+    display: none;
+  }
 
-.f-collapse-enter,
-.f-collapse-leave-to {
-  max-height: 0;
-  overflow: hidden;
-}
+  // fade
+  .f-fade-enter-active,
+  .f-fade-leave-active {
+    transition: opacity ease-in-out 0.3s;
+  }
 
-// fade-enter
-.f-fade-enter-enter-active {
-  transition: opacity ease-in-out 0.3s;
-}
+  .f-fade-enter-from,
+  .f-fade-leave-to {
+    opacity: 0;
+  }
 
-.f-fade-enter-enter {
-  opacity: 0;
-}
-
-.f-fade-enter-leave-active {
-  display: none;
-}
-
-// fade
-.f-fade-enter-active,
-.f-fade-leave-active {
-  transition: opacity ease-in-out 0.3s;
-}
-
-.f-fade-enter,
-.f-fade-leave-to {
-  opacity: 0;
-}
-
-// datepicker-zoom-in-down
-.f-datepicker-zoom-in-down-enter-active,
-.f-datepicker-zoom-in-down-leave-active {
-  opacity: 1;
-  transition:
-    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  transform: scaleY(1);
-  transform-origin: center top;
-}
-
-.f-datepicker-zoom-in-down-enter,
-.f-datepicker-zoom-in-down-leave-to {
-  opacity: 0;
-  transform: scaleY(0);
+  .f-fade-enter-to,
+  .f-fade-leave-from {
+    opacity: 1;
+  }
 }
