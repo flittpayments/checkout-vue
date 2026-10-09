@@ -11,20 +11,20 @@
       </div>
     </div>
     <div v-if="mode_test" :class="$style.marks">
-      <f-svg
+      <f-button-unstyled
         v-if="approved"
         ref="approved"
         :class="$style.approved"
-        name="check2"
-        :size="24"
-      />
-      <f-svg
+      >
+        <f-svg name="check2" :size="24" />
+      </f-button-unstyled>
+      <f-button-unstyled
         v-if="declined"
         ref="declined"
         :class="$style.declined"
-        name="xmark"
-        :size="24"
-      />
+      >
+        <f-svg name="xmark" :size="24" />
+      </f-button-unstyled>
       <f-svg v-if="is3ds" :class="$style.ds3" name="3ds" :size="24" />
       <f-svg v-if="is2ds" :class="$style.ds2" name="2ds" :size="24" />
       <f-tooltip-default
@@ -111,24 +111,25 @@ export default {
 .marks {
   align-self: center;
   margin-left: auto;
-
-  svg {
-    margin-left: px-to-rem(8px);
-  }
 }
+
 .approved {
   color: #08a835;
+  margin-left: px-to-rem(8px);
 }
 
 .declined {
   color: $error;
+  margin-left: px-to-rem(8px);
 }
 
 .ds3 {
   color: #313539;
+  margin-left: px-to-rem(8px);
 }
 
 .ds2 {
   color: #8f9395;
+  margin-left: px-to-rem(8px);
 }
 </style>

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FPrice from '@/components/price.vue'
+import FPrice from '@/components/price'
 import FFieldsCustomer from '@/components/fields/customer'
 import FFieldsCustom from '@/components/fields/custom'
 import FFieldsUser from '@/components/fields/user'

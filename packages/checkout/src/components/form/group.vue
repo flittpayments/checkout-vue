@@ -1,6 +1,12 @@
 <template>
   <div :class="classGroup" @mouseenter="mouseenter" @mouseleave="mouseleave">
-    <slot v-if="noLabelFloating" :id="safeId()" name="label" :label="$t(label)">
+    <slot
+      v-if="noLabelFloating"
+      :id="safeId()"
+      name="label"
+      :label="$t(label)"
+      :focus="focused"
+    >
       <label
         v-if="showLabel"
         :class="classLabel"
@@ -34,16 +40,15 @@
         @focus="onFocus"
         @blur="blur"
       >
-        <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
-        <template
-          v-for="slot in Object.keys($scopedSlots)"
-          :slot="slot"
-          slot-scope="slotData"
-        >
-          <slot :name="slot" v-bind="slotData" />
+        <template v-for="slot in Object.keys($scopedSlots)" #[slot]="scope">
+          <slot :name="slot" v-bind="scope" />
         </template>
       </f-form-item>
-      <f-placeholder v-if="showPlaceholder" v-bind="attrs" />
+      <f-placeholder
+        v-if="showPlaceholder"
+        v-bind="attrs"
+        @request-focus="focused"
+      />
     </div>
     <f-tooltip-error
       v-if="showErrorTooltip"
@@ -95,6 +100,7 @@ export default {
     prepend: makeProp(PROP_TYPE_STRING),
     prependText: makeProp(PROP_TYPE_STRING),
     dynamicPlaceholder: makeProp(PROP_TYPE_BOOLEAN, false),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   data() {
     return {
@@ -125,6 +131,7 @@ export default {
         name: `f-${this.name}`,
         noLabelFloating: this.noLabelFloating,
         label: this.label,
+        disabled: this.disabled,
       }
     },
     classGroup() {
@@ -155,6 +162,7 @@ export default {
             this.focus,
           'f-control-label-hover': this.hover,
           'f-control-label-focused': this.focus,
+          [this.$style.label_disabled]: this.disabled,
         },
       ]
     },
@@ -215,5 +223,9 @@ export default {
   margin-bottom: px-to-rem(8px);
   font-size: px-to-rem(14px);
   word-wrap: break-word;
+}
+
+:global(#f) .label_disabled {
+  color: $label_color;
 }
 </style>

@@ -44,7 +44,7 @@
 import FButtonUnstyled from '@/components/button/button-unstyled'
 import FModalBase from '@/components/modal/modal-base'
 import FSvg from '@/components/svg'
-import FTooltipSelect from '@/components/tooltip/tooltip-select'
+import FTooltipSelect from '@/components/tooltip/dropdown'
 import FCardList from '@/components/card-list'
 import { timeoutMixin } from '@/mixins/timeout'
 import { resizeMixin } from '@/mixins/resize'

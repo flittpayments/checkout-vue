@@ -113,6 +113,14 @@ module.exports = defineConfig({
             .filename('[name].js')
             .crossOriginLoading('anonymous')
             .end()
+          .plugin('copy')
+            .tap(options => {
+              options[0].patterns[0].globOptions.ignore.push(
+                path.join(process.cwd(), 'public', 'buttons', '**')
+              )
+              return options
+            })
+            .end()
           .plugin('extract-css')
             .tap(([options]) => {
               return [{
@@ -167,14 +175,6 @@ module.exports = defineConfig({
           .entry('checkout')
             .clear()
             .add('./src/main.js')
-            .end()
-          .plugin('copy')
-            .tap(options => {
-              options[0].patterns[0].globOptions.ignore.push(
-                path.join(process.cwd(), 'public', 'buttons', '**')
-              )
-              return options
-            })
             .end()
           .merge({
             output: {

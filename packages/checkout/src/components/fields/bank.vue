@@ -1,14 +1,12 @@
 <template>
-  <f-form-save name="params.form" :includes="includes">
-    <template #default="{ input }">
-      <f-form-group
-        v-for="field in list"
-        :key="field.name"
-        v-bind="field"
-        v-model="params.form[field.name]"
-        @input="input(field.name, $event)"
-      />
-    </template>
+  <f-form-save v-slot="{ input }" name="params.form" :includes="includes">
+    <f-form-group
+      v-for="field in list"
+      :key="field.name"
+      v-bind="field"
+      v-model="params.form[field.name]"
+      @input="input(field.name, $event)"
+    />
   </f-form-save>
 </template>
 
