@@ -12,7 +12,7 @@ import {
   configDefault,
   loadCheckout,
   loadAsyncValidator,
-} from '@/import'
+} from '@/import-main'
 import { initError, stopErrorChunk } from '@/sentry/error-capture'
 import { consoleInfo } from '@/utils/console'
 

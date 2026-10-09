@@ -9,7 +9,7 @@ import { configDefault } from '@/config/config-default'
 import configSubscription from '@/config/subscription'
 import { excludeMessages } from '@/config/exclude-messages'
 import { isPlainObject, isString, isExist } from '@/utils/inspect'
-import { loadAsyncValidator } from '@/import'
+import { loadAsyncValidator } from '@/import-main'
 import { regexpColor } from '@/config/regexp'
 import { cardBrands } from '@/config/card-brands.js'
 
