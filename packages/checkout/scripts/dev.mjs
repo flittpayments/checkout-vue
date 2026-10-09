@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process'
 const argv = process.argv.slice(2)
 const env = {
   ...process.env,
+  NODE_ENV: 'development',
   ...Object.fromEntries(
     argv.map(arg => {
       const cleanArg = arg.replace(/^--/, '')
@@ -27,4 +28,4 @@ const run = (command, args = []) => {
 }
 
 run('gulp', ['dev'])
-run('vue-cli-service', ['serve'])
+run('vite')
