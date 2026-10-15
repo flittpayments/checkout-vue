@@ -24,7 +24,7 @@
     "pre-commit": "lint-staged",
     "prettier:fix": "prettier src/**/*.{js,vue,scss} --write",
     "serve": "serve -s dist --cors",
-    "stylelint:fix": "stylelint src/{**/,**/**/}*.scss --custom-syntax postcss-scss --color --formatter verbose --fix"
+    "stylelint:fix": "stylelint \"src/**/*.{scss,vue}\" --fix"
   },
   "lint-staged": {
     "package.json": "sort-package-json",
@@ -32,8 +32,8 @@
       "vue-cli-service lint --fix",
       "prettier --write"
     ],
-    "src/**/*.scss": [
-      "stylelint --custom-syntax postcss-scss --fix",
+    "src/**/*.{scss,vue}": [
+      "stylelint --fix",
       "prettier --write"
     ]
   },
@@ -101,23 +101,18 @@
     "root": true
   },
   "stylelint": {
-    "syntax": "scss",
     "extends": [
       "stylelint-config-standard-scss",
+      "stylelint-config-recommended-vue/scss",
       "stylelint-config-prettier-scss"
     ],
     "rules": {
-      "scss/double-slash-comment-whitespace-inside": null,
       "scss/no-global-function-names": null,
-      "scss/at-if-no-null": null,
       "scss/at-extend-no-missing-placeholder": null,
-      "scss/comment-no-empty": null,
       "scss/at-mixin-pattern": null,
-      "no-descending-specificity": null,
-      "media-feature-name-no-unknown": null,
-      "scss/dollar-variable-default": null,
-      "scss/dollar-variable-pattern": "^[a-z][a-z-\\d_]*$",
-      "selector-class-pattern": "^[a-z][a-z0-9\\-_]*[a-z0-9]$",
+      "scss/dollar-variable-pattern": "^[a-z][a-z0-9_-]*$",
+      "selector-class-pattern": "^[a-z][a-z0-9_-]*$",
+      "custom-property-pattern": "^_?[a-z][a-z0-9-]*$",
       "declaration-block-no-redundant-longhand-properties": null
     }
   },
@@ -156,14 +151,16 @@
     "gulp": "^5.0.1",
     "lint-staged": "^17.6.0",
     "minimist": "^1.2.8",
+    "postcss-html": "^2.0.0",
     "prettier": "^3.9.10",
     "sass": "~1.79.6",
     "sass-loader": "^16.0.8",
     "serve": "^14.2.6",
     "sort-package-json": "^4.1.0",
-    "stylelint": "^16.26.1",
+    "stylelint": "^17.16.0",
     "stylelint-config-prettier-scss": "^1.0.0",
-    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-config-recommended-vue": "^2.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-webpack-plugin": "^5.1.0",
     "vue-svg-loader": "^0.17.0-beta.2",
     "vue-template-compiler": "^2.7.16",

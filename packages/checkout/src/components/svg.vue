@@ -112,7 +112,7 @@ export default {
     transform: rotate(0deg);
   }
 
-  to {
+  100% {
     transform: rotate(1turn);
   }
 }

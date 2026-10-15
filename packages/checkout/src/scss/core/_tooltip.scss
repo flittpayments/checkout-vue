@@ -8,7 +8,7 @@ $tooltip-arrow-height: px-to-rem(7px);
   z-index: $zindex-tooltip;
   display: block;
   margin: 0;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   outline: 0;
 
   .f-tooltip-arrow {

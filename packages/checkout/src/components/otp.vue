@@ -210,6 +210,7 @@ export default {
 .item {
   text-align: center;
 }
+
 .collector {
   position: absolute;
   opacity: 0;

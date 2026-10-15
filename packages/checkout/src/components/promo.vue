@@ -106,6 +106,7 @@ export default {
 .invalid {
   color: #de4761;
 }
+
 .expired {
   color: #de4761;
 }

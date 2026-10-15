@@ -243,6 +243,7 @@ export default {
   z-index: 1;
   margin-left: px-to-rem(4px);
 }
+
 .or {
   position: relative;
   display: flex;

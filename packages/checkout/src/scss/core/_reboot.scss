@@ -1,14 +1,14 @@
 // stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
 // Reboot
-//
+
 // Normalization of HTML elements, manually forked from Normalize.css to remove
 // styles targeting irrelevant browsers while applying new styles.
-//
+
 // Normalize is licensed MIT. https://github.com/necolas/normalize.css
 
 // Document
-//
+
 // 1. Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
 
 *,
@@ -23,19 +23,17 @@
 // interaction that led to the element receiving programmatic focus was a keyboard interaction,
 // or the browser has somehow determined that the user is primarily a keyboard user and/or
 // wants focus outlines to always be presented.
-//
+
 // See https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible
 // and https://developer.paciellogroup.com/blog/2018/03/focus-visible-and-backwards-compatibility/
 [tabindex='-1']:focus:not(:focus-visible) {
   outline: 0 !important;
 }
 
-//
 // Typography
-//
 
 // Remove top margins from headings
-//
+
 // By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
 // margin for easier control within type scales as it avoids margin collapsing.
 // stylelint-disable-next-line selector-list-comma-newline-after
@@ -49,7 +47,7 @@ h6 {
 }
 
 // Reset margins on paragraphs
-//
+
 // Similarly, the top margin on `<p>`s get reset. However, we also reset the
 // bottom margin to use `rem` units instead of `em`.
 p {
@@ -65,9 +63,7 @@ ul {
   margin-bottom: 1.5rem;
 }
 
-//
 // Links
-//
 
 a {
   font-weight: 600;
@@ -80,9 +76,7 @@ a {
   }
 }
 
-//
 // Images and content
-//
 
 img {
   vertical-align: middle;
@@ -96,9 +90,7 @@ svg {
   vertical-align: middle;
 }
 
-//
 // Tables
-//
 
 table {
   border-collapse: collapse; // Prevent double borders
@@ -110,9 +102,7 @@ th {
   text-align: inherit;
 }
 
-//
 // Forms
-//
 
 input,
 select {
@@ -133,17 +123,17 @@ select {
 }
 
 // Set the cursor for non-`<button>` buttons
-//
+
 // Details at https://github.com/twbs/bootstrap/pull/30562
 [role='button'] {
   cursor: pointer;
 }
 
 // Remove the inheritance of word-wrap in Safari.
-//
+
 // Details at https://github.com/twbs/bootstrap/issues/24990
 select {
-  word-wrap: normal;
+  overflow-wrap: normal;
 }
 
 // 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
@@ -180,10 +170,8 @@ input[type='checkbox'] {
   height: auto;
 }
 
-//
 // 1. Correct the inability to style clickable types in iOS and Safari.
 // 2. Change font properties to `inherit` in Safari.
-//
 
 ::-webkit-file-upload-button {
   font: inherit; // 2

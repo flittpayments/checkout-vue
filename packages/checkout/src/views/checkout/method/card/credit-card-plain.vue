@@ -291,8 +291,7 @@ export default {
 }
 
 :global(#f) .cvv2_input {
-  border-radius: 0 0 $border-radius 0;
-
+  border-radius: 0 0 $border-radius;
   font-family: $font-family-cvv;
 
   &:-webkit-autofill::first-line {

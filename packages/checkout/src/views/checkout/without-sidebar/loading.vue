@@ -162,7 +162,7 @@ export default {
     transform: rotate(0deg);
   }
 
-  to {
+  100% {
     transform: rotate(1turn);
   }
 }
@@ -200,7 +200,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   height: 100%;
   border-radius: calc(var(--border-radius) - var(--border-width));
   box-shadow: 0 px-to-rem(3px) px-to-rem(3px) 0 rgba(#767676, 0.25);

@@ -48,7 +48,7 @@ export default {
     }
   }
 
-  > :not(:first-child):not(:last-child) {
+  > :not(:first-child, :last-child) {
     input {
       border-right: none;
       border-left: none;

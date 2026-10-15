@@ -35,7 +35,7 @@
   overflow: hidden;
   line-height: $line-height-base;
   text-overflow: ellipsis;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: normal;
   background: $background;
 

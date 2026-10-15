@@ -53,7 +53,7 @@ export default {
   right: 0;
 
   :global(.f-theme-light) & {
-    background: #eeeeee;
+    background: #eee;
   }
 
   :global(.f-theme-dark) & {
