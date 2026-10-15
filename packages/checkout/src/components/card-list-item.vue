@@ -120,6 +120,7 @@ export default {
     margin-left: px-to-rem(8px);
   }
 }
+
 .approved {
   color: #08a835;
 }

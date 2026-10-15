@@ -55,6 +55,7 @@
     $is-local-vars: map-get($utility, local-vars);
     $is-rtl: map-get($utility, rtl);
 
+    /* stylelint-disable-next-line scss/at-if-no-null */
     @if $value != null {
       @if $is-rtl == false {
         /* rtl:begin:remove */

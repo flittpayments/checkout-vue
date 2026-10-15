@@ -1,9 +1,9 @@
 // stylelint-disable property-blacklist, scss/dollar-variable-default, scss/operator-no-newline-after
 
 // SCSS RFS mixin
-//
+
 // Automated responsive values for font sizes, paddings, margins and much more
-//
+
 // Licensed under MIT (https://github.com/twbs/rfs/blob/main/LICENSE)
 
 // Configuration
@@ -336,6 +336,7 @@ $rfs-mq-property-height: if(
 
 // RFS mixin
 @mixin rfs($values, $property: font-size) {
+  /* stylelint-disable-next-line scss/at-if-no-null */
   @if $values != null {
     $val: rfs-value($values);
     $fluid-val: rfs-fluid-value($values);

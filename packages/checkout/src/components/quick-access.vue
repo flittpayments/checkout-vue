@@ -62,6 +62,7 @@ export default {
   justify-content: center;
   height: px-to-rem(24px);
 }
+
 .span svg {
   height: 100%;
 }

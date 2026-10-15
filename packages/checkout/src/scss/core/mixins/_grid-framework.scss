@@ -1,5 +1,5 @@
 // Framework grid generation
-//
+
 // Used only by Bootstrap to generate the correct number of grid classes given
 // any value of `$grid-columns`.
 
@@ -41,13 +41,13 @@
         max-width: 100%;
       }
 
-      //@if $grid-row-columns > 0 {
+      // @if $grid-row-columns > 0 {
       //  @for $i from 1 through $grid-row-columns {
       //    .f-row-cols#{$infix}-#{$i} {
       //      @include row-cols($i);
       //    }
       //  }
-      //}
+      // }
 
       .f-col#{$infix}-auto {
         @include make-col-auto;
@@ -61,15 +61,15 @@
         }
       }
 
-      //.f-order#{$infix}-first { order: -1; }
-      //
-      //.f-order#{$infix}-last { order: $columns + 1; }
-      //
-      //@for $i from 0 through $columns {
-      //  .f-order#{$infix}-#{$i} { order: $i; }
-      //}
+      // .f-order#{$infix}-first { order: -1; }
 
-      //@if $columns > 0 {
+      // .f-order#{$infix}-last { order: $columns + 1; }
+
+      // @for $i from 0 through $columns {
+      //  .f-order#{$infix}-#{$i} { order: $i; }
+      // }
+
+      // @if $columns > 0 {
       //  // `$columns - 1` because offsetting by the width of an entire row isn't possible
       //  @for $i from 0 through ($columns - 1) {
       //    @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
@@ -78,7 +78,7 @@
       //      }
       //    }
       //  }
-      //}
+      // }
     }
   }
 }

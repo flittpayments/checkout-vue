@@ -84,7 +84,7 @@ export default {
 
 .box {
   padding: px-to-rem(16px);
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   border: 1px solid $input_border;
   border-radius: $border-radius;
 }
