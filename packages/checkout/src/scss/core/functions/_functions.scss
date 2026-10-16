@@ -154,17 +154,17 @@ $escaped-characters: (
   }
 
   @if meta.type-of($value1) ==
-    number and
+    'number' and
     meta.type-of($value2) ==
-    number and
+    'number' and
     comparable($value1, $value2)
   {
     @return $value1 - $value2;
   }
 
-  @return if(
-    $return-calc == true,
-    calc(#{$value1} - #{$value2}),
-    $value1 + string.unquote(' - ') + $value2
-  );
+  @if $return-calc {
+    @return calc(#{$value1} - #{$value2});
+  }
+
+  @return $value1 + string.unquote(' - ') + $value2;
 }
