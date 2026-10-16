@@ -79,6 +79,7 @@ module.exports = defineConfig({
       webSocketURL: `wss://${DOMAIN}/ws`,
     },
   },
+  lintOnSave: false,
   runtimeCompiler: true,
   transpileDependencies: true,
   productionSourceMap: false,
@@ -211,14 +212,6 @@ module.exports = defineConfig({
       })
       .when(isDevelopment, config => {
         config
-          .plugin('eslint')
-            .tap(([options]) => [
-              {
-                ...options,
-                fix: true,
-              },
-            ])
-            .end()
           .plugin('stylelint')
             .use(StylelintPlugin,[{
               files: 'src/**/*.scss',

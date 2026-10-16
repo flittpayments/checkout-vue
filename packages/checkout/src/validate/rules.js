@@ -62,7 +62,7 @@ export const ccard = {
     let REGEXP_LUHN_DASHED = /^[\d\-\s]+$/
     if (!REGEXP_LUHN_DASHED.test(value)) return false
     let nCheck = 0
-    let nDigit = 0
+    let nDigit
     let bEven = false
     let strippedField = value.replace(/\D/g, '')
     for (let n = strippedField.length - 1; n >= 0; n--) {
