@@ -18,8 +18,7 @@
     "build": "node scripts/build.mjs",
     "build:localhost": "node scripts/build.mjs --public-path=http://localhost:3000/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
     "dev": "node scripts/dev.mjs --public-path=https://checkout/ --saas_template_name=flitt --saas_cdn_url=https://sandbox.pay.flitt.dev/icons/dist/ --api_domain=sandbox.pay.flitt.dev --sentry_dsn= --environment=development",
-    "eslint:fix": "eslint src/**/*.{js,vue} --fix",
-    "lint": "vue-cli-service lint",
+    "eslint:fix": "eslint . --fix",
     "pre-commit": "lint-staged",
     "prettier:fix": "prettier . --write",
     "serve": "serve -s dist --cors",
@@ -28,7 +27,7 @@
   "lint-staged": {
     "package.json": "sort-package-json",
     "*.{js,vue}": [
-      "vue-cli-service lint --fix",
+      "eslint --fix",
       "prettier --write"
     ],
     "src/**/*.{scss,vue}": [
@@ -52,52 +51,6 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5"
-  },
-  "eslintConfig": {
-    "env": {
-      "node": true
-    },
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "extends": [
-      "plugin:vue/recommended",
-      "eslint:recommended",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "no-console": 0,
-      "no-useless-escape": 0,
-      "no-var": 2,
-      "vue/html-self-closing": [
-        "warn",
-        {
-          "html": {
-            "void": "always",
-            "normal": "always",
-            "component": "always"
-          },
-          "svg": "always",
-          "math": "always"
-        }
-      ],
-      "vue/multi-word-component-names": 0,
-      "vue/no-v-html": 0
-    },
-    "globals": {
-      "API_DOMAIN": "readonly",
-      "COMMITHASH": "readonly",
-      "DOMAIN": "readonly",
-      "ENVIRONMENT": "readonly",
-      "INITIATOR": "readonly",
-      "PUBLIC_PATH": "readonly",
-      "SAAS_CDN_URL": "readonly",
-      "SAAS_TEMPLATE_NAME": "readonly",
-      "SENTRY_DSN": "readonly",
-      "VERSION": "readonly",
-      "X_PAYMENT_GATEWAY": "readonly"
-    },
-    "root": true
   },
   "stylelint": {
     "extends": [
@@ -136,15 +89,16 @@
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/eslint-parser": "^7.29.9",
+    "@eslint/js": "^9.39.5",
     "@vue/cli-plugin-babel": "^5.0.9",
-    "@vue/cli-plugin-eslint": "^5.0.9",
     "@vue/cli-service": "^5.0.9",
     "circular-dependency-plugin": "^5.2.2",
     "es-check": "^9.8.1",
-    "eslint": "^8.57.1",
+    "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.7",
-    "eslint-plugin-vue": "^9.33.0",
+    "eslint-plugin-vue": "^10.11.1",
+    "globals": "^17.13.0",
     "gulp": "^5.0.1",
     "lint-staged": "^17.6.0",
     "postcss-html": "^2.0.0",
