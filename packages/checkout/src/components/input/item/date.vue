@@ -163,7 +163,7 @@ export default {
 @use '@/scss/module/input.module';
 </style>
 
-<style lang="scss">
+<style lang="scss" module="datepicker">
 @use '@/scss/module/datepicker';
 </style>
 
