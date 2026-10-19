@@ -6,36 +6,44 @@ const gitRevisionPlugin = new GitRevisionPlugin()
 const increaseSpecificity = require('./build/postcss-increase-specificity')
 const autoprefixer = require('autoprefixer')
 const argv = require('minimist')(process.argv.slice(2))
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity')
-const { WebpackAssetsManifest } = require("webpack-assets-manifest")
+const { WebpackAssetsManifest } = require('webpack-assets-manifest')
 
 const PUBLIC_PATH = argv['public-path'] || '/'
 const PUBLIC_URL = new URL(PUBLIC_PATH, 'https://checkout')
 const COMMITHASH = gitRevisionPlugin.commithash()
-const VERSION = argv.version || (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
+const VERSION =
+  argv.version ||
+  (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
 const ENVIRONMENT = argv.environment
 const SENTRY_DSN = argv.sentry_dsn
 const DOMAIN = PUBLIC_URL.hostname
 const SAAS_CDN_URL = argv.saas_cdn_url
 const SAAS_TEMPLATE_NAME = argv.saas_template_name
 const API_DOMAIN = argv.api_domain
-const INITIATOR = argv.library_type || PUBLIC_URL.pathname.split('/').filter(Boolean)[0]
+const INITIATOR =
+  argv.library_type || PUBLIC_URL.pathname.split('/').filter(Boolean)[0]
 const X_PAYMENT_GATEWAY = argv['x-payment-gateway']
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isModule = INITIATOR === 'module'
 const localhostServe = 'http://localhost:3000/'
 
-function addF (options) {
+function addF(options) {
   return {
     ...options,
     postcssOptions: {
       plugins: [
-        increaseSpecificity({ repeat: 1, stackableRoot: '#f', overrideIds: false }),
+        increaseSpecificity({
+          repeat: 1,
+          stackableRoot: '#f',
+          overrideIds: false,
+        }),
         autoprefixer(),
-      ]
-    }
+      ],
+    },
   }
 }
 
@@ -62,7 +70,7 @@ module.exports = defineConfig({
   },
   devServer: {
     client: {
-      webSocketURL: `wss://${DOMAIN}/ws`
+      webSocketURL: `wss://${DOMAIN}/ws`,
     },
   },
   runtimeCompiler: true,
@@ -75,23 +83,16 @@ module.exports = defineConfig({
           `$PUBLIC_PATH: '${PUBLIC_PATH}';`,
           `$cdn: '${SAAS_CDN_URL}';`,
           `$prefix: --${SAAS_TEMPLATE_NAME}-;`,
-          '@import \'~@/scss/core/functions\';',
-          '@import \'~@/scss/core/colors\';',
-          '@import \'~@/scss/core/variables\';',
-          '@import \'~@/scss/core/mixins/index\';',
-        ].join('')
+          '@import "~@/scss/core/functions";',
+          '@import "~@/scss/core/colors";',
+          '@import "~@/scss/core/variables";',
+          '@import "~@/scss/core/mixins/index";',
+        ].join(''),
       },
-      // postcss: {
-      //   postcssOptions: {
-      //     plugins: [
-      //       increaseSpecificity({ repeat: 1, stackableRoot: '#f', overrideIds: false }),
-      //       autoprefixer(),
-      //     ],
-      //   },
-      // },
-    }
+    },
   },
   chainWebpack: config => {
+    // prettier-ignore
     config
       .when(isProduction, config => {
         config
@@ -252,5 +253,5 @@ module.exports = defineConfig({
           INITIATOR,
         })])
         .end()
-  }
+  },
 })
