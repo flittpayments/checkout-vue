@@ -22,7 +22,7 @@
     "gulp": "gulp",
     "lint": "vue-cli-service lint",
     "pre-commit": "lint-staged",
-    "prettier:fix": "prettier src/**/*.{js,vue,scss} --write",
+    "prettier:fix": "prettier . --write",
     "serve": "serve -s dist --cors",
     "stylelint:fix": "stylelint \"src/**/*.{scss,vue}\" --fix"
   },
