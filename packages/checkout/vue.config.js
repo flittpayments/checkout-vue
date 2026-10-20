@@ -1,31 +1,35 @@
 const webpack = require('webpack')
 const path = require('path')
 const { defineConfig } = require('@vue/cli-service')
-const { GitRevisionPlugin } = require('git-revision-webpack-plugin')
-const gitRevisionPlugin = new GitRevisionPlugin()
 const increaseSpecificity = require('./build/postcss-increase-specificity')
 const autoprefixer = require('autoprefixer')
-const argv = require('minimist')(process.argv.slice(2))
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity')
 const { WebpackAssetsManifest } = require('webpack-assets-manifest')
+const { execSync } = require('node:child_process')
 
-const PUBLIC_PATH = argv['public-path'] || '/'
+const run = command => execSync(command, { encoding: 'utf8' }).trim()
+const {
+  BRANCH,
+  ENVIRONMENT,
+  SENTRY_DSN,
+  SAAS_CDN_URL,
+  SAAS_TEMPLATE_NAME,
+  API_DOMAIN,
+  X_PAYMENT_GATEWAY,
+  PUBLIC_PATH = '/',
+  LIBRARY_TYPE,
+} = process.env
 const PUBLIC_URL = new URL(PUBLIC_PATH, 'https://checkout')
-const COMMITHASH = gitRevisionPlugin.commithash()
-const VERSION =
-  argv.version ||
-  (argv.branch || gitRevisionPlugin.branch()).replace('origin/', '')
-const ENVIRONMENT = argv.environment
-const SENTRY_DSN = argv.sentry_dsn
+const COMMITHASH = run('git rev-parse HEAD')
+const VERSION = (BRANCH || run('git branch --show-current')).replace(
+  'origin/',
+  ''
+)
 const DOMAIN = PUBLIC_URL.hostname
-const SAAS_CDN_URL = argv.saas_cdn_url
-const SAAS_TEMPLATE_NAME = argv.saas_template_name
-const API_DOMAIN = argv.api_domain
 const INITIATOR =
-  argv.library_type || PUBLIC_URL.pathname.split('/').filter(Boolean)[0]
-const X_PAYMENT_GATEWAY = argv['x-payment-gateway']
+  LIBRARY_TYPE || PUBLIC_URL.pathname.split('/').filter(Boolean)[0]
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isModule = INITIATOR === 'module'
@@ -74,6 +78,7 @@ module.exports = defineConfig({
     },
   },
   runtimeCompiler: true,
+  transpileDependencies: true,
   productionSourceMap: false,
   publicPath: PUBLIC_PATH,
   css: {
@@ -130,9 +135,7 @@ module.exports = defineConfig({
           .plugin('banner')
             .use(webpack.BannerPlugin, [{
               banner: [
-                (argv.version ?
-                  `npm ${argv.version} parent` :
-                  'build'),
+                VERSION,
                 'commithash',
                 COMMITHASH,
                 new Date().toUTCString(),
