@@ -181,6 +181,8 @@ export default {
       this.setIndex(index)
     },
     scroll() {
+      if (!this.list.length) return
+
       const el = this.$refs.items[this.index].$el
       if (!el) return
       el.scrollIntoView({

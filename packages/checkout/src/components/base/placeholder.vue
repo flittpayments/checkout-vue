@@ -1,6 +1,12 @@
 <template>
   <div>
-    <label v-if="maskedValue" class="f-placeholder" :for="id" :style="style">
+    <label
+      v-if="maskedValue"
+      class="f-placeholder"
+      :for="id"
+      :style="style"
+      @click="emitRequestFocus"
+    >
       {{ placeholderText }}
     </label>
     <span ref="hidden" class="f-placeholder f-hidden">{{ maskedValue }}</span>
@@ -15,7 +21,7 @@ import { makeProp } from '@/utils/props'
 export default {
   inheritAttrs: false,
   props: {
-    id: makeProp(PROP_TYPE_STRING, undefined, true),
+    id: makeProp(PROP_TYPE_STRING),
     value: makeProp(PROP_TYPE_NUMBER_STRING),
     placeholder: makeProp(PROP_TYPE_STRING),
     mask: makeProp(PROP_TYPE_STRING),
@@ -51,6 +57,9 @@ export default {
       this.$nextTick().then(() => {
         this.left = this.$refs.hidden?.offsetWidth
       })
+    },
+    emitRequestFocus() {
+      this.$emit('request-focus')
     },
   },
 }

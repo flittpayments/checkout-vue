@@ -8,13 +8,8 @@
       :variant="variant"
       v-on="$listeners"
     >
-      <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
-      <template
-        v-for="slot in Object.keys($scopedSlots)"
-        :slot="slot"
-        slot-scope="slotData"
-      >
-        <slot :name="slot" v-bind="slotData" />
+      <template v-for="slot in Object.keys($scopedSlots)" #[slot]="scope">
+        <slot :name="slot" v-bind="scope" />
       </template>
     </f-select>
   </ValidationProvider>

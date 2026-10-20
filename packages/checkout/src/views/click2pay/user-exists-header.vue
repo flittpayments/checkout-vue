@@ -20,7 +20,7 @@
 <script>
 import { getCards } from '@/click2pay'
 import SvgClick2payVisaMastercard from '@/svg/click2pay-visa-mastercard.svg'
-import FLink from '@/components/link.vue'
+import FLink from '@/components/link'
 
 export default {
   components: {

@@ -14,6 +14,7 @@
   color: inherit;
   text-align: initial;
   vertical-align: initial;
+  text-transform: none; // Remove the inheritance of text transform in Firefox
   cursor: pointer;
   background: none;
   border: 0;
@@ -22,6 +23,10 @@
   &:focus-visible {
     outline: 0;
     box-shadow: 0 0 0 px-to-rem(2px) $outline_border;
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
   }
 }
 </style>

@@ -28,8 +28,7 @@
     border-color: $border-focus;
   }
 
-  &[disabled],
-  .f-disabled > & {
+  &[disabled] {
     color: $color-disabled;
     border-color: $border;
     -webkit-text-fill-color: $color-disabled;
@@ -78,8 +77,7 @@
     --border: #{px-to-rem(1px)};
   }
 
-  &[disabled],
-  .f-disabled > & {
+  &[disabled] {
     opacity: 1;
   }
 
