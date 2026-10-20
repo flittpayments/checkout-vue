@@ -1,4 +1,3 @@
-<script>
 import { mapState } from '@/utils/store'
 import { PROP_TYPE_STRING, PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { makeProp } from '@/utils/props'
@@ -20,4 +19,3 @@ export default {
     return h()
   },
 }
-</script>

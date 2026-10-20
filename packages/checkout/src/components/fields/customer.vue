@@ -1,18 +1,22 @@
 <template>
-  <f-form-save v-if="show" name="params.customer_data" :includes="includes">
-    <template #default="{ input }">
-      <f-form-group
-        v-for="field in list"
-        :key="field.name"
-        v-bind="field"
-        v-model="params.customer_data[field.name]"
-        @input="input(field.name, $event)"
-      />
-    </template>
+  <f-form-save
+    v-if="show"
+    v-slot="{ input }"
+    name="params.customer_data"
+    :includes="includes"
+  >
+    <f-form-group
+      v-for="field in list"
+      :key="field.name"
+      v-bind="field"
+      v-model="params.customer_data[field.name]"
+      @input="input(field.name, $event)"
+    />
   </f-form-save>
 </template>
 
 <script>
+import FFormSave from '@/components/form/form/form-save'
 import {
   configCustomer,
   configCustomerRequiredOne,
@@ -20,7 +24,6 @@ import {
 import countries from '@/i18n/countries/en.json'
 import { sort, parseSelect } from '@/utils/sort'
 import { mapState } from '@/utils/store'
-import FFormSave from '@/components/form/form/form-save'
 
 export default {
   components: {

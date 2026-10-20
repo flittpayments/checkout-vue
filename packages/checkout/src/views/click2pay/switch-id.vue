@@ -47,20 +47,20 @@
 <script>
 import Click2payHeader from '@/views/click2pay/header'
 import { getCards, switchUser } from '@/click2pay'
-import FButton from '@/components/button/button.vue'
-import FBox from '@/components/box.vue'
-import FSvg from '@/components/svg.vue'
-import FForm from '@/components/form/form/form.vue'
-import FButtonLink from '@/components/button/button-link.vue'
+import FBox from '@/components/box'
+import FForm from '@/components/form/form/form'
+import FButton from '@/components/button/button'
+import FSvg from '@/components/svg'
+import FButtonLink from '@/components/button/button-link'
 
 export default {
   components: {
-    FButtonLink,
-    FForm,
-    FSvg,
     Click2payHeader,
-    FButton,
     FBox,
+    FForm,
+    FButton,
+    FSvg,
+    FButtonLink,
   },
   data() {
     return {

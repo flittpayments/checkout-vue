@@ -38,7 +38,7 @@
 
 <script>
 import FButtonUnstyled from '@/components/button/button-unstyled'
-import FTooltipSelect from '@/components/tooltip/tooltip-select'
+import FTooltipSelect from '@/components/tooltip/dropdown'
 import FModalBase from '@/components/modal/modal-base'
 import { timeoutMixin } from '@/mixins/timeout'
 import { resizeMixin } from '@/mixins/resize'

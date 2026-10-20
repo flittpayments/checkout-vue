@@ -12,7 +12,7 @@
           <f-svg class="f-mr-8" name="bars" size="lg" />
           <span v-text="$t('all_methods')" />
         </f-button-link>
-        <f-logo v-else-if="showLogo" key="logo-svg" />
+        <f-logo v-else-if="showLogo" key="logo" />
       </transition>
     </div>
     <div v-if="showLang" class="f-header-menu">
@@ -64,8 +64,8 @@ export default {
       'full_screen',
       'disable_request',
       'show_test_mode',
+      'show_lang',
     ]),
-    ...mapState('options', ['show_lang']),
     show() {
       return this.showMode || this.showLeft || this.showLang
     },
