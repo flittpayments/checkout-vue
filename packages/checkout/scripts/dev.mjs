@@ -26,5 +26,5 @@ const run = (command, args = []) => {
   }
 }
 
-run('gulp')
+run('gulp', ['dev'])
 run('vue-cli-service', ['serve'])
