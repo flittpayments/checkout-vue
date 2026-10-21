@@ -292,16 +292,16 @@ task('check-bin-conflicts', async () => {
   }
 })
 
-task(
-  'default',
-  parallel([
-    'i18n',
-    'countries-search',
-    'countries-calling-codes',
-    'exclude-message',
-    'svg',
-    'presets-with-gradient',
-    'card-brands',
-    'check-bin-conflicts',
-  ])
-)
+const commonTasks = [
+  'countries-search',
+  'countries-calling-codes',
+  'exclude-message',
+  'svg',
+  'presets-with-gradient',
+  'card-brands',
+  'check-bin-conflicts',
+]
+
+task('default', parallel(['i18n', ...commonTasks]))
+
+task('dev', parallel(commonTasks))
