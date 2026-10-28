@@ -56,6 +56,7 @@ import { PROP_TYPE_OBJECT } from '@/constants/props'
 import { makeProp } from '@/utils/props'
 import { mask } from '@/utils/mask'
 import FTooltipDefault from '@/components/tooltip/tooltip-default'
+import { getCardConfig } from '@/utils/get-bin-name'
 
 export default {
   components: {
@@ -70,11 +71,14 @@ export default {
   computed: {
     ...mapState('params', ['card_number']),
     ...mapState(['mode_test']),
+    cardConfig() {
+      return getCardConfig(this.item.card_number)
+    },
     active() {
       return this.item.card_number === this.card_number
     },
     cardNumber() {
-      return mask(this.item.card_number, 'XXXX XXXX XXXX XXXX XXX')
+      return mask(this.item.card_number, this.cardConfig.cardNumberMask)
     },
     approved() {
       return this.item.type === 'approved'
