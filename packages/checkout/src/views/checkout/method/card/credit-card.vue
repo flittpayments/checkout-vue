@@ -254,7 +254,7 @@ export default {
       return value
     },
     watchReady() {
-      if (this.isCards) return // TODO remove after new input
+      if (this.isCards) return
       this.focus()
     },
     focus() {
