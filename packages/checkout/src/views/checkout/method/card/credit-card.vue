@@ -11,18 +11,18 @@
       class="f-form-group-card f-form-group-card-number"
       label-class="f-card_label"
       name="card_number"
-      placeholder="____ ____ ____ ____"
-      :rules="validCardNumber"
-      mask="XXXX XXXX XXXX XXXX XXX"
-      :maxlength="23"
-      :disabled="disabledCardNumber"
+      :placeholder="cardConfig.cardNumberPlaceholder"
+      :rules="cardNumberValid"
+      :mask="cardConfig.cardNumberMask"
+      :maxlength="cardConfig.cardNumberMaxLength"
+      :disabled="cardNumberDisabled"
       type="tel"
       inputmode="numeric"
       tooltip
       no-label-floating
       dynamic-placeholder
       autocomplete="cc-number"
-      @input="inputCardNumber"
+      @input="cardNumberInput"
     >
       <template v-if="disabled" #label="{ label }">
         <label class="f-card_label">
@@ -42,10 +42,10 @@
       input-class="f-form-control-expiry-date"
       name="expiry_date"
       placeholder="__/__"
-      :rules="validExpiryDate"
+      :rules="expiryDateValid"
       mask="##/##"
       masked
-      :disabled="disabledExpiryDate"
+      :disabled="expiryDateDisabled"
       type="tel"
       inputmode="numeric"
       tooltip
@@ -53,7 +53,7 @@
       dynamic-placeholder
       autocomplete="cc-exp"
       :format="format"
-      @input="inputExpiryDate"
+      @input="expiryDateInput"
     />
     <f-form-group
       v-if="showCvv"
@@ -63,13 +63,13 @@
       label-class="f-card_label"
       input-class="f-form-control-cvv2"
       name="cvv2"
-      placeholder="___"
-      :rules="validCvv"
+      :placeholder="cardConfig.cvvPlaceholder"
+      :rules="cvvValid"
       type="tel"
       inputmode="numeric"
-      mask="####"
+      :mask="cardConfig.cvvMask"
       :disabled="disabled"
-      :maxlength="digitsCvv"
+      :maxlength="cvvLength"
       tooltip
       no-label-floating
       dynamic-placeholder
@@ -86,7 +86,7 @@
           variant="secondary"
         >
           <f-svg name="info-circle" class="f-mr-8" size="md" />
-          <span v-text="$t('cvv2_help', [digitsCvv])" />
+          <span v-text="$t('cvv2_help', [cvvLength])" />
         </f-tooltip-default>
       </template>
     </f-form-group>
@@ -104,6 +104,7 @@ import { mapState, mapStateGetSet } from '@/utils/store'
 import { createDate, format } from '@/utils/date'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
+import { getCardConfig } from '@/utils/get-bin-name'
 
 export default {
   components: {
@@ -142,15 +143,18 @@ export default {
       'code',
       'hash',
     ]),
-    disabledCardNumber() {
+    cardConfig() {
+      return getCardConfig(this.card_number)
+    },
+    cardNumberDisabled() {
       return this.disabled || this.read_only
     },
-    disabledExpiryDate() {
+    expiryDateDisabled() {
       return this.disabled || this.readonlyExpiryDate
     },
-    validExpiryDate() {
-      if (this.disabledExpiryDate) return
-      if (!this.need_validate_card) return {}
+    expiryDateValid() {
+      if (this.expiryDateDisabled) return
+      if (!this.need_validate_card) return
 
       let minDate = this.store.state.validate_expdate
         ? format(createDate(), 'MM/YY')
@@ -158,29 +162,28 @@ export default {
 
       return `required|date_format:MM/yy|after:${minDate},true,MM/yy`
     },
-    validCardNumber() {
-      if (this.disabledCardNumber) return
-      if (!this.need_validate_card) return {}
+    cardNumberValid() {
+      if (this.cardNumberDisabled) return
+      if (!this.need_validate_card) return
 
       let needValidCard =
         !this.hash &&
-        (this.card_number.length === 16 ||
-          this.card_number.length === 19 ||
+        (this.cardConfig.cardNumberLengths.includes(this.card_number.length) ||
           this.submited)
 
       return needValidCard ? 'required|ccard' : 'required'
     },
-    validCvv() {
+    cvvValid() {
       if (this.disabled) return
-      if (!this.need_validate_card) return {}
+      if (!this.need_validate_card) return
 
       return {
         required: this.isCvvMandatory,
-        digits: this.digitsCvv,
+        digits: this.cvvLength,
       }
     },
-    digitsCvv() {
-      return this.card_number.match('^3(?:2|3|4|7)') ? 4 : 3
+    cvvLength() {
+      return this.cardConfig.cvvLength
     },
     isCards() {
       return this.cards.length
@@ -217,14 +220,14 @@ export default {
     this.focus()
   },
   methods: {
-    inputCardNumber(value) {
-      if (value.length === 16 || value.length === 19) {
+    cardNumberInput() {
+      if (this.cardConfig.cardNumberLengths.includes(this.card_number.length)) {
         this.focus()
       } else {
         this.hash = ''
       }
     },
-    inputExpiryDate() {
+    expiryDateInput() {
       this.focusInvalid(['expiry_date', 'cvv2'])
     },
     focusInvalid(fields) {

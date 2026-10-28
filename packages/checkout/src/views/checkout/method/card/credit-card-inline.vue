@@ -6,15 +6,15 @@
         v-model="card_number"
         class="f-col"
         name="card_number"
-        :rules="validCardNumber"
-        mask="XXXX XXXX XXXX XXXX XXX"
-        :maxlength="23"
-        :disabled="disabledCardNumber"
+        :rules="cardNumberValid"
+        :mask="cardConfig.cardNumberMask"
+        :maxlength="cardConfig.cardNumberMaxLength"
+        :disabled="cardNumberDisabled"
         type="tel"
         inputmode="numeric"
         autocomplete="cc-number"
         hide-error
-        @input="inputCardNumber"
+        @input="cardNumberInput"
         @error="onError"
       />
       <f-form-group
@@ -22,32 +22,32 @@
         v-model="expiry_date"
         class="f-col-3"
         name="expiry_date"
-        :rules="validExpiryDate"
+        :rules="expiryDateValid"
         mask="##/##"
         masked
-        :disabled="disabledExpiryDate"
+        :disabled="expiryDateDisabled"
         type="tel"
         inputmode="numeric"
         autocomplete="cc-exp"
         :format="format"
         hide-error
-        @input="inputExpiryDate"
+        @input="expiryDateInput"
         @error="onError"
       />
       <f-form-group
         v-if="showCvv"
         ref="cvv2"
         v-model="cvv2"
-        class="f-col-2"
+        :class="cvvClass"
         :input-class="$style.cvv2_input"
         name="cvv2"
         label="CVV"
-        :rules="validCvv"
+        :rules="cvvValid"
         type="tel"
         inputmode="numeric"
-        mask="####"
+        :mask="cardConfig.cvvMask"
         :disabled="disabled"
-        :maxlength="digitsCvv"
+        :maxlength="cvvLength"
         autocomplete="cc-csc"
         hide-error
         @error="onError"
@@ -70,6 +70,7 @@ import { errorHandler } from '@/utils/helpers'
 import { makeProp } from '@/utils/props'
 import { PROP_TYPE_BOOLEAN } from '@/constants/props'
 import { FLoading } from '@/import'
+import { getCardConfig } from '@/utils/get-bin-name'
 
 export default {
   components: {
@@ -104,15 +105,18 @@ export default {
       'code',
       'hash',
     ]),
-    disabledCardNumber() {
+    cardConfig() {
+      return getCardConfig(this.card_number)
+    },
+    cardNumberDisabled() {
       return this.disabled || this.read_only
     },
-    disabledExpiryDate() {
+    expiryDateDisabled() {
       return this.disabled || this.readonlyExpiryDate
     },
-    validExpiryDate() {
-      if (this.disabledExpiryDate) return
-      if (!this.need_validate_card) return {}
+    expiryDateValid() {
+      if (this.expiryDateDisabled) return
+      if (!this.need_validate_card) return
 
       let minDate = this.store.state.validate_expdate
         ? format(createDate(), 'MM/YY')
@@ -120,29 +124,31 @@ export default {
 
       return `required|date_format:MM/yy|after:${minDate},true,MM/yy`
     },
-    validCardNumber() {
-      if (this.disabledCardNumber) return
-      if (!this.need_validate_card) return {}
+    cardNumberValid() {
+      if (this.cardNumberDisabled) return
+      if (!this.need_validate_card) return
 
       let needValidCard =
         !this.hash &&
-        (this.card_number.length === 16 ||
-          this.card_number.length === 19 ||
+        (this.cardConfig.cardNumberLengths.includes(this.card_number.length) ||
           this.submited)
 
       return needValidCard ? 'required|ccard' : 'required'
     },
-    validCvv() {
+    cvvValid() {
       if (this.disabled) return
-      if (!this.need_validate_card) return {}
+      if (!this.need_validate_card) return
 
       return {
         required: this.isCvvMandatory,
-        digits: this.digitsCvv,
+        digits: this.cvvLength,
       }
     },
-    digitsCvv() {
-      return this.card_number.match('^3(?:2|3|4|7)') ? 4 : 3
+    cvvLength() {
+      return this.cardConfig.cvvLength
+    },
+    cvvClass() {
+      return { 3: 'f-col-2', 4: 'f-col-3' }[this.cvvLength]
     },
     showCvv() {
       return !this.isCvvAbsent
@@ -176,14 +182,14 @@ export default {
     this.focus()
   },
   methods: {
-    inputCardNumber(value) {
-      if (value.length === 16 || value.length === 19) {
+    cardNumberInput() {
+      if (this.cardConfig.cardNumberLengths.includes(this.card_number.length)) {
         this.focus()
       } else {
         this.hash = ''
       }
     },
-    inputExpiryDate() {
+    expiryDateInput() {
       this.focusInvalid(['expiry_date', 'cvv2'])
     },
     focusInvalid(fields) {
