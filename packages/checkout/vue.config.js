@@ -9,6 +9,8 @@ const argv = require('minimist')(process.argv.slice(2))
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity')
 const { WebpackAssetsManifest } = require("webpack-assets-manifest")
+const StylelintPlugin = require('stylelint-webpack-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 const PUBLIC_PATH = argv['public-path'] || '/'
 const PUBLIC_URL = new URL(PUBLIC_PATH, 'https://checkout')
@@ -199,13 +201,13 @@ module.exports = defineConfig({
             ])
             .end()
           .plugin('stylelint')
-            .use('stylelint-webpack-plugin',[{
+            .use(StylelintPlugin,[{
               files: 'src/**/*.scss',
               fix: true,
             }])
             .end()
           .plugin('circular-dependency-plugin')
-            .use('circular-dependency-plugin',[{
+            .use(CircularDependencyPlugin,[{
               exclude: /node_modules/,
               cwd: process.cwd(),
             }])
