@@ -2,7 +2,7 @@
   <f-box v-if="show" class="f-subscription">
     <f-form-group
       v-if="show_switch"
-      v-model="enabled_switch"
+      v-model="enabled"
       name="switch"
       class="f-mt-4 f-mb-4"
       component="checkbox"
@@ -12,11 +12,11 @@
     </f-form-group>
     <div v-else v-text="$t('subscription')" />
     <transition name="f-collapse">
-      <div v-if="enabled_switch" class="f-subscription-wrapper">
+      <div v-if="enabled" class="f-subscription-wrapper">
         <input-amount
           name="amount"
           :label="$t('subscription_amount')"
-          subscription
+          is-recurring
           :disabled="readonly"
         />
         <f-form-group
@@ -157,8 +157,7 @@ export default {
     ...mapState('options.subscription', ['periods', 'readonly']),
     ...mapStateGetSet('options.subscription', ['unlimited']),
     ...mapState('subscription', ['show', 'show_switch']),
-    ...mapStateGetSet('subscription', ['enabled_switch']),
-    ...mapStateGetSet('params', ['recurring']),
+    ...mapStateGetSet('subscription', ['enabled']),
     ...mapStateGetSet('params.recurring_data', [
       'every',
       'start_time',
@@ -196,7 +195,6 @@ export default {
     },
   },
   watch: {
-    enabled_switch: 'watchEnable',
     unlimited: 'watchUnlimited',
   },
   created() {
@@ -224,9 +222,6 @@ export default {
     },
     onShowError(error) {
       this.error = error
-    },
-    watchEnable(value) {
-      this.recurring = value ? 'y' : 'n'
     },
     watchUnlimited(value) {
       if (this.readonly) return

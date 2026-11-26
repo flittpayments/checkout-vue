@@ -46,12 +46,12 @@ export default {
   props: {
     name: makeProp(PROP_TYPE_STRING, undefined, true),
     value: makeProp(PROP_TYPE_NUMBER, 0),
-    subscription: makeProp(PROP_TYPE_BOOLEAN, false),
+    isRecurring: makeProp(PROP_TYPE_BOOLEAN, false),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
   },
   computed: {
-    ...mapState(['params', 'currencies']),
-    ...mapState('params', ['verification_type', 'recurring']),
+    ...mapState(['params', 'currencies', 'subscription']),
+    ...mapState('params', ['verification_type']),
     ...mapStateGetSet('params', ['currency']),
     attrs() {
       return {
@@ -61,7 +61,7 @@ export default {
         rules: {
           required: true,
           decimal: 2,
-          no_zero: !(this.verification_type || this.recurring === 'y'),
+          no_zero: !(this.verification_type || this.subscription.enabled),
         },
         type: 'number',
         autocomplete: 'off',
@@ -72,7 +72,7 @@ export default {
       }
     },
     form() {
-      return this.subscription ? this.params.recurring_data : this.params
+      return this.isRecurring ? this.params.recurring_data : this.params
     },
     showCurrencies() {
       return this.currencies.length > 1

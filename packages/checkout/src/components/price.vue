@@ -93,14 +93,10 @@ export default {
       'fee_amount',
       'total_amount',
       'promo',
+      'subscription',
     ]),
     ...mapState('options', ['amount_readonly', 'show_amount', 'show_fee']),
-    ...mapState('params', [
-      'currency',
-      'amount',
-      'verification_type',
-      'recurring',
-    ]),
+    ...mapState('params', ['currency', 'amount', 'verification_type']),
     ...mapState('options.subscription', ['trial', 'unlimited']),
     ...mapState('params.recurring_data', [
       'trial_period',
@@ -162,7 +158,7 @@ export default {
       return this.show_amount && !this.verification_type
     },
     isSubscription() {
-      return this.recurring === 'y'
+      return this.subscription.enabled
     },
     isTrial() {
       return this.trial && !this.unlimited

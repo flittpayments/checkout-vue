@@ -7,6 +7,7 @@
     <f-fields-customer />
     <f-fields-custom />
     <f-fields-user />
+    <f-subscription-wrapper />
     <f-offer />
     <f-button-wallet-el />
     <f-button-cancel-wrapper />
@@ -20,6 +21,7 @@ import FPrice from '@/components/price'
 import FFieldsCustomer from '@/components/fields/customer'
 import FFieldsCustom from '@/components/fields/custom'
 import FFieldsUser from '@/components/fields/user'
+import FSubscriptionWrapper from '@/components/subscription-wrapper'
 import FOffer from '@/components/offer'
 import FButtonWalletEl from '@/components/button-pay-wallet-el'
 import FButtonCancelWrapper from '@/components/button/button-cancel-wrapper'
@@ -34,6 +36,7 @@ export default {
     FFieldsCustomer,
     FFieldsCustom,
     FFieldsUser,
+    FSubscriptionWrapper,
     FOffer,
     FButtonWalletEl,
     FButtonCancelWrapper,

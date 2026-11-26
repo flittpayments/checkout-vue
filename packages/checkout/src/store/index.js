@@ -591,7 +591,9 @@ class Store extends Model {
   }
   formParams(data) {
     // copy params
-    let params = JSON.parse(JSON.stringify(this.state.params))
+    let params = JSON.parse(
+      JSON.stringify(Object.assign({}, this.state.params, data))
+    )
 
     params.save_card = Boolean(localStorage.get('save_card'))
 
@@ -630,7 +632,12 @@ class Store extends Model {
       )
     }
 
-    if (params.recurring === 'n') {
+    if (
+      this.state.subscription.enabled &&
+      ['card', 'mobile_pay'].includes(params.payment_system)
+    ) {
+      params.recurring = true
+    } else {
       delete params.recurring_data
     }
 

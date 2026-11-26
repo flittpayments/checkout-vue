@@ -74,7 +74,6 @@ export const configDefault = {
     merchant_id: 1549901,
     amount: 0,
     currency: '',
-    recurring: 'n',
     recurring_data: {
       period: 'month',
       every: 1,
